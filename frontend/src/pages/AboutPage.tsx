@@ -1,18 +1,192 @@
-import { Badge } from '../components/Badge';
-import { Notice } from '../components/Notice';
+import { Reveal } from '../components/Reveal';
+import { SectionHeader } from '../components/SectionHeader';
+import { SourceLink } from '../components/SourceLink';
+import {
+  IRSA_DATA_PRODUCTS_URL,
+  IRSA_QR2_DOI_URL,
+  IRSA_QR_OVERVIEW_URL,
+  IRSA_SPHEREX_URL,
+  SNAPSHOT_RETRIEVED_ON,
+} from '../data/irsaSnapshot';
+import {
+  JPL_SPHEREX,
+  JPL_SPHEREX_KIT,
+  NASA_ATMOSPHERE,
+  NASA_FACT_SHEET,
+  NASA_HUBBLE_ORBIT,
+  NASA_INFRARED,
+  NASA_ISS_FACTS,
+  NASA_ISS_ORBIT,
+  NASA_ORBITS,
+  NASA_PLANET_X,
+} from '../content/sources';
+import { useCardGlow } from '../hooks/useCardGlow';
 
-const workflow = ['Select a sky position and date range', 'Find matching observation records', 'Compare selected observation images', 'Inspect metadata, provenance, and limitations'];
+const WORKFLOW = [
+  { title: 'Select a sky position and date range', text: 'Enter coordinates and the period you are interested in.' },
+  { title: 'Find matching observation records', text: 'See which records cover that region and when they were processed.' },
+  { title: 'Compare selected observations', text: 'Place two records side by side and see how their bands and versions differ.' },
+  { title: 'Inspect metadata and sources', text: 'Check identifiers, wavelength, processing and follow the links to the archive.' },
+];
+
+const LIMITS = [
+  'A visible difference does not by itself prove movement.',
+  'Wavelength, calibration, processing, noise and image settings can all change how an image looks.',
+  'An empty result does not prove that nothing exists at a location.',
+  'AegisEarth reports archive records. It does not claim to have discovered Planet X or any new object.',
+];
+
+const EDUCATION_SOURCES = [
+  { group: 'Satellites and space stations', links: [
+    { label: 'NASA: ISS facts and figures', url: NASA_ISS_FACTS.url },
+    { label: 'NASA: ISS orbit tutorial', url: NASA_ISS_ORBIT.url },
+    { label: 'NASA: Hubble orbit', url: NASA_HUBBLE_ORBIT.url },
+    { label: 'NASA/JPL: SPHEREx mission', url: JPL_SPHEREX.url },
+    { label: 'NASA/JPL: SPHEREx mission overview', url: JPL_SPHEREX_KIT.url },
+    { label: 'NASA Earthdata: orbits', url: NASA_ORBITS.url },
+  ] },
+  { group: 'Earth\u2019s atmosphere', links: [{ label: 'NASA: Earth\u2019s atmosphere, a multi-layered cake', url: NASA_ATMOSPHERE.url }] },
+  { group: 'Solar System', links: [
+    { label: 'NASA: Planetary Fact Sheet', url: NASA_FACT_SHEET.url },
+    { label: 'NASA: Is Planet X real?', url: NASA_PLANET_X.url },
+    { label: 'NASA: infrared waves', url: NASA_INFRARED.url },
+  ] },
+];
+
+// "2026-10-19" -> "19 October 2026"
+function longDate(isoDate: string): string {
+  return new Date(`${isoDate}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
 
 export function AboutPage() {
-  return <div className="page-flow about-page">
-    <header className="page-hero"><p className="eyebrow">PROJECT TRANSPARENCY</p><h1>Explore astronomical observations with context.</h1><p className="lead">AegisEarth is an independent student project by Team Infraq Stargazers at CUET, Chattogram, Bangladesh. The proposed explorer is designed to make observation records easier to compare and understand.</p><p className="muted">This prototype currently demonstrates its interface with synthetic fixtures. Real SPHEREx retrieval is not connected.</p></header>
-    <section className="guide-section"><div className="guide-copy"><p className="eyebrow">THE PROJECT</p><h2>The problem and our approach</h2><p>Observation files can be difficult for non-specialists to discover, compare, and interpret. AegisEarth is exploring a guided workflow that keeps record context close to the image.</p><p>The complete workflow depends on a future verified data integration and its documented API contract.</p></div><ol className="workflow-list">{workflow.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, '0')}</span>{step}</li>)}</ol></section>
-    <section className="guide-section guide-section-alt"><div className="guide-copy"><p className="eyebrow">DATA AND ATTRIBUTION</p><h2>Sources and connection status</h2><p>We will document actual providers, versions, source records, and acknowledgement requirements after integration is verified.</p></div><article className="source-card"><div className="source-card-head"><div><p className="eyebrow">INTENDED SOURCE · UNDER INVESTIGATION</p><h3>NASA/IPAC Infrared Science Archive (IRSA)</h3></div><Badge variant="status">Not connected</Badge></div><dl className="source-fields"><div><dt>Role</dt><dd>Intended source for SPHEREx observation data, pending verification.</dd></div><div><dt>Dataset / product version</dt><dd>Not verified</dd></div><div><dt>Original documentation or record</dt><dd>Not linked here; verify the applicable documentation before integration.</dd></div><div><dt>Acknowledgement</dt><dd>Not verified; add required wording after checking current provider documentation.</dd></div><div><dt>Connected to this application?</dt><dd>No. No provider has been queried by this prototype.</dd></div></dl></article></section>
-    <section className="guide-section"><div className="guide-copy"><p className="eyebrow">TRACEABILITY</p><h2>Metadata users should be able to inspect</h2><p>Source context makes a displayed image auditable and helps people understand what they are comparing.</p></div><div className="metadata-guide"><div><strong>Record identifiers and timestamps</strong><p>Identify the product and when the observation was made, including time basis.</p></div><div><strong>Band, dataset, and processing release</strong><p>Describe the measurement and which data and processing versions were involved.</p></div><div><strong>Source and retrieval time</strong><p>Make it possible to revisit the original record and know when the application obtained it.</p></div><div><strong>Rendering settings</strong><p>Record how image values were mapped to the visible display.</p></div></div></section>
-    <section className="limits-section" aria-labelledby="limits-title"><p className="eyebrow">SCIENTIFIC LIMITATIONS</p><h2 id="limits-title">What AegisEarth does not claim.</h2><ul className="limits-list"><li>A visible difference does not by itself prove movement.</li><li>Wavelength, calibration, noise, processing, observing conditions, and viewing settings can influence image appearance.</li><li>An empty result does not prove nothing exists at a location.</li><li>An uncalibrated comparison score is not a probability.</li><li>This prototype does not claim to have discovered Planet X or any new object.</li><li>Features that are not implemented must be labeled unavailable or planned.</li></ul></section>
-    <section className="status-section"><div><p className="eyebrow">IMPLEMENTATION STATUS</p><h2>What is available today</h2></div><div className="status-grid"><article><Badge variant="demo">Available in prototype</Badge><h3>Page navigation and field guide</h3><p>Three hash-based pages share one header, footer, and design system.</p></article><article><Badge variant="status">In development</Badge><h3>Observation workflow</h3><p>Explorer interactions run against clearly synthetic local fixtures.</p></article><article><Badge variant="status">Not connected</Badge><h3>Live data and model analysis</h3><p>No verified backend or ML interface is configured.</p></article></div></section>
-    <section className="team-card"><div><p className="eyebrow">TEAM AND REPOSITORY</p><h2>Infraq Stargazers</h2><p>CUET · Chattogram, Bangladesh</p></div><a className="button button-secondary" href="https://github.com/Ahiraf/AegisEarth" target="_blank" rel="noreferrer">View project repository <span className="sr-only">(opens in a new tab)</span><span aria-hidden="true">↗</span></a></section>
-    <Notice tone="info" title="Independence statement"><p>AegisEarth is an independent student project by Team Infraq Stargazers. It is not affiliated with or endorsed by NASA.</p></Notice>
-    <nav className="page-next" aria-label="Explore more"><a href="#/">Open the Explorer <span aria-hidden="true">→</span></a><a href="#/learn">Learn about observations <span aria-hidden="true">→</span></a></nav>
-  </div>;
+  useCardGlow();
+
+  return (
+    <>
+      <section className="page-hero" aria-labelledby="about-title">
+        <div className="wrap">
+          <p className="eyebrow">About &amp; Sources</p>
+          <h1 id="about-title">Explore astronomical observations with context.</h1>
+          <p className="lead">
+            AegisEarth is an independent student project by Team Infraq Stargazers at CUET, Chattogram, Bangladesh. It
+            was built for the NASA Space Apps Challenge 2026 challenge &ldquo;Planet X and SPHEREx&rdquo;: a public web
+            tool for seeing how the sky changes over time in SPHEREx images.
+          </p>
+          <p className="lead">
+            Every observation in the Explorer links back to the NASA/IPAC archive, and every educational fact links to
+            the NASA page it comes from.
+          </p>
+        </div>
+      </section>
+
+      <div className="wrap">
+        <Reveal>
+          <SectionHeader eyebrow="Why it exists" title="The problem and our approach" />
+          <p className="prose">
+            Astronomical observation files are made for specialists. Someone new to the field can struggle to find the
+            right records, to compare two of them fairly, and to know what a difference between them really means.
+            AegisEarth puts those steps in one place, with the context needed to read the result.
+          </p>
+          <ol className="pipeline" aria-label="How to use AegisEarth">
+            {WORKFLOW.map((step, i) => (
+              <li key={step.title}>
+                <span className="pipe-n" aria-hidden="true">{i + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+
+        <Reveal>
+          <SectionHeader eyebrow="Where data comes from" title="Sources and attribution" />
+          <div className="cg">
+            <article className="panel">
+              <h3>NASA/IPAC Infrared Science Archive (IRSA)</h3>
+              <p className="prose-sm">
+                IRSA hosts the SPHEREx data. The Explorer lists spectral images from SPHEREx Quick Release 2, which IRSA
+                documents under DOI 10.26131/IRSA652. The product names come from IRSA&rsquo;s own tutorials, and each record
+                links to its file in the archive.
+              </p>
+              <ul className="srclinks">
+                <li><SourceLink href={IRSA_SPHEREX_URL} label="SPHEREx at IRSA" /></li>
+                <li><SourceLink href={IRSA_QR_OVERVIEW_URL} label="Quick Release overview and acknowledgement" /></li>
+                <li><SourceLink href={IRSA_QR2_DOI_URL} label="Quick Release 2 dataset (DOI 10.26131/IRSA652)" /></li>
+                <li><SourceLink href={IRSA_DATA_PRODUCTS_URL} label="SPHEREx data products guide" /></li>
+              </ul>
+              <p className="note">
+                The Explorer currently lists a saved selection of records, retrieved from IRSA on {longDate(SNAPSHOT_RETRIEVED_ON)}. A
+                live connection to the full archive is planned.
+              </p>
+            </article>
+            <article className="panel">
+              <h3>NASA educational sources</h3>
+              <p className="prose-sm">
+                The orbit, atmosphere and Solar System facts in the Explorer and Learn pages are taken from these
+                official pages. Each value links to its own source.
+              </p>
+              {EDUCATION_SOURCES.map((group) => (
+                <div key={group.group}>
+                  <p className="srclinks-title">{group.group}</p>
+                  <ul className="srclinks">
+                    {group.links.map((link) => (
+                      <li key={link.url}><SourceLink href={link.url} label={link.label} /></li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </article>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <SectionHeader eyebrow="Traceability" title="Metadata you can inspect" />
+          <p className="prose">
+            For each observation the Explorer shows the product file, observation ID, planning period, detector, band and
+            wavelength range, processing version and date, and the source record. These let anyone check where an image
+            came from and how it was prepared. Anything a source does not publish is shown as Not available, never filled
+            in.
+          </p>
+        </Reveal>
+
+        <Reveal>
+          <div className="limits">
+            <h2>What AegisEarth does not claim</h2>
+            <ul>
+              {LIMITS.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <SectionHeader eyebrow="Who made it" title="Team and repository" />
+          <div className="cg">
+            <article className="panel">
+              <h3>Team Infraq Stargazers</h3>
+              <p className="prose-sm">CUET, Chattogram, Bangladesh. Team members are listed on the team&rsquo;s NASA Space Apps page.</p>
+              <p><SourceLink href="https://www.spaceappschallenge.org/2026/find-a-team/infraq-stargazers/" label="Team page" /></p>
+            </article>
+            <article className="panel">
+              <h3>Source code</h3>
+              <p className="prose-sm">The project is developed in the open in a public repository.</p>
+              <p><SourceLink href="https://github.com/Ahiraf/AegisEarth" label="github.com/Ahiraf/AegisEarth" /></p>
+            </article>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <figure className="independence">
+            <blockquote>
+              AegisEarth is an independent student project by Team Infraq Stargazers. It is not affiliated with or endorsed by NASA.
+            </blockquote>
+          </figure>
+        </Reveal>
+
+        <nav className="links" aria-label="Next steps">
+          <a href="#/">Explore observations {'\u2192'}</a>
+          <a href="#/learn">Learn how to read observations {'\u2192'}</a>
+        </nav>
+      </div>
+    </>
+  );
 }

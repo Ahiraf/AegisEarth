@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-type BadgeVariant = 'source' | 'demo' | 'snapshot' | 'status';
+type BadgeVariant = 'source' | 'demo' | 'snapshot' | 'status' | 'available' | 'developing' | 'off';
 
 type BadgeProps = {
   variant: BadgeVariant;
@@ -8,11 +8,15 @@ type BadgeProps = {
   href?: string;
 };
 
+// Every badge has an icon AND words, so meaning never depends on colour alone.
 const ICONS: Record<BadgeVariant, string> = {
   source: 'i',
   demo: '!',
   snapshot: 'S',
   status: 'i',
+  available: '\u2713',
+  developing: '\u2026',
+  off: '\u2013',
 };
 
 export function Badge({ variant, children, href }: BadgeProps) {
