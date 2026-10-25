@@ -1,0 +1,57 @@
+:root {
+  color-scheme: dark;
+
+  /* Colors (contrast ratios were calculated, not browser-tested) */
+  --color-bg: #091522;
+  --color-surface: #112336;
+  --color-surface-raised: #17304a;
+  --color-viewer-bg: #050b14;
+  --color-text: #e7edf7;
+  --color-text-muted: #b8cadd;
+  --color-border: #32495c;          /* decorative only */
+  --color-border-strong: #6a8aa6;   /* inputs and buttons */
+  --color-primary: #4cc3f0;
+  --color-on-primary: #04121f;
+  --color-info: #8ab4ff;
+  --color-info-bg: #14284a;
+  --color-warning: #f5b942;
+  --color-warning-bg: #2b2108;
+  --color-error: #ff9b9b;
+  --color-error-bg: #3a1518;
+  --color-success: #6fd6a0;
+  --color-success-bg: #0f2c21;
+  --color-focus: #ffffff;
+
+  /* Chart / map categories (use with shapes and labels, never color alone) */
+  --chart-1: #56b4e9;
+  --chart-2: #e69f00;
+  --chart-3: #009e73;
+  --chart-4: #f0e442;
+  --chart-5: #cc79a7;
+  --chart-6: #d55e00;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Radius and shadow */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+
+  /* Type */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+}
