@@ -7,15 +7,15 @@ jobs:
       postgres:
         image: postgres:17-alpine
         env:
-          POSTGRES_USER: aegis
+          POSTGRES_USER: cosmic
           POSTGRES_PASSWORD: ci-password
-          POSTGRES_DB: aegisearth
+          POSTGRES_DB: cosmic_motion_test
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U aegis -d aegisearth"
+          --health-cmd "pg_isready -U cosmic -d cosmic_motion_test"
           --health-interval 5s --health-timeout 5s --health-retries 10
     env:
-      DATABASE_URL: postgresql+psycopg://aegis:ci-password@localhost:5432/aegisearth
+      TEST_DATABASE_URL: postgresql+psycopg://cosmic:ci-password@localhost:5432/cosmic_motion_test
     defaults:
       run:
         working-directory: backend
@@ -25,10 +25,9 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -e '.[dev]'
-      - run: ruff check app tests migrations
-      - run: alembic upgrade head
-      - run: alembic check
+      - run: ruff check app tests migrations ../scripts
       - run: pytest
+      - run: python -m app.pipeline.cli
   frontend:
     runs-on: ubuntu-latest
     defaults:

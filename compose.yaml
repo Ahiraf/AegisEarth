@@ -1,12 +1,13 @@
+name: cosmic-motion-ai
 services:
   db:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-aegis}
+      POSTGRES_USER: ${POSTGRES_USER:-cosmic}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-development-only}
-      POSTGRES_DB: ${POSTGRES_DB:-aegisearth}
+      POSTGRES_DB: ${POSTGRES_DB:-cosmic_motion}
     ports: ["127.0.0.1:5432:5432"]
-    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    volumes: ["cosmic_postgres_data:/var/lib/postgresql/data"]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
@@ -17,25 +18,21 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     environment:
-      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-aegis}:${POSTGRES_PASSWORD:-local-development-only}@db:5432/${POSTGRES_DB:-aegisearth}
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-cosmic}:${POSTGRES_PASSWORD:-local-development-only}@db:5432/${POSTGRES_DB:-cosmic_motion}
     command: ["alembic", "upgrade", "head"]
     depends_on:
       db: {condition: service_healthy}
-  backend:
+  api:
     build:
       context: .
       dockerfile: backend/Dockerfile
     environment:
-      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-aegis}:${POSTGRES_PASSWORD:-local-development-only}@db:5432/${POSTGRES_DB:-aegisearth}
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-cosmic}:${POSTGRES_PASSWORD:-local-development-only}@db:5432/${POSTGRES_DB:-cosmic_motion}
       CORS_ORIGINS: '["http://localhost:5173"]'
     ports: ["127.0.0.1:8000:8000"]
+    volumes: ["cosmic_artifact_cache:/app/var/artifacts"]
     depends_on:
       migrate: {condition: service_completed_successfully}
-  frontend:
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
-    ports: ["127.0.0.1:5173:80"]
-    depends_on: [backend]
 volumes:
-  postgres_data:
+  cosmic_postgres_data:
+  cosmic_artifact_cache:

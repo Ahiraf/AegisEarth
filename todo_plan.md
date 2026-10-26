@@ -1,204 +1,245 @@
-# AegisEarth: feature-by-feature implementation plan
+# Cosmic Motion AI — detailed backend delivery plan
 
-Stack: FastAPI REST API, PostgreSQL, React/TypeScript, Docker, Hugging Face Docker Space.
-Repository: https://github.com/Ahiraf/AegisEarth
-Planning date: 2026-10-16. Checkboxes distinguish setup from future product work.
+Baseline: 26 October 2026. Product: AI-assisted identification of moving-source candidates in
+SPHEREx images. Your ownership is the backend; frontend implementation is a separate team task.
+The ML researcher owns the main model's design, training, evaluation and calibration. Your plan covers
+receiving the supplied inference package, integrating it, verifying parity and operating inference.
+Stack: FastAPI, PostgreSQL, Python scientific libraries, Docker, Hugging Face API deployment.
 
-## 0. Foundation
+Checked boxes describe work actually present in the scaffold. All other items are future work.
+No trained model, live discovery adapter, image pipeline or worker has been implemented yet.
+Do not commit or push unless explicitly requested.
 
-- [x] Create a modular monolith with feature-owned backend packages.
-- [x] Add PostgreSQL sessions, Alembic baseline, initial catalog APIs and health routes.
-- [x] Add React starter, individual Dockerfiles, Compose and combined Hugging Face image definition.
-- [x] Verify frontend production build, five backend tests, lint, dependency consistency,
-      Compose configuration and offline migration SQL (see `docs/verification.md`).
-- [ ] Run the complete local Compose stack and verify migration, API readiness and frontend connection.
-- [ ] Lock Python dependencies and review dependency security before deployment.
-- [ ] Inspect a fresh clone of the target GitHub repository, then reconcile/transfer this scaffold
-      without overwriting existing work or history. This folder initially was not a Git checkout.
-- [ ] Agree on official challenge requirements, deadline, team ownership and scientific review owner.
+## Definition of done for every feature
 
-Acceptance: one command starts a migrated system, the frontend connects and the catalog returns
-an honest empty state until ingestion runs. CI passes before merge.
+Contract -> model/migration -> repository/storage adapter -> service/scientific function -> router or
+worker stage -> unit/integration tests -> OpenAPI/examples -> frontend handoff -> measured acceptance.
+Modules stay feature-based; scientific functions do not depend on HTTP handlers or ORM sessions.
+Preserve source/product/calibration IDs, time scales, checksums and pipeline/model/config versions.
 
-## Feature architecture and definition of done
+## 0. Replacement foundation
 
-Use `backend/app/modules/<feature>/` with `router.py`, `schemas.py`, `models.py`,
-`service.py`, `repository.py` as needed. Keep provider adapters/helpers in the owning feature.
-Put tests under `backend/tests/<feature>/` and React work under `frontend/src/features/<feature>/`.
-`main.py` assembles the app; `core/` owns config, database, logging and common error infrastructure.
-Register all model modules in Alembic metadata. Avoid a global models/routers/services layout.
-Cross-feature operations use explicit service interfaces and must not introduce circular dependencies.
+- [x] Remove obsolete backend domain modules, research scripts and fixtures; keep the frontend teammate's
+      independently updated `frontend/` work when integrating with current GitHub main.
+- [x] Create backend feature boundaries and an eleven-stage pipeline registry.
+- [x] Add bounded observation/analysis request contracts and explicit unavailable responses.
+- [x] Add seven-table metadata/job/result schema and a new Alembic baseline.
+- [x] Add ranker interface and separate candidate score from calibrated probability.
+- [x] Replace Docker/Compose/CI for a backend-only application and a fresh database namespace.
+- [x] Rewrite SRS, README and backend planning/handoff documents.
+- [x] Verify 16 local backend tests, migration roundtrip/schema drift in SQLite, lint, package installation,
+      OpenAPI export, PostgreSQL SQL generation and Compose configuration.
+- [ ] Verify full Compose startup and PostgreSQL migration roundtrip on Docker Desktop.
+- [ ] Lock baseline dependencies reproducibly on the chosen Python version; review image/science library versions.
+- [ ] Agree with frontend owner on public viewer flow, backend submission credentials and demo artifact contract.
 
-Complete one vertical slice at a time: agree contract -> migration/model -> repository -> service
--> router -> feature tests -> React integration -> docs -> acceptance review.
-Add layers when they have a purpose, not empty forwarding files.
-Public MVP reads need no account; refresh and administrative operations remain private CLI jobs.
+Exit: API docs/health/capabilities run, fresh schema migrates, tests pass, and nobody mistakes scaffold endpoints for working analysis.
 
-## 1. Source feasibility and scientific contracts
+## 1. Prove the data and challenge path first (`observations`, `comparisons`)
 
-- [ ] Verify the official Space Apps challenge and submission criteria.
-- [ ] Verify current JPL SBDB, CAD, Sentry, NeoWs and ESA interfaces, allowed use and rate limits.
-- [ ] Save dated fixtures with source URLs, signature/version, retrieval time and original units.
-- [ ] Define identity mapping across SPK IDs/designations/ESA identifiers; never join on display name alone.
-- [ ] Define source precedence, unknown values, stale thresholds and provenance for every scientific field.
-- [ ] Separate source TDB/Julian epochs from UTC display times; document tested conversions.
-- [ ] Have a qualified reviewer assess geographic impact-corridor feasibility before committing to that MVP feature.
+- [ ] Read the complete official Planet X and SPHEREx brief/resources and current submission rules when accessible.
+- [ ] Find real public observations of the same sky region at two or more useful epochs.
+- [ ] Prefer one release; record collection, unique product IDs, detector, timestamps/scale, footprint and calibration.
+- [ ] Confirm local wavelength/bandwidth overlap at the target location, not just common detector label.
+- [ ] Inspect science, variance, flags, wavelength/WCS and PSF/ePSF references in a small real cutout.
+- [ ] Identify a known mover example if possible and a stationary/control field; document the limits if none is available.
+- [ ] Save a small permitted-use fixture manifest with exact query, retrieval time, checksums and expected fields.
+- [ ] Verify access policy/attribution, download size and representative CPU/memory requirements.
+- [ ] Produce a repeat-observation feasibility note and scientific compatibility policy v1 with measurable tolerances.
 
-Corrections to the supplied PDF's assumptions:
+Exit: at least one real usable pair is demonstrated. A zero-result query or a synthetic pair alone does not satisfy this milestone.
+If no compatible pair exists, adjust the target/epochs or documented demo approach before building the entire ML pipeline.
 
-- SBDB close-approach uncertainty ellipses are not geographic Earth impact ellipses. A corridor requires
-  validated impact solutions, propagation, reference frames, Earth rotation and uncertainty handling.
-  Do not plot invented impact coordinates or convert ellipse axes directly to latitude/longitude.
-- A close approach, potentially hazardous classification and predicted impact are distinct concepts.
-  Missing risk data is unknown, not probability zero.
-- Preserve virtual impactor events separately from object-level aggregate probabilities/hazard scores.
-  An object aggregate is not necessarily the risk of its next close approach.
-- Validate all example parameters (including the PDF's Sentry example) against official documentation.
-- Keep unavailable mass/location/hazard fields null; label any estimates and their assumptions.
-- Refresh cadence is a product policy; do not hard-code claimed provider update times from the PDF.
+## 2. Observation discovery vertical slice (`observations`)
 
-Acceptance: reviewed source-to-field dictionary specifies units, time scale, nullability,
-provenance and whether each value is observed, derived or illustrative.
+- [ ] Implement IRSA SIA2 adapter with bounded query, timeout/backoff, status/error/overflow handling and parsed metadata.
+- [ ] Add TAP adapter only if required by the chosen product/metadata coverage; avoid speculative integrations.
+- [ ] Create internal observation IDs and immutable source product/release identity mapping.
+- [ ] Enrich schema with footprint, start/end times, units/time scales, wavelength context and snapshot provenance.
+- [ ] Upsert normalized metadata; ensure repeat queries do not duplicate products or overwrite a different release.
+- [ ] Implement paginated `POST /observations/search` and `GET /observations/{id}` responses.
+- [ ] Cache repeat queries with a documented TTL; distinguish empty results from upstream failures.
+- [ ] Expose only safe product metadata, not storage credentials or arbitrary URL-fetch capability.
+- [ ] Test real fixtures, reordered/absent columns, invalid coordinates/dates, no results, timeouts and schema changes.
 
-## 2. Catalog feature (`modules/catalog`)
+Exit: frontend owner can search and display trustworthy observation summaries with dates and source links.
 
-- [ ] Extend identity model with SPK ID, alternate designations, H magnitude and orbit class.
-- [ ] Add physical/orbital snapshots with source, epoch, units, uncertainty and revision metadata.
-- [ ] Validate size ranges and finite numbers; distinguish estimated versus measured diameter.
-- [ ] Implement normalized upsert and precedence in service.py; repository.py owns persistence.
-- [ ] Expand `GET /api/v1/neos` with bounded search, type/size filters, stable pagination and sorting.
-- [ ] Expand `GET /api/v1/neos/{id}` with source links, freshness and missing-field semantics.
-- [ ] Add PostgreSQL tests for empty/populated lists, filters, pagination, detail, 404 and constraints.
-- [ ] Build React catalog list, filters and object panel with loading/empty/error states.
+## 3. Compatibility checks (`comparisons`)
 
-Acceptance: values match a dated real-source fixture and every displayed scientific value is traceable.
+- [ ] Implement versioned report checks for sky overlap, valid/distinct epochs, known time scales and source precision.
+- [ ] Evaluate local wavelength/bandwidth overlap, release/calibration compatibility, pixel scale and PSF availability.
+- [ ] Define and measure usable coverage, time-separation, wavelength and alignment tolerances.
+- [ ] Keep each check's evidence/units and blocking/warning reasons machine-readable.
+- [ ] Expose `POST /comparisons/validate` using server-known observation IDs and target region.
+- [ ] Revalidate inside analysis execution using actual cutout metadata; metadata search alone is insufficient.
+- [ ] Test incompatible wavelength, disjoint footprint, duplicated epoch, unsupported release and missing metadata.
 
-## 3. Ingestion feature (`modules/ingestion`)
+Exit: incompatible pairs fail with actionable reasons before expensive work; no result claims improved time precision.
 
-- [ ] Add SourceSnapshot and IngestionRun models: provider, request, version, checksum, timestamps,
-      status, row counts and sanitized error details.
-- [ ] Implement JPL provider adapters with timeouts, bounded retries, backoff and schema/signature checks.
-      Serialize JPL requests according to its current fair-use policy.
-- [ ] Normalize missing fields/numeric strings with fixture tests; preserve raw source precision.
-- [ ] Write through catalog/approaches/risk service interfaces and publish in transactions.
-- [ ] Ensure idempotency, concurrent-run locking and last-good data preservation on partial failures.
-- [ ] Add private `python -m app.modules.ingestion ...` CLI refresh/status commands.
-- [ ] Expose sanitized freshness metadata, stale thresholds and actionable run logs.
-- [ ] Add ESA adapter after verifying downloadable format, access and terms; preserve source disagreement.
-- [ ] Add NeoWs only if needed for coverage, with server-side API key and allowed date windows.
-- [ ] Defer direct MPC/NEOWISE enrichment until core source coverage is sufficient.
-- [ ] Schedule one external refresh daily initially, then adjust using measured freshness/usage.
+## 4. Durable analysis jobs (`analyses`, `pipeline`)
 
-Acceptance: repeated runs do not duplicate rows; invalid upstream payloads cannot replace good data;
-failed runs are visible; public web requests never depend on live upstream fetches.
+- [ ] Implement protected `POST /analyses`: validate IDs/config, idempotency key and request hash; transactionally enqueue.
+- [ ] Add caller-scoped key uniqueness before multiple clients, worker heartbeat/attempt/deadline fields and migrations.
+- [ ] Implement `GET /analyses/{id}` and cancellation with consistent states and stage-progress metadata.
+- [ ] Build dedicated worker entrypoint with atomic PostgreSQL claims, short transactions, lease renewal and recovery.
+- [ ] Define bounded retries, terminal scientific errors and cancellation checkpoints.
+- [ ] Enforce job count, bytes, concurrency and wall-time quotas before accepting public/remote work.
+- [ ] Register real stage executors behind explicit interfaces. Keep unavailable rankers/modes disabled.
+- [ ] Add worker Compose service only when it can execute the accepted pipeline.
+- [ ] Test duplicate requests, mismatched idempotency body, two-worker competition, crashes, expired leases and cancellation.
 
-## 4. Close-approaches feature (`modules/approaches`)
+Exit: an accepted job survives API/worker restart and completes or fails deterministically; no silently abandoned queue entries.
 
-- [ ] Model many encounters per object with provider event identity, original epoch/time scale,
-      display timestamp, distance AU, velocity km/s and uncertainty metadata.
-- [ ] Add uniqueness constraints and object/date indexes; connect normalization to ingestion.
-- [ ] Implement `GET /api/v1/approaches` with validated date, object, distance and pagination filters.
-- [ ] Implement `GET /api/v1/neos/{id}/approaches` with stable date ordering.
-- [ ] Test unit conversions, date boundaries, time scales and duplicate event handling.
-- [ ] Build React timeline/date controls and approach table with explicit time/measurement units.
+## 5. Cutout acquisition and artifact storage (`cutouts`, `artifacts`)
 
-Acceptance: dates/distances/speeds match source fixtures; a close approach is never presented as an impact.
+- [ ] Implement trusted IRSA URL resolution and bounded cutout requests from persisted metadata.
+- [ ] Validate allowed scheme/host/path and redirects; reject arbitrary user URLs/private-network destinations.
+- [ ] Stream downloads to temporary keys with size/time limits; check decoded dimensions before allocation.
+- [ ] Verify FITS structure/checksum where supported; record raw SHA-256 and source response metadata.
+- [ ] Build local storage adapter and immutable keys/cache lookup based on product, region, release and parameters.
+- [ ] Define production object-storage adapter and short-lived artifact delivery; keep secrets server-side.
+- [ ] Add cleanup of abandoned temporary files and bounded failed-run retention.
+- [ ] Test truncated files, invalid FITS, oversized/compressed inputs, interrupted downloads, redirects and cache reuse.
 
-## 5. Risk feature (`modules/risk`)
+Exit: one verified pair is downloaded once, reproducibly retrieved and never exposed through arbitrary filesystem paths.
 
-- [ ] Model per-source risk snapshots and virtual impactor events, solution date, probability,
-      Palermo/Torino values, original precision and event versus object aggregate scope.
-- [ ] Enforce probability [0,1], Torino integer 0-10, nullable hazard scores and valid event relationships.
-- [ ] Define aggregation policy without double-counting NASA/ESA estimates.
-- [ ] Implement `GET /api/v1/risk-assessments` and object-specific risk/events/history routes.
-- [ ] Add probability/hazard filters with documented null/stale semantics and source links.
-- [ ] Test removed objects, revised solutions, missing scores and source disagreement.
-- [ ] Build React risk panel and reviewed scale legend using labels/icons as well as color.
+## 6. FITS inspection and preprocessing (`preprocessing`)
 
-Acceptance: a reviewer can trace each probability to a dated event or aggregate; unknown and zero
-are distinct, and displayed explanations are scientifically reviewed.
+- [ ] Extract science, variance, quality flags, wavelength and WCS with explicitly selected HDUs/units.
+- [ ] Apply reviewed bad-pixel/NaN/saturation/edge masks; never turn masked values into numerical zero detections.
+- [ ] Keep source pixel-origin conventions and celestial transforms tested.
+- [ ] Estimate background robustly and document zodiacal/background treatment.
+- [ ] Retain source calibration/ePSF references and local wavelength coverage for each cutout.
+- [ ] Create a compact QC report: usable pixels, coverage, flags, variance, dynamic range and missing inputs.
+- [ ] Generate synthetic tests for stationary sources, movers, variable brightness and detector artifacts.
 
-## 6. Visualization feature (`modules/visualization`)
+Exit: arrays, masks and metadata are internally consistent, unit-aware and suitable for the chosen comparison policy.
 
-- [ ] Spike map/globe/orbit libraries for performance, licensing and accessibility.
-- [ ] Define separate contracts for orbit/approach views and geographic impact overlays.
-- [ ] Build bounded map/timeline endpoints using other feature services.
-- [ ] Start with truthful orbit/approach views linked to an accessible data table.
-- [ ] Return explicit unavailable status for geographic corridors when no validated source exists.
-- [ ] Prefer authoritative corridor data with provenance and validity intervals if available.
-- [ ] If computing corridors, create a separate research milestone for covariance propagation,
-      dynamics, Earth intersection, rotation, frames, time scales and benchmark verification.
-- [ ] Test GeoJSON coordinate order, dateline/poles, geometry validity and uncertainty units.
-- [ ] Keep hypothetical simulations opt-in, visibly labeled and separate from observed risk.
-- [ ] Add selection, legends, filters, time slider, keyboard controls and object panel integration.
-- [ ] Benchmark at least 1,000 objects; introduce viewport queries, clustering and request cancellation as needed.
+## 7. Registration and PSF/background matching (`registration`, `preprocessing`)
 
-Acceptance: no unsupported Earth impact locations appear; every geometry states its meaning and
-essential interactions have a table/text alternative. Unvalidated corridors do not block the MVP.
+- [ ] Choose reference/common celestial grid and reproject using WCS; do not resize images without preserving science geometry.
+- [ ] Propagate coverage/masks and account for interpolation effects on uncertainty.
+- [ ] Measure residual alignment with suitable stationary sources; reject insufficient reference support or poor fits.
+- [ ] Match background/photometric response within the validated wavelength policy.
+- [ ] Obtain appropriate local PSF/ePSF and implement a documented matching method with a conservative target PSF.
+- [ ] Record kernel/transform versions, residuals, correlation assumptions and QC pass/fail thresholds.
+- [ ] Test offsets, rotations, pixel scale changes, blurred stars, wavelength mismatch, edges and sparse fields.
 
-## 7. Education feature (`modules/education`)
+Exit: stationary control sources produce acceptable residuals under measured QC limits; bad registration cannot advance.
 
-- [ ] Define version-controlled lesson, citation, glossary and quiz schemas for MVP.
-- [ ] Write reviewed content on asteroids/comets, orbit uncertainty, approach versus impact,
-      risk probability, Torino/Palermo, historical events and planetary defense/DART.
-- [ ] Verify scientific claims, source links, image permissions and attribution.
-      Replace broken citation placeholders in the PDF with real sources.
-- [ ] Implement lesson list/detail endpoints and quiz explanations without collecting personal data.
-- [ ] Build accessible React lessons with captions, alt text and plain-language glossary.
-- [ ] Test content contracts, quiz consistency and links.
+## 8. Difference imaging (`differencing`)
 
-Acceptance: a student can explore a sourced lesson and complete a quiz without an account.
+- [ ] Define science-minus-reference sign convention and reproducible difference calculation.
+- [ ] Generate common validity mask, propagated variance/significance and coverage maps.
+- [ ] Document limitations of significance after resampling/convolution; avoid pretending pixels are independent.
+- [ ] Reject invalid uncertainties and insufficient overlap; record QC metrics.
+- [ ] Save difference/mask/variance artifacts and browser preview stretch metadata.
+- [ ] Test a stationary pair, injected shift, brightness-only change, cosmic-ray-like event and masked edge.
 
-## 8. Integration, performance and quality
+Exit: controlled examples produce expected signed patterns; zero candidates is a valid result, and a residual alone is not labeled motion.
 
-- [ ] Add standard errors, request IDs, structured logs and input limits in core.
-- [ ] Add source freshness/status endpoint and frontend stale/unavailable banners.
-- [ ] Set measurable API latency, data freshness and frontend responsiveness targets.
-- [ ] Tune indexes using real query plans; add caching only when measurements justify it.
-- [ ] Test end-to-end: refresh -> PostgreSQL -> filtered API -> visualization/table -> object -> lesson.
-- [ ] Cover upstream outage, database outage, migration failure, stale data and empty states.
-- [ ] Test keyboard, screen-reader labels, contrast, responsive layout and reduced motion.
-- [ ] Add backend unit/integration tests, frontend build, end-to-end browser tests and image smoke checks to CI.
-- [ ] Review dependencies/secrets; keep ingestion triggers private and public routes read-only.
-- [ ] Prepare an explicitly labeled offline snapshot for the demo if live upstream services fail.
+## 9. Detection and association (`detection`, `association`, `candidates`)
 
-Acceptance: all feature acceptance checks pass and the complete user journey works with actionable failures.
+- [ ] Detect sources independently per epoch and positive/negative residual components.
+- [ ] Compute centroids, uncertainties, SNR, morphology, local flag/edge context and astrometric positions.
+- [ ] Match stationary sources and associate possible shifted detections using uncertainty-aware distances/time separation.
+- [ ] Separate possible_motion, brightness_change, artifact and uncertain; preserve alternatives/ambiguous matches.
+- [ ] Require motion evidence to exceed measured registration/centroid uncertainty under the reviewed policy.
+- [ ] Persist per-epoch evidence and candidate JSON schema; add indexed scientific columns when query needs are clear.
+- [ ] Implement paginated candidate retrieval and detail endpoints only for published completed runs.
+- [ ] Test blends, disappearing/appearing sources, stationary variables, near-threshold shifts and many-to-one associations.
 
-## 9. Deployment and operations
+Exit: frontend receives evidence-backed candidate hypotheses, with no confirmed-discovery claims from only two images.
 
-- [ ] Follow `docs/deployment.md`; provision external PostgreSQL with TLS, backups and tested restore.
-- [ ] Apply migrations once per release; verify rollback/data recovery and compatibility.
-- [ ] Build individual images and root combined image; verify UID 1000, port 7860 and static assets.
-- [ ] Configure Space secrets and check database network reachability.
-- [ ] Verify same-origin API, SPA deep links, API 404s, OpenAPI, readiness and restart persistence.
-- [ ] Schedule external ingestion and monitor last-success time/source failures.
-- [ ] Set up GitHub CI -> Hugging Face sync using least-privilege credentials in CI secrets.
-- [ ] Document releases, limitations, source attribution, refresh policy and operational recovery.
+## 10. Classical ranking baseline (`ranking`)
 
-Acceptance: public URL works in a clean browser, restart retains database data and failure recovery is documented.
-Actual deployment requires Space/database credentials and is not part of the scaffold's completed work.
+- [ ] Define transparent baseline features: SNR, registration quality, mask proximity, morphology and association residual.
+- [ ] Implement a deterministic ranker against `CandidateRanker`; version config/thresholds.
+- [ ] Label outputs as candidate_score and include explanation codes; do not imply probability calibration.
+- [ ] Evaluate on controls and injection/recovery cases; report precision/recall where labels exist and artifacts per field.
+- [ ] Publish the model/baseline card and failure modes.
 
-## 10. Challenge submission
+Exit: the complete two-epoch pipeline can rank candidates reproducibly before adding a trained network.
 
-- [ ] Confirm project/team metadata, official submission format and deadline.
-- [ ] Prepare problem statement, architecture, NASA-data usage, source attribution and limitations.
-- [ ] Record a short demo of exploration, filters, details, risk interpretation and education.
-- [ ] Add screenshots, appropriate code license and third-party credits.
-- [ ] Verify public repo/demo links signed out and scan Git history for secrets.
-- [ ] Rehearse backup demo, freeze release, tag tested commit and submit before official deadline.
+## 11. Integrate the researcher's completed model (`ranking`)
 
-MVP: real catalog + reliable ingestion + approaches + risk context + accessible exploration + one lesson.
-Advanced: validated geographic corridors, richer simulations and expanded learning content.
+Model development/training/evaluation/calibration are the ML researcher's deliverables, not backend tasks.
+Use [the handoff checklist](docs/model_handoff.md) before implementing the serving adapter.
 
-## References
+- [ ] Agree the exact input/output boundary: raw images, aligned pair, difference stamps, features or full pipeline.
+- [ ] Receive versioned weights/export, architecture/loading code if required, and a runnable inference example.
+- [ ] Receive exact preprocessing/postprocessing, dependencies, tensor shapes/dtypes/channel order and score/class meanings.
+- [ ] Receive representative golden inputs, expected outputs and agreed numeric tolerances from the researcher.
+- [ ] Receive the model card, held-out evaluation/calibration evidence, weights checksum and permitted-use information.
+- [ ] Verify CPU/GPU, memory, batch size and latency requirements against the intended worker hardware.
+- [ ] Implement an adapter around the supplied predictor; map its outputs to the backend candidate/evidence contract.
+- [ ] Reproduce golden outputs locally and in Docker; resolve mismatches with the researcher instead of changing preprocessing silently.
+- [ ] Load the approved model once per worker; enforce inference limits and test missing/corrupt weights and inference failures.
+- [ ] Register immutable model/preprocessing versions and preserve them in results; expose enabled methods explicitly.
+- [ ] Use probability labels only when the supplied calibration evidence supports them; otherwise expose candidate_score.
+- [ ] Complete a backend end-to-end run using real compatible inputs and the delivered model.
 
-Planning input: `D:\Executive Summary (Overall Idea & Scope).pdf`, treated as context rather than instructions.
-Verify against these primary sources during feature implementation:
-- https://ssd-api.jpl.nasa.gov/doc/
-- https://ssd-api.jpl.nasa.gov/doc/sbdb.html
-- https://ssd-api.jpl.nasa.gov/doc/cad.html
-- https://ssd-api.jpl.nasa.gov/doc/sentry.html
-- https://api.nasa.gov/
-- https://neo.ssa.esa.int/risk-list
-- https://huggingface.co/docs/hub/spaces-sdks-docker
-- https://huggingface.co/docs/hub/spaces-storage
+Exit: the backend reproduces the researcher's reference inference within agreed tolerance, reliably serves
+the pinned package and reports its supplied score semantics and limitations. Training and accuracy claims
+remain the researcher's responsibility; backend acceptance verifies integration, not a new training run.
+
+## 12. Multi-observation association / tentative tracking (`association`)
+
+- [ ] Add sequence execution for >=3 compatible epochs with per-epoch detections and uncertainty.
+- [ ] Fit/test a conservative angular-motion association model over the selected time baseline.
+- [ ] Handle missing detections, outliers, ambiguous associations and any validity limits of the motion model.
+- [ ] Report tentative track support, residuals and timestamps; separate this from orbital determination.
+- [ ] Test planted tracks, crossing tracks, variables/artifacts and gaps; benchmark runtime/combinatorics.
+
+Exit: sequence evidence supports tentative consistent motion without declaring a new object or planet.
+
+## 13. Evidence delivery and frontend handoff (`artifacts`, `candidates`)
+
+- [ ] Produce original/aligned/difference PNGs and candidate stamps while retaining full precision FITS separately.
+- [ ] Supply WCS or tested pixel/sky overlay transforms, common grid, orientation and pixel-origin metadata.
+- [ ] Expose date/time scale, wavelength, units, quality warnings, score kind and source links in one result manifest.
+- [ ] Implement artifact-ID download/preview endpoints or scoped signed URLs and appropriate cache headers.
+- [ ] Provide a curated successful pair, zero-candidate pair and failed-QC example for frontend integration.
+- [ ] Export OpenAPI, stable sample JSON and error codes; test BFF/proxy authorization and allowed CORS origins.
+- [ ] Coordinate viewer acceptance: blink/slider/side-by-side, overlays and accessible evidence list are frontend-owned.
+
+Exit: a frontend teammate can implement comparison without scientific processing or undocumented backend assumptions.
+
+## 14. Reliability, security and performance
+
+- [ ] Add request IDs, structured sanitized logs, metrics, stage timings and worker/queue health.
+- [ ] Test database outage, unavailable IRSA, file corruption, worker crash, cancellation and storage failure.
+- [ ] Enforce read/write permissions, server-side submission credentials, quotas and safe artifact access.
+- [ ] Measure cache-cold/warm latency, peak memory, CPU, download size and job concurrency on target hardware.
+- [ ] Add PostgreSQL job/storage integration tests and end-to-end synthetic-pair tests in CI.
+- [ ] Validate schema migrations against a disposable PostgreSQL database, including drift and recovery.
+- [ ] Lock dependencies and scan production image/model artifacts for known issues and leaked credentials.
+
+Exit: measured resource budgets pass and unsupported science fails explicitly rather than generating misleading output.
+
+## 15. Hugging Face backend deployment and release
+
+- [ ] Build/test root API image as UID 1000 on port 7860; verify CORS and OpenAPI from the frontend origin.
+- [ ] Provision external PostgreSQL and durable artifact/model object storage with TLS and backups.
+- [ ] Run migrations once per release; validate database/object-store restore consistency.
+- [ ] Choose worker topology: separate durable worker preferred; co-located supervised worker only after sleep/recovery testing.
+- [ ] Configure secrets/runtime variables and health/worker/queue monitoring; never store credentials in React bundles.
+- [ ] Test Space restart/sleep, lease recovery, artifact persistence and model load/resource availability.
+- [ ] Assemble curated demo evidence and a clearly identified cached fallback for upstream outages.
+- [ ] Confirm complete official brief, submission fields, deadline/timezone and permitted existing-work rules.
+- [ ] Freeze tested backend release, hand off API examples/model card and submit supporting material with the team.
+- [ ] Commit/push to main only when explicitly requested by the user, using anindya357.
+
+## Release order
+
+| Release | Required milestones | Proof |
+| --- | --- | --- |
+| Foundation | 0 | Honest runnable API/schema/contracts |
+| Data feasibility | 1–3 | Real compatible observations with reproducible provenance |
+| Scientific baseline MVP | 4–10 and 13 | Durable two-epoch job with classical candidates/evidence |
+| Cosmic Motion AI release | 11 plus baseline | Evaluated CNN/Siamese ranker integrated behind the same API |
+| Sequence extension | 12 | Tentative multi-epoch motion with uncertainty |
+| Hosted demonstration | 14–15 | Stable public evidence APIs and protected processing backend |
+
+Do not let model training hide a broken image-comparison pipeline. The AI release requires actual
+evaluation, while the baseline remains useful and explicitly labeled on its own.

@@ -1,0 +1,9 @@
+{
+  "observation_ids": ["local-observation-1", "local-observation-2"],
+  "mode": "pair",
+  "center_ra_deg": 127.69444,
+  "center_dec_deg": -39.1776,
+  "cutout_size_arcmin": 2,
+  "max_pixels": 256,
+  "ranking_method": "classical"
+}

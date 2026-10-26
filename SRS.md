@@ -1,580 +1,393 @@
-# AegisEarth — Software Requirements Specification
+# Cosmic Motion AI — Software Requirements Specification
 
-| Document attribute | Value |
+| Attribute | Baseline |
 | --- | --- |
-| Version | 1.0 |
-| Status | Draft baseline for team review |
-| Prepared on | 16 October 2026 |
-| Project | AegisEarth — NEO Risk Visualization and Education System |
-| Context | NASA Space Apps Challenge project |
-| Target repository | https://github.com/Ahiraf/AegisEarth |
-| Backend | Python 3.12+, FastAPI REST API, feature-based modular monolith |
-| Database | PostgreSQL |
-| Frontend | React with TypeScript |
-| Packaging and deployment | Docker; Hugging Face Docker Space; external production PostgreSQL |
+| Document version | 1.0 — replacement product baseline |
+| Date | 26 October 2026 |
+| Status | Detailed engineering specification; scientific tolerances/model quality targets require validation |
+| Product | Cosmic Motion AI — AI-assisted moving-source candidate detection in SPHEREx images |
+| Developer scope | Backend only; frontend owned by another team member |
+| Model ownership | ML researcher builds/trains/evaluates the model; backend developer integrates the supplied inference package |
+| Stack | Python 3.12+, FastAPI REST, PostgreSQL, scientific image-processing libraries, Docker |
+| Hosting | Hugging Face Docker Space API; external PostgreSQL and durable artifact/model storage |
+| Existing repository | https://github.com/Ahiraf/AegisEarth |
+| Challenge | https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/ |
 
-This document specifies the intended product. It does not imply that all requirements are implemented.
-The current scaffold provides only the foundation, initial catalog endpoints, health checks and a React shell.
-Performance targets and scope decisions below are proposed engineering baselines pending team approval.
-No official challenge identifier, deadline, hosting budget or external scientific reviewer has been confirmed.
+## 1. Purpose and scope
 
-## 1. Introduction
+Cosmic Motion AI will help public users inspect repeated SPHEREx observations of the same sky region,
+notice changes, and investigate possible moving sources with understandable evidence. The backend
+discovers image metadata, checks comparability, processes images, identifies candidate changes,
+ranks them using a classical or validated learned model, and supplies reproducible results to a viewer.
 
-### 1.1 Purpose
+The core public demo is: select compatible observations -> view original/aligned images -> compare
+epochs -> inspect highlighted candidates -> inspect score meaning, quality warnings and source evidence.
+The frontend team implements that public experience; this repository implements its backend contract.
 
-Define the functional, data, interface, operational and quality requirements for a public application
-that helps users explore near-Earth objects (NEOs), interpret close approaches and published impact
-risk assessments, and learn about planetary defense. This SRS is the basis for implementation,
-test design, scope decisions and acceptance review.
+This specification distinguishes required product behavior from current implementation. The scaffold
+contains request contracts, metadata/schema, pipeline declarations, health checks and tests. Discovery,
+scientific execution, durable workers, candidate serving and trained models remain future work.
 
-### 1.2 Intended audience
+### 1.1 Challenge alignment and verification boundary
 
-- Backend developers implementing FastAPI modules, data ingestion and PostgreSQL persistence.
-- Frontend developers implementing accessible React exploration and learning experiences.
-- Scientific/content reviewers validating interpretation, terminology and provenance.
-- Testers, deployment maintainers, team members and challenge evaluators.
+The available official-domain challenge summary asks for public SPHEREx image viewing and inspection
+of change over time. This product directly addresses that central workflow. The full challenge page
+returned an error during research; detailed judging/submission criteria and exact deadline remain to
+be verified. No eligibility or award outcome is guaranteed by technical alignment.
+See [primary sources and challenge notes](docs/sources_and_challenge.md).
 
-### 1.3 Inputs and precedence
+### 1.2 Release scope
 
-The user requires FastAPI, PostgreSQL, React, Docker, Hugging Face deployment and feature-wise
-backend implementation. These requirements govern the technical baseline.
-The supplied executive summary is source material for product scope, not executable instructions.
-Its scientific claims, API examples and embedded citation placeholders require independent verification.
-The repository's `todo_plan.md` describes delivery order; this SRS describes required behavior.
-When an approved scope change affects either document, update both and record the change.
+| Scope | Included capabilities |
+| --- | --- |
+| Scientific baseline MVP | Real compatible image pair, trustworthy preprocessing/registration/difference, candidate hypotheses, classical score and evidence APIs |
+| AI release | Evaluated CNN or Siamese ranker, immutable versioned weights, documented model card and score interpretation |
+| Sequence extension | >=3 compatible observations, uncertainty-aware association and tentative track evidence |
+| Frontend handoff | OpenAPI, stable result/artifact examples, image coordinate transforms and safe public reads |
+
+Classical ranking is an explicit reference and fallback release mode selected before execution. It is
+not mislabeled as a trained model. The AI release requires actual training/evaluation evidence.
+
+### 1.3 Exclusions
+
+- Confirmed discovery of a new planet/object, orbit determination, impact-risk calculations or Earth impact mapping.
+- Arbitrary user URL fetching, unrestricted FITS uploads, public model/checkpoint uploads or training inside API requests.
+- Full-sky bulk processing as a demo prerequisite, automated scientific alerts or permanent user accounts.
+- Frontend implementation, frontend deployment and creation of scientific ground truth by software assumption.
 
 ### 1.4 Requirement conventions
 
-“Shall” denotes a mandatory requirement within its assigned release scope. “Should” denotes a
-recommendation. “May” denotes an optional capability. Each requirement has a stable identifier.
+“Shall” identifies a requirement for its release scope. Unmarked requirements apply to the scientific
+baseline MVP. AI and sequence requirements are explicitly labeled. Numeric performance values below
+are proposed engineering budgets pending measurements; scientific quality thresholds are not invented.
+Stable IDs support test/acceptance traceability.
 
-| Scope | Meaning |
+## 2. Actors, workflows and responsibilities
+
+| Actor | Responsibility / access |
 | --- | --- |
-| MVP | Required for the first accepted public demonstration |
-| Advanced | Required only when the advanced capability is explicitly included in a release |
-| Deferred | Outside the current baseline; needs a change decision |
+| Public viewer | Inspect curated/published comparisons, candidates and evidence without processing credentials |
+| Trusted submitter / frontend server | Submit bounded analysis using protected backend credentials and poll status |
+| Backend developer | API, metadata, processing orchestration, storage, worker reliability, model-serving integration and tests |
+| Frontend developer | Sky/image viewer, blink/slider/side-by-side, navigation, accessible controls and evidence presentation |
+| ML researcher | Model design, labels/datasets, training, scientific evaluation/calibration, reproducible inference package, weights and model card |
+| Scientific reviewer | Compatibility/QC tolerances, interpretation and scientific validation approval |
+| Maintainer | Configuration, migrations, deployment, data/model provenance and operational recovery |
 
-All functional requirements are MVP unless marked otherwise. Advanced geographic impact
-corridors are gated by scientific validation and are not an MVP acceptance dependency.
-
-### 1.5 Definitions
-
-| Term | Meaning in this system |
-| --- | --- |
-| NEO | Near-Earth asteroid or comet as classified by the source catalog |
-| Close approach | An encounter with Earth at a calculated distance; does not itself imply impact |
-| Potentially hazardous object | A source classification; not a statement of predicted impact |
-| Virtual impactor (VI) | A source-reported orbital solution associated with a possible future impact |
-| Object aggregate | A source-defined summary over multiple solutions/events; not one encounter's probability |
-| Torino / Palermo | Published hazard scales displayed with reviewed explanatory context |
-| SPK ID | JPL identifier used where supplied, alongside source-specific identity mappings |
-| Provenance | Source identity, request/reference, retrieval time, solution/version and transformation history |
-| Snapshot | A retained version of a provider response or normalized scientific observation |
-| Stale | Data whose last successful refresh exceeds the configured source freshness threshold |
-| UTC / TDB | Distinct time scales; source epochs must not be relabeled without validated conversion |
-| Geographic corridor | Earth-surface uncertainty geometry associated with a validated impact solution |
-
-## 2. Product scope
-
-### 2.1 Objectives
-
-1. Present source-backed NEO identities, physical/orbital information and close approaches.
-2. Explain published impact probabilities and hazard scores without overstating certainty.
-3. Support exploration through filtering, object details, a timeline and truthful visualizations.
-4. Provide accessible educational content for the general public, educators and students.
-5. Maintain a reproducible, testable data pipeline and deployable application suitable for a challenge demo.
-
-### 2.2 Users and access
-
-| Actor | Primary needs | Access |
+| Use case | Main success flow | Required alternative |
 | --- | --- | --- |
-| General visitor | Browse objects, understand approaching objects and risk context | Public read access |
-| Student | Understand terminology, explore examples and complete quizzes | Public read and local quiz interaction |
-| Educator | Find sourced explanations and usable visual/table examples | Public read access |
-| Maintainer | Refresh sources, inspect failures, migrate and deploy | Trusted CLI/deployment access |
-| Reviewer | Verify scientific claims, source mapping and limitations | Documents, fixtures and public application |
+| UC-01 Discover | Search bounded sky/time region and choose observations | Explain no coverage, unavailable provider or incompatible metadata |
+| UC-02 Compare | Validate observations, enqueue and process pair | Reject incompatible wavelengths/epochs/quality with evidence |
+| UC-03 Inspect | Retrieve completed images/candidates and interpretation | A valid zero-candidate result remains distinct from failure |
+| UC-04 Rank | Apply explicitly selected enabled ranker | Unsupported/unavailable model fails explicitly; no silent method substitution |
+| UC-05 Track | Sequence release associates >=3 observations | Return ambiguity/outlier warnings and tentative status |
+| UC-06 Operate | Monitor/cancel/retry/recover bounded jobs | Worker/storage failures preserve consistent state and private partial output |
 
-Public accounts and persistent learner profiles are not required. A maintainer is an operational
-role, not a public application account. A web administration interface is outside MVP scope.
+## 3. Architecture constraints
 
-### 2.3 Included in the MVP
+**ARC-001:** The backend shall use feature modules under `app/modules/` owning their routers, schemas,
+models, repositories, services and adapters as needed. Shared infrastructure belongs in `core`.
 
-- Cached source-backed catalog, paginated object discovery and object detail panels.
-- Close-approach records, filtering and timeline exploration.
-- Published risk assessments with clear event/aggregate scope, provenance and uncertainty.
-- Orbit/approach visualization with an equivalent accessible table.
-- Reviewed explanations of NEOs, risk scales and planetary defense; at least one complete lesson and quiz.
-- Scheduled ingestion, freshness reporting, Docker packaging and deployment documentation.
+**ARC-002:** `pipeline` shall orchestrate explicit stage interfaces. Scientific functions shall operate
+on arrays/metadata and be independently testable without a browser, database session or live provider.
 
-### 2.4 Advanced and excluded scope
+**ARC-003:** FastAPI request handlers shall perform bounded validation/reads/submission, with expensive
+download/CPU/model work executed by a dedicated durable worker. FastAPI BackgroundTasks alone shall
+not be used as the durable processing queue.
 
-| Capability | Scope decision |
-| --- | --- |
-| Authoritative geographic impact corridors | Advanced; only with verified source and interpretation |
-| Independently computed impact corridors | Advanced research; requires validated physical models and reviewer approval |
-| Hypothetical impact/effects simulation | Advanced; separate from observed risk and visibly labeled |
-| Direct MPC/NEOWISE enrichment | Optional after primary source coverage is demonstrated |
-| User accounts, bookmarks, persistent quiz history | Deferred |
-| Notifications, subscriptions, emergency alerts | Deferred |
-| Mobile native apps, payments, public write API | Excluded from baseline |
-| Operational planetary defense or emergency decision support | Excluded; this is an educational exploration system |
+**ARC-004:** PostgreSQL shall store observation, run, stage, model, candidate and artifact metadata.
+FITS arrays, previews and weights shall live in an artifact-storage adapter, not large database blobs.
 
-### 2.5 Assumptions and dependencies
+**ARC-005:** Database changes shall use versioned Alembic migrations and imported feature model metadata.
+The replacement baseline targets a fresh database and shall not reset an unrelated existing database.
 
-- NASA/JPL is the initial authoritative data family; ESA can provide additional risk information after interface validation.
-- Source availability, schemas, usage policies, identifiers and coverage are external dependencies.
-- The team will provide an actual challenge brief and validate submission requirements.
-- Production PostgreSQL credentials, Space permissions and external scheduler access will be supplied separately.
-- Initial delivery is English-only; text organization should allow later localization.
-- A reviewer will approve scientific terminology, time/unit transformations and any geographic impact output.
+**ARC-006:** Backend packaging shall run as a non-root container. Hugging Face API deployment uses
+port 7860; production database/artifact persistence shall be external and restart-tested.
 
-## 3. Architecture and design constraints
+## 4. Functional requirements
 
-### 3.1 Logical architecture
-
-```mermaid
-flowchart LR
-    Sources["NASA/JPL and optional ESA sources"] --> Ingest["Trusted ingestion CLI/job"]
-    Ingest --> Modules["Feature services"]
-    Modules --> DB[(PostgreSQL)]
-    API["FastAPI REST API"] --> Modules
-    Browser["React browser client"] --> API
-    API --> Fresh["Freshness and source metadata"]
-```
-
-The browser shall access scientific application data through the REST API and shall not connect
-directly to PostgreSQL or receive provider/database secrets. Routine API reads shall use persisted
-data rather than synchronously querying upstream providers.
-
-### 3.2 Module ownership
-
-| Module | Owns | Main dependencies |
-| --- | --- | --- |
-| `catalog` | Object identity, aliases, physical and orbital snapshots | Core database/configuration |
-| `approaches` | Encounter events, distances, velocities and time queries | Catalog identity/service interfaces |
-| `risk` | Risk snapshots, VI events, scope and hazard context | Catalog identity/service interfaces |
-| `ingestion` | Provider adapters, raw snapshots, normalization orchestration and run history | Owning feature write services |
-| `visualization` | Presentation contracts, timeline/map/orbit responses and geometry availability | Catalog, approaches and risk read services |
-| `education` | Lessons, citations, glossary and quizzes | Version-controlled reviewed content |
-| `health` | Process liveness and dependency/schema readiness | Core database and schema metadata |
-| `core` | Settings, database/session lifecycle, logging, errors and static hosting | Infrastructure only |
-
-**ARC-001:** The backend shall use `app/modules/<feature>/`, with feature-owned routers, schemas,
-models, repositories, services and adapters as needed. Empty forwarding layers are not required.
-
-**ARC-002:** `main.py` shall assemble middleware and feature routers. Cross-feature business operations
-shall use explicit interfaces without circular dependencies. Shared business logic shall not accumulate in `core`.
-
-**ARC-003:** Schema changes shall use centralized, version-controlled Alembic migrations. New model
-modules shall be registered with migration metadata. Application startup shall not silently create tables.
-
-**ARC-004:** React feature code shall be organized under `src/features/<feature>/` as features are implemented.
-Shared UI and API infrastructure shall remain distinct from feature-specific presentation logic.
-
-**ARC-005:** Frontend and backend shall have individual Docker build definitions for local use. The Hugging
-Face release image shall compile React and serve it with FastAPI from the same public origin on port 7860.
-
-**ARC-006:** Production persistence shall use external PostgreSQL. Database migrations and ingestion
-shall execute as controlled jobs, not independently in every API worker.
-
-## 4. User journeys and use cases
-
-| ID | Actor and trigger | Main success flow | Alternative / failure |
-| --- | --- | --- | --- |
-| UC-01 | Visitor opens explorer | Load cached catalog and freshness; apply filters; inspect paginated results | Explain empty results, unavailable API or stale source data |
-| UC-02 | Visitor selects object | Show identity, units, approaches, risk scope and source links | Show missing values explicitly; invalid identifier gives 404 |
-| UC-03 | Visitor changes date window | Update timeline, visualization and equivalent table from the same filter state | Reject invalid ranges; cancel obsolete requests |
-| UC-04 | Visitor inspects risk | Show source-dated assessment, event/aggregate scope and reviewed explanation | Distinguish missing, removed, stale and measured zero values |
-| UC-05 | Student opens lesson | Read sourced content; answer quiz; receive explanation | Invalid lesson yields accessible not-found state |
-| UC-06 | Maintainer runs refresh | Acquire lock, fetch/validate, normalize, publish transactionally, log counts | Retry bounded transient failures; retain last-good data |
-| UC-07 | Maintainer releases | Pass CI, back up as required, migrate once, deploy and smoke-test | Halt on migration failure; follow documented recovery procedure |
-
-## 5. Functional requirements
-
-### 5.1 Catalog
+### 4.1 Observation discovery (`observations`)
 
 | ID | Requirement |
 | --- | --- |
-| CAT-001 | The system shall maintain stable internal identities with source identifiers and alternate designations. Display names alone shall not be join keys. |
-| CAT-002 | Visitors shall be able to list objects with bounded pagination, deterministic ordering and search by supported name/designation. |
-| CAT-003 | Visitors shall be able to filter by object type and available size measurements. Filter semantics shall specify which measurement/range is compared. |
-| CAT-004 | Details shall include available type, magnitude, diameter/range, orbital elements, epoch and source references, with units and nullability. |
-| CAT-005 | Missing scientific values shall display as unavailable. Derived estimates shall carry method/assumptions and shall not be presented as measured values. |
-| CAT-006 | Detail views shall link to related approach/risk information and expose retrieval/source-solution timestamps when available. |
+| OBS-001 | Discover public SPHEREx products through a verified IRSA interface using bounded sky/time/collection constraints. |
+| OBS-002 | Store internal observation IDs with provider product ID, collection, release, provenance and retrieval timestamp. Different releases/products shall remain distinguishable. |
+| OBS-003 | Preserve footprint, coordinates/frame, source time/scale/precision, detector, calibration and wavelength context needed for comparison. |
+| OBS-004 | Return paginated metadata summaries with stable IDs and source references. Empty search, upstream failure and schema incompatibility shall be distinguishable. |
+| OBS-005 | Cache repeated discovery/download work using explicit keys/TTL; validate response status/schema/overflow before publication. |
 
-### 5.2 Close approaches
-
-| ID | Requirement |
-| --- | --- |
-| APP-001 | The system shall store multiple encounters per object with source event identity and duplicate prevention. |
-| APP-002 | Encounters shall retain original epoch/time scale, normalized display timestamp, target body, distance and velocity when supplied. |
-| APP-003 | Visitors shall filter approaches by date window and object, with bounded pagination and documented distance filtering. |
-| APP-004 | Timeline, table and object detail views shall use consistent date-window and timezone semantics. Display timestamps shall be labeled. |
-| APP-005 | Uncertainty parameters shall retain source meaning/reference frame; an approach uncertainty ellipse shall not be relabeled as geographic impact geometry. |
-| APP-006 | The interface shall explain that close approach and potentially hazardous classification do not establish predicted impact. |
-
-### 5.3 Risk assessments
+### 4.2 Comparison compatibility (`comparisons`)
 
 | ID | Requirement |
 | --- | --- |
-| RSK-001 | The system shall store published risk assessments with source, solution/retrieval time, probability, hazard scores and assessment scope. |
-| RSK-002 | Individual VI events shall remain distinct from object-level aggregates. Aggregation rules shall be documented and source-aware. |
-| RSK-003 | Probability shall be validated in [0,1], Torino as an integer in [0,10], and unavailable values retained as null. |
-| RSK-004 | Visitors shall filter available assessments by probability/hazard criteria and access associated object/events. Null/stale semantics shall be documented. |
-| RSK-005 | Risk details shall explain probability and Torino/Palermo using reviewed plain language and source links. Color shall have a text/icon equivalent. |
-| RSK-006 | Lack of a current assessment shall not be displayed as a measured zero risk. Source removal and updated solutions shall preserve historical meaning. |
-| RSK-007 | Conflicting provider values shall preserve provenance; the interface shall identify selected source/precedence instead of silently blending values. |
+| CMP-001 | Validate overlapping sky coverage, distinct usable epochs, known time scales and sufficient common valid pixels. |
+| CMP-002 | Validate local wavelength/bandwidth and release/calibration compatibility. Common detector label alone shall not establish compatibility. |
+| CMP-003 | Return versioned check outcomes, blocking reasons, warnings and supporting measurements. Unknown required metadata shall block processing. |
+| CMP-004 | Recheck compatibility/QC against downloaded cutouts before scientific execution; metadata discovery is not a guarantee of usable data. |
 
-### 5.4 Ingestion and freshness
+### 4.3 Jobs and orchestration (`analyses`, `pipeline`)
 
 | ID | Requirement |
 | --- | --- |
-| ING-001 | Provider-specific adapters shall isolate external contracts from normalized domain schemas. MVP shall support the verified JPL sources needed by catalog, approaches and risk. |
-| ING-002 | Every run shall record provider, request reference, start/end time, status, response signature/version, counts and sanitized errors. |
-| ING-003 | Retained snapshots shall identify retrieval time, payload checksum and transformation version sufficient to reproduce normalized records. |
-| ING-004 | Requests shall have explicit timeouts, bounded retries/backoff and concurrency/rate controls consistent with provider policy. |
-| ING-005 | Responses shall be checked for HTTP errors, signature/schema changes, required fields, units and valid numeric ranges before publication. |
-| ING-006 | Repeating an unchanged successful refresh shall not duplicate objects/events. Concurrent refreshes shall be locked or otherwise safely serialized. |
-| ING-007 | A failed or invalid refresh shall not delete or replace last-good data. Partial success shall be reported separately by source/dataset. |
-| ING-008 | Refreshes shall execute through trusted CLI/jobs. Public APIs shall not expose an unauthenticated refresh or arbitrary upstream URL fetch endpoint. |
-| ING-009 | The initial configured cadence shall be daily. An external scheduler shall operate independently of API worker lifecycle and Space sleep. |
-| ING-010 | API/UI freshness shall expose last successful refresh, stale status and source availability without exposing secrets or internal traces. |
-| ING-011 | ESA integration, if included, shall use an access method verified against current format and terms. Secondary-source failure shall not erase primary-source results. |
+| JOB-001 | Accept authorized bounded submissions with server-known observation IDs and explicitly selected available mode/ranker. |
+| JOB-002 | Persist accepted job/config/ordered inputs before returning 202; implement idempotency and return 409 on incompatible key reuse. |
+| JOB-003 | Expose queued, running, succeeded, failed and canceled states, current stage and sanitized failure reason. |
+| JOB-004 | Claim jobs atomically with worker lease/heartbeat and support bounded retry/recovery after worker death. |
+| JOB-005 | Support cooperative cancellation, maximum attempts, deadlines and resource quotas. No request transaction shall remain open during heavy processing. |
+| JOB-006 | Publish results atomically only after all required stages/outputs pass validation. Partial failed/canceled output shall remain private. |
+| JOB-007 | Record stage attempt, input/output/checkpoint references, timing, QC metrics, config and code/model versions. |
 
-### 5.5 Visualization and exploration
+### 4.4 Acquisition and preprocessing (`cutouts`, `preprocessing`)
 
 | ID | Requirement |
 | --- | --- |
-| VIS-001 | Visitors shall explore a scientifically truthful orbit/approach representation linked to catalog, timeline and object details. |
-| VIS-002 | The explorer shall maintain consistent selected object and filters across views and expose an equivalent accessible data table. |
-| VIS-003 | Visualizations shall state reference frame/geometry meaning, units, time context, source and relevant limitations. |
-| VIS-004 | Geographic impact overlays shall report an explicit unavailable state unless supported by validated geographic data/solutions. No arbitrary Earth impact locations shall be generated. |
-| VIS-005 | Legends shall be readable without relying only on color, and map interactions shall have usable keyboard/text alternatives. |
-| VIS-006 | The client shall handle loading, no matches, API failure, stale data and canceled/obsolete requests without displaying obsolete results as current. |
-| VIS-007 | Advanced: geographic corridor output shall include valid geometry, provenance, solution/validity interval and a documented scientific validation method. |
-| VIS-008 | Advanced: hypothetical scenarios shall require explicit selection and retain a visible simulation label across views and exports, if exports are added. |
+| IMG-001 | Resolve source files/cutouts from trusted persisted provider metadata, with allowlisted scheme/host/path and redirect validation. |
+| IMG-002 | Stream bounded downloads, preserve checksum/source provenance and validate FITS structure, HDUs/dimensions and decoded resource limits. |
+| IMG-003 | Extract science, variance, flags, wavelength/WCS and relevant calibration/PSF context with units and origin conventions. |
+| IMG-004 | Mask bad/NaN/saturated/edge/unsupported pixels; masked data shall not be treated as valid zero-valued signal. |
+| IMG-005 | Estimate background and match appropriate photometric/PSF response with recorded methods, uncertainties and limitations. |
 
-### 5.6 Education
+### 4.5 Registration and difference (`registration`, `differencing`)
 
 | ID | Requirement |
 | --- | --- |
-| EDU-001 | Visitors shall browse and read reviewed, version-controlled lessons and a glossary without an account. |
-| EDU-002 | Planned topics shall cover asteroids/comets, orbit uncertainty, close approach versus impact, probability, hazard scales, historical events and planetary defense. At least one complete lesson and quiz shall ship in the MVP. |
-| EDU-003 | Scientific claims and media shall include inspectable sources, attribution and permitted-use information. Broken PDF citation tokens shall not appear in published content. |
-| EDU-004 | Quizzes shall provide answer feedback and explanatory context. Persistent personal progress tracking is outside the baseline. |
-| EDU-005 | Lessons shall use readable language, headings, captions and alternative text and remain usable on small screens. |
+| DIF-001 | Reproject compatible inputs onto a common celestial grid while preserving coverage/mask and tested pixel/sky mapping. |
+| DIF-002 | Measure stationary-source alignment residuals and reject cases that fail the approved QC policy. |
+| DIF-003 | Produce signed science-minus-reference difference, validity/coverage and uncertainty/significance artifacts. |
+| DIF-004 | Document variance propagation and noise-correlation limitations introduced by resampling/convolution. A subtraction residual shall not itself be interpreted as motion. |
 
-### 5.7 Operational health
+### 4.6 Detection and association (`detection`, `association`, `candidates`)
 
 | ID | Requirement |
 | --- | --- |
-| OPS-001 | Liveness shall report whether the API process can respond without requiring upstream providers or database availability. |
-| OPS-002 | Readiness shall return success only when the database is reachable and the expected application schema can be queried; failure shall return 503 with sanitized output. |
-| OPS-003 | Operational logs shall identify request/job context, failures and last-success metadata without logging credentials. |
-| OPS-004 | Deployment documentation shall cover configuration, migrations, refresh scheduling, smoke checks, backup/restore and recovery. |
+| DET-001 | Detect per-epoch sources and significant positive/negative residuals, recording centroid uncertainty, SNR, morphology and quality context. |
+| DET-002 | Associate detections in celestial coordinates using time and measurement/registration uncertainty; preserve ambiguous alternatives. |
+| DET-003 | Classify hypotheses as possible_motion, brightness_change, artifact or uncertain, with explicit evidence and warning codes. |
+| DET-004 | Report displacement/angular evidence only with units, epochs and uncertainty; two-epoch evidence shall remain a candidate claim. |
+| DET-005 | Support valid successful analyses with zero candidates and make their coverage/QC evidence accessible. |
+| TRK-001 | Sequence extension: associate >=3 epochs into tentative tracks with supported detections, fit residuals/uncertainty and model-validity limits. |
+| TRK-002 | Sequence extension: handle missing detections, outliers, crossing/ambiguous tracks and bounded association complexity without claiming an orbital solution. |
 
-## 6. Data requirements
+### 4.7 Ranking and AI (`ranking`)
 
-### 6.1 Logical data model
-
-The following entities describe the target model; only the initial `NeoObject` table exists in the scaffold.
-Physical tables and migration details may evolve while preserving these relationships and semantics.
-
-| Entity | Core attributes and relationships |
+| ID | Requirement |
 | --- | --- |
-| NeoObject | Internal ID, canonical designation/name, type, source identity mapping; parent of observations and encounters |
-| ObjectAlias | Object FK, provider, external identifier/designation; uniqueness per provider identifier |
-| PhysicalSnapshot | Object FK, magnitude, diameter/range, measurement/estimate method, uncertainty, source snapshot |
-| OrbitSnapshot | Object FK, elements, units, epoch/time scale, solution ID and source snapshot |
-| CloseApproach | Object FK, provider event ID, body, source epoch/time scale, display time, distance AU, velocity km/s and uncertainty metadata |
-| RiskAssessment | Object FK, provider/solution, assessment scope, probability/hazard summary, source snapshot and effective/retrieval times |
-| VirtualImpactor | Assessment/object relationship, source event/solution key, impact epoch/time scale, event probability and published hazard values |
-| SourceSnapshot | Provider, request reference, signature, retrieved_at, checksum, raw payload/reference and transformation version |
-| IngestionRun | Provider/dataset, start/end, status, counts, failure details and snapshot relationships |
-| GeographicOverlay | Advanced: linked solution/event, GeoJSON, frame/method, uncertainty and validity metadata |
-| Lesson / Quiz | Version-controlled identifiers, reviewed content, citations, questions, answer rules and explanations; database storage optional |
+| ML-001 | Provide a reproducible classical baseline with method/config version and explainable features. Output shall be labeled candidate_score. |
+| ML-002 | AI release: integrate an evaluated CNN or Siamese ranker through the same explicit serving interface; an untrained/random model does not qualify. |
+| ML-003 | Record immutable weights/preprocessing/data/code identifiers, supported input shape and inference resource requirements. |
+| ML-004 | Distinguish candidate scores from calibrated probabilities. Probability labels require representative calibration/evaluation evidence and a referenced model card. |
+| ML-005 | AI release: the ML researcher shall supply held-out evaluation/baseline comparison, precision-recall/false-positive and domain-shift evidence with a leakage-controlled split description. The backend shall retain/reference this evidence. |
+| ML-006 | Model training/retraining shall be performed by the ML researcher outside backend delivery/API requests. The backend shall load only approved immutable supplied weights/inference code. |
+| ML-007 | Expose which ranker/mode is enabled, and fail explicitly if the selected model is unavailable; silent ranker substitution is prohibited. |
+| ML-008 | The researcher shall supply loading/inference code or an executable export, exact preprocessing/postprocessing, dependencies, input/output definitions and golden test cases. Backend acceptance shall reproduce reference outputs within agreed tolerances. |
 
-### 6.2 Scientific field conventions
+The model input boundary is a handoff decision: it may consume raw cutouts, aligned pairs, difference
+stamps or candidate features, or supply several scientific stages together. Logical pipeline stages do
+not require the backend developer to rebuild model internals. Map the supplied package to those stages
+explicitly and avoid duplicate normalization, registration or postprocessing. See [model handoff](docs/model_handoff.md).
 
-| Field family | Canonical convention |
+### 4.8 Evidence and public delivery (`artifacts`, `candidates`)
+
+| ID | Requirement |
 | --- | --- |
-| Diameter | km with explicit lower/upper bounds or measured value; nonnegative |
-| Distance | AU in persistence/API contract; secondary km display only through tested conversion |
-| Velocity | km/s; preserve source definition such as encounter relative velocity |
-| Mass | kg, optional; derived values require documented diameter/density assumptions |
-| Orbit | Named elements with units, epoch, frame and source conventions |
-| Probability | Numeric [0,1] plus scope and source precision; not an unlabeled percentage |
-| Torino | Nullable integer 0–10; no substitution for missing values |
-| Palermo | Nullable finite numeric score; interpretation explained separately |
-| Time | UTC for operational timestamps; original scientific epoch and time scale preserved |
-| Geometry | Advanced GeoJSON uses longitude/latitude order; geometry validity and dateline handling tested |
+| EVD-001 | Deliver original/aligned/difference previews, candidate stamps and machine-readable evidence with source attribution. |
+| EVD-002 | Include image dimensions, tested overlay transforms/WCS, pixel-origin convention, orientation, display stretch, timestamps and wavelength context. |
+| EVD-003 | Preserve full precision scientific artifacts separately from normalized browser previews. |
+| EVD-004 | Serve published artifacts through opaque IDs or scoped URLs, with media type/checksum/cache policy and no arbitrary path access. |
+| EVD-005 | Provide deterministic candidate pagination/detail and curated real-data examples for frontend integration. |
 
-**DAT-001:** Scientific records shall have referential integrity and provenance relationships.
-Foreign-key deletion behavior shall not unintentionally destroy retained scientific history.
+### 4.9 Health and operational capability
 
-**DAT-002:** Constraints and validation shall reject impossible ranges, non-finite numeric values,
-inconsistent size bounds, duplicate provider event keys and unsupported object types.
-
-**DAT-003:** Indexes shall support identity lookup, date-window queries and measured filter workloads.
-Index choices shall be checked with PostgreSQL query plans rather than assumed from SQLite tests.
-
-**DAT-004:** Normalization shall preserve original payload values or their source snapshot so that
-unit/time transformations can be audited. UI rounding shall not overwrite persisted precision.
-
-**DAT-005:** Data retention and deletion shall be explicit. Proposed demo policy: retain normalized
-solution history and refresh metadata for the release; retain raw snapshots for at least 30 days where
-storage/provider terms permit. Production retention needs budget and reviewer approval.
-
-**DAT-006:** Backup scope shall cover normalized data, provenance and migration state. Proposed MVP
-targets are daily backups, recovery point within 24 hours and restoration within 4 hours, subject to
-provider capability and a successful restore drill before public release.
-
-## 7. External and internal interface requirements
-
-### 7.1 REST conventions
-
-**API-001:** APIs shall be versioned under `/api/v1`, return JSON except documented media/geometry
-responses, and expose OpenAPI documentation. Public application routes are read-only in MVP.
-
-**API-002:** Collections shall use deterministic pagination with `items`, `total`, `limit` and `offset`.
-Default page size shall be 50 and maximum 100 unless a documented feature-specific contract replaces it.
-Large visualization requests shall also be bounded rather than bypassing collection limits.
-
-**API-003:** Invalid input shall return a documented validation response. Unknown resources shall
-return 404. Dependency failure shall return 503 where appropriate. Unexpected failures shall return
-sanitized 500 responses and a traceable request identifier once error standardization is implemented.
-
-**API-004:** Cross-field rules such as start date preceding end date shall be validated. Date-window
-limits and supported sort/filter keys shall be explicit in OpenAPI before feature acceptance.
-
-**API-005:** Unknown `/api/...` paths shall return API errors and shall never fall through to SPA HTML.
-Missing frontend assets shall return 404; valid client-side page routes may return the SPA entry point.
-
-### 7.2 Endpoint inventory
-
-“Initial” indicates a scaffold route; its final contract may require the extensions specified above.
-Future route names are the proposed contract baseline and require OpenAPI/test alignment during delivery.
-
-| Method and path | Purpose | State |
-| --- | --- | --- |
-| `GET /api/v1/health/live` | Process liveness | Initial |
-| `GET /api/v1/health/ready` | Database/schema readiness | Initial |
-| `GET /api/v1/neos` | Search/filter/paginate catalog | Initial, limited filters |
-| `GET /api/v1/neos/{id}` | Identity and scientific details | Initial, limited fields |
-| `GET /api/v1/approaches` | Filtered close-approach collection | Planned |
-| `GET /api/v1/neos/{id}/approaches` | Object-specific encounters | Planned |
-| `GET /api/v1/risk-assessments` | Source-aware risk collection | Planned |
-| `GET /api/v1/neos/{id}/risk-assessments` | Object assessments/history | Planned |
-| `GET /api/v1/neos/{id}/virtual-impactors` | Published VI events | Planned |
-| `GET /api/v1/visualization/timeline` | Bounded timeline representation | Planned |
-| `GET /api/v1/visualization/objects/{id}` | Orbit/approach data and geometry availability | Planned |
-| `GET /api/v1/sources/status` | Sanitized freshness and source state | Planned |
-| `GET /api/v1/education/lessons` | Lesson summaries | Planned |
-| `GET /api/v1/education/lessons/{slug}` | Lesson, citations and quiz content | Planned |
-| `GET /api/v1/education/glossary` | Reviewed terminology | Planned |
-
-Quiz scoring may occur client-side with no persistence in MVP; it shall not require a public write API.
-No refresh/admin endpoint is required. Advanced geometry endpoints shall be specified only after
-the scientific data source/method and response limits are approved.
-
-### 7.3 Provider interfaces
-
-| Provider/interface | Intended use | Required precautions |
-| --- | --- | --- |
-| JPL SBDB | Identity, physical/orbital data, ancillary approaches | Validate parameters, signature, units and solution metadata |
-| JPL CAD | Earth close-approach collection | Validate columns, dates/time scales and event identity |
-| JPL Sentry | Published risk and virtual impactors | Keep event versus aggregate semantics; handle revised/removed records |
-| NASA NeoWs | Optional complementary catalog/feed | Server-side key; verify request windows and policy |
-| ESA NEOCC | Secondary risk source if integrated | Verify current supported download/access and terms; preserve provenance |
-
-No external availability or accuracy guarantee is assumed. Current provider contracts shall be
-verified during adapter implementation and tested using dated fixtures. Provider changes shall
-fail visibly without silently corrupting published normalized data.
-
-## 8. Nonfunctional requirements
-
-The numerical values below are proposed MVP acceptance targets, not measured current performance
-or hosting guarantees. Record the actual hardware, dataset, concurrency and results during verification.
-
-| ID | Area | Requirement / measurable target |
-| --- | --- | --- |
-| NFR-001 | API responsiveness | For warmed cached reads, p95 server response <= 1 second over a 5-minute run with 20 concurrent clients and a 10,000-object test catalog; exclude upstream ingestion and document query mix. |
-| NFR-002 | Explorer performance | With 1,000 visible/test objects on an agreed reference laptop, filter changes should settle within 2 seconds after the API response; use clustering/level of detail as necessary. |
-| NFR-003 | Frontend loading | First useful catalog/explorer state should appear within 3 seconds on the agreed demo connection after the Space is awake; report cold-start behavior separately. |
-| NFR-004 | Freshness | Attempt configured source refresh daily. Default stale threshold shall be 48 hours after last success, configurable per source and visibly reported. |
-| NFR-005 | Reliability | Refresh failures shall preserve last-good data. Database unavailability shall produce actionable UI/API states rather than fabricated empty observations. |
-| NFR-006 | Availability | No 24/7 availability SLA is assumed for a sleeping demonstration Space. Scheduled demo windows shall be smoke-tested and have a labeled offline fallback. |
-| NFR-007 | Accessibility | Target WCAG 2.2 AA for implemented flows, verified through automated checks plus keyboard, focus, contrast and screen-reader review. Map-only access to essential information is prohibited. |
-| NFR-008 | Responsive layout | Core journeys shall remain usable from 360 px mobile width through desktop, without essential controls or table access being lost. |
-| NFR-009 | Browser support | Validate current stable Chrome, Edge, Firefox and Safari at release; record exact tested versions. |
-| NFR-010 | Security | Production shall use HTTPS, TLS for external database connections, server-side secrets, parameterized database access and least-privilege operational credentials. |
-| NFR-011 | Input/content safety | Validate query bounds and escape/render educational/provider content safely; arbitrary HTML/script execution and arbitrary URL fetching shall not be supported. |
-| NFR-012 | Privacy | MVP shall not collect accounts, location or personal quiz history. Any later analytics or retention of identifying access data requires a separate documented decision. |
-| NFR-013 | Maintainability | Feature boundaries, typed request/response schemas, migrations, module tests and documented service interfaces shall accompany changes. |
-| NFR-014 | Testability | Core scientific transformations shall be testable using fixtures without live provider access; CI shall also exercise real PostgreSQL migrations and reads. |
-| NFR-015 | Observability | Request/job logs shall support investigation of refresh failures, invalid responses and dependency errors without revealing secrets or raw sensitive configuration. |
-| NFR-016 | Portability | Docker builds shall not depend on developer-specific filesystem paths or uncommitted local files. Production processes shall run as a non-root user. |
-| NFR-017 | Reproducibility | Release dependencies shall be locked or constrained reproducibly; the release shall identify source fixtures, schema version and tested Git commit. |
-| NFR-018 | Scientific clarity | UI copy shall distinguish observed, estimated, unavailable and hypothetical data and shall preserve event/aggregate and approach/impact distinctions. |
-
-## 9. Security and configuration
-
-| Configuration | Location and handling |
+| ID | Requirement |
 | --- | --- |
-| `DATABASE_URL` | Backend runtime secret; PostgreSQL driver scheme and TLS options per deployment guide |
-| `NASA_API_KEY` | Backend/ingestion secret when NeoWs is enabled; never built into React |
-| `CORS_ORIGINS` | Explicit development/approved origins; production same-origin access preferred |
-| `STATIC_DIR` | Backend runtime path to compiled React assets in the combined image |
-| Provider retry/freshness settings | Validated ingestion configuration to be added with that module |
-| CI/Space synchronization credentials | CI secrets with least privilege; never repository files |
+| OPS-001 | Liveness shall be independent of provider/database availability; readiness shall check required database/schema dependencies. |
+| OPS-002 | Report scientific execution availability separately from API/database readiness; scaffold status shall not imply a functioning pipeline. |
+| OPS-003 | Provide structured sanitized request/job/stage diagnostics and last-known operational status. |
 
-**SEC-001:** Example credentials shall be clearly identified as local-only; production configuration
-shall not silently rely on development defaults. A release configuration check shall enforce this.
+## 5. Data and scientific contracts
 
-**SEC-002:** Logs, exception responses, OpenAPI examples and frontend bundles shall not disclose
-database credentials, tokens, private connection strings or unsanitized tracebacks.
+### 5.1 Initial schema
 
-**SEC-003:** Provider request destinations shall be defined by trusted adapter configuration.
-Public inputs shall not select arbitrary remote hosts or filesystem paths.
+Seven tables are defined: observations, analysis_runs, analysis_inputs, stage_executions,
+model_versions, candidates and artifacts. Foreign keys retain run/input/result relations; observation
+identity includes release/product namespace, and a run retains ordered distinct observation inputs.
+Detailed columns and future migrations are specified in [data model](docs/data_model.md).
 
-**SEC-004:** Authentication for future public write/admin functionality is outside MVP. Such
-functionality shall not be introduced without an access-control requirement and threat review.
+**DAT-001:** Source observation/product identity, original epoch/time scale, coordinate frame/units,
+calibration/release and raw/checksum provenance shall survive processing and be inspectable from a result.
 
-## 10. Deployment and operational requirements
+**DAT-002:** Numeric values shall be finite with domain-appropriate ranges. Unknown times, wavelength,
+variance, uncertainty or identity shall remain unavailable with a reason, not silently defaulted.
 
-**DEP-001:** Local Compose shall start PostgreSQL, run a one-shot migration after database health,
-then start FastAPI and React/Nginx. The database shall use a named persistent volume.
+**DAT-003:** Time conversion shall be explicit and validated, preserving original representation and
+precision. Future UTC assumptions, leap-second representation and unsupported conversions shall be labeled.
 
-**DEP-002:** The Hugging Face Space shall build the root Dockerfile and serve the combined application
-on configured port 7860. Local Compose orchestration is not the Space deployment mechanism.
+**DAT-004:** Candidate score, source intensity, probability, displacement and detection significance are
+different quantities and shall not be interchanged. UI rounding shall not overwrite retained precision.
 
-**DEP-003:** Production PostgreSQL shall be external to the Space application filesystem. Network
-reachability, TLS, permissions and backup capability shall be verified before release acceptance.
+**DAT-005:** Artifacts and model files shall have generated storage keys, hashes, byte counts, type,
+lineage and visibility state. Atomic result publication shall reference a validated immutable manifest.
 
-**DEP-004:** Migration execution shall be an explicit release step. A failed migration shall halt release
-progress; recovery may use a forward fix or tested restore and shall not assume all migrations are reversible.
+**DAT-006:** Retention/backups shall cover metadata and durable files consistently. Proposed demo
+retention is release-long curated results and seven-day failed temporary artifacts, pending budget/terms.
 
-**DEP-005:** Ingestion scheduling shall be external or otherwise independent of Space sleep/API workers.
-Job status shall remain inspectable and failures shall be observable to maintainers.
+### 5.2 Scientific validation
 
-**DEP-006:** CI shall run backend lint/tests, PostgreSQL migration application/schema drift check,
-frontend type/build checks and release-appropriate image smoke tests. Deployment synchronization
-shall be enabled only after credentials and target Space are configured.
+The team must establish acceptable wavelength overlap, time separation, usable coverage, registration
+residual, background/PSF mismatch, detection and association thresholds from representative data.
+These values remain TBD until feasibility measurements and scientific review; software defaults shall
+not be advertised as validated thresholds. See [science and ML validation](docs/science_ml_validation.md).
 
-**DEP-007:** Release smoke checks shall verify UI, assets, deep links, API docs, API 404s, liveness,
-readiness, populated/empty collections and database persistence across application restart.
+Required controls include stationary sources, injected movers, brightness-only changes, blended sources,
+bad pixels, saturated/edge regions, calibration/PSF differences and poor alignment. Injection recovery
+alone does not establish real-world precision. A human/reviewer role must approve scientific claims.
 
-## 11. Error and degraded-mode behavior
+## 6. Interface requirements
 
-| Condition | Required behavior |
+**API-001:** JSON REST shall be versioned under `/api/v1` and described by OpenAPI. Requests shall
+reject unknown fields, invalid coordinates/time windows, duplicate IDs and non-finite/out-of-bounds values.
+
+**API-002:** Current scaffold discovery/analysis routes shall return 503 feature_not_ready after schema
+validation until their implementations exist. Capability output shall disclose disabled stages/methods.
+
+**API-003:** Implemented durable submission shall return 202 only after persistence, with a stable job ID
+and status URL. State polling shall expose completion/failure without returning fake empty science data.
+
+**API-004:** Planned errors shall distinguish 404 unknown resource, 409 conflict, 422 invalid input/
+compatibility as documented, 429 quota and 503 unavailable capability/dependency. Error logs may retain
+diagnostic detail but public responses shall be sanitized and traceable by request/job ID.
+
+**API-005:** Collections shall use stable `{items,total,limit,offset}` pagination. Provider results may
+have different native pagination; adapters shall normalize it and disclose limits/overflow.
+
+**API-006:** The frontend shall receive documented evidence/overlay coordinate conventions and safe
+artifact URLs, without database/provider credentials or Python-specific serialized objects.
+
+Implemented/scaffold routes: GET health/live, health/ready, system/capabilities; POST observations/search
+and analyses. Planned routes include observation detail, compatibility validation, job status/cancel,
+candidate list/detail, artifact access and enabled model metadata. See [API contract](docs/api_contract.md)
+for examples and target behavior. No frontend is hosted by the backend container.
+
+## 7. Resource, quality and operational requirements
+
+Proposed budgets must be measured on recorded hardware/data before acceptance.
+
+| ID | Area | Requirement / target |
+| --- | --- | --- |
+| NFR-001 | Request limits | Search radius <=0.1 degree, window <=730 days, limit <=100; 2–6 input observations; cutout width <=5 arcmin and common-grid longest edge <=512 pixels. |
+| NFR-002 | Input resources | Default download cap 128 MiB/object and timeout 30 s; enforce decoded FITS dimensions/HDU/memory and total-job limits before processing. |
+| NFR-003 | API performance | Proposed warm cached metadata/status p95 <=500 ms at 10 concurrent clients; measure separately from upstream network and scientific jobs. |
+| NFR-004 | Job performance | Proposed cached two-epoch 256x256 classical processing <=60 s on agreed 2-vCPU/16-GB worker; initial deadline 180 s pending measurement. |
+| NFR-005 | Durability | API/worker restart shall not lose accepted jobs or publish partial output. Worker retries/leases/cancellation shall be tested. |
+| NFR-006 | Storage | App restarts shall not erase published metadata/artifacts/weights; production uses external persistence and tested restore. |
+| NFR-007 | Scientific quality | Numeric QC and ML quality targets require representative data and reviewer approval before production claims. No unmeasured accuracy target is asserted. |
+| NFR-008 | Reproducibility | Results shall identify sources, code/config/pipeline/dependency/model versions and transformations. A repeated controlled run shall reproduce within documented tolerances. |
+| NFR-009 | Testability | Unit/scientific tests shall run on clearly synthetic/generated data; PostgreSQL and real permitted-use fixture integration tests shall supplement them. |
+| NFR-010 | Observability | Record request/job/stage IDs, timings, retries, failure class and worker/queue health without secret leakage. |
+| NFR-011 | Maintainability | Feature ownership, typed interfaces, migrations, scientific function separation and frontend handoff examples shall accompany implementation. |
+| NFR-012 | Availability | No always-on SLA is assumed for a sleeping demo Space; validate wake/restart behavior and support labeled precomputed public demo results. |
+| NFR-013 | Accessible handoff | Evidence shall include text metadata and candidate lists usable without relying only on image color/overlays. Frontend owns final accessibility implementation. |
+
+## 8. Security and privacy
+
+**SEC-001:** Expensive submission/cancellation shall be protected before enabling execution, with bounded
+quotas and concurrency. Public access to curated read-only examples may remain unauthenticated.
+
+**SEC-002:** Submission secrets shall remain in trusted backend/frontend-server environments. A public
+React bundle shall not contain a shared processing credential. Anonymous processing requires a separate
+explicit quota/abuse-control design, not merely permissive CORS.
+
+**SEC-003:** Remote fetches shall validate trusted destinations and redirects and deny arbitrary/private
+network URLs. Input image decompression/array allocation and local artifact paths shall be bounded.
+
+**SEC-004:** Production shall use HTTPS, database/storage TLS, least-privilege credentials and sanitized
+logs/errors. Source attribution/license notices shall be preserved for data/calibration/model artifacts.
+
+**SEC-005:** Model loading shall use approved immutable artifacts; untrusted pickle/checkpoint execution
+and public model uploads are excluded. Dependency/model provenance shall be reviewed before activation.
+
+**SEC-006:** MVP shall not collect learner profiles, precise visitor location or persistent personal data.
+Any later accounts/analytics/retention expansion requires a documented change.
+
+## 9. Deployment requirements
+
+**DEP-001:** Local Compose shall start fresh PostgreSQL, apply the replacement migration once and then
+start the API. It shall not silently reuse/reset an unrelated prior schema or delete existing volumes.
+
+**DEP-002:** The root Dockerfile shall serve the backend API on Hugging Face port 7860 as UID 1000.
+Frontend code, build tooling and containers shall remain outside this backend-only delivery.
+
+**DEP-003:** Production shall use external PostgreSQL and durable artifact/model storage. Apply migrations
+as a controlled release step, and verify network access, secrets, persistence and database/object restore.
+
+**DEP-004:** Worker topology shall be chosen and tested before enabling submissions. A separate durable
+worker is preferred; a co-located supervised worker must recover safely across Space sleep/restart.
+
+**DEP-005:** CI shall exercise lint/API/schema tests, PostgreSQL migration/drift checks and subsequently
+scientific stage/queue/storage integration tests. Release checks shall include image start, readiness,
+capability accuracy, trusted CORS and complete evidence retrieval.
+
+## 10. Acceptance and traceability
+
+| Requirement group | Use cases / owners | Required acceptance evidence |
+| --- | --- | --- |
+| ARC-001–006 | All / backend | Module/interface review, migration registry, worker separation and image inspection |
+| OBS-001–005 | UC-01 / observations | Real compatible-pair manifest, metadata/API fixture and empty/failure tests |
+| CMP-001–004 | UC-02 / comparisons | Positive/negative compatibility reports and reviewed tolerances |
+| JOB-001–007 | UC-02, UC-06 / analyses | Idempotency, atomic claims, crash/retry/cancel and publication tests on PostgreSQL |
+| IMG-001–005 | UC-02 / cutouts, preprocessing | FITS/mask/unit/size tests, trusted download and storage evidence |
+| DIF-001–004 | UC-02 / registration, differencing | Stationary controls, measured registration/PSF QC, difference/variance tests |
+| DET-001–005 | UC-03 / detection, association | Motion/variable/artifact/uncertain and zero-candidate cases with provenance |
+| TRK-001–002 | UC-05 / association | Sequence/outlier/ambiguity tests and tentative-fit evidence |
+| ML-001–008 | UC-04 / ranking, ML researcher | Researcher evaluation/model card, immutable package, inference-parity and score-label tests |
+| EVD-001–005, API-001–006 | UC-03 / artifacts, frontend handoff | OpenAPI, preview/overlay coordinate tests, sample manifests and protected access |
+| DAT-001–006 | All / database, science | Schema integrity, source/transform audit and storage/backup consistency |
+| OPS-001–003, NFR-001–013 | UC-06 / operations | Health failures, resource/load measurements, reproducibility and diagnostics |
+| SEC-001–006, DEP-001–005 | All / deployment | Credential/URL/file-boundary tests, image/worker restart and restore smoke checks |
+
+### 10.1 Scientific baseline exit
+
+- A real compatible SPHEREx pair is retrieved reproducibly with source/time/wavelength/calibration metadata.
+- Durable job execution processes it with reviewed alignment/mask/variance/PSF/detection controls.
+- Candidate motion/brightness/artifact/uncertain interpretations include evidence; zero candidates is valid.
+- Classical scores are correctly labeled; artifacts and frontend overlay contracts work end-to-end.
+- PostgreSQL/worker/storage/recovery/security checks and measured resource budgets pass.
+
+### 10.2 AI-release exit
+
+- A trained CNN/Siamese model is reproducible, evaluated against baseline on a leakage-controlled split
+  and approved for its intended data conditions.
+- Serving matches training preprocessing, uses identified weights and meets measured resource limits.
+- Model card, subgroup/failure evidence and calibration labels are truthful and inspectable.
+
+### 10.3 Public-demo exit
+
+The frontend team demonstrates image comparison and candidate evidence on real SPHEREx data using
+the documented backend. A curated cached fallback is visibly identified. Full challenge rules/deadline,
+data/model attribution and submission requirements are verified before team submission.
+
+## 11. Open decisions and delivery control
+
+| Decision | Resolution needed |
 | --- | --- |
-| Upstream timeout/rate limiting | Bounded retry; log failed run; retain and identify last-good data |
-| Provider schema/signature mismatch | Quarantine/reject affected payload; report incompatibility; do not silently normalize |
-| Partial refresh | Report per-source/dataset outcome and do not imply all sources updated |
-| Database unavailable | Readiness 503; dependent API failures sanitized; UI explains inability to load |
-| No catalog imported | Explicit not-yet-populated state, distinct from no filter matches |
-| No matching filter results | Empty result with active filters visible and reset available |
-| Risk unavailable | Unknown/unavailable label; no substitution of probability zero |
-| Geographic geometry unavailable | Explain limitation; retain usable orbit/approach/table exploration |
-| Stale data | Last-success time and stale indicator remain visible |
-| Offline demonstration | Use separately identified snapshot mode; never label it as live |
+| Official full brief/rubric/deadline | Verify current authoritative resources; do not infer from older years |
+| Real target field/epochs/release | Milestone 1 feasibility, including actual usable image pair |
+| Scientific QC thresholds | Measurements and qualified review before enabling scientific stages |
+| Researcher model package and interface | Ownership confirmed; agree input boundary, runtime, goldens and delivery version before integration |
+| Model architecture/runtime | Researcher selects/trains the model; backend follows the delivered inference interface and resource requirements |
+| Storage provider and worker hardware/topology | Budget, Space networking/sleep and benchmark results |
+| Public submission access | Trusted frontend-server proxy for MVP; anonymous jobs require further design |
 
-## 12. Verification and acceptance
+Detailed implementation order is in [todo_plan.md](todo_plan.md). Changes to scope, science assumptions,
+schemas or API behavior shall update this SRS, the pipeline/API contract and acceptance tests together.
+No commit/push is performed without the user's explicit request; use main and anindya357 when authorized.
 
-### 12.1 Test levels
+## 12. References
 
-1. Unit: source parsers, range validation, unit/time conversions, aggregation policy and quiz logic.
-2. Module/API: contracts, filters, bounds, missing data, error responses and feature services.
-3. PostgreSQL integration: migrations, constraints, idempotency, transaction rollback and queries.
-4. Cross-feature: refresh through persistence to catalog/approach/risk/visualization responses.
-5. Browser: explorer, timeline, details, lessons, failure states and keyboard/mobile operation.
-6. Release: image startup, external database, TLS/secrets, persistence and recovery smoke checks.
-7. Scientific/content review: source comparisons, geometry claims, uncertainty and explanatory language.
-
-### 12.2 Requirements traceability matrix
-
-| Requirements | Main use case / owner | Required evidence |
-| --- | --- | --- |
-| ARC-001–006 | All / backend and deployment | Folder/interface review, migration metadata and image inspection |
-| CAT-001–006 | UC-01, UC-02 / catalog | Real-fixture comparison, identifier tests and list/detail browser/API tests |
-| APP-001–006 | UC-02, UC-03 / approaches | Encounter fixtures, unit/time boundary tests and timeline/table agreement |
-| RSK-001–007 | UC-04 / risk | Event/aggregate fixtures, revised/removed/null cases and reviewer sign-off |
-| ING-001–011 | UC-06 / ingestion | Repeat/concurrent runs, provider failures, schema drift and freshness checks |
-| VIS-001–006 | UC-01–04 / visualization | Linked-view tests, availability semantics, accessible alternative and performance evidence |
-| VIS-007–008 | Advanced / visualization | Approved scientific benchmark set, source/method traceability and simulation labels |
-| EDU-001–005 | UC-05 / education | Reviewed lesson/quiz, citations, attribution and accessibility checks |
-| OPS-001–004 | UC-06–07 / operations | Health failure tests, logs and recovery documentation |
-| DAT-001–006 | UC-06–07 / database | PostgreSQL constraints, audit trail, query plans and restore drill |
-| API-001–005 | UC-01–05 / API | OpenAPI review, contract tests, validation and routing tests |
-| NFR-001–006 | Exploration / reliability | Reproducible load/refresh tests and demo cold/warm-start record |
-| NFR-007–009 | Public journeys / frontend | Accessibility review, viewport checks and recorded browser matrix |
-| NFR-010–018, SEC-001–004 | All / technical and scientific reviewers | Config/secret review, locked release, module tests and scientific content review |
-| DEP-001–007 | UC-07 / deployment | CI artifacts, Compose/image smoke checks and Space release checklist |
-
-### 12.3 MVP exit criteria
-
-- All MVP requirements are implemented or have an explicitly approved, recorded exception.
-- A dated real-source dataset supports catalog, approaches and published risk context.
-- Provenance, missing/stale data and approach-versus-impact distinctions are visible and reviewed.
-- Explorer, linked details, timeline, accessible table and at least one complete lesson/quiz work end-to-end.
-- No fabricated or unvalidated geographic impact locations appear in observed-data mode.
-- PostgreSQL migrations and API tests, frontend build, browser/accessibility checks and measured targets pass.
-- The public deployment passes smoke checks and a database restore/persistence check is recorded.
-- Demo, repository, attribution, limitations and setup instructions are ready for submission review.
-
-### 12.4 Current verification boundary
-
-The scaffold has passed five local backend tests, lint, dependency consistency, frontend production
-build, Compose configuration validation and offline PostgreSQL migration SQL generation.
-Local API tests used SQLite. Full container execution and live PostgreSQL migration validation remain
-pending because Docker Desktop's engine was unavailable during setup. See `docs/verification.md`.
-These checks do not establish acceptance of the future ingestion, scientific or visualization features.
-
-## 13. Risks, decisions and open questions
-
-| ID | Risk / unresolved decision | Impact and required resolution |
-| --- | --- | --- |
-| OQ-01 | Official challenge prompt/deadline unconfirmed | Team supplies source prompt; verify scope and submission before final release |
-| OQ-02 | Geographic corridor availability/feasibility | Keep advanced; approve data/method and benchmarks before implementation |
-| OQ-03 | External PostgreSQL/provider budget | Choose provider, region, network/TLS and backup capability before deployment |
-| OQ-04 | ESA interface/terms and provider schema evolution | Verify current supported access; fixture and signature tests before enabling |
-| OQ-05 | Scientific reviewer and approval evidence | Name reviewer and record content/geometry review before public claims |
-| OQ-06 | Reference hardware and load dataset | Agree and record before accepting NFR-001–003 performance results |
-| OQ-07 | Raw snapshot retention/storage costs | Confirm proposed 30-day policy against terms, capacity and reproducibility needs |
-| OQ-08 | Map/globe/imagery library and licensing | Evaluate usability/performance and attribution before committing |
-| OQ-09 | Space sleep and demo network failures | Rehearse warm-up and clearly labeled offline snapshot fallback |
-| OQ-10 | Repository history and team contributions | Inspect actual GitHub checkout and reconcile scaffold before transfer/push |
-
-## 14. Delivery sequence and change control
-
-Implement in feature slices: foundation -> source feasibility -> catalog -> ingestion -> approaches
--> risk -> visualization -> education -> cross-feature QA -> deployment -> submission.
-Catalog contracts and ingestion interfaces should be agreed early; adapters can expand as each
-owning feature becomes ready. Detailed checklists are maintained in `todo_plan.md`.
-
-For every scope/contract change, record affected requirement IDs, reason, scientific/data impact,
-migration/API compatibility, tests and release scope. Keep this SRS, OpenAPI and the roadmap aligned.
-The team shall approve the MVP baseline before treating this draft as the final acceptance contract.
-
-| Version | Date | Change |
-| --- | --- | --- |
-| 1.0 | 2026-10-16 | Initial complete draft based on user stack requirements, supplied brief and modular scaffold |
-
-## 15. References
-
-- User-supplied planning brief: `D:\Executive Summary (Overall Idea & Scope).pdf`.
-- Project implementation roadmap: `todo_plan.md`.
-- Setup and module conventions: `README.md`.
-- Deployment and verification records: `docs/deployment.md`, `docs/verification.md`.
-- Target repository: https://github.com/Ahiraf/AegisEarth
-- JPL API documentation: https://ssd-api.jpl.nasa.gov/doc/
-- SBDB: https://ssd-api.jpl.nasa.gov/doc/sbdb.html
-- Close-Approach Data: https://ssd-api.jpl.nasa.gov/doc/cad.html
-- Sentry: https://ssd-api.jpl.nasa.gov/doc/sentry.html
-- NASA APIs: https://api.nasa.gov/
-- ESA NEOCC risk list: https://neo.ssa.esa.int/risk-list
-- Hugging Face Docker Spaces: https://huggingface.co/docs/hub/spaces-sdks-docker
-- Hugging Face storage: https://huggingface.co/docs/hub/spaces-storage
-
-External links identify implementation references. Current contracts, terms and availability must
-be checked when each provider/deployment feature is implemented; this draft does not certify them.
+- [Official challenge URL](https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/)
+- [Official-domain challenge summary](https://www.spaceappschallenge.org/2026/find-a-team/lsp26/)
+- [IRSA SPHEREx access](https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/)
+- [IRSA SPHEREx products](https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-products/)
+- [IRSA cutouts](https://irsa.ipac.caltech.edu/ibe/cutouts.html)
+- [Backend pipeline](docs/backend_pipeline.md), [data model](docs/data_model.md), [API contract](docs/api_contract.md)
+- [Scientific/ML validation](docs/science_ml_validation.md), [deployment](docs/deployment.md)

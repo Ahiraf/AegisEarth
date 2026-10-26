@@ -1,0 +1,7 @@
+{
+  "region": {"ra_deg": 127.69444, "dec_deg": -39.1776, "radius_deg": 0.01},
+  "start_at": "2025-05-01T00:00:00Z",
+  "end_at": "2025-11-01T00:00:00Z",
+  "collection": "spherex_qr3",
+  "limit": 20
+}

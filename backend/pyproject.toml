@@ -3,9 +3,9 @@ requires = ["setuptools>=75"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aegisearth-backend"
+name = "cosmic-motion-api"
 version = "0.1.0"
-description = "NEO risk visualization and education REST API"
+description = "SPHEREx image comparison and moving-source candidate backend"
 requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115,<1",
@@ -15,10 +15,15 @@ dependencies = [
   "alembic>=1.14,<2",
   "pydantic-settings>=2.7,<3",
   "httpx>=0.28,<1",
+  "astropy>=7,<9",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+imaging = ["numpy>=2,<3", "scipy>=1.14,<2", "photutils>=2,<4", "reproject>=0.14,<1", "pillow>=11,<13"]
+
+[project.scripts]
+cosmic-pipeline = "app.pipeline.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["app*"]
