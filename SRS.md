@@ -5,7 +5,7 @@
 | Document version | 1.0 — replacement product baseline |
 | Date | 26 October 2026 |
 | Status | Detailed engineering specification; scientific tolerances/model quality targets require validation |
-| Product | Cosmic Motion AI — AI-assisted moving-source candidate detection in SPHEREx images |
+| Product | AegisEarth AI — AI-assisted moving-source candidate detection in SPHEREx images |
 | Developer scope | Backend only; frontend owned by another team member |
 | Model ownership | ML researcher builds/trains/evaluates the model; backend developer integrates the supplied inference package |
 | Stack | Python 3.12+, FastAPI REST, PostgreSQL, scientific image-processing libraries, Docker |
