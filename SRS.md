@@ -15,7 +15,7 @@
 
 ## 1. Purpose and scope
 
-Cosmic Motion AI will help public users inspect repeated SPHEREx observations of the same sky region,
+AegisEarth AI will help public users inspect repeated SPHEREx observations of the same sky region,
 notice changes, and investigate possible moving sources with understandable evidence. The backend
 discovers image metadata, checks comparability, processes images, identifies candidate changes,
 ranks them using a classical or validated learned model, and supplies reproducible results to a viewer.
