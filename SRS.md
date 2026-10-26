@@ -1,4 +1,4 @@
-# Cosmic Motion AI — Software Requirements Specification
+# AegisEarth AI — Software Requirements Specification
 
 | Attribute | Baseline |
 | --- | --- |
