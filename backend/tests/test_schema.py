@@ -26,6 +26,15 @@ def test_migration_roundtrip(tmp_path):
             "model_versions",
             "candidates",
             "artifacts",
+            "processing_jobs",
+            "source_products",
+            "discovery_snapshots",
+            "sky_views",
+            "view_submissions",
+            "view_input_pins",
+            "view_files",
+            "prepared_frame_sets",
+            "prepared_artifacts",
         } <= set(inspect(engine).get_table_names())
         assert "neo_objects" not in inspect(engine).get_table_names()
         command.downgrade(config, "base")

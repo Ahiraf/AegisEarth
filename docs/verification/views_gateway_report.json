@@ -1,0 +1,9 @@
+{
+  "verified_at_utc": "2026-10-31T13:10:20.124234+00:00",
+  "checks": {
+    "native_view_read_via_authenticated_tls": true,
+    "committed_artifact_lookup": true,
+    "transactional_tls_admission_and_replay": true,
+    "capability_scoped_tls_cancellation": true
+  }
+}

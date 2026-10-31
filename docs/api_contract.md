@@ -1,118 +1,148 @@
-# REST contract and frontend handoff
+# REST contract and React handoff
 
-Base path `/api/v1`. Live OpenAPI: `/docs`, `/openapi.json`. Frontend implementation is maintained
-separately by its owner under `frontend/`. Only endpoints marked implemented/scaffold exist;
-planned routes are design contracts.
-The [OpenAPI snapshot](openapi.json) is generated from the actual app; regenerate it with
-`python scripts/export_openapi.py` from root using the backend environment. Machine-readable request
-examples are in [analysis_request.json](examples/analysis_request.json) and
-[observation_search.json](examples/observation_search.json). Their IDs/coordinates are schema examples,
-not verified real data or queued jobs.
+Revision: 31 October 2026. Base `/api/v1`.
+**Only existing routes in [openapi.json](openapi.json) are runtime contracts.** Step 2 discovery is
+implemented; step-3 view input acquisition is also implemented. Step 4 view-v2 frame/band preparation is also implemented; movie delivery and quantitative derived operations remain planned. See [discovery](discovery.md)
+for the full React handoff, limits, cache semantics and [working request](examples/discovery_search.json).
 
-## Endpoint inventory
+## Current scaffold
 
-| Method / path | Purpose | Current state |
+| Route | Actual state |
+| --- | --- |
+| GET `/health/live`, `/health/ready`, `/system/capabilities` | Implemented health/capability reporting |
+| GET `/targets` | Implemented five-target curated catalog snapshot with source epochs/provenance; not live discovery |
+| POST `/targets/resolve`, GET `/releases` | Coordinate normalization and versioned enabled collections |
+| POST `/observations/search` | discovery-v1 implemented; old radius contract explicitly retired with 410 |
+| GET `/observations/snapshots/{id}`, GET `/observations/{id}` | Immutable paged search results and original product metadata |
+| POST `/views`, GET `/views/{id}`, `/jobs/{id}`, POST `/views/{id}/cancel` | Implemented durable inputs_ready flow; [active contract](views.md) |
+| GET `/artifacts/{id}`, `/artifacts/{id}/content` | Committed input metadata and verified FITS bytes |
+| POST `/views` with view-v2; GET `/views/{id}/preparation`, `/views/{id}/bands` | Implemented prepared-frame report/local band context; [active contract](frame_preparation.md) |
+| GET `/bands`, `/bands/{id}` | Official nominal channels and representative curves |
+| POST `/analyses` | Strict legacy pair/sequence schema validated, then 503 feature_not_ready |
+
+Use [discovery_search.json](examples/discovery_search.json) for active discovery. The previous
+[observation_search.json](examples/observation_search.json) illustrates the retired legacy radius body.
+[analysis_request.json](examples/analysis_request.json) remains a schema example, not a queued job.
+Legacy analyses require 2–6 IDs, ≤5′ cutout and a ranking_method, but execution remains disabled.
+The planned view body below is not accepted by discovery or analyses.
+
+## Planned endpoints by feature
+
+| Method / path | Target behavior | Plan |
 | --- | --- | --- |
-| GET `/health/live` | API liveness | Implemented |
-| GET `/health/ready` | Database/schema checks; separate pipeline status | Implemented |
-| GET `/system/capabilities` | Service/pipeline availability | Implemented |
-| POST `/observations/search` | Bounded cone/time discovery | Validation implemented; 503 until adapter exists |
-| GET `/observations/{id}` | Persisted observation/provenance | Planned |
-| POST `/comparisons/validate` | Compatibility report | Planned |
-| POST `/analyses` | Durable processing job | Validation implemented; 503 until execution exists |
-| GET `/analyses/{id}` | Status, current stage and completed-result manifest | Planned |
-| POST `/analyses/{id}/cancel` | Protected cancellation | Planned |
-| GET `/analyses/{id}/candidates` | Paginated completed candidates | Planned |
-| GET `/candidates/{id}` | Evidence/detail | Planned |
-| GET `/artifacts/{id}` | Published safe preview/download reference | Planned |
-| GET `/models` | Enabled ranker versions/model-card references | Planned |
+| GET `/targets` | Curated catalog implemented; live availability enrichment remains planned | 1–2 |
+| POST `/targets/resolve` | Implemented coordinate normalization; no live name lookup | 2 |
+| GET `/releases` | Implemented enabled collections/formats/review/citations; scheduler remains future | 2, 10 |
+| POST `/observations/search` | Implemented discovery-v1 FOV/time/collection/band with explicit sample completeness | 2 |
+| GET `/observations/{id}`, `/observations/snapshots/{id}` | Implemented immutable source metadata and deterministic sample pages | 2 |
+| POST `/views` | Implemented view-v1 inputs and view-v2 preparation; movie manifests remain step 5 | 3–5 |
+| GET `/views/{id}` | Implemented input-job state/canonical selection/artifacts; no movie manifest yet | 5 |
+| GET `/views/{id}/manifest` | Frozen, versioned ordered frame manifest | 5 |
+| GET `/views/{id}/frames` | Stable frame pagination, metadata and artifacts | 5 |
+| POST `/views/{id}/cancel` | Implemented creator capability cancellation with worker fencing | 3 |
+| GET `/views/{id}/bands` | 102 nominal-channel definitions plus actual local coverage/detectors | 4 |
+| POST `/comparisons/validate` | Operation-specific display/difference/coadd/photometry eligibility and reasons | 4, 7 |
+| POST `/views/{id}/coadds`, `/views/{id}/differences` | Explicit input groups → bounded processing jobs | 7 |
+| POST `/views/{id}/spectra` | Coordinate/aperture/epoch extraction → bounded spectrum job | 8 |
+| GET `/spectra/{id}` | Wavelength/flux/errors/flags/gaps/method/source evidence + CSV link | 8 |
+| GET `/views/{id}/overlays` | Bounded Gaia/WISE request/status with epoch-aware layer data | 9 |
+| GET `/artifacts/{id}` | Implemented raw/prepared FITS, PNG/JSON metadata and verified /content | 3, 5 |
+| POST `/views/{id}/exports` | Bounded optional movie/export job; regular playback uses frames | 10 |
+| GET `/jobs/{id}` | Implemented view input jobs; derivative kinds remain future | 3, 7–10 |
+| POST `/admin/releases/refresh` | Authenticated, bounded source refresh | 10 |
+| POST `/views/{id}/suggestions` | Optional approved researcher predictor, disabled until integrated | 12 |
 
-## Current request examples
+Each route needs its Pydantic models, migration/repository/service, auth/quotas and OpenAPI/tests at
+implementation. Do not invent new implemented capabilities by listing them here.
 
-Observation search (coordinates in ICRS degrees; interval explicitly UTC):
-
-```json
-{
-  "region": {"ra_deg": 127.69444, "dec_deg": -39.1776, "radius_deg": 0.01},
-  "start_at": "2025-05-01T00:00:00Z",
-  "end_at": "2025-11-01T00:00:00Z",
-  "collection": "spherex_qr3",
-  "limit": 20
-}
-```
-
-This is a schema example, not a claim that images are available for these parameters.
-Implementing the adapter includes an explicit conversion to the provider's time/coordinate convention.
-
-Analysis submission (IDs below are placeholders, not real provider products):
+## Planned full-view request (future contract extension)
 
 ```json
 {
-  "observation_ids": ["local-observation-1", "local-observation-2"],
-  "mode": "pair",
-  "center_ra_deg": 127.69444,
-  "center_dec_deg": -39.1776,
-  "cutout_size_arcmin": 2,
-  "max_pixels": 256,
-  "ranking_method": "classical"
+  "contract_version": "view-v1",
+  "region": {"ra_deg": 133.7951291667, "dec_deg": -7.2451472222, "fov_arcmin": 5},
+  "time_window": null,
+  "release_policy": "prefer_latest_consistent",
+  "spectral_selection": {"mode": "common_available", "detector": null, "channel_id": null},
+  "temporal_grouping": {"mode": "native_epochs"},
+  "max_frames": 60,
+  "display": {"grid": "sky_fixed", "stretch": "shared_asinh"}
 }
 ```
 
-Current response to a valid request is 503 `feature_not_ready`; invalid bodies return FastAPI's 422
-validation response. Pair mode requires exactly two distinct IDs. Sequence mode requires 3–6 and is a
-planned capability; a valid schema is not proof the selected mode/ranker is enabled. Unknown body fields
-are rejected, including arbitrary URLs. All non-finite coordinates and out-of-bounds inputs are rejected.
+The active step-4 body is [prepared_view_request.json](examples/prepared_view_request.json), with [frame/band semantics](frame_preparation.md).
+The preserved step-3 body is [view_request.json](examples/view_request.json), documented in [views.md](views.md).
+Display/grouping fields in this future example are not accepted by the current strict schema.
 
-## Target asynchronous behavior
+This uses the brief's WISE 0855 seed converted to degrees, with no assumed astrometric epoch and
+no availability claim. `time_window=null` means discover source availability within documented
+service limits; it does not silently search only two predefined dates. `common_available` selects
+supported common local wavelengths, or returns choices/limits; it is not permission to blend all bands.
+Choose how new schemas coexist with legacy clients before implementation, and version that decision.
 
-After execution is implemented, valid protected submission returns 202 with `{id,status,status_url}` and
-an appropriate Location header. An Idempotency-Key identifies the request: repeated same body returns
-the same run, incompatible reuse returns 409. Validation failure is 422, incompatible science is 409/422
-with a documented compatibility report, unavailable capability/dependency is 503, quota is 429.
-Unknown resources return 404; failed jobs are retrieved successfully with status=failed and a safe error.
+A new job returns 202 only after durable acceptance, with ID/status URL/Location and any cancel token
+returned privately to the creator. An Idempotency-Key plus same normalized body reuses work; conflicting
+reuse returns 409. A cache hit may return 200 with a published view. Admin keys never enter React.
 
-The selected ranker/mode must be enabled before accepting the job. Use GET capabilities to build controls.
-Do not claim all algorithm choices are available merely because the request schema lists them.
+## Planned manifest contract
 
-Target job response:
+| Field group | Required semantics |
+| --- | --- |
+| Identity | view_id, manifest_version, frozen source snapshot and processing/config versions |
+| Requested/actual region | Normalized RA/Dec/FOV plus actual common coverage; no hidden cropping |
+| Outcome | no_data / single_epoch / ready_for_animation, distinct from processing state |
+| Time | Stable ordinal, UTC interval/midpoint, original scale/string precision, real gaps, contributors/time-bin bounds |
+| Spectral | Detector/channel/local center/width/response, nominal vs available coverage, composite weights |
+| Image | Preview/artifact IDs, dimensions, sky-fixed WCS/projection/origin/orientation, masks/grid/stretch policy |
+| Quality | Decoded flags, usable coverage, registration support/uncertainty, eligibility by operation, safe warnings |
+| Provenance | Product/release/calibration IDs, checksums, observation versus processing/retrieval dates, acknowledgements |
+| Related results | Optional coadd/difference/spectrum/overlay/suggestion links; core manifest has no mandatory model field |
 
-```json
-{
-  "id": "example-run-id",
-  "status": "running",
-  "current_stage": "register",
-  "pipeline_version": "versioned-release",
-  "completed_stages": ["validate_compatibility", "acquire_cutouts", "inspect_and_mask"],
-  "result": null,
-  "error": null
-}
+Frame timestamps are observational, not animation FPS. Equal playback intervals must not suggest uniform
+physical cadence. Use distinct masks for uncovered pixels; never render missing coverage as measured zero.
+Shared intensity scaling is the default for brightness comparison; alternative stretches are labeled.
+
+Collections use deterministic `{items,total,limit,offset}` when a complete total is known. Also expose
+`upstream_complete`, `returned_count`, `total=null` when unknown and a continuation/cursor where supported.
+An OVERFLOW sample cannot claim total=returned_count. Long source lists/frames must be paginated/batched.
+
+## Errors, public access and capabilities
+
+404 unknown resource; 422 invalid/ambiguous input; 409 incompatible operation/idempotency conflict;
+429 quota; 503 disabled/upstream capability. Empty source coverage and single-epoch outcomes are
+successful data states where discovery itself succeeded. Partial discovery is labeled, not concealed.
+Implemented discovery errors use FastAPI's `{"detail":{"code":"..."}}` envelope, with Retry-After
+for provider/concurrency failures; schema errors use the standard 422 validation details. Legacy
+radius search returns 410 `legacy_search_retired` with replacement `discovery-v1`.
+Job status can be retrieved even when processing failed, with safe reason/evidence; never publish partial
+science as a complete result. Optional operation/provider failure leaves original frames retrievable.
+
+Public reads and bounded anonymous viewing are planned. Server-side limits include normalized cache
+reuse, per-client/global quotas, time/byte/frame caps and cancel ownership. Admin refresh/bulk work uses
+protected server-side credentials. No BFF or shared browser secret is required for the ordinary visitor.
+Capabilities must distinguish native display, comparable movie, coadd, difference, spectrum, Gaia, WISE
+and optional inference with actual availability/limits; schema presence alone never enables a feature.
+
+## Frontend URL and embedding contract (planned)
+
+Coordinate link shape, using a placeholder frontend origin:
+
+```text
+<frontend-origin>/explore?v=1&ra=133.7951291667&dec=-7.2451472222&fov=5&band=common&mode=movie
+<frontend-origin>/v/<published-view-id>
+<frontend-origin>/embed/<published-view-id>
 ```
 
-This is a future contract example. Stage completion is more honest than inventing precise percentage/ETA.
-Collections use deterministic pagination `{items,total,limit,offset}`. Cancellation is cooperative; an API
-request is not a promise that an active native operation stops instantly.
+Include optional dates/detector/channel with explicit units. Coordinate URLs restore choices and may
+discover newer data; immutable view-ID URLs reproduce the frozen products/config. Neither carries
+credentials or cancel tokens. React parses/restores UI and implements embedding; backend normalizes/
+validates state and serves public manifests/artifacts. Agree frontend framing/CSP `frame-ancestors`,
+API CORS and artifact origins/cache policy; verify a real iframe from another site.
 
-## Score and evidence semantics
+React owns playback/loop/speed/scrub/step, keyboard/reduced-motion support, metadata/flag inspector,
+Aladin/overlay presentation and spectrum graphs. Backend owns data/units/WCS/transforms/source
+provenance/operation eligibility and jobs. Reprojected FITS and tested WCS/pixel mappings support
+Aladin; pre-rendered previews support lightweight animation without full FITS transfer per frame.
 
-- `candidate_score` is an uncalibrated ranking value in [0,1], not a probability or confirmation.
-- `calibrated_probability` requires a model/calibration reference and evaluation against relevant held-out data.
-  A schema accepting the label is not independent evidence that a model is calibrated.
-- Candidate classifications: `possible_motion`, `brightness_change`, `artifact`, `uncertain`.
-- Return original/aligned/difference evidence references, epoch/scale, local wavelength, QC warnings,
-  model/pipeline versions and source attribution. Keep no-candidate success distinct from failure.
-- Two-epoch displacement may be uncertain. Never describe a ranking score as chance of impact or Planet X discovery.
-
-## Frontend/backend boundary
-
-Frontend owns the viewer, blink/slider/side-by-side, navigation, accessible descriptions and overlay rendering.
-Backend owns compatible-image selection, science transforms, results/provenance and pixel/sky coordinates.
-The result manifest must state image dimensions, origin convention, celestial WCS or tested overlay transform,
-orientation, timestamps, display stretch and artifact URLs. A displayed PNG is not the original science array.
-
-Protect expensive submission with a server-side demo/service credential and bounded quotas before enabling it.
-If the public frontend needs on-demand submission, its server/BFF must proxy that credential; never bundle
-a shared secret in React. Public viewers may read curated precomputed runs without private submission access.
-Any anonymous on-demand submission is a later explicit quota/abuse-control decision.
-
-Current CORS permits configurable origins and GET/POST. Root API does not host a React app. Frontend CI,
-containers and deployment are managed separately by its owner.
+Existing OpenAPI export remains generated by `python scripts/export_openapi.py`; update snapshots
+and machine-readable **runtime** examples only when the corresponding routes are implemented.

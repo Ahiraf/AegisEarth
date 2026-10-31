@@ -1,0 +1,548 @@
+{
+  "generated_at_utc": "2026-10-26T14:26:06.734090+00:00",
+  "manifest_sha256": "1bac72156f86156ddceac9ce001a0fc7c9612813c9ac9fa109a90b2cc88e0bc8",
+  "scope": "offline_real_data_engineering_feasibility_not_motion_detection",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "logical_cpus": 16,
+    "packages": {
+      "astropy": "8.0.2",
+      "numpy": "2.5.4",
+      "psutil": "7.2.2"
+    }
+  },
+  "observations": {
+    "reference": {
+      "observation_id": "2026W20_2A_0464_1",
+      "detector": 2,
+      "pipeline_version": "6.5.7",
+      "reference_catalog": "SPHEREx_RefCat_v0.73",
+      "time_scale": "UTC",
+      "mjd_start_original": "61177.453996019",
+      "mjd_mid_original": "61177.454662208",
+      "start_utc": "2026-05-17T10:53:45.256Z",
+      "mid_utc": "2026-05-17T10:54:42.815Z",
+      "end_utc": "2026-05-17T10:55:40.374Z",
+      "shape": [
+        20,
+        20
+      ],
+      "unit": "MJy / sr",
+      "frame": "ICRS",
+      "target_pixel_0based": [
+        9.072502673464568,
+        9.602279119673621
+      ],
+      "target_detector_pixel_0based": [
+        45.07250267346457,
+        777.6022791196737
+      ],
+      "wavelength_um": 1.42031482514723,
+      "bandwidth_um": 0.03422622588922132,
+      "finite_fraction": 1.0,
+      "usable_fraction": 0.9975,
+      "unknown_flag_pixels": 0,
+      "flag_definitions": {
+        "MP_TRANSIENT": 0,
+        "MP_OVERFLOW": 1,
+        "MP_SUR_ERROR": 2,
+        "MP_PHANTOM": 4,
+        "MP_REFERENCE": 5,
+        "MP_NONFUNC": 6,
+        "MP_DICHROIC": 7,
+        "MP_MISSING_DATA": 9,
+        "MP_HOT": 10,
+        "MP_COLD": 11,
+        "MP_FULLSAMPLE": 12,
+        "MP_PHANMISS": 14,
+        "MP_NONLINEAR": 15,
+        "MP_PERSIST": 17,
+        "MP_OUTLIER": 19,
+        "MP_SOURCE": 21,
+        "MP_GHOST": 22,
+        "MP_GHOST_FPA": 23,
+        "MP_GHOST_EXT": 24,
+        "MP_BLOOM": 26,
+        "MP_SNOWBALL": 27,
+        "MP_HALO": 28
+      },
+      "flagged_pixels": {
+        "MP_TRANSIENT": 0,
+        "MP_OVERFLOW": 0,
+        "MP_SUR_ERROR": 0,
+        "MP_PHANTOM": 0,
+        "MP_REFERENCE": 0,
+        "MP_NONFUNC": 0,
+        "MP_DICHROIC": 0,
+        "MP_MISSING_DATA": 0,
+        "MP_HOT": 0,
+        "MP_COLD": 0,
+        "MP_FULLSAMPLE": 0,
+        "MP_PHANMISS": 0,
+        "MP_NONLINEAR": 0,
+        "MP_PERSIST": 0,
+        "MP_OUTLIER": 0,
+        "MP_SOURCE": 400,
+        "MP_GHOST": 0,
+        "MP_GHOST_FPA": 0,
+        "MP_GHOST_EXT": 0,
+        "MP_BLOOM": 0,
+        "MP_SNOWBALL": 0,
+        "MP_HALO": 1
+      },
+      "psf_cube_shape": [
+        121,
+        101,
+        101
+      ],
+      "psf_zone_fits_1based": 45,
+      "psf_plane_finite": true,
+      "psf_plane_sum": 1.0,
+      "psf_plane_sha256": "3cf3a3aafce145fb39163fc798b4564d792c9284eb9d5e98087aa0fb68e9a3a0",
+      "psf_fwhm_arcsec": 5.153916273778412,
+      "fits_checksum_present": [],
+      "hdus": [
+        {
+          "name": "PRIMARY",
+          "shape": null
+        },
+        {
+          "name": "IMAGE",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "FLAGS",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "VARIANCE",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "ZODI",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "PSF",
+          "shape": [
+            121,
+            101,
+            101
+          ]
+        },
+        {
+          "name": "WCS-WAVE",
+          "shape": [
+            1
+          ]
+        }
+      ],
+      "inspection_seconds": 0.193743,
+      "collection": "spherex_qr2",
+      "processing_family": "l2b-v25"
+    },
+    "compatible_repeat": {
+      "observation_id": "2026W26_1A_0178_1",
+      "detector": 2,
+      "pipeline_version": "6.5.7",
+      "reference_catalog": "SPHEREx_RefCat_v0.73",
+      "time_scale": "UTC",
+      "mjd_start_original": "61213.84830081",
+      "mjd_mid_original": "61213.848966999",
+      "start_utc": "2026-06-22T20:21:33.190Z",
+      "mid_utc": "2026-06-22T20:22:30.749Z",
+      "end_utc": "2026-06-22T20:23:28.308Z",
+      "shape": [
+        20,
+        20
+      ],
+      "unit": "MJy / sr",
+      "frame": "ICRS",
+      "target_pixel_0based": [
+        9.950042166746265,
+        9.643426481651241
+      ],
+      "target_detector_pixel_0based": [
+        41.950042166746265,
+        776.6434264816512
+      ],
+      "wavelength_um": 1.4206876720174488,
+      "bandwidth_um": 0.03423622224979701,
+      "finite_fraction": 1.0,
+      "usable_fraction": 0.9925,
+      "unknown_flag_pixels": 0,
+      "flag_definitions": {
+        "MP_TRANSIENT": 0,
+        "MP_OVERFLOW": 1,
+        "MP_SUR_ERROR": 2,
+        "MP_PHANTOM": 4,
+        "MP_REFERENCE": 5,
+        "MP_NONFUNC": 6,
+        "MP_DICHROIC": 7,
+        "MP_MISSING_DATA": 9,
+        "MP_HOT": 10,
+        "MP_COLD": 11,
+        "MP_FULLSAMPLE": 12,
+        "MP_PHANMISS": 14,
+        "MP_NONLINEAR": 15,
+        "MP_PERSIST": 17,
+        "MP_OUTLIER": 19,
+        "MP_SOURCE": 21,
+        "MP_GHOST": 22,
+        "MP_GHOST_FPA": 23,
+        "MP_GHOST_EXT": 24,
+        "MP_BLOOM": 26,
+        "MP_SNOWBALL": 27,
+        "MP_HALO": 28
+      },
+      "flagged_pixels": {
+        "MP_TRANSIENT": 0,
+        "MP_OVERFLOW": 0,
+        "MP_SUR_ERROR": 0,
+        "MP_PHANTOM": 0,
+        "MP_REFERENCE": 0,
+        "MP_NONFUNC": 0,
+        "MP_DICHROIC": 0,
+        "MP_MISSING_DATA": 0,
+        "MP_HOT": 0,
+        "MP_COLD": 0,
+        "MP_FULLSAMPLE": 0,
+        "MP_PHANMISS": 0,
+        "MP_NONLINEAR": 0,
+        "MP_PERSIST": 2,
+        "MP_OUTLIER": 0,
+        "MP_SOURCE": 400,
+        "MP_GHOST": 0,
+        "MP_GHOST_FPA": 0,
+        "MP_GHOST_EXT": 0,
+        "MP_BLOOM": 0,
+        "MP_SNOWBALL": 0,
+        "MP_HALO": 1
+      },
+      "psf_cube_shape": [
+        121,
+        101,
+        101
+      ],
+      "psf_zone_fits_1based": 45,
+      "psf_plane_finite": true,
+      "psf_plane_sum": 1.0,
+      "psf_plane_sha256": "3cf3a3aafce145fb39163fc798b4564d792c9284eb9d5e98087aa0fb68e9a3a0",
+      "psf_fwhm_arcsec": 5.153916273778412,
+      "fits_checksum_present": [],
+      "hdus": [
+        {
+          "name": "PRIMARY",
+          "shape": null
+        },
+        {
+          "name": "IMAGE",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "FLAGS",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "VARIANCE",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "ZODI",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "PSF",
+          "shape": [
+            121,
+            101,
+            101
+          ]
+        },
+        {
+          "name": "WCS-WAVE",
+          "shape": [
+            1
+          ]
+        }
+      ],
+      "inspection_seconds": 0.178451,
+      "collection": "spherex_qr2",
+      "processing_family": "l2b-v25"
+    },
+    "incompatible_control": {
+      "observation_id": "2026W20_2A_0464_2",
+      "detector": 2,
+      "pipeline_version": "6.5.7",
+      "reference_catalog": "SPHEREx_RefCat_v0.73",
+      "time_scale": "UTC",
+      "mjd_start_original": "61177.455488275",
+      "mjd_mid_original": "61177.456154465",
+      "start_utc": "2026-05-17T10:55:54.187Z",
+      "mid_utc": "2026-05-17T10:56:51.746Z",
+      "end_utc": "2026-05-17T10:57:49.305Z",
+      "shape": [
+        20,
+        20
+      ],
+      "unit": "MJy / sr",
+      "frame": "ICRS",
+      "target_pixel_0based": [
+        9.931395511821021,
+        9.449147566593002
+      ],
+      "target_detector_pixel_0based": [
+        42.93139551182102,
+        662.449147566593
+      ],
+      "wavelength_um": 1.4543873958654596,
+      "bandwidth_um": 0.035448024401212135,
+      "finite_fraction": 1.0,
+      "usable_fraction": 0.9375,
+      "unknown_flag_pixels": 0,
+      "flag_definitions": {
+        "MP_TRANSIENT": 0,
+        "MP_OVERFLOW": 1,
+        "MP_SUR_ERROR": 2,
+        "MP_PHANTOM": 4,
+        "MP_REFERENCE": 5,
+        "MP_NONFUNC": 6,
+        "MP_DICHROIC": 7,
+        "MP_MISSING_DATA": 9,
+        "MP_HOT": 10,
+        "MP_COLD": 11,
+        "MP_FULLSAMPLE": 12,
+        "MP_PHANMISS": 14,
+        "MP_NONLINEAR": 15,
+        "MP_PERSIST": 17,
+        "MP_OUTLIER": 19,
+        "MP_SOURCE": 21,
+        "MP_GHOST": 22,
+        "MP_GHOST_FPA": 23,
+        "MP_GHOST_EXT": 24,
+        "MP_BLOOM": 26,
+        "MP_SNOWBALL": 27,
+        "MP_HALO": 28
+      },
+      "flagged_pixels": {
+        "MP_TRANSIENT": 8,
+        "MP_OVERFLOW": 0,
+        "MP_SUR_ERROR": 0,
+        "MP_PHANTOM": 0,
+        "MP_REFERENCE": 0,
+        "MP_NONFUNC": 1,
+        "MP_DICHROIC": 0,
+        "MP_MISSING_DATA": 0,
+        "MP_HOT": 0,
+        "MP_COLD": 0,
+        "MP_FULLSAMPLE": 0,
+        "MP_PHANMISS": 0,
+        "MP_NONLINEAR": 0,
+        "MP_PERSIST": 0,
+        "MP_OUTLIER": 0,
+        "MP_SOURCE": 400,
+        "MP_GHOST": 0,
+        "MP_GHOST_FPA": 0,
+        "MP_GHOST_EXT": 0,
+        "MP_BLOOM": 0,
+        "MP_SNOWBALL": 0,
+        "MP_HALO": 24
+      },
+      "psf_cube_shape": [
+        121,
+        101,
+        101
+      ],
+      "psf_zone_fits_1based": 34,
+      "psf_plane_finite": true,
+      "psf_plane_sum": 1.0,
+      "psf_plane_sha256": "8c791292a2fda5f4d818a8e0a171207869528dc3ede4fa3ace0ef7831eb80689",
+      "psf_fwhm_arcsec": 5.153916273778412,
+      "fits_checksum_present": [],
+      "hdus": [
+        {
+          "name": "PRIMARY",
+          "shape": null
+        },
+        {
+          "name": "IMAGE",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "FLAGS",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "VARIANCE",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "ZODI",
+          "shape": [
+            20,
+            20
+          ]
+        },
+        {
+          "name": "PSF",
+          "shape": [
+            121,
+            101,
+            101
+          ]
+        },
+        {
+          "name": "WCS-WAVE",
+          "shape": [
+            1
+          ]
+        }
+      ],
+      "inspection_seconds": 0.125372,
+      "collection": "spherex_qr2",
+      "processing_family": "l2b-v25"
+    }
+  },
+  "comparisons": {
+    "compatible_repeat": {
+      "policy": {
+        "version": "engineering-preflight-v1",
+        "minimum_epoch_separation_seconds": 60,
+        "minimum_usable_fraction": 0.9,
+        "minimum_common_fraction": 0.8,
+        "minimum_local_interval_overlap": 0.9,
+        "maximum_center_shift_in_bandwidths": 0.1
+      },
+      "checks": {
+        "distinct_observations": true,
+        "known_same_time_scale": true,
+        "epoch_separation": true,
+        "same_pipeline": true,
+        "same_collection": true,
+        "same_processing_family": true,
+        "same_detector": true,
+        "corrected_psf_headers": true,
+        "usable_inputs": true,
+        "known_flag_semantics": true,
+        "common_coverage": true,
+        "local_wavelength_overlap": true,
+        "center_wavelength_shift": true,
+        "psf_data_available": true
+      },
+      "blocking_reasons": [],
+      "feasible_for_backend_development": true,
+      "epoch_separation_seconds": 3144467.934,
+      "center_shift_in_bandwidths": 0.010893601632434087,
+      "center_interval_overlap_proxy": 0.9892524320057516,
+      "geometry": {
+        "reference_pixels": 400,
+        "geometric_overlap_fraction": 0.9025,
+        "common_usable_pixels": 353,
+        "common_usable_fraction": 0.8825,
+        "minimum_local_interval_overlap": 0.98922210473027,
+        "median_local_interval_overlap": 0.9892542778520593,
+        "mapping_method": "celestial_WCS_with_conservative_four_neighbor_mask",
+        "astrometric_registration_validated": false
+      },
+      "scientific_motion_validation": "not_performed",
+      "limitations": [
+        "FWHM interval proxy is not full spectral-response equivalence",
+        "Numerical WCS overlap is not an empirical registration/PSF-match validation",
+        "No model, moving-source confirmation or calibrated detection probability"
+      ]
+    },
+    "incompatible_control": {
+      "policy": {
+        "version": "engineering-preflight-v1",
+        "minimum_epoch_separation_seconds": 60,
+        "minimum_usable_fraction": 0.9,
+        "minimum_common_fraction": 0.8,
+        "minimum_local_interval_overlap": 0.9,
+        "maximum_center_shift_in_bandwidths": 0.1
+      },
+      "checks": {
+        "distinct_observations": true,
+        "known_same_time_scale": true,
+        "epoch_separation": true,
+        "same_pipeline": true,
+        "same_collection": true,
+        "same_processing_family": true,
+        "same_detector": true,
+        "corrected_psf_headers": true,
+        "usable_inputs": true,
+        "known_flag_semantics": true,
+        "common_coverage": false,
+        "local_wavelength_overlap": false,
+        "center_wavelength_shift": false,
+        "psf_data_available": true
+      },
+      "blocking_reasons": [
+        "common_coverage",
+        "local_wavelength_overlap",
+        "center_wavelength_shift"
+      ],
+      "feasible_for_backend_development": false,
+      "epoch_separation_seconds": 128.93099999999933,
+      "center_shift_in_bandwidths": 0.9955106013882751,
+      "center_interval_overlap_proxy": 0.022338262753883512,
+      "geometry": {
+        "reference_pixels": 400,
+        "geometric_overlap_fraction": 0.9025,
+        "common_usable_pixels": 316,
+        "common_usable_fraction": 0.79,
+        "minimum_local_interval_overlap": 0.019339822824994312,
+        "median_local_interval_overlap": 0.021908801828742268,
+        "mapping_method": "celestial_WCS_with_conservative_four_neighbor_mask",
+        "astrometric_registration_validated": false
+      },
+      "scientific_motion_validation": "not_performed",
+      "limitations": [
+        "FWHM interval proxy is not full spectral-response equivalence",
+        "Numerical WCS overlap is not an empirical registration/PSF-match validation",
+        "No model, moving-source confirmation or calibrated detection probability"
+      ]
+    }
+  },
+  "profile": {
+    "total_seconds_including_optional_downloads": 1.750868,
+    "maximum_sampled_process_rss_bytes": 70508544,
+    "memory_method": "RSS sampled before/after operations; not a true peak or incremental allocation",
+    "download_seconds_this_run": {},
+    "total_cutout_bytes": 15189120,
+    "gpu_required_for_this_probe": false
+  }
+}

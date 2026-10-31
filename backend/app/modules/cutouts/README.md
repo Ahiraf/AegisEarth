@@ -1,4 +1,5 @@
-# Cutout acquisition (planned)
-Resolve trusted IRSA observation URLs, stream bounded FITS cutouts, verify size/checksum and store
-immutable artifacts. Own HTTP retries, allowlisted destinations/redirects and cache keys.
-Do not accept arbitrary caller-supplied URLs. See docs/backend_pipeline.md stages 2-3.
+# Cutouts
+
+Step 3 implements trusted IRSA links, bounded atomic transfers, SHA-256 pins and structural QR2/QR3
+FITS validation in the isolated worker. No caller URL accepted. [Contract](../../../../docs/views.md).
+Mask/response/registration/photometry eligibility remains later scientific preparation work.

@@ -33,7 +33,7 @@ def test_openapi_exposes_new_scope_only():
     assert "/api/v1/neos" not in schema["paths"]
 
 
-def test_discovery_unavailable_is_distinct_from_empty_results():
+def test_legacy_discovery_explicitly_retired():
     query = {
         "region": {"ra_deg": 12, "dec_deg": -20, "radius_deg": 0.01},
         "start_at": "2025-05-01T00:00:00Z",
@@ -41,7 +41,7 @@ def test_discovery_unavailable_is_distinct_from_empty_results():
     }
     with TestClient(app) as client:
         response = client.post("/api/v1/observations/search", json=query)
-        assert response.status_code == 503
+        assert response.status_code == 410
         assert "items" not in response.json()
 
 

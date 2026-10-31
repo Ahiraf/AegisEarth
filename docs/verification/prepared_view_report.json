@@ -1,0 +1,326 @@
+{
+  "verified_at_utc": "2026-10-31T14:00:48.211367+00:00",
+  "request": {
+    "contract_version": "view-v2",
+    "region": {
+      "ra": 269.45,
+      "dec": 4.76,
+      "width_arcmin": 3,
+      "height_arcmin": 3
+    },
+    "collections": [
+      "spherex_qr3"
+    ],
+    "max_frames": 1,
+    "preparation": {
+      "spectral_mode": "common_available"
+    }
+  },
+  "checks": {
+    "live_view_v2_preparation": true,
+    "single_input_not_claimed_as_animation": true,
+    "prepared_png_fits_json_hashes": true,
+    "local_proxy_distinct_from_nominal_catalog": true,
+    "https_preparation_parity": true
+  },
+  "view_id": "3b48c76b-3cf8-44e9-a75d-edaf093a7610",
+  "result": {
+    "stage": "frames_prepared",
+    "input_count": 1,
+    "total_bytes": 4086680,
+    "preparation_url": "/api/v1/views/3b48c76b-3cf8-44e9-a75d-edaf093a7610/preparation",
+    "prepared_artifact_count": 4,
+    "viewer_execution_available": false
+  },
+  "preparation": {
+    "grid": {
+      "mode": "sky_fixed",
+      "shape": [
+        30,
+        30
+      ],
+      "header": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =                 15.5 / Pixel coordinate of reference point            \nCRPIX2  =                 15.5 / Pixel coordinate of reference point            \nCDELT1  =  -0.0016666667724366 / [deg] Coordinate increment at reference point  \nCDELT2  =   0.0016666667724366 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN'           / Right ascension, gnomonic projection           \nCTYPE2  = 'DEC--TAN'           / Declination, gnomonic projection               \nCRVAL1  =               269.45 / [deg] Coordinate value at reference point      \nCRVAL2  =                 4.76 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =                 4.76 / [deg] Native latitude of celestial pole        \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ",
+      "variance": "squared_bilinear_weights_marginal_only",
+      "png_flip_y": true,
+      "pixel_origin": "FITS_lower_left",
+      "requested_region": {
+        "frame": "icrs",
+        "ra_deg": 269.45,
+        "dec_deg": 4.76,
+        "projection": "TAN_north_up_east_left",
+        "width_arcmin": 3.0,
+        "height_arcmin": 3.0,
+        "corners_icrs_deg": [
+          [
+            269.4249143888997,
+            4.734999548232575
+          ],
+          [
+            269.4750856111002,
+            4.734999548232575
+          ],
+          [
+            269.4750874340424,
+            4.784999543439925
+          ],
+          [
+            269.4249125659575,
+            4.784999543439925
+          ]
+        ],
+        "search_radius_deg": 0.03535533781560852
+      }
+    },
+    "frames": [
+      {
+        "psf": {
+          "sum": 1.0,
+          "shape": [
+            33,
+            33
+          ],
+          "format": "qr3_epsf_table",
+          "available": true,
+          "row_0based": 430,
+          "plane_sha256": "f015f188bace8d160042a9a2022b9c645aaceb10c5fbe4e5a3de83ea71d136d1",
+          "support_stars": 493,
+          "applied_psf_matching": false,
+          "representative_detector_pixel_0based": [
+            1053.431237455753,
+            2024.7810656501078
+          ]
+        },
+        "unit": "MJy/sr",
+        "index": 0,
+        "end_mjd": 61273.381511684,
+        "mid_mjd": 61273.380845495,
+        "quality": {
+          "policy": "strict-flags-v1",
+          "usable_fraction": 0.9840628507295174,
+          "flag_definitions": {
+            "MP_HOT": 10,
+            "MP_COLD": 11,
+            "MP_HALO": 28,
+            "MP_BLOOM": 26,
+            "MP_GHOST": 22,
+            "MP_SOURCE": 21,
+            "MP_STREAK": 25,
+            "MP_NONFUNC": 6,
+            "MP_OUTLIER": 19,
+            "MP_PERSIST": 17,
+            "MP_DICHROIC": 7,
+            "MP_OVERFLOW": 1,
+            "MP_PHANMISS": 14,
+            "MP_SNOWBALL": 27,
+            "MP_CROSSTALK": 20,
+            "MP_GHOST_EXT": 24,
+            "MP_GHOST_FPA": 23,
+            "MP_NONLINEAR": 15,
+            "MP_SUR_ERROR": 2,
+            "MP_TRANSIENT": 0,
+            "MP_FULLSAMPLE": 12,
+            "MP_MISSING_DATA": 9
+          },
+          "informational_flags": [
+            "MP_SOURCE",
+            "MP_FULLSAMPLE"
+          ],
+          "unknown_flag_pixels": 0
+        },
+        "release": "qr3",
+        "stretch": {
+          "mode": "shared_asinh",
+          "limits_mjy_sr": [
+            0.12999629370730842,
+            13.693229611402513
+          ],
+          "asinh_softening": 10
+        },
+        "detector": "D5",
+        "spectral": {
+          "method": "WCS-WAVE_visualization_proxy",
+          "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+          "center_inside": true,
+          "center_usable": true,
+          "center_sampling": "nearest_native_pixel_visualization_proxy",
+          "native_range_scope": "padded_native_cutout",
+          "center_bandwidth_um": 0.03475062636750125,
+          "wavelength_range_um": [
+            3.7983829975128174,
+            3.8142480267127055
+          ],
+          "center_wavelength_um": 3.8025435706814465,
+          "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+          "quantitative_calibration": false,
+          "nominal_window_candidates": [],
+          "usable_wavelength_range_um": [
+            3.7983829975128174,
+            3.8142480267127055
+          ],
+          "requested_region_nominal_window_candidates": [],
+          "requested_region_usable_wavelength_range_um": [
+            3.7984779754496367,
+            3.806826400921973
+          ]
+        },
+        "start_mjd": 61273.380179306,
+        "collection": "spherex_qr3",
+        "native_wcs": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =                  7.5 / Pixel coordinate of reference point            \nCRPIX2  =               -964.5 / Pixel coordinate of reference point            \nPC1_1   =     0.00170326518577 / Coordinate transformation matrix element       \nPC1_2   =   -3.98511896161E-05 / Coordinate transformation matrix element       \nPC2_1   =   -3.97439226364E-05 / Coordinate transformation matrix element       \nPC2_2   =    -0.00170741784836 / Coordinate transformation matrix element       \nCDELT1  =                  1.0 / [deg] Coordinate increment at reference point  \nCDELT2  =                  1.0 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCTYPE2  = 'DEC--TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCRVAL1  =        269.431657284 / [deg] Coordinate value at reference point      \nCRVAL2  =        6.48054747403 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =        6.48054747403 / [deg] Native latitude of celestial pole        \nTIMESYS = 'UTC'                / Time scale                                     \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nDATE-OBS= '2026-08-21T09:07:27.492' / ISO-8601 time of observation              \nMJD-OBS =      61273.380179306 / [d] MJD of observation                         \nDATE-BEG= '2026-08-21T09:07:27.492' / ISO-8601 time at start of observation     \nMJD-BEG =      61273.380179306 / [d] MJD at start of observation                \nDATE-AVG= '2026-08-21T09:08:25.051' / ISO-8601 time at midpoint of observation  \nMJD-AVG =      61273.380845495 / [d] MJD at midpoint of observation             \nDATE-END= '2026-08-21T09:09:22.610' / ISO-8601 time at end of observation       \nMJD-END =      61273.381511684 / [d] MJD at end of observation                  \nXPOSURE =             113.5826 / [s] Exposure (integration) time                \nTELAPSE =             118.1873 / [s] Elapsed time (start to stop)               \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nA_ORDER =                    3 / SIP polynomial order, axis 0, detector to sky  \nA_0_0   =     -0.0422202611545 / SIP distortion coefficient                     \nA_0_1   =    0.000231857279606 / SIP distortion coefficient                     \nA_0_2   =   -2.66644387444E-08 / SIP distortion coefficient                     \nA_0_3   =    2.66708219995E-11 / SIP distortion coefficient                     \nA_1_0   =     0.00078400500623 / SIP distortion coefficient                     \nA_1_1   =    3.88362087814E-06 / SIP distortion coefficient                     \nA_1_2   =    6.04185459153E-10 / SIP distortion coefficient                     \nA_2_0   =    3.05875142881E-08 / SIP distortion coefficient                     \nA_2_1   =    8.91562345101E-12 / SIP distortion coefficient                     \nA_3_0   =    5.34726035116E-10 / SIP distortion coefficient                     \nB_ORDER =                    3 / SIP polynomial order, axis 1, detector to sky  \nB_0_0   =       -1.02986204796 / SIP distortion coefficient                     \nB_0_1   =    0.000546005893775 / SIP distortion coefficient                     \nB_0_2   =     1.9159092161E-06 / SIP distortion coefficient                     \nB_0_3   =    4.39451750876E-10 / SIP distortion coefficient                     \nB_1_0   =     6.9002355595E-05 / SIP distortion coefficient                     \nB_1_1   =   -1.89493093969E-08 / SIP distortion coefficient                     \nB_1_2   =    4.28073960107E-11 / SIP distortion coefficient                     \nB_2_0   =     6.5601235995E-06 / SIP distortion coefficient                     \nB_2_1   =    6.07611819796E-10 / SIP distortion coefficient                     \nB_3_0   =   -2.14219115505E-11 / SIP distortion coefficient                     \nAP_ORDER=                    3 / SIP polynomial order, axis 0, sky to detector  \nAP_0_0  =      0.0418200615657 / SIP distortion coefficient                     \nAP_0_1  =   -0.000231702579608 / SIP distortion coefficient                     \nAP_0_2  =      2.832485741E-08 / SIP distortion coefficient                     \nAP_0_3  =   -2.64593556878E-11 / SIP distortion coefficient                     \nAP_1_0  =   -0.000788238594435 / SIP distortion coefficient                     \nAP_1_1  =   -3.85921129569E-06 / SIP distortion coefficient                     \nAP_1_2  =   -5.77990529389E-10 / SIP distortion coefficient                     \nAP_2_0  =   -2.84817555452E-08 / SIP distortion coefficient                     \nAP_2_1  =   -8.33152856862E-12 / SIP distortion coefficient                     \nAP_3_0  =   -5.05951089892E-10 / SIP distortion coefficient                     \nBP_ORDER=                    3 / SIP polynomial order, axis 1, sky to detector  \nBP_0_0  =        1.02460483203 / SIP distortion coefficient                     \nBP_0_1  =   -0.000550430098549 / SIP distortion coefficient                     \nBP_0_2  =   -1.90149569937E-06 / SIP distortion coefficient                     \nBP_0_3  =   -4.29695233806E-10 / SIP distortion coefficient                     \nBP_1_0  =   -6.94338376146E-05 / SIP distortion coefficient                     \nBP_1_1  =    2.30648317724E-08 / SIP distortion coefficient                     \nBP_1_2  =   -4.27246223792E-11 / SIP distortion coefficient                     \nBP_2_0  =   -6.52823116533E-06 / SIP distortion coefficient                     \nBP_2_1  =   -5.28331127176E-10 / SIP distortion coefficient                     \nBP_3_0  =    2.16235620863E-11 / SIP distortion coefficient                     \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ",
+        "product_id": "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a",
+        "time_scale": "UTC",
+        "native_shape": [
+          55,
+          81
+        ],
+        "registration": {
+          "reason": "reference_grid_has_no_independent_absolute_solution",
+          "validated": false,
+          "offset_pixels": [
+            0,
+            0
+          ]
+        },
+        "variance_unit": "(MJy/sr)^2",
+        "raw_artifact_id": "ba620962-c170-42d8-b224-f638b9df59ee",
+        "artifact_indices": {
+          "planes": 2,
+          "common_preview": 1,
+          "native_preview": 0
+        },
+        "pipeline_version": "7.0.5",
+        "calibration_version": "l2b-v27-2026-243",
+        "display_eligibility": {
+          "native_inspection": true,
+          "masked_common_grid": true,
+          "comparable_sequence": false,
+          "native_preview_policy": "masked"
+        },
+        "original_metadata_location": "unchanged_raw_FITS_input",
+        "selected_for_default_group": true,
+        "common_grid_usable_fraction": 0.9433333333333334,
+        "original_image_header_sha256": "bd21a3f9d35c24fbf66be51b43741f1228aab3efaddb92cc55edc6245e0d8873"
+      }
+    ],
+    "options": {
+      "stretch": "shared_asinh",
+      "detector": null,
+      "channel_id": null,
+      "spectral_mode": "common_available",
+      "temporal_bin_seconds": 0,
+      "native_preview_policy": "masked",
+      "target_exclusion_radius_arcsec": 30.0
+    },
+    "outcome": "single_epoch",
+    "version": "frames-v1",
+    "warnings": [
+      "WCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied",
+      "Nominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment",
+      "Relative static-field registration is not absolute astrometry; central target is excluded",
+      "Pixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked",
+      "Native flagged previews are inspectable; quantitative eligibility is independent of display eligibility",
+      "Explicit temporal averaging can blur change within the recorded contributor span; native inputs remain available"
+    ],
+    "artifacts": [
+      {
+        "id": "c803996d-d2fd-4757-80e7-565d496a4c92",
+        "kind": "native_preview",
+        "sha256": "7cdf67479c76d319f701f1068ae5d9428af0885f0dc8dd02faca25839b850d78",
+        "view_id": "3b48c76b-3cf8-44e9-a75d-edaf093a7610",
+        "size_bytes": 5152,
+        "content_type": "image/png",
+        "source_product_ids": [
+          "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+        ]
+      },
+      {
+        "id": "762b6291-e351-4e32-b9c1-78c985e77e36",
+        "kind": "common_preview",
+        "sha256": "d1de786550a70327a706e4fb0900dff4bda027a50b9f99f2490a72553530b2d7",
+        "view_id": "3b48c76b-3cf8-44e9-a75d-edaf093a7610",
+        "size_bytes": 1380,
+        "content_type": "image/png",
+        "source_product_ids": [
+          "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+        ]
+      },
+      {
+        "id": "b2c19867-9b2d-46e7-affc-a045ea6d415e",
+        "kind": "common_grid_planes",
+        "sha256": "b7810e4d6970225103ec30fab7196f05c6aa573d6dbd0ca1f8eb7e40cb3ab167",
+        "view_id": "3b48c76b-3cf8-44e9-a75d-edaf093a7610",
+        "size_bytes": 43200,
+        "content_type": "application/fits",
+        "source_product_ids": [
+          "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+        ]
+      },
+      {
+        "id": "7d4b6588-0574-4ede-8b1e-20153cedaa20",
+        "kind": "preparation_report",
+        "sha256": "5d70af8c6c1d3e1c59b5192eca6897d140c135d58fc0d0aa5c50de7b20c016a6",
+        "view_id": "3b48c76b-3cf8-44e9-a75d-edaf093a7610",
+        "size_bytes": 16468,
+        "content_type": "application/json",
+        "source_product_ids": [
+          "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+        ]
+      }
+    ],
+    "temporal_bins": [
+      {
+        "count": 1,
+        "reason": null,
+        "end_mjd": 61273.381511684,
+        "start_mjd": 61273.380179306,
+        "contributors": [
+          0
+        ],
+        "contributor_times": [
+          {
+            "index": 0,
+            "end_mjd": 61273.381511684,
+            "mid_mjd": 61273.380845495,
+            "start_mjd": 61273.380179306
+          }
+        ]
+      }
+    ],
+    "pair_eligibility": {},
+    "selected_indices": [
+      0
+    ],
+    "sequence_eligible": false,
+    "viewer_execution_available": false,
+    "spectral_calibration_version": "ssdc-r7-202607-nominal17-v1"
+  },
+  "verified_artifacts": [
+    {
+      "id": "c803996d-d2fd-4757-80e7-565d496a4c92",
+      "sha256": "7cdf67479c76d319f701f1068ae5d9428af0885f0dc8dd02faca25839b850d78",
+      "size_bytes": 5152,
+      "content_type": "image/png",
+      "kind": "native_preview"
+    },
+    {
+      "id": "762b6291-e351-4e32-b9c1-78c985e77e36",
+      "sha256": "d1de786550a70327a706e4fb0900dff4bda027a50b9f99f2490a72553530b2d7",
+      "size_bytes": 1380,
+      "content_type": "image/png",
+      "kind": "common_preview"
+    },
+    {
+      "id": "b2c19867-9b2d-46e7-affc-a045ea6d415e",
+      "sha256": "b7810e4d6970225103ec30fab7196f05c6aa573d6dbd0ca1f8eb7e40cb3ab167",
+      "size_bytes": 43200,
+      "content_type": "application/fits",
+      "kind": "common_grid_planes"
+    },
+    {
+      "id": "7d4b6588-0574-4ede-8b1e-20153cedaa20",
+      "sha256": "5d70af8c6c1d3e1c59b5192eca6897d140c135d58fc0d0aa5c50de7b20c016a6",
+      "size_bytes": 16468,
+      "content_type": "application/json",
+      "kind": "preparation_report"
+    }
+  ]
+}

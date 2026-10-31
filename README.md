@@ -9,50 +9,71 @@ app_port: 7860
 
 # Cosmic Motion AI
 
-Backend for AI-assisted discovery of moving-source candidates in SPHEREx observations.
-A user selects observations of the same sky region; the service will prepare comparable images,
-highlight candidate changes, and deliver source evidence with clearly labeled ranking scores.
+FastAPI backend for a public **SPHEREx sky time viewer**: enter Right Ascension/declination and
+field of view, then inspect real images of that patch in chronological playback. Motion and brightness
+changes are both relevant. Optional AI hints use the ML researcher's completed inference package.
 
-Your delivery scope is **backend work only**: Python 3.12+, FastAPI REST, PostgreSQL,
-image-processing module boundaries, Docker packaging and a detailed delivery plan.
-The frontend teammate maintains `frontend/` independently and can integrate its React viewer against
-the API contract. Their newer work on GitHub is preserved alongside this backend update.
-The **ML researcher builds and trains the main model** and provides its complete inference package.
-Your role is to integrate it, reproduce its expected outputs and serve it reliably; model architecture,
-training datasets, hyperparameter tuning and retraining are outside your backend deliverables.
-Existing Git repository URL: https://github.com/Ahiraf/AegisEarth (repository name has not been changed).
+The 29 October 2026 plan follows the full challenge description supplied by the user. Core delivery
+is the coordinate-driven movie and tests on **Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae
+and R Draconis**. The expanded release includes every potential consideration: 102-band exploration,
+six detector composites, spectra, add/subtract, FOV control, Gaia/WISE, updates, links/embedding and flags.
 
-## Current implementation
+Your work is **backend-only**: Python/FastAPI, PostgreSQL, scientific processing, Docker and Hugging Face.
+The React teammate owns the public UI/playback/Aladin and frontend Docker/Space. The researcher
+owns model development/training/evaluation; backend work integrates/verifies/serves the package.
+The viewer works independently of detection, ranking or a trained model. Repository name remains
+[Ahiraf/AegisEarth](https://github.com/Ahiraf/AegisEarth).
 
-| Available now | Specified and planned |
+## Start here
+
+- [Detailed implementation plan](todo_plan.md): ordered feature slices and actual exit evidence.
+- [SRS v2.3](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
+- [Challenge coverage matrix](docs/challenge_alignment.md): every supplied objective/consideration mapped.
+- [Five-target validation protocol](docs/target_validation.md): exact investigations and honest outcome states.
+- [Public source register](docs/sources_and_challenge.md): independently checked resources and access limits.
+- [Pipeline](docs/backend_pipeline.md), [API/React contract](docs/api_contract.md), [data model](docs/data_model.md).
+- [Science validation](docs/science_ml_validation.md), [optional model handoff](docs/model_handoff.md).
+- [Deployment](docs/deployment.md), [verification record](docs/verification.md).
+- [Existing real-data research](docs/research/README.md): pinned M101 controls/report/executed notebook.
+- [Local foundation](docs/foundation.md): locked Docker/PostgreSQL/HTTPS gateway and reproducible checks.
+- [Five-target data evidence](docs/research/target_feasibility/README.md): real cutouts, identities, flags and limitations.
+- [Prepared frame/band contract](docs/frame_preparation.md): view-v2, official channels, masked grids and eligibility.
+- [Durable view inputs](docs/views.md): anonymous jobs, isolated worker, verified artifacts and storage.
+- [Implemented discovery API](docs/discovery.md): coordinates/FOV, releases, snapshots and React examples.
+
+## Actual implementation status
+
+| Present now | Planned; not implemented |
 | --- | --- |
-| FastAPI app, CORS, liveness and database/schema readiness | IRSA discovery and verified repeat observations |
-| Observation search and analysis request validation | FITS cutout acquisition and scientific preprocessing |
-| Seven-table initial schema and Alembic migration | Registration, PSF/background matching and differencing |
-| Eleven-stage pipeline registry and CLI description | Detection, association and classical ranking |
-| Versioned ranking interface and probability-label guard | Trained CNN/Siamese ranking and sequence tracking |
-| Backend tests, Dockerfiles and PostgreSQL CI configuration | Durable worker queue, artifact delivery and public demo data |
+| Health/config/CORS and truthful capability reporting | Chronological movie manifests and playback |
+| discovery-v1 coordinate/FOV/date/band discovery, target presets and release registry | Full five-target viewer/science acceptance |
+| Additive jobs/discovery/sky_views/submission/pin/file tables and restricted transaction RPCs | Movie/spectrum/overlay publication services |
+| Public quota-limited view input jobs, isolated native worker, fenced cancellation and verified local/S3 storage adapters | Registered viewer pipeline and frame manifests; optional researcher inference |
+| QR2/QR3 readers, official 102-channel catalog, fixed-grid frames/previews, quality/registration/band gates | Coadds/subtraction/spectra/Gaia/WISE and scheduled refresh |
+| Hash-locked/pinned Docker builds, disposable PostgreSQL and verified authenticated TLS gateway | End-to-end React playback/share/embed and cloud deployment |
 
-`POST /api/v1/observations/search` and `POST /api/v1/analyses` currently return an explicit **503
-feature_not_ready** after request validation. They do not fetch images, enqueue jobs or run a model.
-`GET /api/v1/system/capabilities` exposes this state. An empty database is not a successful analysis.
+`POST /api/v1/observations/search` now implements **discovery-v1**; the old radius-search body receives
+410 with an explicit replacement. See [the working example](docs/examples/discovery_search.json).
+`POST /api/v1/analyses` remains **503 feature_not_ready**. Its legacy analysis limits are not viewer limits.
+`POST /api/v1/views` now durably queues bounded input acquisition without a model.
+Legacy view-v1 reports **inputs_ready**. New view-v2 reports **frames_prepared**, with PNG/FITS
+artifacts and comparison diagnostics. Movie manifests/React playback remain step 5.
+Current [OpenAPI](docs/openapi.json) describes runtime routes. Discovery returns actual sampled epochs
+and whole-image band bounds; it does not claim a complete survey, local wavelength coverage or a movie.
 
-## Run locally
+## Local setup
 
-With Docker Desktop's Linux engine running, from the repository root:
+With Docker Desktop's Linux engine running, from repository root:
 
 ```powershell
 Copy-Item .env.example .env
 docker compose up --build
 ```
 
-If `.env` already exists, compare/update it rather than overwriting credentials. Local API docs:
-http://localhost:8000/docs. Liveness: `/api/v1/health/live`; readiness: `/api/v1/health/ready`.
-Compose starts PostgreSQL, applies the new migration, then starts the API. No frontend service exists.
-The new Compose project/database/volumes are separate from the previous product's database.
-Do not point this replacement migration baseline at an existing unrelated database.
+Compare an existing `.env` rather than overwriting its credentials. API docs: `http://localhost:8000/docs`.
+Compose starts PostgreSQL, migration, API and the input-acquisition worker. Preserve unrelated DBs/volumes.
 
-Without Docker, create a PostgreSQL database/user matching your environment and then:
+Without Docker, provision a PostgreSQL database/user and use the backend environment:
 
 ```powershell
 Copy-Item .env.example backend/.env
@@ -63,53 +84,22 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\uvicorn app.main:app --reload
 ```
 
-Check the URL in `backend/.env`; use URL-encoded credentials. The backend loads `.env` from its
-working directory. Existing local virtual environments may be reused with `pip install -e ".[dev]"`.
-Image-processing dependencies are intentionally optional until their milestones:
-`pip install -e ".[dev,imaging]"`. PyTorch and trained weights are not installed or supplied.
+Check the DB URL/private environment before migrations. Reuse an existing environment when appropriate.
+Optional imaging: `pip install -e ".[dev,imaging]"`; notebook research: `pip install -e ".[dev,research]"`.
+No model/framework/weights are supplied or trained by this setup.
 
-## Backend layout
+## Feature organization
 
-```text
-backend/app/
-  main.py                       # app assembly
-  core/                         # config, database, errors, model registration
-  pipeline/                     # ordered stage specifications and executor interface
-  modules/
-    observations/               # IRSA metadata and observation identity
-    comparisons/                # compatibility policy and report
-    analyses/                   # job lifecycle, inputs, stage records
-    cutouts/                    # trusted FITS acquisition and caching
-    preprocessing/              # masks, variance, wavelength, background/PSF
-    registration/               # common celestial WCS and residual checks
-    differencing/               # difference/significance maps
-    detection/                  # per-epoch sources and residual detections
-    association/                # motion/brightness/artifact association
-    ranking/                    # classical or trained ranker, model versions
-    candidates/                 # result records and evidence
-    artifacts/                  # storage references, previews and provenance
-    health/                     # operational checks
-```
+Existing infrastructure/science modules: `observations`, `comparisons`, `analyses`, `cutouts`,
+`preprocessing`, `registration`, `differencing`, `artifacts`, `health`. Optional AI modules:
+`detection`, `association`, `ranking`, `candidates`.
 
-Feature modules own their schemas, models, routers, repositories, services and adapters as needed.
-README-only modules are deliberate implementation boundaries, not working scientific stages.
-Heavy processing belongs in a future leased worker, outside API requests. PostgreSQL holds metadata;
-FITS/images/model weights belong in artifact storage. Stage outputs publish atomically after validation.
+`targets` now supplies the verified catalog/GET route and `releases` a four-collection registry.
+`views`, `bands`, `coadds`, `spectra`, `overlays` remain planning-only feature boundaries. Scientific
+functions consume arrays/units/metadata; routers handle HTTP and heavy work belongs in leased workers.
+PostgreSQL stores relations/provenance; raw/derived files live in external object storage or local dev cache.
 
-## Planning documents
-
-- [SRS](SRS.md): requirements, boundaries, API behavior, quality targets and acceptance criteria.
-- [Detailed backend todo plan](todo_plan.md): feature-by-feature implementation order and exit checks.
-- [Backend pipeline](docs/backend_pipeline.md): stage inputs/outputs, failure rules and worker design.
-- [API and frontend handoff](docs/api_contract.md): request examples, planned endpoints and score semantics.
-- [Data model](docs/data_model.md): identity, relationships, provenance and storage contracts.
-- [Science and ML validation](docs/science_ml_validation.md): scientific controls, researcher evaluation evidence and backend integration checks.
-- [Researcher-to-backend model handoff](docs/model_handoff.md): required package, ownership and integration acceptance.
-- [Sources and challenge alignment](docs/sources_and_challenge.md): primary references and verification limits.
-- [Deployment](docs/deployment.md): backend-only Hugging Face Space and external persistence.
-- [Verification](docs/verification.md): checks actually run and outstanding runtime work.
-
-## Checks
+## Checks and deployment boundary
 
 ```powershell
 cd backend
@@ -118,16 +108,12 @@ cd backend
 .\.venv\Scripts\python -m app.pipeline.cli
 ```
 
-Migration tests use temporary SQLite locally and the disposable PostgreSQL database identified by
-`TEST_DATABASE_URL` in CI. Do not set that variable to a database containing real work.
-The migration test intentionally upgrades, checks drift and downgrades that test database.
+Tests use disposable databases only; migration tests may downgrade them. The CLI still describes the
+old disabled registry until the viewer pipeline is deliberately implemented/versioned.
 
-## Delivery boundaries
+The isolated foundation stack has tested native PostgreSQL and a separate authenticated HTTPS
+repository adapter, including transaction/lease/restart behavior. Real HF connectivity remains pending
+because no cloud resources are configured. See [foundation](docs/foundation.md) and [deployment](docs/deployment.md).
 
-Two observations support candidate motion evidence; confirmation and track quality need additional
-evidence. A residual can be a brightness change or processing artifact. Scores are not discovery
-claims, object identities, orbital solutions or calibrated probabilities without validation.
-The first release prioritizes a truthful, repeatable two-epoch comparison; CNN/Siamese ranking is
-integrated only after labels and evaluation exist. See the plan for the full AI milestone.
-
-No commit, push, repository rename, deployment, model training or database reset is implied by this setup.
+The supplied brief resolves feature alignment; separate organizer rules/deadline still require verification.
+No new runtime capability, target test, commit, push, deployment or DB reset is implied by this plan revision.

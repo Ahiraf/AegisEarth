@@ -1,0 +1,213 @@
+{
+  "url": "https://simbad.cfa.harvard.edu/simbad/sim-tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=json&QUERY=SELECT+TOP+40+i.id+AS+matched_id%2Cb.main_id%2Cb.ra%2Cb.dec%2Cb.coo_err_maj%2Cb.coo_err_min%2C%0A++++b.coo_bibcode%2Cb.pmra%2Cb.pmdec%2Cb.pm_err_maj%2Cb.pm_err_min%2Cb.pm_bibcode%2Cb.plx_value%2Cb.plx_bibcode%0A++++FROM+basic+b+JOIN+ident+i+ON+b.oid%3Di.oidref+WHERE+i.id+IN%0A++++%28%27NAME+Barnard%27%27s+star%27%2C%27%2A+eps+Ind+B%27%2C%27%2A+eps+Ind%27%2C%27WISE+J085510.83-071442.5%27%2C%27V%2A+RW+Aur%27%2C%27V%2A+R+Dra%27%29",
+  "retrieved_at_utc": "2026-10-29T09:36:12.559764+00:00",
+  "sha256": "c2224795b74c95afede149234dc7d599753cb29c475cf8c08a35e6f6721acc61",
+  "rows": [
+    {
+      "matched_id": "* eps Ind",
+      "main_id": "* eps Ind",
+      "ra": 330.8402234423433,
+      "dec": -56.785978554364995,
+      "coo_err_maj": 0.0687,
+      "coo_err_min": 0.0655,
+      "coo_bibcode": "2020yCat.1350....0G",
+      "pmra": 3966.661,
+      "pmdec": -2536.192,
+      "pm_err_maj": 0.086,
+      "pm_err_min": 0.092,
+      "pm_bibcode": "2020yCat.1350....0G",
+      "plx_value": 274.8431,
+      "plx_bibcode": "2020yCat.1350....0G"
+    },
+    {
+      "matched_id": "* eps Ind B",
+      "main_id": "* eps Ind B",
+      "ra": 331.04414658852124,
+      "dec": -56.782844195116105,
+      "coo_err_maj": 0.5048,
+      "coo_err_min": 0.4676,
+      "coo_bibcode": "2020yCat.1350....0G",
+      "pmra": 3981.977,
+      "pmdec": -2466.832,
+      "pm_err_maj": 0.602,
+      "pm_err_min": 0.626,
+      "pm_bibcode": "2020yCat.1350....0G",
+      "plx_value": 270.658,
+      "plx_bibcode": "2020yCat.1350....0G"
+    },
+    {
+      "matched_id": "NAME Barnard's star",
+      "main_id": "NAME Barnard's star",
+      "ra": 269.4520769586187,
+      "dec": 4.693364966576667,
+      "coo_err_maj": 0.0262,
+      "coo_err_min": 0.029,
+      "coo_bibcode": "2020yCat.1350....0G",
+      "pmra": -801.551,
+      "pmdec": 10362.394,
+      "pm_err_maj": 0.032,
+      "pm_err_min": 0.036,
+      "pm_bibcode": "2020yCat.1350....0G",
+      "plx_value": 546.9759,
+      "plx_bibcode": "2020yCat.1350....0G"
+    },
+    {
+      "matched_id": "V* R Dra",
+      "main_id": "V* R Dra",
+      "ra": 248.16761083295,
+      "dec": 66.75497941722,
+      "coo_err_maj": 0.0669,
+      "coo_err_min": 0.066,
+      "coo_bibcode": "2020yCat.1350....0G",
+      "pmra": -20.643,
+      "pmdec": 6.149,
+      "pm_err_maj": 0.085,
+      "pm_err_min": 0.091,
+      "pm_bibcode": "2020yCat.1350....0G",
+      "plx_value": 1.2509,
+      "plx_bibcode": "2020yCat.1350....0G"
+    },
+    {
+      "matched_id": "V* RW Aur",
+      "main_id": "V* RW Aur",
+      "ra": 76.95652603458333,
+      "dec": 30.401438173888888,
+      "coo_err_maj": 3.31,
+      "coo_err_min": 2,
+      "coo_bibcode": "2007A&A...474..653V",
+      "pmra": 7.23,
+      "pmdec": -20.33,
+      "pm_err_maj": 3.81,
+      "pm_err_min": 2.23,
+      "pm_bibcode": "2007A&A...474..653V",
+      "plx_value": 15.42,
+      "plx_bibcode": "2007A&A...474..653V"
+    },
+    {
+      "matched_id": "WISE J085510.83-071442.5",
+      "main_id": "WISEA J085510.74-071442.5",
+      "ra": 133.81890825,
+      "dec": -7.247048000000001,
+      "coo_err_maj": null,
+      "coo_err_min": null,
+      "coo_bibcode": "2021ApJS..253....7K",
+      "pmra": -8123.7,
+      "pmdec": 673.2,
+      "pm_err_maj": 1.3,
+      "pm_err_min": 1.3,
+      "pm_bibcode": "2021ApJS..253....7K",
+      "plx_value": 439,
+      "plx_bibcode": "2021ApJS..253....7K"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "matched_id",
+      "description": "Identifier",
+      "datatype": "CHAR",
+      "arraysize": "*",
+      "ucd": "meta.id"
+    },
+    {
+      "name": "main_id",
+      "description": "Main identifier for an object",
+      "datatype": "CHAR",
+      "arraysize": "*",
+      "ucd": "meta.id;meta.main",
+      "utype": "mango:MangoObject.identifier"
+    },
+    {
+      "name": "ra",
+      "description": "Right ascension",
+      "datatype": "DOUBLE",
+      "unit": "deg",
+      "ucd": "pos.eq.ra;meta.main",
+      "utype": "mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "dec",
+      "description": "Declination",
+      "datatype": "DOUBLE",
+      "unit": "deg",
+      "ucd": "pos.eq.dec;meta.main",
+      "utype": "mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "coo_err_maj",
+      "description": "Coordinate error major axis",
+      "datatype": "FLOAT",
+      "unit": "mas",
+      "ucd": "phys.angSize.smajAxis;pos.errorEllipse;pos.eq",
+      "utype": "mango:EpochPosition.errors.position/mango:error.PErrorEllipse.semiMajorAxis[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "coo_err_min",
+      "description": "Coordinate error minor axis",
+      "datatype": "FLOAT",
+      "unit": "mas",
+      "ucd": "phys.angSize.sminAxis;pos.errorEllipse;pos.eq",
+      "utype": "mango:EpochPosition.errors.position/mango:error.PErrorEllipse.semiMinorAxis[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "coo_bibcode",
+      "description": "Coordinate reference",
+      "datatype": "CHAR",
+      "arraysize": "19",
+      "ucd": "meta.bib.bibcode;pos.eq"
+    },
+    {
+      "name": "pmra",
+      "description": "Proper motion in RA",
+      "datatype": "DOUBLE",
+      "unit": "mas.yr-1",
+      "ucd": "pos.pm;pos.eq.ra",
+      "utype": "mango:EpochPosition.pmLongitude[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "pmdec",
+      "description": "Proper motion in DEC",
+      "datatype": "DOUBLE",
+      "unit": "mas.yr-1",
+      "ucd": "pos.pm;pos.eq.dec",
+      "utype": "mango:EpochPosition.pmLatitude[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "pm_err_maj",
+      "description": "Proper motion error major axis",
+      "datatype": "FLOAT",
+      "unit": "mas.yr-1",
+      "ucd": "phys.angSize.smajAxis;pos.errorEllipse;pos.pm",
+      "utype": "mango:EpochPosition.errors.properMotion/mango:error.PErrorEllipse.semiMajorAxis[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "pm_err_min",
+      "description": "Proper motion error minor axis",
+      "datatype": "FLOAT",
+      "unit": "mas.yr-1",
+      "ucd": "phys.angSize.sminAxis;pos.errorEllipse;pos.pm",
+      "utype": "mango:EpochPosition.errors.properMotion/mango:error.PErrorEllipse.semiMinorAxis[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "pm_bibcode",
+      "description": "Proper motion reference",
+      "datatype": "CHAR",
+      "arraysize": "19",
+      "ucd": "meta.bib.bibcode;pos.pm"
+    },
+    {
+      "name": "plx_value",
+      "description": "Parallax",
+      "datatype": "DOUBLE",
+      "unit": "mas",
+      "ucd": "pos.parallax.trig",
+      "utype": "mango:EpochPosition.parallax[CS.spaceSys=ICRS CT.epoch=J2000]"
+    },
+    {
+      "name": "plx_bibcode",
+      "description": "Parallax reference",
+      "datatype": "CHAR",
+      "arraysize": "19",
+      "ucd": "meta.bib.bibcode;pos.parallax.trig"
+    }
+  ]
+}

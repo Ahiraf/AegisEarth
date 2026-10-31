@@ -2,392 +2,263 @@
 
 | Attribute | Baseline |
 | --- | --- |
-| Document version | 1.0 — replacement product baseline |
-| Date | 26 October 2026 |
-| Status | Detailed engineering specification; scientific tolerances/model quality targets require validation |
-| Product | Cosmic Motion AI — AI-assisted moving-source candidate detection in SPHEREx images |
-| Developer scope | Backend only; frontend owned by another team member |
-| Model ownership | ML researcher builds/trains/evaluates the model; backend developer integrates the supplied inference package |
-| Stack | Python 3.12+, FastAPI REST, PostgreSQL, scientific image-processing libraries, Docker |
-| Hosting | Hugging Face Docker Space API; external PostgreSQL and durable artifact/model storage |
-| Existing repository | https://github.com/Ahiraf/AegisEarth |
+| Version / date | 2.3 — band and prepared-frame implementation update, 31 October 2026 |
+| Product | Public SPHEREx sky time viewer with optional AI-assisted hints |
+| Required journey | Enter RA/Dec → choose sky patch/band → inspect chronological frames like a movie |
+| Backend ownership | FastAPI REST, PostgreSQL, Python processing, Docker and Hugging Face API |
+| Frontend ownership | Separate React developer: public viewer, playback, sky map and accessibility |
+| ML ownership | Researcher trains/evaluates/supplies inference package; backend integrates it only |
+| Repository | https://github.com/Ahiraf/AegisEarth — name unchanged |
 | Challenge | https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/ |
+| Evidence source | Complete description pasted by the user; organizer resource package not supplied |
 
-## 1. Purpose and scope
+## 1. Purpose, priorities and implementation status
 
-Cosmic Motion AI will help public users inspect repeated SPHEREx observations of the same sky region,
-notice changes, and investigate possible moving sources with understandable evidence. The backend
-discovers image metadata, checks comparability, processes images, identifies candidate changes,
-ranks them using a classical or validated learned model, and supplies reproducible results to a viewer.
+Help anyone inspect changes in SPHEREx sky images over time. The brief requires a public coordinate-
+driven image sequence and testing on Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae and
+R Draconis. Motion and brightness variation are both relevant. Automatic object detection is not
+necessary to deliver that experience. The model is an optional enhancement, never a viewing prerequisite.
 
-The core public demo is: select compatible observations -> view original/aligned images -> compare
-epochs -> inspect highlighted candidates -> inspect score meaning, quality warnings and source evidence.
-The frontend team implements that public experience; this repository implements its backend contract.
+The user has adopted **all potential considerations** as expanded-release requirements: new releases,
+102-band exploration, six detector composites, spectra, image addition/subtraction, variable FOV,
+Gaia/WISE context, coordinate URLs/embedding, quality metadata and appropriate astronomy tools.
+They are optional in the original brief, but included in this project's scope. See [coverage](docs/challenge_alignment.md).
 
-This specification distinguishes required product behavior from current implementation. The scaffold
-contains request contracts, metadata/schema, pipeline declarations, health checks and tests. Discovery,
-scientific execution, durable workers, candidate serving and trained models remain future work.
-
-### 1.1 Challenge alignment and verification boundary
-
-The available official-domain challenge summary asks for public SPHEREx image viewing and inspection
-of change over time. This product directly addresses that central workflow. The full challenge page
-returned an error during research; detailed judging/submission criteria and exact deadline remain to
-be verified. No eligibility or award outcome is guaranteed by technical alignment.
-See [primary sources and challenge notes](docs/sources_and_challenge.md).
-
-### 1.2 Release scope
-
-| Scope | Included capabilities |
+| Release | Required scope |
 | --- | --- |
-| Scientific baseline MVP | Real compatible image pair, trustworthy preprocessing/registration/difference, candidate hypotheses, classical score and evidence APIs |
-| AI release | Evaluated CNN or Siamese ranker, immutable versioned weights, documented model card and score interpretation |
-| Sequence extension | >=3 compatible observations, uncertainty-aware association and tentative track evidence |
-| Frontend handoff | OpenAPI, stable result/artifact examples, image coordinate transforms and safe public reads |
+| Core viewer | Public RA/Dec/FOV search, real chronological SPHEREx frames, accessible playback handoff, quality/source context, tests on all five named targets |
+| Expanded challenge release | Core plus every adopted consideration and measured hosting/recovery behavior |
+| Optional AI enhancement | Researcher-supplied inference, verified parity and honest candidate hints |
 
-Classical ranking is an explicit reference and fallback release mode selected before execution. It is
-not mislabeled as a trained model. The AI release requires actual training/evaluation evidence.
+**Actual implementation:** health/config/CORS, initial seven-table migration, strict observation/analysis
+request scaffolds, disabled eleven-stage registry and offline QR2/QR3 research helpers exist. Additive
+cosmic_0002 processing-job/RPC persistence, selectable native/HTTPS readiness and curated GET /targets
+are implemented and locally verified. Step 2 adds discovery-v1 coordinate/FOV/time/band queries,
+GET /releases, coordinate normalization, immutable product/snapshot persistence (cosmic_0003),
+TTL revalidation and stable pagination over bounded IRSA results, through native SQL or HTTPS.
+All five targets have live discovery evidence and real native-cutout evidence. Analysis remains 503;
+legacy radius search is explicitly retired with 410. No public movie/model or measured target
+motion/variability is implemented. See [discovery](docs/discovery.md), [foundation](docs/foundation.md)
+and [target evidence](docs/research/target_feasibility/README.md).
+Step 3 implements anonymous view submission, transactional quotas/idempotency, scoped cancellation,
+isolated native acquisition workers, byte/FITS integrity, local/S3 adapters, artifact reads and bounded
+ledger cleanup. Additive cosmic_0004 preserves existing data. Completion means inputs_ready, not a
+registered movie. See [view input contract](docs/views.md).
+Step 4 now implements view-v2 frame preparation, official 102-channel/response metadata, release-aware
+PSF/ePSF readers, strict masks, exact sky-fixed grids, marginal variance propagation, held-out static
+reference checks, explicit temporal bins and shared-stretch transparent previews. cosmic_0005 adds
+atomic raw/derived publication. WCS-WAVE wavelengths remain visualization proxies; quantitative
+CWAVE/CBAND/response/PSF/photometric acceptance is not claimed. Movie delivery remains step 5.
+See [prepared frame contract](docs/frame_preparation.md).
+This document describes target behavior. Existing OpenAPI remains the actual runtime contract.
 
-### 1.3 Exclusions
+Excluded/deferred: full-sky searches, orbit/automatic track solutions, discovery confirmation, impact
+risk, geography, training APIs, unrestricted uploads, user accounts/social annotation and mandatory
+backend-built classical ranking. Preserve existing disabled interfaces pending deliberate migration.
 
-- Confirmed discovery of a new planet/object, orbit determination, impact-risk calculations or Earth impact mapping.
-- Arbitrary user URL fetching, unrestricted FITS uploads, public model/checkpoint uploads or training inside API requests.
-- Full-sky bulk processing as a demo prerequisite, automated scientific alerts or permanent user accounts.
-- Frontend implementation, frontend deployment and creation of scientific ground truth by software assumption.
+## 2. Actors, use cases and boundaries
 
-### 1.4 Requirement conventions
-
-“Shall” identifies a requirement for its release scope. Unmarked requirements apply to the scientific
-baseline MVP. AI and sequence requirements are explicitly labeled. Numeric performance values below
-are proposed engineering budgets pending measurements; scientific quality thresholds are not invented.
-Stable IDs support test/acceptance traceability.
-
-## 2. Actors, workflows and responsibilities
-
-| Actor | Responsibility / access |
+| Actor | Responsibilities |
 | --- | --- |
-| Public viewer | Inspect curated/published comparisons, candidates and evidence without processing credentials |
-| Trusted submitter / frontend server | Submit bounded analysis using protected backend credentials and poll status |
-| Backend developer | API, metadata, processing orchestration, storage, worker reliability, model-serving integration and tests |
-| Frontend developer | Sky/image viewer, blink/slider/side-by-side, navigation, accessible controls and evidence presentation |
-| ML researcher | Model design, labels/datasets, training, scientific evaluation/calibration, reproducible inference package, weights and model card |
-| Scientific reviewer | Compatibility/QC tolerances, interpretation and scientific validation approval |
-| Maintainer | Configuration, migrations, deployment, data/model provenance and operational recovery |
+| Public visitor | Enter coordinates/FOV/dates/band; play/step/blink, inspect flags, overlays/spectrum and share/embed |
+| Backend developer | Providers, normalization, files, jobs, processing, manifests, APIs and production integration |
+| Frontend developer | React UI/Aladin integration, timing controls, overlays/charts, responsive/accessible public experience |
+| Scientific reviewer | Review astrometry, response/PSF, photometry, uncertainty and claims |
+| ML researcher | Optional model design/training/evaluation/calibration, inference package and goldens |
+| Operator | Release refresh, credentials, quotas, worker/storage health and organizer submission checks |
 
-| Use case | Main success flow | Required alternative |
-| --- | --- | --- |
-| UC-01 Discover | Search bounded sky/time region and choose observations | Explain no coverage, unavailable provider or incompatible metadata |
-| UC-02 Compare | Validate observations, enqueue and process pair | Reject incompatible wavelengths/epochs/quality with evidence |
-| UC-03 Inspect | Retrieve completed images/candidates and interpretation | A valid zero-candidate result remains distinct from failure |
-| UC-04 Rank | Apply explicitly selected enabled ranker | Unsupported/unavailable model fails explicitly; no silent method substitution |
-| UC-05 Track | Sequence release associates >=3 observations | Return ambiguity/outlier warnings and tentative status |
-| UC-06 Operate | Monitor/cancel/retry/recover bounded jobs | Worker/storage failures preserve consistent state and private partial output |
+Primary use cases: UC-01 coordinate/FOV discovery; UC-02 play a time sequence; UC-03 inspect/select
+bands/metadata; UC-04 add/subtract/coadd; UC-05 spectrum/brightness comparison; UC-06 Gaia/WISE
+context; UC-07 share/embed/export; UC-08 refresh releases; UC-09 optional AI hints.
 
-## 3. Architecture constraints
+## 3. Functional requirements
 
-**ARC-001:** The backend shall use feature modules under `app/modules/` owning their routers, schemas,
-models, repositories, services and adapters as needed. Shared infrastructure belongs in `core`.
+Unless marked expanded or AI, requirements apply to the core viewer. “Shall” denotes planned required
+behavior, not an implementation claim. All requirements need the evidence listed in section 8.
 
-**ARC-002:** `pipeline` shall orchestrate explicit stage interfaces. Scientific functions shall operate
-on arrays/metadata and be independently testable without a browser, database session or live provider.
-
-**ARC-003:** FastAPI request handlers shall perform bounded validation/reads/submission, with expensive
-download/CPU/model work executed by a dedicated durable worker. FastAPI BackgroundTasks alone shall
-not be used as the durable processing queue.
-
-**ARC-004:** PostgreSQL shall store observation, run, stage, model, candidate and artifact metadata.
-FITS arrays, previews and weights shall live in an artifact-storage adapter, not large database blobs.
-
-**ARC-005:** Database changes shall use versioned Alembic migrations and imported feature model metadata.
-The replacement baseline targets a fresh database and shall not reset an unrelated existing database.
-
-**ARC-006:** Backend packaging shall run as a non-root container. Hugging Face API deployment uses
-port 7860; production database/artifact persistence shall be external and restart-tested.
-
-## 4. Functional requirements
-
-### 4.1 Observation discovery (`observations`)
+### 3.1 Coordinates, target presets and field selection
 
 | ID | Requirement |
 | --- | --- |
-| OBS-001 | Discover public SPHEREx products through a verified IRSA interface using bounded sky/time/collection constraints. |
-| OBS-002 | Store internal observation IDs with provider product ID, collection, release, provenance and retrieval timestamp. Different releases/products shall remain distinguishable. |
-| OBS-003 | Preserve footprint, coordinates/frame, source time/scale/precision, detector, calibration and wavelength context needed for comparison. |
-| OBS-004 | Return paginated metadata summaries with stable IDs and source references. Empty search, upstream failure and schema incompatibility shall be distinguishable. |
-| OBS-005 | Cache repeated discovery/download work using explicit keys/TTL; validate response status/schema/overflow before publication. |
+| SKY-001 | Accept decimal-degree RA/Dec and explicitly recognized sexagesimal input; normalize to ICRS degrees, reject ambiguous/invalid/nonfinite input and test RA wrapping/poles. |
+| SKY-002 | Accept FOV and optional time window; discover available dates on first visit. Search footprints must cover the full requested rectangle, including corners. |
+| SKY-003 | Supply five named target presets with verified identities, source positions, reference epochs/proper-motion provenance and documented uncertainty. Name resolution is convenience; direct coordinate entry remains available. |
+| SKY-004 | Default to sky-fixed views so motion remains visible. Source-tracked/recentered modes, if added, shall be explicit and not presented as sky-fixed evidence. |
 
-### 4.2 Comparison compatibility (`comparisons`)
-
-| ID | Requirement |
-| --- | --- |
-| CMP-001 | Validate overlapping sky coverage, distinct usable epochs, known time scales and sufficient common valid pixels. |
-| CMP-002 | Validate local wavelength/bandwidth and release/calibration compatibility. Common detector label alone shall not establish compatibility. |
-| CMP-003 | Return versioned check outcomes, blocking reasons, warnings and supporting measurements. Unknown required metadata shall block processing. |
-| CMP-004 | Recheck compatibility/QC against downloaded cutouts before scientific execution; metadata discovery is not a guarantee of usable data. |
-
-### 4.3 Jobs and orchestration (`analyses`, `pipeline`)
+### 3.2 Observation and release discovery
 
 | ID | Requirement |
 | --- | --- |
-| JOB-001 | Accept authorized bounded submissions with server-known observation IDs and explicitly selected available mode/ranker. |
-| JOB-002 | Persist accepted job/config/ordered inputs before returning 202; implement idempotency and return 409 on incompatible key reuse. |
-| JOB-003 | Expose queued, running, succeeded, failed and canceled states, current stage and sanitized failure reason. |
-| JOB-004 | Claim jobs atomically with worker lease/heartbeat and support bounded retry/recovery after worker death. |
-| JOB-005 | Support cooperative cancellation, maximum attempts, deadlines and resource quotas. No request transaction shall remain open during heavy processing. |
-| JOB-006 | Publish results atomically only after all required stages/outputs pass validation. Partial failed/canceled output shall remain private. |
-| JOB-007 | Record stage attempt, input/output/checkpoint references, timing, QC metrics, config and code/model versions. |
+| OBS-001 | Query public IRSA SIA and use documented TAP/DataLink where needed; normalize QR3/QR2 wide/deep and retain immutable product/release/calibration identities. |
+| OBS-002 | Preserve footprint, detector, actual times/scale, local spectral coverage, units, quality, source links and retrieval/snapshot provenance. |
+| OBS-003 | Handle errors/empty results/OVERFLOW distinctly; expose completeness and available epochs without claiming a bounded sample is the full archive. |
+| OBS-004 | Deduplicate the same exposure across reprocessed products; acquisition time, processing date and retrieval date shall remain distinct. |
+| REL-001 | Expanded: add releases through versioned source adapters/registry; publish last-checked/cache state and bounded refresh without replacing frozen published views. |
 
-### 4.4 Acquisition and preprocessing (`cutouts`, `preprocessing`)
+### 3.3 Image preparation and temporal playback
 
 | ID | Requirement |
 | --- | --- |
-| IMG-001 | Resolve source files/cutouts from trusted persisted provider metadata, with allowlisted scheme/host/path and redirect validation. |
-| IMG-002 | Stream bounded downloads, preserve checksum/source provenance and validate FITS structure, HDUs/dimensions and decoded resource limits. |
-| IMG-003 | Extract science, variance, flags, wavelength/WCS and relevant calibration/PSF context with units and origin conventions. |
-| IMG-004 | Mask bad/NaN/saturated/edge/unsupported pixels; masked data shall not be treated as valid zero-valued signal. |
-| IMG-005 | Estimate background and match appropriate photometric/PSF response with recorded methods, uncertainties and limitations. |
+| IMG-001 | Acquire bounded trusted cutouts; validate HDUs/dimensions/units/flags/variance/WCS and release-specific PSF/ePSF, preserve raw SHA-256 and avoid arbitrary URL fetching. |
+| IMG-002 | Preserve masks and missing coverage; informational SOURCE/FULLSAMPLE flags shall not be treated as universal bad pixels. Quality-policy versions accompany derived artifacts. |
+| CMP-001 | Distinguish native display, comparable movie, quantitative difference and photometry eligibility. Failure of a strict operation must not hide all inspectable originals. |
+| CMP-002 | Comparable sequences use consistent local wavelength support and a common sky grid/orientation/FOV. Same detector label alone does not prove comparable spectral response. |
+| CMP-003 | Measure common coverage and registration uncertainty from suitable references independently of the target; label insufficient support and unvalidated mappings. |
+| VIEW-001 | Publish a stable, chronologically ordered frame manifest with timestamps, real elapsed gaps, wavelength, grid/WCS, stretch, quality, source attribution and artifacts. |
+| VIEW-002 | Expose no_data/single_epoch/ready_for_animation honestly; at least two distinct usable observing epochs are required for an animation claim. |
+| VIEW-003 | Supply data for play/pause/loop/speed/scrub/step/blink/side-by-side; React implements those controls, keyboard access and reduced-motion behavior. Physical time gaps remain visible. |
+| VIEW-004 | Use common default intensity stretch for comparable epochs so brightness changes persist; independently stretched frames must be labeled. Original scientific arrays remain separate from display pixels. |
+| VIEW-005 | Use bounded previews/preloading/pagination for playback; a server-encoded video and AI inference shall not be required to view time changes. |
 
-### 4.5 Registration and difference (`registration`, `differencing`)
-
-| ID | Requirement |
-| --- | --- |
-| DIF-001 | Reproject compatible inputs onto a common celestial grid while preserving coverage/mask and tested pixel/sky mapping. |
-| DIF-002 | Measure stationary-source alignment residuals and reject cases that fail the approved QC policy. |
-| DIF-003 | Produce signed science-minus-reference difference, validity/coverage and uncertainty/significance artifacts. |
-| DIF-004 | Document variance propagation and noise-correlation limitations introduced by resampling/convolution. A subtraction residual shall not itself be interpreted as motion. |
-
-### 4.6 Detection and association (`detection`, `association`, `candidates`)
+### 3.4 Spectral exploration, six detector composites and arithmetic
 
 | ID | Requirement |
 | --- | --- |
-| DET-001 | Detect per-epoch sources and significant positive/negative residuals, recording centroid uncertainty, SNR, morphology and quality context. |
-| DET-002 | Associate detections in celestial coordinates using time and measurement/registration uncertainty; preserve ambiguous alternatives. |
-| DET-003 | Classify hypotheses as possible_motion, brightness_change, artifact or uncertain, with explicit evidence and warning codes. |
-| DET-004 | Report displacement/angular evidence only with units, epochs and uncertainty; two-epoch evidence shall remain a candidate claim. |
-| DET-005 | Support valid successful analyses with zero candidates and make their coverage/QC evidence accessible. |
-| TRK-001 | Sequence extension: associate >=3 epochs into tentative tracks with supported detections, fit residuals/uncertainty and model-validity limits. |
-| TRK-002 | Sequence extension: handle missing detections, outliers, crossing/ambiguous tracks and bounded association complexity without claiming an orbital solution. |
+| BAND-001 | Expanded: expose 102 nominal-channel metadata, six detectors and actual local per-epoch coverage; show unsupported channels explicitly rather than invent samples. |
+| BAND-002 | Expanded: build D1–D6 composites per bounded time bin with defined common spectral support, weights, contributor/coverage/response maps and uncertainty. |
+| ADD-001 | Expanded: coadd selected inputs with documented sum/weighted-mean semantics and units; retain all contributors/times and warn about motion smearing/variability dilution. |
+| DIF-001 | Expanded: produce signed later-minus-earlier differences only for validated local-response, calibration, registration, background and PSF/ePSF compatibility. |
+| DIF-002 | Expanded: propagate masks/coverage/variance and record noise-correlation limits. Residuals alone shall not be classified as motion or discovery. |
 
-### 4.7 Ranking and AI (`ranking`)
+### 3.5 Spectra and brightness evidence
 
 | ID | Requirement |
 | --- | --- |
-| ML-001 | Provide a reproducible classical baseline with method/config version and explainable features. Output shall be labeled candidate_score. |
-| ML-002 | AI release: integrate an evaluated CNN or Siamese ranker through the same explicit serving interface; an untrained/random model does not qualify. |
-| ML-003 | Record immutable weights/preprocessing/data/code identifiers, supported input shape and inference resource requirements. |
-| ML-004 | Distinguish candidate scores from calibrated probabilities. Probability labels require representative calibration/evaluation evidence and a referenced model card. |
-| ML-005 | AI release: the ML researcher shall supply held-out evaluation/baseline comparison, precision-recall/false-positive and domain-shift evidence with a leakage-controlled split description. The backend shall retain/reference this evidence. |
-| ML-006 | Model training/retraining shall be performed by the ML researcher outside backend delivery/API requests. The backend shall load only approved immutable supplied weights/inference code. |
-| ML-007 | Expose which ranker/mode is enabled, and fail explicitly if the selected model is unavailable; silent ranker substitution is prohibited. |
-| ML-008 | The researcher shall supply loading/inference code or an executable export, exact preprocessing/postprocessing, dependencies, input/output definitions and golden test cases. Backend acceptance shall reproduce reference outputs within agreed tolerances. |
+| SPC-001 | Expanded: a clicked coordinate/aperture and epoch group produces available wavelength/flux-density/error/flag/response samples with method and source provenance. |
+| SPC-002 | Expanded: use reviewed local photometry/ePSF or a verified documented official tool interface; account for background, pixel solid angle, aperture/PSF correction, blends and saturation. |
+| SPC-003 | Expanded: preserve epoch grouping and explicit moving-source positions; mark missing coverage/nondetections/upper limits and avoid fabricated 102-point spectra or mixed-epoch variable-source spectra. |
+| SPC-004 | Expanded: provide plot-ready JSON/CSV and comparable per-epoch flux evidence with units/uncertainty; React renders spectra/charts. |
 
-The model input boundary is a handoff decision: it may consume raw cutouts, aligned pairs, difference
-stamps or candidate features, or supply several scientific stages together. Logical pipeline stages do
-not require the backend developer to rebuild model internals. Map the supplied package to those stages
-explicitly and avoid duplicate normalization, registration or postprocessing. See [model handoff](docs/model_handoff.md).
-
-### 4.8 Evidence and public delivery (`artifacts`, `candidates`)
+### 3.6 Cross-survey context and metadata
 
 | ID | Requirement |
 | --- | --- |
-| EVD-001 | Deliver original/aligned/difference previews, candidate stamps and machine-readable evidence with source attribution. |
-| EVD-002 | Include image dimensions, tested overlay transforms/WCS, pixel-origin convention, orientation, display stretch, timestamps and wavelength context. |
-| EVD-003 | Preserve full precision scientific artifacts separately from normalized browser previews. |
-| EVD-004 | Serve published artifacts through opaque IDs or scoped URLs, with media type/checksum/cache policy and no arbitrary path access. |
-| EVD-005 | Provide deterministic candidate pagination/detail and curated real-data examples for frontend integration. |
+| OVL-001 | Expanded: offer Gaia catalog markers and WISE image/catalog context with source IDs, native epoch/time span, band, quality, uncertainty and attribution. |
+| OVL-002 | Expanded: use tested coordinate transforms and epoch-aware proper-motion propagation where supported; mark incomplete astrometry and apparent-position/parallax limits. A prediction is not an image detection. |
+| OVL-003 | Expanded: overlay failures shall be isolated. WISE images cannot silently replace missing SPHEREx frames; unlike survey images are not directly subtracted without separate validation. |
+| META-001 | Expose decoded contamination/mask summaries, coverage, timing, wavelength, calibration, operations and warnings in text/JSON as well as images. |
+| TOOL-001 | Expanded: use Astropy/unit-aware WCS and evaluate Aladin Lite v3 with the React owner; validate FITS/catalog/CORS/coordinate behavior instead of assuming compatibility. |
 
-### 4.9 Health and operational capability
+### 3.7 Share, embed, exports, jobs and optional AI
 
 | ID | Requirement |
 | --- | --- |
-| OPS-001 | Liveness shall be independent of provider/database availability; readiness shall check required database/schema dependencies. |
-| OPS-002 | Report scientific execution availability separately from API/database readiness; scaffold status shall not imply a functioning pipeline. |
-| OPS-003 | Provide structured sanitized request/job/stage diagnostics and last-known operational status. |
+| URL-001 | Expanded: coordinate query URLs restore normalized RA/Dec/FOV/dates/band/mode; immutable view-ID links reproduce frozen data/config versions. No credential appears in the URL. |
+| URL-002 | Expanded: support an embeddable frontend route with explicit framing/CORS policy and test an actual iframe in a second site. Backend supplies safe normalized state/manifest/artifacts. |
+| EXP-001 | Expanded: provide JSON/CSV metadata/spectrum and derived FITS exports; optional asynchronous GIF/MP4 includes time/band captions and provenance. |
+| JOB-001 | Public viewing requests are anonymously usable within server-enforced quotas/cache/queue limits; admin refresh/bulk operations require server-side authorization. |
+| JOB-002 | Return 202 only after durable persistence; support idempotency, leases, bounded retries/deadlines/cancel and atomic manifest publication. Do not publish partial scientific output as complete. |
+| ML-001 | AI only: integrate the researcher's versioned package/goldens; backend does not train or duplicate delivered preprocessing. |
+| ML-002 | AI only: retain model/evaluation/calibration evidence and score meaning; uncalibrated scores are not probabilities. Inference failure must not break other viewer features. |
 
-## 5. Data and scientific contracts
+## 4. Architecture and data contracts
 
-### 5.1 Initial schema
+Feature modules: targets, releases, observations, views, bands, coadds, spectra, overlays and existing
+cutouts/preprocessing/registration/comparisons/differencing/artifacts/analyses/health. Detection,
+association/ranking/candidates are optional. Scientific functions consume arrays/metadata rather than HTTP/ORM.
+Heavy work runs in leased workers; FastAPI orchestrates validated requests, status and published results.
 
-Seven tables are defined: observations, analysis_runs, analysis_inputs, stage_executions,
-model_versions, candidates and artifacts. Foreign keys retain run/input/result relations; observation
-identity includes release/product namespace, and a run retains ordered distinct observation inputs.
-Detailed columns and future migrations are specified in [data model](docs/data_model.md).
+The seven-table `cosmic_0001` baseline remains intact; cosmic_0002 adds processing-job persistence
+and restricted gateway RPCs. Add versioned view requests/frames/contributors,
+release snapshots, band definitions, processing jobs, spectra and overlay snapshots via migrations as
+their slices are implemented. Adapt analysis_runs/stage_executions where useful; do not force movie
+frames through a model/candidate relation. [Data model](docs/data_model.md) defines proposed relations.
 
-**DAT-001:** Source observation/product identity, original epoch/time scale, coordinate frame/units,
-calibration/release and raw/checksum provenance shall survive processing and be inspectable from a result.
+Every frame identifies original observing interval/time scale, effective/local response, contributors,
+release/calibration, masks, grid, transforms, display stretch and checksum. Files reside in object
+storage; PostgreSQL retains metadata/relations. Original values and normalized display pixels differ.
+Catalog reference epoch is separate from coordinate frame/equinox and observation/retrieval time.
 
-**DAT-002:** Numeric values shall be finite with domain-appropriate ranges. Unknown times, wavelength,
-variance, uncertainty or identity shall remain unavailable with a reason, not silently defaulted.
+The old engineering-preflight-v1 QR2 policy remains a historical development control, not a universal
+viewer gate or a scientifically approved coadd/difference/spectrum threshold. Review separate operation
+policies with representative data. Registration, masks and coadds must not erase the target's motion.
 
-**DAT-003:** Time conversion shall be explicit and validated, preserving original representation and
-precision. Future UTC assumptions, leap-second representation and unsupported conversions shall be labeled.
+## 5. API contracts and limits
 
-**DAT-004:** Candidate score, source intensity, probability, displacement and detection significance are
-different quantities and shall not be interchanged. UI rounding shall not overwrite retained precision.
+All new routes are planned, under `/api/v1`; details and examples are in [API contract](docs/api_contract.md).
+Actual OpenAPI still contains health/capabilities plus unavailable observation/analysis scaffolds.
+New views/frames/bands/targets/spectra/overlays/releases/export routes must be implemented and documented
+before use. Do not send the new view example to the old strict AnalysisRequest schema.
 
-**DAT-005:** Artifacts and model files shall have generated storage keys, hashes, byte counts, type,
-lineage and visibility state. Atomic result publication shall reference a validated immutable manifest.
+Proposed starting ceilings, to be configured and measured before activation:
 
-**DAT-006:** Retention/backups shall cover metadata and durable files consistently. Proposed demo
-retention is release-long curated results and seven-day failed temporary artifacts, pending budget/terms.
-
-### 5.2 Scientific validation
-
-The team must establish acceptable wavelength overlap, time separation, usable coverage, registration
-residual, background/PSF mismatch, detection and association thresholds from representative data.
-These values remain TBD until feasibility measurements and scientific review; software defaults shall
-not be advertised as validated thresholds. See [science and ML validation](docs/science_ml_validation.md).
-
-Required controls include stationary sources, injected movers, brightness-only changes, blended sources,
-bad pixels, saturated/edge regions, calibration/PSF differences and poor alignment. Injection recovery
-alone does not establish real-world precision. A human/reviewer role must approve scientific claims.
-
-## 6. Interface requirements
-
-**API-001:** JSON REST shall be versioned under `/api/v1` and described by OpenAPI. Requests shall
-reject unknown fields, invalid coordinates/time windows, duplicate IDs and non-finite/out-of-bounds values.
-
-**API-002:** Current scaffold discovery/analysis routes shall return 503 feature_not_ready after schema
-validation until their implementations exist. Capability output shall disclose disabled stages/methods.
-
-**API-003:** Implemented durable submission shall return 202 only after persistence, with a stable job ID
-and status URL. State polling shall expose completion/failure without returning fake empty science data.
-
-**API-004:** Planned errors shall distinguish 404 unknown resource, 409 conflict, 422 invalid input/
-compatibility as documented, 429 quota and 503 unavailable capability/dependency. Error logs may retain
-diagnostic detail but public responses shall be sanitized and traceable by request/job ID.
-
-**API-005:** Collections shall use stable `{items,total,limit,offset}` pagination. Provider results may
-have different native pagination; adapters shall normalize it and disclose limits/overflow.
-
-**API-006:** The frontend shall receive documented evidence/overlay coordinate conventions and safe
-artifact URLs, without database/provider credentials or Python-specific serialized objects.
-
-Implemented/scaffold routes: GET health/live, health/ready, system/capabilities; POST observations/search
-and analyses. Planned routes include observation detail, compatibility validation, job status/cancel,
-candidate list/detail, artifact access and enabled model metadata. See [API contract](docs/api_contract.md)
-for examples and target behavior. No frontend is hosted by the backend container.
-
-## 7. Resource, quality and operational requirements
-
-Proposed budgets must be measured on recorded hardware/data before acceptance.
-
-| ID | Area | Requirement / target |
-| --- | --- | --- |
-| NFR-001 | Request limits | Search radius <=0.1 degree, window <=730 days, limit <=100; 2–6 input observations; cutout width <=5 arcmin and common-grid longest edge <=512 pixels. |
-| NFR-002 | Input resources | Default download cap 128 MiB/object and timeout 30 s; enforce decoded FITS dimensions/HDU/memory and total-job limits before processing. |
-| NFR-003 | API performance | Proposed warm cached metadata/status p95 <=500 ms at 10 concurrent clients; measure separately from upstream network and scientific jobs. |
-| NFR-004 | Job performance | Proposed cached two-epoch 256x256 classical processing <=60 s on agreed 2-vCPU/16-GB worker; initial deadline 180 s pending measurement. |
-| NFR-005 | Durability | API/worker restart shall not lose accepted jobs or publish partial output. Worker retries/leases/cancellation shall be tested. |
-| NFR-006 | Storage | App restarts shall not erase published metadata/artifacts/weights; production uses external persistence and tested restore. |
-| NFR-007 | Scientific quality | Numeric QC and ML quality targets require representative data and reviewer approval before production claims. No unmeasured accuracy target is asserted. |
-| NFR-008 | Reproducibility | Results shall identify sources, code/config/pipeline/dependency/model versions and transformations. A repeated controlled run shall reproduce within documented tolerances. |
-| NFR-009 | Testability | Unit/scientific tests shall run on clearly synthetic/generated data; PostgreSQL and real permitted-use fixture integration tests shall supplement them. |
-| NFR-010 | Observability | Record request/job/stage IDs, timings, retries, failure class and worker/queue health without secret leakage. |
-| NFR-011 | Maintainability | Feature ownership, typed interfaces, migrations, scientific function separation and frontend handoff examples shall accompany implementation. |
-| NFR-012 | Availability | No always-on SLA is assumed for a sleeping demo Space; validate wake/restart behavior and support labeled precomputed public demo results. |
-| NFR-013 | Accessible handoff | Evidence shall include text metadata and candidate lists usable without relying only on image color/overlays. Frontend owns final accessibility implementation. |
-
-## 8. Security and privacy
-
-**SEC-001:** Expensive submission/cancellation shall be protected before enabling execution, with bounded
-quotas and concurrency. Public access to curated read-only examples may remain unauthenticated.
-
-**SEC-002:** Submission secrets shall remain in trusted backend/frontend-server environments. A public
-React bundle shall not contain a shared processing credential. Anonymous processing requires a separate
-explicit quota/abuse-control design, not merely permissive CORS.
-
-**SEC-003:** Remote fetches shall validate trusted destinations and redirects and deny arbitrary/private
-network URLs. Input image decompression/array allocation and local artifact paths shall be bounded.
-
-**SEC-004:** Production shall use HTTPS, database/storage TLS, least-privilege credentials and sanitized
-logs/errors. Source attribution/license notices shall be preserved for data/calibration/model artifacts.
-
-**SEC-005:** Model loading shall use approved immutable artifacts; untrusted pickle/checkpoint execution
-and public model uploads are excluded. Dependency/model provenance shall be reviewed before activation.
-
-**SEC-006:** MVP shall not collect learner profiles, precise visitor location or persistent personal data.
-Any later accounts/analytics/retention expansion requires a documented change.
-
-## 9. Deployment requirements
-
-**DEP-001:** Local Compose shall start fresh PostgreSQL, apply the replacement migration once and then
-start the API. It shall not silently reuse/reset an unrelated prior schema or delete existing volumes.
-
-**DEP-002:** The root Dockerfile shall serve the backend API on Hugging Face port 7860 as UID 1000.
-Frontend code, build tooling and containers shall remain outside this backend-only delivery.
-
-**DEP-003:** Production shall use external PostgreSQL and durable artifact/model storage. Apply migrations
-as a controlled release step, and verify network access, secrets, persistence and database/object restore.
-
-**DEP-004:** Worker topology shall be chosen and tested before enabling submissions. A separate durable
-worker is preferred; a co-located supervised worker must recover safely across Space sleep/restart.
-
-**DEP-005:** CI shall exercise lint/API/schema tests, PostgreSQL migration/drift checks and subsequently
-scientific stage/queue/storage integration tests. Release checks shall include image start, readiness,
-capability accuracy, trusted CORS and complete evidence retrieval.
-
-## 10. Acceptance and traceability
-
-| Requirement group | Use cases / owners | Required acceptance evidence |
-| --- | --- | --- |
-| ARC-001–006 | All / backend | Module/interface review, migration registry, worker separation and image inspection |
-| OBS-001–005 | UC-01 / observations | Real compatible-pair manifest, metadata/API fixture and empty/failure tests |
-| CMP-001–004 | UC-02 / comparisons | Positive/negative compatibility reports and reviewed tolerances |
-| JOB-001–007 | UC-02, UC-06 / analyses | Idempotency, atomic claims, crash/retry/cancel and publication tests on PostgreSQL |
-| IMG-001–005 | UC-02 / cutouts, preprocessing | FITS/mask/unit/size tests, trusted download and storage evidence |
-| DIF-001–004 | UC-02 / registration, differencing | Stationary controls, measured registration/PSF QC, difference/variance tests |
-| DET-001–005 | UC-03 / detection, association | Motion/variable/artifact/uncertain and zero-candidate cases with provenance |
-| TRK-001–002 | UC-05 / association | Sequence/outlier/ambiguity tests and tentative-fit evidence |
-| ML-001–008 | UC-04 / ranking, ML researcher | Researcher evaluation/model card, immutable package, inference-parity and score-label tests |
-| EVD-001–005, API-001–006 | UC-03 / artifacts, frontend handoff | OpenAPI, preview/overlay coordinate tests, sample manifests and protected access |
-| DAT-001–006 | All / database, science | Schema integrity, source/transform audit and storage/backup consistency |
-| OPS-001–003, NFR-001–013 | UC-06 / operations | Health failures, resource/load measurements, reproducibility and diagnostics |
-| SEC-001–006, DEP-001–005 | All / deployment | Credential/URL/file-boundary tests, image/worker restart and restore smoke checks |
-
-### 10.1 Scientific baseline exit
-
-- A real compatible SPHEREx pair is retrieved reproducibly with source/time/wavelength/calibration metadata.
-- Durable job execution processes it with reviewed alignment/mask/variance/PSF/detection controls.
-- Candidate motion/brightness/artifact/uncertain interpretations include evidence; zero candidates is valid.
-- Classical scores are correctly labeled; artifacts and frontend overlay contracts work end-to-end.
-- PostgreSQL/worker/storage/recovery/security checks and measured resource budgets pass.
-
-### 10.2 AI-release exit
-
-- A trained CNN/Siamese model is reproducible, evaluated against baseline on a leakage-controlled split
-  and approved for its intended data conditions.
-- Serving matches training preprocessing, uses identified weights and meets measured resource limits.
-- Model card, subgroup/failure evidence and calibration labels are truthful and inspectable.
-
-### 10.3 Public-demo exit
-
-The frontend team demonstrates image comparison and candidate evidence on real SPHEREx data using
-the documented backend. A curated cached fallback is visibly identified. Full challenge rules/deadline,
-data/model attribution and submission requirements are verified before team submission.
-
-## 11. Open decisions and delivery control
-
-| Decision | Resolution needed |
+| Resource | Planned budget / semantics |
 | --- | --- |
-| Official full brief/rubric/deadline | Verify current authoritative resources; do not infer from older years |
-| Real target field/epochs/release | Milestone 1 feasibility, including actual usable image pair |
-| Scientific QC thresholds | Measurements and qualified review before enabling scientific stages |
-| Researcher model package and interface | Ownership confirmed; agree input boundary, runtime, goldens and delivery version before integration |
-| Model architecture/runtime | Researcher selects/trains the model; backend follows the delivered inference interface and resource requirements |
-| Storage provider and worker hardware/topology | Budget, Space networking/sleep and benchmark results |
-| Public submission access | Trusted frontend-server proxy for MVP; anonymous jobs require further design |
+| FOV | 1–30 arcmin square, default 5; reject oversize explicitly and report actual footprint/coverage |
+| Discovery | ≤0.5-degree enclosing cone, ≤5-year time window, ≤100 rows per page, bounded continuation |
+| Processing | ≤60 output frames and ≤300 source products per job; offer explicit time-bin/batch choices beyond limits |
+| Arrays | Common-grid longest edge ≤512 pixels for the first release; preserve pixel scale and original native metadata |
+| Downloads | ≤128 MiB/source, ≤1 GiB/job, streaming limits and total deadline; no large array allocation before inspection |
+| Queue | Initially one CPU worker slot; per-client/global quotas and request/job deadline configurable after benchmarks |
+| Catalogs | Bounded cone/rows, overflow disclosed; optional overlays time out without blocking the base viewer |
 
-Detailed implementation order is in [todo_plan.md](todo_plan.md). Changes to scope, science assumptions,
-schemas or API behavior shall update this SRS, the pipeline/API contract and acceptance tests together.
-No commit/push is performed without the user's explicit request; use main and anindya357 when authorized.
+These differ from the unchanged legacy scaffold (radius ≤0.1°, 730 days, 2–6 observations, cutout ≤5′).
+Introduce versioned viewer schemas/capabilities/tests rather than silently loosening every old endpoint.
+Limits cannot silently crop the FOV, drop epochs or claim full coverage after sampling.
 
-## 12. References
+Errors distinguish invalid/ambiguous input, no_data, partial discovery, source unavailable, quota,
+unsupported operation/calibration and failed processing. A nondetection is not an upstream failure.
+Unknown resource 404, invalid request 422, quota 429 and disabled capability 503 remain explicit.
 
-- [Official challenge URL](https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/)
-- [Official-domain challenge summary](https://www.spaceappschallenge.org/2026/find-a-team/lsp26/)
-- [IRSA SPHEREx access](https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-access/)
-- [IRSA SPHEREx products](https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-products/)
-- [IRSA cutouts](https://irsa.ipac.caltech.edu/ibe/cutouts.html)
-- [Backend pipeline](docs/backend_pipeline.md), [data model](docs/data_model.md), [API contract](docs/api_contract.md)
-- [Scientific/ML validation](docs/science_ml_validation.md), [deployment](docs/deployment.md)
+## 6. Nonfunctional, security and hosting requirements
+
+- Public use shall not require astronomy expertise, accounts, an ML package or a private submission token.
+  Return understandable empty/quality states and text alternatives; React owns final accessibility testing.
+- Enforce rate/queue/byte/frame/memory/time limits, cancellation ownership and cache keys server-side.
+  Keep refresh/admin credentials and DB/object/model secrets out of React, links and logs.
+- Fetch only trusted versioned sources/redirects, validate FITS allocations and restrict artifact paths.
+  Use HTTPS/TLS, least privilege, immutable files, sanitized diagnostics and data/software credits.
+- Accepted jobs and published artifacts survive worker/API/Space restart; backups restore DB/file references
+  together. Keep publication atomic and partial files private until validation.
+- Record cold/warm latency, throughput, RSS/CPU/bytes and hardware for the five targets and larger FOVs.
+  No production latency, SNR gain, motion sensitivity or accuracy guarantee follows from the small M101 probe.
+- API Docker Space uses port 7860/UID 1000. PostgreSQL/object storage persist externally; worker/scheduler
+  placement accounts for Space sleep. Hosting/network/cost decisions must pass early smoke tests.
+- HF documents outbound 80/443/8080, so default PostgreSQL 5432 cannot be assumed reachable. Prove
+  an allowed database transport or implement a separate authenticated HTTPS repository adapter/gateway
+  with transaction-safe functions. Run Alembic/native workers in a DB-reachable environment; do not
+  misconfigure an HTTPS gateway as a psycopg URL. [Deployment](docs/deployment.md) tracks this gate.
+
+## 7. Scientific interpretation and ownership
+
+The challenge names movers and variables; the product shall not force all changes into a motion class.
+Spectral response, PSF/calibration, artifacts, blends and alignment can mimic change. Six-detector
+composites need stable response support across epochs; broad detector equality alone is insufficient.
+Temporal stacks can smear moving sources. Catalog propagation may omit observer-dependent apparent
+position/parallax effects; scope those predictions and uncertainty honestly.
+
+The ML researcher supplies training/evaluation/calibration and the inference contract. Backend acceptance
+checks supplied-output parity and operation/resource behavior, not a new scientific accuracy certification.
+The reviewer approves quantitative policies/claims; no calibrated-probability label without evidence.
+
+## 8. Acceptance and traceability
+
+| Requirement group | Required evidence |
+| --- | --- |
+| SKY, OBS, REL | Coordinate edge cases; source metadata/release migration, overflow/refresh/dedup and real discovery receipts |
+| IMG, CMP, VIEW | Real chronologically ordered aligned frames, shared stretch, masks/coverage and React playback/accessibility |
+| BAND, ADD, DIF | Six detector options, response/contributor maps, analytical coadd/variance controls and validated signed subtraction |
+| SPC | Reference extraction, units/errors/missing coverage, variable/moving position cases and CSV/JSON |
+| OVL, META, TOOL | Gaia/WISE epoch-aware layers, actual Aladin/FITS transform/CORS test and decoded contamination metadata |
+| URL, EXP | Coordinate URL restore, frozen view reproduction, real iframe test and attributed exports |
+| JOB / hosting | Atomic persistence/claims, restart/cancel/quota tests through the selected PostgreSQL transport |
+| ML | Optional supplied-model golden parity, provenance/resources and failure isolation |
+
+All five targets must be tested as defined in [target_validation.md](docs/target_validation.md). Record
+whether data, display, measurable motion/variability and quantitative processing are supported separately.
+A target test with a documented real nondetection does not prove visible-motion sensitivity; lack of
+usable epochs remains a visible release limitation to investigate, not a successful animation claim.
+
+Core exit: publicly usable coordinate time viewer and recorded tests for all five targets. Expanded exit:
+every adopted consideration has working acceptance evidence. Neither exit requires model training or
+automated tracking. Organizer submission rules/deadline remain separately unverified; the supplied
+description resolves objective/feature alignment, not those rules.
+
+## 9. Delivery control and references
+
+Implementation order: [todo_plan.md](todo_plan.md). Full mapping: [challenge_alignment.md](docs/challenge_alignment.md).
+Public resources and verification limits: [sources_and_challenge.md](docs/sources_and_challenge.md).
+Existing research: [data-path packet](docs/research/README.md). Optional [model handoff](docs/model_handoff.md).
+
+No commit/push without explicit request. Authorized Git actions use main and anindya357, preserve history
+and retain the frontend owner's work. This revision changes planning/documents, not enabled runtime features.

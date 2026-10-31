@@ -54,7 +54,15 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ObservationSearch"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/DiscoverySearch"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ObservationSearch"
+                  }
+                ],
+                "title": "Query"
               }
             }
           },
@@ -65,12 +73,127 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/DiscoveryPage"
+                }
               }
             }
           },
+          "429": {
+            "description": "Discovery concurrency limit"
+          },
           "503": {
-            "description": "Discovery adapter not implemented"
+            "description": "Archive or persistence unavailable"
+          },
+          "410": {
+            "description": "Legacy radius search retired; use discovery-v1"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/observations/snapshots/{snapshot_id}": {
+      "get": {
+        "tags": [
+          "observations"
+        ],
+        "summary": "Snapshot Page",
+        "operationId": "snapshot_page_api_v1_observations_snapshots__snapshot_id__get",
+        "parameters": [
+          {
+            "name": "snapshot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Snapshot Id"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 160,
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscoveryPage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/observations/{product_id}": {
+      "get": {
+        "tags": [
+          "observations"
+        ],
+        "summary": "Product Detail",
+        "operationId": "product_detail_api_v1_observations__product_id__get",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Product Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           },
           "422": {
             "description": "Validation Error",
@@ -140,6 +263,544 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/resolve": {
+      "post": {
+        "tags": [
+          "targets"
+        ],
+        "summary": "Resolve Coordinates",
+        "operationId": "resolve_coordinates_api_v1_targets_resolve_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Coordinates"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets": {
+      "get": {
+        "tags": [
+          "targets"
+        ],
+        "summary": "Targets",
+        "operationId": "targets_api_v1_targets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TargetCatalog"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/releases": {
+      "get": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Releases",
+        "operationId": "releases_api_v1_releases_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/session": {
+      "get": {
+        "tags": [
+          "views",
+          "jobs"
+        ],
+        "summary": "Initialize Session",
+        "operationId": "initialize_session_api_v1_views_session_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views": {
+      "post": {
+        "tags": [
+          "views",
+          "jobs"
+        ],
+        "summary": "Submit View",
+        "operationId": "submit_view_api_v1_views_post",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/PreparedViewRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ViewRequest"
+                  }
+                ],
+                "title": "Query"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewAcceptance"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Existing request/cache reused"
+          },
+          "409": {
+            "description": "Idempotency conflict"
+          },
+          "429": {
+            "description": "Admission quota"
+          },
+          "503": {
+            "description": "Provider/storage unavailable"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/jobs/{view_id}": {
+      "get": {
+        "tags": [
+          "views",
+          "jobs"
+        ],
+        "summary": "View Status",
+        "operationId": "view_status_api_v1_jobs__view_id__get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}": {
+      "get": {
+        "tags": [
+          "views",
+          "jobs"
+        ],
+        "summary": "View Status",
+        "operationId": "view_status_api_v1_views__view_id__get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/cancel": {
+      "post": {
+        "tags": [
+          "views",
+          "jobs"
+        ],
+        "summary": "Cancel View",
+        "operationId": "cancel_view_api_v1_views__view_id__cancel_post",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/artifacts/{artifact_id}": {
+      "get": {
+        "tags": [
+          "artifacts"
+        ],
+        "summary": "Artifact Metadata",
+        "operationId": "artifact_metadata_api_v1_artifacts__artifact_id__get",
+        "parameters": [
+          {
+            "name": "artifact_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Artifact Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/artifacts/{artifact_id}/content": {
+      "get": {
+        "tags": [
+          "artifacts"
+        ],
+        "summary": "Artifact Content",
+        "operationId": "artifact_content_api_v1_artifacts__artifact_id__content_get",
+        "parameters": [
+          {
+            "name": "artifact_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Artifact Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/preparation": {
+      "get": {
+        "tags": [
+          "preparation"
+        ],
+        "summary": "Preparation Report",
+        "operationId": "preparation_report_api_v1_views__view_id__preparation_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/bands": {
+      "get": {
+        "tags": [
+          "preparation"
+        ],
+        "summary": "Available Bands",
+        "operationId": "available_bands_api_v1_views__view_id__bands_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bands": {
+      "get": {
+        "tags": [
+          "bands"
+        ],
+        "summary": "Nominal Channels",
+        "operationId": "nominal_channels_api_v1_bands_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bands/{channel_id}": {
+      "get": {
+        "tags": [
+          "bands"
+        ],
+        "summary": "Nominal Channel",
+        "operationId": "nominal_channel_api_v1_bands__channel_id__get",
+        "parameters": [
+          {
+            "name": "channel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Channel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
@@ -215,6 +876,295 @@
         ],
         "title": "AnalysisRequest"
       },
+      "Coordinates": {
+        "properties": {
+          "ra": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Ra"
+          },
+          "dec": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Dec"
+          },
+          "ra_unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ra Unit"
+          },
+          "dec_unit": {
+            "type": "string",
+            "title": "Dec Unit",
+            "default": "deg"
+          },
+          "frame": {
+            "type": "string",
+            "title": "Frame",
+            "default": "icrs"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ra",
+          "dec"
+        ],
+        "title": "Coordinates"
+      },
+      "DiscoveryPage": {
+        "properties": {
+          "contract_version": {
+            "type": "string",
+            "const": "discovery-v1",
+            "title": "Contract Version",
+            "default": "discovery-v1"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "registry_version": {
+            "type": "string",
+            "title": "Registry Version"
+          },
+          "canonical_query": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Canonical Query"
+          },
+          "created_at_utc": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At Utc"
+          },
+          "revalidate_after_utc": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Revalidate After Utc"
+          },
+          "cache_hit": {
+            "type": "boolean",
+            "title": "Cache Hit"
+          },
+          "stale": {
+            "type": "boolean",
+            "title": "Stale"
+          },
+          "upstream_complete": {
+            "type": "boolean",
+            "title": "Upstream Complete"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "sampled_count": {
+            "type": "integer",
+            "title": "Sampled Count"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "items": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "next_page": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Page"
+          },
+          "availability": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Availability"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "snapshot_id",
+          "registry_version",
+          "canonical_query",
+          "created_at_utc",
+          "revalidate_after_utc",
+          "cache_hit",
+          "stale",
+          "upstream_complete",
+          "total",
+          "sampled_count",
+          "offset",
+          "limit",
+          "items",
+          "next_page",
+          "availability",
+          "sources",
+          "warnings"
+        ],
+        "title": "DiscoveryPage"
+      },
+      "DiscoverySearch": {
+        "properties": {
+          "region": {
+            "$ref": "#/components/schemas/RectangularRegion"
+          },
+          "start_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start At"
+          },
+          "end_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End At"
+          },
+          "collections": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "spherex_qr3",
+                "spherex_qr3_deep",
+                "spherex_qr2",
+                "spherex_qr2_deep"
+              ]
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Collections"
+          },
+          "detectors": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6"
+              ]
+            },
+            "type": "array",
+            "maxItems": 6,
+            "title": "Detectors"
+          },
+          "wavelength_min_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 5.5,
+                "minimum": 0.7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Min Um"
+          },
+          "wavelength_max_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 5.5,
+                "minimum": 0.7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Max Um"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "discovery-v1",
+            "title": "Contract Version"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 20
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "region",
+          "contract_version"
+        ],
+        "title": "DiscoverySearch"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -269,6 +1219,271 @@
         ],
         "title": "ObservationSearch"
       },
+      "PreparationOptions": {
+        "properties": {
+          "spectral_mode": {
+            "type": "string",
+            "enum": [
+              "common_available",
+              "detector",
+              "channel"
+            ],
+            "title": "Spectral Mode",
+            "default": "common_available"
+          },
+          "detector": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "D1",
+                  "D2",
+                  "D3",
+                  "D4",
+                  "D5",
+                  "D6"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detector"
+          },
+          "channel_id": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 102.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Channel Id"
+          },
+          "temporal_bin_seconds": {
+            "type": "integer",
+            "maximum": 300.0,
+            "minimum": 0.0,
+            "title": "Temporal Bin Seconds",
+            "default": 0
+          },
+          "stretch": {
+            "type": "string",
+            "enum": [
+              "shared_asinh",
+              "per_frame_asinh"
+            ],
+            "title": "Stretch",
+            "default": "shared_asinh"
+          },
+          "native_preview_policy": {
+            "type": "string",
+            "enum": [
+              "masked",
+              "inspect_flagged"
+            ],
+            "title": "Native Preview Policy",
+            "default": "masked"
+          },
+          "target_exclusion_radius_arcsec": {
+            "type": "number",
+            "maximum": 120.0,
+            "minimum": 24.0,
+            "title": "Target Exclusion Radius Arcsec",
+            "default": 30
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "PreparationOptions"
+      },
+      "PreparedViewRequest": {
+        "properties": {
+          "region": {
+            "$ref": "#/components/schemas/RectangularRegion"
+          },
+          "start_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start At"
+          },
+          "end_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End At"
+          },
+          "collections": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "spherex_qr3",
+                "spherex_qr3_deep",
+                "spherex_qr2",
+                "spherex_qr2_deep"
+              ]
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Collections"
+          },
+          "detectors": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6"
+              ]
+            },
+            "type": "array",
+            "maxItems": 6,
+            "title": "Detectors"
+          },
+          "wavelength_min_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 5.5,
+                "minimum": 0.7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Min Um"
+          },
+          "wavelength_max_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 5.5,
+                "minimum": 0.7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Max Um"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "view-v2",
+            "title": "Contract Version"
+          },
+          "max_frames": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "Max Frames",
+            "default": 6
+          },
+          "selection_policy": {
+            "type": "string",
+            "const": "evenly_spaced_sample",
+            "title": "Selection Policy",
+            "default": "evenly_spaced_sample"
+          },
+          "preparation": {
+            "$ref": "#/components/schemas/PreparationOptions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "region",
+          "contract_version"
+        ],
+        "title": "PreparedViewRequest"
+      },
+      "RectangularRegion": {
+        "properties": {
+          "ra": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Ra"
+          },
+          "dec": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Dec"
+          },
+          "ra_unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ra Unit"
+          },
+          "dec_unit": {
+            "type": "string",
+            "title": "Dec Unit",
+            "default": "deg"
+          },
+          "frame": {
+            "type": "string",
+            "title": "Frame",
+            "default": "icrs"
+          },
+          "width_arcmin": {
+            "type": "number",
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Width Arcmin",
+            "default": 5
+          },
+          "height_arcmin": {
+            "type": "number",
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Height Arcmin",
+            "default": 5
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ra",
+          "dec"
+        ],
+        "title": "RectangularRegion"
+      },
       "SkyRegion": {
         "properties": {
           "ra_deg": {
@@ -298,6 +1513,136 @@
           "radius_deg"
         ],
         "title": "SkyRegion"
+      },
+      "Target": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "canonical_id": {
+            "type": "string",
+            "title": "Canonical Id"
+          },
+          "ra_deg": {
+            "type": "number",
+            "exclusiveMaximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          },
+          "reference_epoch_jyear": {
+            "type": "number",
+            "title": "Reference Epoch Jyear"
+          },
+          "pm_ra_cosdec_mas_yr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pm Ra Cosdec Mas Yr"
+          },
+          "pm_dec_mas_yr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pm Dec Mas Yr"
+          },
+          "astrometry": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Astrometry"
+          },
+          "source_receipt": {
+            "type": "string",
+            "title": "Source Receipt"
+          },
+          "supplied_coordinate": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supplied Coordinate"
+          },
+          "caveats": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Caveats"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "slug",
+          "name",
+          "canonical_id",
+          "ra_deg",
+          "dec_deg",
+          "reference_epoch_jyear",
+          "pm_ra_cosdec_mas_yr",
+          "pm_dec_mas_yr",
+          "astrometry",
+          "source_receipt",
+          "caveats"
+        ],
+        "title": "Target"
+      },
+      "TargetCatalog": {
+        "properties": {
+          "catalog_version": {
+            "type": "string",
+            "title": "Catalog Version"
+          },
+          "status": {
+            "type": "string",
+            "const": "curated_research_snapshot_not_live_discovery",
+            "title": "Status"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/Target"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "catalog_version",
+          "status",
+          "items",
+          "total"
+        ],
+        "title": "TargetCatalog"
       },
       "ValidationError": {
         "properties": {
@@ -338,6 +1683,164 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "ViewAcceptance": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status_url": {
+            "type": "string",
+            "title": "Status Url"
+          },
+          "job_url": {
+            "type": "string",
+            "title": "Job Url"
+          },
+          "cache_hit": {
+            "type": "boolean",
+            "title": "Cache Hit"
+          },
+          "viewer_execution_available": {
+            "type": "boolean",
+            "const": false,
+            "title": "Viewer Execution Available",
+            "default": false
+          },
+          "cancel_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancel Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status_url",
+          "job_url",
+          "cache_hit"
+        ],
+        "title": "ViewAcceptance"
+      },
+      "ViewRequest": {
+        "properties": {
+          "region": {
+            "$ref": "#/components/schemas/RectangularRegion"
+          },
+          "start_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start At"
+          },
+          "end_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End At"
+          },
+          "collections": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "spherex_qr3",
+                "spherex_qr3_deep",
+                "spherex_qr2",
+                "spherex_qr2_deep"
+              ]
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Collections"
+          },
+          "detectors": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "D1",
+                "D2",
+                "D3",
+                "D4",
+                "D5",
+                "D6"
+              ]
+            },
+            "type": "array",
+            "maxItems": 6,
+            "title": "Detectors"
+          },
+          "wavelength_min_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 5.5,
+                "minimum": 0.7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Min Um"
+          },
+          "wavelength_max_um": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 5.5,
+                "minimum": 0.7
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Max Um"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "view-v1",
+            "title": "Contract Version"
+          },
+          "max_frames": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "Max Frames",
+            "default": 6
+          },
+          "selection_policy": {
+            "type": "string",
+            "const": "evenly_spaced_sample",
+            "title": "Selection Policy",
+            "default": "evenly_spaced_sample"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "region",
+          "contract_version"
+        ],
+        "title": "ViewRequest"
       }
     }
   }

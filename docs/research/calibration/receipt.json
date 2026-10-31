@@ -1,0 +1,1270 @@
+{
+  "source_url": "https://irsa.ipac.caltech.edu/data/SPHEREx/docs/spectral_files_20260812/SPHERExSpectralFiles_202607.tar",
+  "archive_length": 436705280,
+  "archive_last_modified": "Wed, 26 Aug 2026 22:08:57 GMT",
+  "retrieved_at_utc": "2026-10-31T13:27:12.394960+00:00",
+  "range_requests": 307,
+  "transferred_bytes": 20063233,
+  "members": [
+    {
+      "member": "FidSpecSummary/SubChannel17/Band1/FidSpecSummary_Band1_SpecCh17.csv",
+      "sha256": "b4bebda7c62a9c3c3bdd59fb47890f90e8a7600eb034153b457ae562f7ddb114",
+      "bytes": 747,
+      "local_file": "FidSpecSummary__SubChannel17__Band1__FidSpecSummary_Band1_SpecCh17.csv"
+    },
+    {
+      "member": "FidSpecSummary/SubChannel17/Band2/FidSpecSummary_Band2_SpecCh17.csv",
+      "sha256": "d6774ce392ba2fbe9a6c472d03630b3a0271f75b359cf24e91a7786f9da6be2e",
+      "bytes": 747,
+      "local_file": "FidSpecSummary__SubChannel17__Band2__FidSpecSummary_Band2_SpecCh17.csv"
+    },
+    {
+      "member": "FidSpecSummary/SubChannel17/Band3/FidSpecSummary_Band3_SpecCh17.csv",
+      "sha256": "405c3307cd7e2c7b0436e796d5eea4c4a81265287dc0c8b84adbf1605651e36b",
+      "bytes": 747,
+      "local_file": "FidSpecSummary__SubChannel17__Band3__FidSpecSummary_Band3_SpecCh17.csv"
+    },
+    {
+      "member": "FidSpecSummary/SubChannel17/Band4/FidSpecSummary_Band4_SpecCh17.csv",
+      "sha256": "814cac8494457f8b7c5538f025a03bb3773c7168c49745dc23a85ef35f5bc438",
+      "bytes": 747,
+      "local_file": "FidSpecSummary__SubChannel17__Band4__FidSpecSummary_Band4_SpecCh17.csv"
+    },
+    {
+      "member": "FidSpecSummary/SubChannel17/Band5/FidSpecSummary_Band5_SpecCh17.csv",
+      "sha256": "122cb273c28ad02d514966329c94ab4aba3158ec1be2e7c8f77bfe0b970b9739",
+      "bytes": 747,
+      "local_file": "FidSpecSummary__SubChannel17__Band5__FidSpecSummary_Band5_SpecCh17.csv"
+    },
+    {
+      "member": "FidSpecSummary/SubChannel17/Band6/FidSpecSummary_Band6_SpecCh17.csv",
+      "sha256": "19c68dccb36ab2664718ed1679ce412f2e5557676fabb3da062c233168fc7ae6",
+      "bytes": 747,
+      "local_file": "FidSpecSummary__SubChannel17__Band6__FidSpecSummary_Band6_SpecCh17.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh01_17_Allpix.csv",
+      "sha256": "70ba3c2c4d7ae2375fea2f83d63b67c8df471d5ed1345b8c5282f636adb76243",
+      "bytes": 8230,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh01_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh02_17_Allpix.csv",
+      "sha256": "8e5943b0a7a683404d281667d53f250b6f7ba539c51c37a08aeb9fa2a300f5cb",
+      "bytes": 8208,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh02_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh03_17_Allpix.csv",
+      "sha256": "3d143e27d37ec3747d709b4f5d973f94fe17a3c28b808774e7ba28bcf679b65d",
+      "bytes": 8219,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh03_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh04_17_Allpix.csv",
+      "sha256": "73fa6df1ebd78083502f404ddf2897a023dfcb49d21ceea45e733308f5b44ed7",
+      "bytes": 8212,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh04_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh05_17_Allpix.csv",
+      "sha256": "5281501e417f8430131104bd19a8771b6bcf43a337b32fa2f65306d19b74bbd3",
+      "bytes": 8220,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh05_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh06_17_Allpix.csv",
+      "sha256": "8475db466bbda9a746bab9141224b10d60f8daf20c37109c1d346edf70336e71",
+      "bytes": 8203,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh06_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh07_17_Allpix.csv",
+      "sha256": "8915886f45b470b19cd1350f814047334b5a983b079b0548fa91d0c7204b75d9",
+      "bytes": 8196,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh07_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh08_17_Allpix.csv",
+      "sha256": "86d2a0fc4ee6cf77d4f9b6275c6aa2599940fb2d09f051c0621ae0f9914c1725",
+      "bytes": 8179,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh08_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh09_17_Allpix.csv",
+      "sha256": "36b95395ca6a0641e1334da470f8b29e81852c1047771c923278b7f84c1f4679",
+      "bytes": 8177,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh09_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh10_17_Allpix.csv",
+      "sha256": "e56fdd84f216edae8c3c6dc394f139d4cee528cde7dd2760e017e509f70f7e1b",
+      "bytes": 8147,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh10_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh11_17_Allpix.csv",
+      "sha256": "ab48aeb60b292c5865166b50452786957568becd45c8000c4986132b85e59377",
+      "bytes": 8170,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh11_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh12_17_Allpix.csv",
+      "sha256": "0f64046c15f2ef064cb7b435bbd5c574b4e7b11075a9297b5238fb389ce4dedb",
+      "bytes": 8156,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh12_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh13_17_Allpix.csv",
+      "sha256": "b698c7318ad4cec74ae60d6fe595930414ce4ff140cd05c7cef37721d0b1857b",
+      "bytes": 8129,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh13_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh14_17_Allpix.csv",
+      "sha256": "3b523d52373ffc085e1eca32efaa35f521f9508e28359af97aeece6350939ac3",
+      "bytes": 8122,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh14_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh15_17_Allpix.csv",
+      "sha256": "b4fb3229b1550e8e9adc753d43e55aea56b101375702ea9c2e7f30fb9f0a8325",
+      "bytes": 8119,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh15_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh16_17_Allpix.csv",
+      "sha256": "224a1d9ba1813f3322b8341656ecf024f891679a6085ba08e26fe7c809157402",
+      "bytes": 8119,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh16_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh17_17_Allpix.csv",
+      "sha256": "7dc079bdfa047553631c5b2e0fca2062d19eb8e62298c8f124d08cc280c901ca",
+      "bytes": 8129,
+      "local_file": "MeanAllPixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh17_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh01_17_Allpix.csv",
+      "sha256": "ba2e610ad01bf118f982183b88bd1b2c433f3b54e1fb666f23b53e8997a2dc21",
+      "bytes": 8253,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh01_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh02_17_Allpix.csv",
+      "sha256": "eb4e2c04ba50712b345c4d86305e097593e0cf49f3282d3287f983a4bdc8ee96",
+      "bytes": 8249,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh02_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh03_17_Allpix.csv",
+      "sha256": "c58343c073740803cb5eb943f1c6e7f4946cac5d37ad57bed31f69584410e566",
+      "bytes": 8208,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh03_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh04_17_Allpix.csv",
+      "sha256": "1166e5c7c516c94b8fa5448e2484bfb3c543b1b787d6a05fb71a813670ef2c4a",
+      "bytes": 8217,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh04_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh05_17_Allpix.csv",
+      "sha256": "a33c60b7b30a1c63746d7ad923f2912ef15d76fb2eda97793c9027e20ee63e7f",
+      "bytes": 8203,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh05_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh06_17_Allpix.csv",
+      "sha256": "f4350103690aa190225eced23fc48dc30b0723c0c2057fa0d8730d43f2d6f8c2",
+      "bytes": 8193,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh06_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh07_17_Allpix.csv",
+      "sha256": "d2d7a2351a680466f04908010c831db0776a659edfe2958f7eb0e39171e087b0",
+      "bytes": 8179,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh07_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh08_17_Allpix.csv",
+      "sha256": "f57090414e6e4331e5670444bf209ca69080f73a8e00230462411140f90a5610",
+      "bytes": 8180,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh08_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh09_17_Allpix.csv",
+      "sha256": "ee1feeb2fe1bbe79ba876178723c83927621fe4845a05fb04e51df39317d5b27",
+      "bytes": 8170,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh09_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh10_17_Allpix.csv",
+      "sha256": "4260cb62ba1140945b85d5f7e8b25b4d5e49c9d0cc1c9f55214e86cf7fd827c6",
+      "bytes": 8158,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh10_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh11_17_Allpix.csv",
+      "sha256": "b9f620ec92aa71b86aa1c9e0e986fcc1f5033a0dfbf949cf545bda34959d90be",
+      "bytes": 8163,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh11_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh12_17_Allpix.csv",
+      "sha256": "5da9b7f9d6a70c949a3dee1cdc2e6d61f6058af77a5af74d6d29ce556506fe7c",
+      "bytes": 8155,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh12_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh13_17_Allpix.csv",
+      "sha256": "290aa5f04fcc396ff0fd55a684335a9eec196909fe2e8c70a185a23295826df0",
+      "bytes": 8144,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh13_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh14_17_Allpix.csv",
+      "sha256": "b80f671d3d377c4098eb678875d10e0f0821cb8525808a223240360b9a8ed8cf",
+      "bytes": 8146,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh14_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh15_17_Allpix.csv",
+      "sha256": "6c067320a488a45bf7c14d679295545519cf358f170fa4cf088580e087308ba1",
+      "bytes": 8158,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh15_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh16_17_Allpix.csv",
+      "sha256": "ef68f8de3e3f0d54b8808ee69bba128f812044e335952c75f8fc1c5fa58e6aae",
+      "bytes": 8147,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh16_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh17_17_Allpix.csv",
+      "sha256": "05df4b00c067e8be3b249c36166e44e1f3412568e5575bfd1b61e436b9c160ae",
+      "bytes": 8161,
+      "local_file": "MeanAllPixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh17_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh01_17_Allpix.csv",
+      "sha256": "107ff13c3f30602970f346301e4463097450a2b475ce44f635c4d962a6b196ed",
+      "bytes": 9154,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh01_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh02_17_Allpix.csv",
+      "sha256": "251d92ffef3c14f7d795844334a8b8dd8f604c1857a089364ef14a9e678db5d1",
+      "bytes": 9156,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh02_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh03_17_Allpix.csv",
+      "sha256": "639c278c7342f6dac263f629572e12f6f60423c208d249454bee62424ac5120a",
+      "bytes": 9138,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh03_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh04_17_Allpix.csv",
+      "sha256": "a41c9cfce1b82239e51005c2dfd2f726735a6a216f4e7626c082fe74a17fd6cf",
+      "bytes": 9153,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh04_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh05_17_Allpix.csv",
+      "sha256": "0567e86f404d0486b2ae5178967466132edfae94eaa30d4ebeb7294715b33c1a",
+      "bytes": 9145,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh05_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh06_17_Allpix.csv",
+      "sha256": "9d2dbe0cc03847de0d8cf4f342d6c9c295edc3e1050fb0ab6411c17724703b7d",
+      "bytes": 9137,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh06_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh07_17_Allpix.csv",
+      "sha256": "bdfc7df713b229ef7866028f8754b0e93ee0e5d50227b696c417940d87253bda",
+      "bytes": 9145,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh07_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh08_17_Allpix.csv",
+      "sha256": "8a662c2df8e864865edaf3838f2cdda3b36f912a4d7cd9990be0a29f2d36e0d0",
+      "bytes": 9134,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh08_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh09_17_Allpix.csv",
+      "sha256": "b4f1a77486f2cc721eb643ef792cdd9c1ff95d00019892f15b2a91c82e79c575",
+      "bytes": 9119,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh09_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh10_17_Allpix.csv",
+      "sha256": "2aca3637645da230b5d3649efd8efb18a0e43830a4925d1b8325dec7d73ff931",
+      "bytes": 9085,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh10_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh11_17_Allpix.csv",
+      "sha256": "66f036dbe9b5d1da420805767cc03530915de8ac45dd7ab642864d3e9a01ebdd",
+      "bytes": 9089,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh11_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh12_17_Allpix.csv",
+      "sha256": "7d8debf3efe85016c6a84eb943673f7efa5495cc025015656373b7c87e7746a4",
+      "bytes": 9108,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh12_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh13_17_Allpix.csv",
+      "sha256": "be9d98ab098cd4dd55d7d3cd56ea267f10eaec422ab42690a4953f3bf3f9ea13",
+      "bytes": 9117,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh13_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh14_17_Allpix.csv",
+      "sha256": "08fbf254d71bdc0669c65efaeb7d680914acb3f2cd06c54ef4a5dfbca239e962",
+      "bytes": 9100,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh14_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh15_17_Allpix.csv",
+      "sha256": "d9ddaa55a5b1cced9189c414fee1dea4a91ea82567a4f5238869564a1e634c54",
+      "bytes": 9121,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh15_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh16_17_Allpix.csv",
+      "sha256": "6dc55cd07b2ceb4c1b1021ff0e1f23808c38b795fb58874d5433c72d84078f15",
+      "bytes": 9089,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh16_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh17_17_Allpix.csv",
+      "sha256": "92ab33101b43adbb1625568ad89ff77c63641164e597ba8aa1a02e25c16e1ded",
+      "bytes": 9131,
+      "local_file": "MeanAllPixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh17_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh01_17_Allpix.csv",
+      "sha256": "f107582000237ae0ab27b5353091b3911fce8bbfdaeec153201617b604edeca2",
+      "bytes": 13971,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh01_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh02_17_Allpix.csv",
+      "sha256": "69e5eb9142f1d1213f2ab0b73f74e6dddc411615ca71b2e98424e9d9f88157e6",
+      "bytes": 13899,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh02_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh03_17_Allpix.csv",
+      "sha256": "f58753576414e29de797167f07ace0212a60aa3dd9e2522f5c2ff3d1c7ad2b99",
+      "bytes": 13865,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh03_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh04_17_Allpix.csv",
+      "sha256": "4217e238756070c07ce13eed208df912f33d67014c513e38d331baa1d677074a",
+      "bytes": 13970,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh04_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh05_17_Allpix.csv",
+      "sha256": "cf47b21b1a13b894b09d93948da012a2b9d1a6aac436c28d9f3bb77aa2953514",
+      "bytes": 13944,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh05_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh06_17_Allpix.csv",
+      "sha256": "ba93c18b10b58039bf66eceb684ddf449ace8b111ac3095128c58dffd09d2bad",
+      "bytes": 14013,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh06_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh07_17_Allpix.csv",
+      "sha256": "7a8319c263c5832421f85ea8b0310db9c83eda9dd2f7f8a5f36598d8896305a7",
+      "bytes": 14033,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh07_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh08_17_Allpix.csv",
+      "sha256": "f5a8ff2bb5dcfe7b2a8f3643aa18c5379405a53ea4485bef95f87ab60c6059c5",
+      "bytes": 14072,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh08_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh09_17_Allpix.csv",
+      "sha256": "9798f4b3b06dc0def62a52ea49e6cc54f98de599dac1e160bf41ea35f1d07b59",
+      "bytes": 14061,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh09_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh10_17_Allpix.csv",
+      "sha256": "b8120e02d488ae8900b12a687bc431b67191b33885bb306ccd427018005cd0c9",
+      "bytes": 14069,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh10_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh11_17_Allpix.csv",
+      "sha256": "0bcd845148900fb7cd56bfe55817865aba08daf8a81be0911403adfcc38069bf",
+      "bytes": 14056,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh11_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh12_17_Allpix.csv",
+      "sha256": "2748203190061becbd2507ff962f50fdd2724bb618d6153d1e0a430e76efcdea",
+      "bytes": 14068,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh12_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh13_17_Allpix.csv",
+      "sha256": "8a2e4978854e0fe0e978ba93cc6efd2437f879c276c80b7ae6ecf68b860da70b",
+      "bytes": 14084,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh13_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh14_17_Allpix.csv",
+      "sha256": "e03adc76b6f56187f4b9ced81f54e6313715a117c5131197983571b970ef1c4f",
+      "bytes": 14051,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh14_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh15_17_Allpix.csv",
+      "sha256": "d553ed72faccf363e7e1178811768405971d742a299ecc709a56cf1c47b13da7",
+      "bytes": 14050,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh15_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh16_17_Allpix.csv",
+      "sha256": "054d755870768de0e8dd5a4fd8af7afc7b458e0d852c550e9d9776a74cfc2db9",
+      "bytes": 14062,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh16_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh17_17_Allpix.csv",
+      "sha256": "5969af177fe19d37dae5f734e75e7fdf3935a9626f3f36a2f85a2c6f99404888",
+      "bytes": 14043,
+      "local_file": "MeanAllPixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh17_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh01_17_Allpix.csv",
+      "sha256": "f8a2f01e2ae8a87049527f57062491c9a400af23021eea79463b92f5311f6595",
+      "bytes": 9396,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh01_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh02_17_Allpix.csv",
+      "sha256": "c27e3cbca2a58bb7a57fc328f594a2233091b26854f8a67737d504613c6fb6c6",
+      "bytes": 9406,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh02_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh03_17_Allpix.csv",
+      "sha256": "cf2de0b10a6e9b186167138478e522d047085efdd6284180d3e4b74db2f0661b",
+      "bytes": 9384,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh03_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh04_17_Allpix.csv",
+      "sha256": "335b6009ab9e1959824bcd0404af13df4f3181272729274a7b3dce0be9559eb6",
+      "bytes": 9383,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh04_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh05_17_Allpix.csv",
+      "sha256": "c5e09b1d8f589e5b9464b092cc8d013e9e60e93ce352cefa8f7e348a46050b13",
+      "bytes": 9385,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh05_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh06_17_Allpix.csv",
+      "sha256": "c9b9f1970bff93da3671d4d9805a483f9fdd1763b40081c48ad8b8a4a12bc95d",
+      "bytes": 9385,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh06_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh07_17_Allpix.csv",
+      "sha256": "fc7e6e8442261058d31a39a5fb1bf15daf8e5d5f26a3ac9eaeb2187737d76e17",
+      "bytes": 9367,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh07_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh08_17_Allpix.csv",
+      "sha256": "549ee79cb1d4bcc3996d613455a5cfd264975958c56774849461c7289f13a764",
+      "bytes": 9360,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh08_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh09_17_Allpix.csv",
+      "sha256": "4f1146308646da081861aa4173d88192f4f3ddeee245ddb158bbae9fc607677c",
+      "bytes": 9362,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh09_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh10_17_Allpix.csv",
+      "sha256": "e498496d6e86b96d162a6bb8589fbbd8b0d683d4d4e9758e4f8037ff04ef5e20",
+      "bytes": 9343,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh10_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh11_17_Allpix.csv",
+      "sha256": "c5942ceba32c0ae841d1dd5b8dd6893b31695c3e6591c97da8a1a774a5b38796",
+      "bytes": 9380,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh11_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh12_17_Allpix.csv",
+      "sha256": "415b84d3781dded38989a9dffc138bbd3f54bc70221b18a07c0f11714d4f17d8",
+      "bytes": 9387,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh12_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh13_17_Allpix.csv",
+      "sha256": "e3e20ea2f9d53bfa1c4fe9c23ddd1b2f1541ffb805172cb14c07a921fbbb6f57",
+      "bytes": 9400,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh13_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh14_17_Allpix.csv",
+      "sha256": "bafb3978bebc21221c37fc68c4fab783c101461e928b4feea3d9e077e23969e2",
+      "bytes": 9397,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh14_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh15_17_Allpix.csv",
+      "sha256": "f5c39fac7fcd321c5b1b4aa44e266915f7877379ec96109c57e9d9af2d7f83ef",
+      "bytes": 9399,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh15_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh16_17_Allpix.csv",
+      "sha256": "63eec9f0dcef7990fc8e887c1d45711beb61317c290b413f8413a0ee13ea6232",
+      "bytes": 9404,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh16_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh17_17_Allpix.csv",
+      "sha256": "a1052850f9e93fbbbcbef0612daee48e0be6e61c9f0ed0e01c7e414949fb1a79",
+      "bytes": 9394,
+      "local_file": "MeanAllPixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh17_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh01_17_Allpix.csv",
+      "sha256": "0ab4a3ec6312a97dd8d4a7565a6095150f5cef50ae538c4629fa57a922c91d02",
+      "bytes": 6472,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh01_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh02_17_Allpix.csv",
+      "sha256": "4c7d95726cde763d4dfbd7a27e3209381eacff6979b9c3f0f9c9eaba79b6167b",
+      "bytes": 6460,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh02_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh03_17_Allpix.csv",
+      "sha256": "c5e5bad7282a1094d02a8262801ed85d053d2118afaded302e7606f867b28e30",
+      "bytes": 6482,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh03_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh04_17_Allpix.csv",
+      "sha256": "7c427e49d51197a6dd4ca0acd5681589426eb206382dde7daf43a5fa94c05a83",
+      "bytes": 6439,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh04_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh05_17_Allpix.csv",
+      "sha256": "69e1519c5150ab03795b71a96e118abce3e39e040fe2bbff2971a75e9693e809",
+      "bytes": 6457,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh05_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh06_17_Allpix.csv",
+      "sha256": "b51e8f2b9a395265c4e88fd7a3af08f2de75c25845acaa246a0f423373470eda",
+      "bytes": 6482,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh06_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh07_17_Allpix.csv",
+      "sha256": "c4d57e2d42fbfd40f2267efc9a818cc46e5a34ab128a7e0aa797ae4b27a4238e",
+      "bytes": 6463,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh07_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh08_17_Allpix.csv",
+      "sha256": "518eb607ab8dc50726f9b8b908db3cce82acef5076c889c7b121b684a465fbe6",
+      "bytes": 6471,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh08_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh09_17_Allpix.csv",
+      "sha256": "ed42ea73c23d27d9e6dad5fdba056b627ae23d4729bd9a0f4d1e787a588e0435",
+      "bytes": 6468,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh09_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh10_17_Allpix.csv",
+      "sha256": "da27764afdf7a9f269d67b743a835f7fcdf60fdaf3272a64569b032807f3343e",
+      "bytes": 6454,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh10_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh11_17_Allpix.csv",
+      "sha256": "5a056ba99c05490bb3732cea045b23e1aa602041d7653b005fbd989aed7532c2",
+      "bytes": 6464,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh11_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh12_17_Allpix.csv",
+      "sha256": "f1f8cc9290c506a95a5a66f7c85799e9d6214f70219c6b38cdb24568d61a0f58",
+      "bytes": 6456,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh12_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh13_17_Allpix.csv",
+      "sha256": "cb4c50e78467369811730dca01202012069b5c9cddb4c76f63690f81ed20fee6",
+      "bytes": 6441,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh13_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh14_17_Allpix.csv",
+      "sha256": "c52d07f34f3b17bb45492481a09d67f2d4eed2f63568acda7599e1263c06d006",
+      "bytes": 6451,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh14_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh15_17_Allpix.csv",
+      "sha256": "7760e72a3e605960a70885a3c78b6c3ac57d7ec0b8953be72fe07b38e74fc858",
+      "bytes": 6454,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh15_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh16_17_Allpix.csv",
+      "sha256": "514d19f9287f326a8672355d11f702f7943805f48948637979db98a9922effb5",
+      "bytes": 6453,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh16_17_Allpix.csv"
+    },
+    {
+      "member": "MeanAllPixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh17_17_Allpix.csv",
+      "sha256": "0731be9e19b5284c823381b56537971446672c9ed43f87c7010e3c76ad98a5e7",
+      "bytes": 6429,
+      "local_file": "MeanAllPixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh17_17_Allpix.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh01_17_Cent.csv",
+      "sha256": "a30f3e14a137fa9c781bd58ff6addc7389b4cb6180b9c0fd8b265d1bfe9a8781",
+      "bytes": 8223,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh01_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh02_17_Cent.csv",
+      "sha256": "0e89ea4ec98469d250df52f608112fd0303c007871f2018cc70448a755044965",
+      "bytes": 8226,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh02_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh03_17_Cent.csv",
+      "sha256": "0d5a724d38e39a909b3ac7d8ff954e6a7058673d6c7dd5a1de0d6b455a3e1ec2",
+      "bytes": 8215,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh03_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh04_17_Cent.csv",
+      "sha256": "60f3f2af76b1b93c29594032e530fb7bc423a01392aa78ecbb427f838862baeb",
+      "bytes": 8221,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh04_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh05_17_Cent.csv",
+      "sha256": "e32799702c3dca06d37d2b95a9fbef260423db91234e74aa1adba43b2b34fbd5",
+      "bytes": 8213,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh05_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh06_17_Cent.csv",
+      "sha256": "f5712990df9a5357adbde2061b9848bbab002dba9824c754a83d81178525fe8d",
+      "bytes": 8217,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh06_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh07_17_Cent.csv",
+      "sha256": "6201430256835461897b957b5371dcf0a4a425a97f346f5bd62d5773bd743316",
+      "bytes": 8196,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh07_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh08_17_Cent.csv",
+      "sha256": "a8f494aca251c47d13db2f32df874b3e8fc273fd4167f17db01642b455114b32",
+      "bytes": 8183,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh08_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh09_17_Cent.csv",
+      "sha256": "c24211e7c8f55fad3cd00bb8733b4af18b836def1a9b6db5ba63211ee36afb59",
+      "bytes": 8173,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh09_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh10_17_Cent.csv",
+      "sha256": "80e9983a7952e3f99369275d92eb2044d8b61866bbf78e7b54e9a929524d3cff",
+      "bytes": 8152,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh10_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh11_17_Cent.csv",
+      "sha256": "24121d85b7785f370502106ead84ebf3c585ff90b3fb7b874c289ee5e6da0c3a",
+      "bytes": 8170,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh11_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh12_17_Cent.csv",
+      "sha256": "91e060f7edc06fe59607dc77751dc03ef2e36193a3eb6e760f54507bb3c4b13e",
+      "bytes": 8163,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh12_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh13_17_Cent.csv",
+      "sha256": "dfb064bb0ca35d3812d9b6f19036fc8b35656923bf48aa6b7c321c75ab164d3a",
+      "bytes": 8136,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh13_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh14_17_Cent.csv",
+      "sha256": "e5a33a83904fb110e5d85d41f397c64c8b0f77f7f9e57d6dfd1aea77cde08381",
+      "bytes": 8137,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh14_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh15_17_Cent.csv",
+      "sha256": "c812716b7b3e07b73afedc4a3dd7a37e191b6d3086c1cade78fc90ca59c76a75",
+      "bytes": 8119,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh15_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh16_17_Cent.csv",
+      "sha256": "7fdada70709b567cf2760f572c044bb03e520e2ff8b0155d8635e65d6816c7bd",
+      "bytes": 8112,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh16_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band1/FiducialSpec_Band1_SubCh17_17_Cent.csv",
+      "sha256": "7ccba72a948539dd0cffabd763e759618b148c6f491b564ee91843e198356d6c",
+      "bytes": 8116,
+      "local_file": "MiddlePixel__SubChannel17__Band1__FiducialSpec_Band1_SubCh17_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh01_17_Cent.csv",
+      "sha256": "5035a47ea7788cd1fd2daad155b5110ed319fb7ec8b19767a217b633ac8e60a3",
+      "bytes": 8249,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh01_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh02_17_Cent.csv",
+      "sha256": "acce2efb5452362efd97933b050c137d1c28239dfb2488523c0a9adc66322282",
+      "bytes": 8235,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh02_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh03_17_Cent.csv",
+      "sha256": "6024242e2c3233a1db22219b1fdedf25d413cda15919f51c8c754a436225ac8a",
+      "bytes": 8223,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh03_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh04_17_Cent.csv",
+      "sha256": "8c6dd69ead0e20973bd97ca00bfd683c57bbd386ff4217305588d19e0c4ef3c3",
+      "bytes": 8208,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh04_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh05_17_Cent.csv",
+      "sha256": "e82ec46989b73939ab477e91e2ee43b896f696764f4c2c8a602296b17fa87cbd",
+      "bytes": 8194,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh05_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh06_17_Cent.csv",
+      "sha256": "3f3c3252ae72b6b1ea1be85d24eb7494fded91f076d3ff3fd1d21dbde5a6a628",
+      "bytes": 8209,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh06_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh07_17_Cent.csv",
+      "sha256": "9aac825ca8c77abb7f953b45ad4fa4ba4c789988ec3011674417b03e42bd8073",
+      "bytes": 8166,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh07_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh08_17_Cent.csv",
+      "sha256": "8600f3181ff00b1a9f88392b67d363f7e02b4adc2abb40557eda7cc8e70ce52f",
+      "bytes": 8180,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh08_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh09_17_Cent.csv",
+      "sha256": "2eb51d31942b21715aba2cbc0c3870efe938eaa72ae793181530ad7e43961de3",
+      "bytes": 8178,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh09_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh10_17_Cent.csv",
+      "sha256": "bd0a2765fdf77e04ec8703e0a268fed17e3453c6a70751e57331d0351fbf6e90",
+      "bytes": 8160,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh10_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh11_17_Cent.csv",
+      "sha256": "9d056f92c3189e4595b2be8075b8a01636d41162234cc7d19cf686da53cce7f4",
+      "bytes": 8140,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh11_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh12_17_Cent.csv",
+      "sha256": "2f7644c3658b3a30120b301014394018da3d448f686008a3b786377e408bfc80",
+      "bytes": 8167,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh12_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh13_17_Cent.csv",
+      "sha256": "612041c537bf74a8f9692accc3123a0eec13f635a83adb01b2bedc29997be288",
+      "bytes": 8149,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh13_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh14_17_Cent.csv",
+      "sha256": "b5d23609adcbafd65a3ef6f74e2bfcaca18cdfb0c176365b7aa37ab694def5ca",
+      "bytes": 8139,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh14_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh15_17_Cent.csv",
+      "sha256": "c6f1db145be47875e25a891384bf806324769a7ef158de43f1dfcaf0ea4b614e",
+      "bytes": 8165,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh15_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh16_17_Cent.csv",
+      "sha256": "d04f87d1f368492d87b423ff447f3e2d526839b305e961ca6d75c51125d64ff6",
+      "bytes": 8166,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh16_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band2/FiducialSpec_Band2_SubCh17_17_Cent.csv",
+      "sha256": "9f88bbfe9e98766658bf1e5ef30433543e74499857eb363c56f6cd176b2374e2",
+      "bytes": 8152,
+      "local_file": "MiddlePixel__SubChannel17__Band2__FiducialSpec_Band2_SubCh17_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh01_17_Cent.csv",
+      "sha256": "c6f8dcaa3a89fcfd5cab71cd3c6b0c557f3e1173ec6f96f92bb1d54ee894a5d7",
+      "bytes": 9168,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh01_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh02_17_Cent.csv",
+      "sha256": "620711fd0a779ef2f5aa653f1a978e5e5e6ed8fdcf732eaf1dcdc04f973f563a",
+      "bytes": 9142,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh02_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh03_17_Cent.csv",
+      "sha256": "58f0bf80fa0774c683ce92c83f1765dff4037b78017728183e2de2fa71e435a3",
+      "bytes": 9130,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh03_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh04_17_Cent.csv",
+      "sha256": "78d72b843b24417a96ff7f3f4c27455db4f09d5948b9dcba97431fbdd0122fc7",
+      "bytes": 9133,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh04_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh05_17_Cent.csv",
+      "sha256": "273a5b154b10a202fd5ac9b50ef5266fc562b184e06a6f70df77a5a6d5201838",
+      "bytes": 9153,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh05_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh06_17_Cent.csv",
+      "sha256": "fe2346ca8d4704fbe6f9ede860bd5097e5735a74116ef929a6b8f0045fc8088f",
+      "bytes": 9139,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh06_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh07_17_Cent.csv",
+      "sha256": "16807cfb294aff79bff3e519f1ba3e9d9a204e75ecf4aea266420c1837486155",
+      "bytes": 9136,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh07_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh08_17_Cent.csv",
+      "sha256": "faec7f0b0872c5d82c6057e3712a9a50a161a63610d85b53fe5993274198ca0b",
+      "bytes": 9134,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh08_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh09_17_Cent.csv",
+      "sha256": "8dc4b751d718152dbbedd951590fb69b9ab3a22e6dc85a191cb1e70219126156",
+      "bytes": 9135,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh09_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh10_17_Cent.csv",
+      "sha256": "939794aa930e8831a8cc392f210b9fc5e56400eb0a24f82ac11e3f12a03ec784",
+      "bytes": 9074,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh10_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh11_17_Cent.csv",
+      "sha256": "08b8f11f57dbe2a3cf49051f8ddbe398a94bc4892d2b70a7b184575f05a17689",
+      "bytes": 9098,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh11_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh12_17_Cent.csv",
+      "sha256": "689d1b809aa8d20a504f8d7065344dfa22490d0b745eb6f35f747459d33827b5",
+      "bytes": 9113,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh12_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh13_17_Cent.csv",
+      "sha256": "c7afa1c2599c180db1af6320de56aed0b84914827171ef0941d91a2e326bca0a",
+      "bytes": 9113,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh13_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh14_17_Cent.csv",
+      "sha256": "4d3299c5fb553c8f30eb7af7a4c1435f56dde8da59dd44e2626d8cf3b2765616",
+      "bytes": 9100,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh14_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh15_17_Cent.csv",
+      "sha256": "492cadf8cc361353c4c203d95710ad7e9a9815427eaeb56bb9e7580d4fb3df95",
+      "bytes": 9100,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh15_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh16_17_Cent.csv",
+      "sha256": "79124cc5369cf3e66aae4439d99c3ca529a638e57d771778896cd1366432fe60",
+      "bytes": 9103,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh16_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band3/FiducialSpec_Band3_SubCh17_17_Cent.csv",
+      "sha256": "709dbeffc80e0b1467ce2889229aa8bab5b95d5181e386665b65416b2cb0e2a7",
+      "bytes": 9122,
+      "local_file": "MiddlePixel__SubChannel17__Band3__FiducialSpec_Band3_SubCh17_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh01_17_Cent.csv",
+      "sha256": "a2f3b49f4d5aefd9f11ac45d31bfb2a522faf92936f0daeb0035937b2f396487",
+      "bytes": 13973,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh01_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh02_17_Cent.csv",
+      "sha256": "0f93c6ec6943b438351cbd8afd7a4d484f3c7016742c37f3dfc959abcca1cf69",
+      "bytes": 13883,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh02_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh03_17_Cent.csv",
+      "sha256": "82dd57f512d40811f1bbc3b0460e16f6ab78de3f746bbce575b8b457acf3ff4a",
+      "bytes": 13864,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh03_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh04_17_Cent.csv",
+      "sha256": "719b1bbfe45e542ab43b14c33a210537c5aafc51e90a7cf24ca7697fbc10247b",
+      "bytes": 13976,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh04_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh05_17_Cent.csv",
+      "sha256": "dc6b69d1c9b3064da33f7ee6aded6b3db08b344ea16f2ff4ede44ada759ea64f",
+      "bytes": 13912,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh05_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh06_17_Cent.csv",
+      "sha256": "1bfd44d22240e322168d142698a7f8fa590f4ade68942cfa647cc003a30ca428",
+      "bytes": 14072,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh06_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh07_17_Cent.csv",
+      "sha256": "d5f31b572b298f938edda81b0ae5efd2cfcc7490f73bb89f08e94106dbb468ef",
+      "bytes": 14027,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh07_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh08_17_Cent.csv",
+      "sha256": "62f81f3f9e93f3726feb4c175dd7e9771240f170a73283e093b7449d85922aee",
+      "bytes": 14059,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh08_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh09_17_Cent.csv",
+      "sha256": "496870e00b8749e3e7cf06d6fc81927ed38825a315cbdc626d23aed5e235dc2b",
+      "bytes": 14034,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh09_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh10_17_Cent.csv",
+      "sha256": "73285dfcd8aa7a266cc42e58f29a6080c53e4f2f8452eb3194732be9ed4ab17c",
+      "bytes": 14055,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh10_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh11_17_Cent.csv",
+      "sha256": "f58a8c150e88a08b013db3b7dfc638ec9dcba83f77d3ed34e2b348d4b16878a8",
+      "bytes": 14024,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh11_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh12_17_Cent.csv",
+      "sha256": "d35244b4b8838c4124f08b845b45ba3afc82b4d6d0cc4e78bead9d84daf207dd",
+      "bytes": 14037,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh12_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh13_17_Cent.csv",
+      "sha256": "c531a4ba0762b1717048241a63bb20542512be616cdcc894df43f9930cda1386",
+      "bytes": 14052,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh13_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh14_17_Cent.csv",
+      "sha256": "d7054d1ed81dd91f5b556bc4de5d16e967578665d13652c92ae87e9665571fca",
+      "bytes": 14022,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh14_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh15_17_Cent.csv",
+      "sha256": "42f7c3086b6eea7b2d8569b35112efa99a88a1e0b84ad34a7fec1cbf8ff876ba",
+      "bytes": 13981,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh15_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh16_17_Cent.csv",
+      "sha256": "16dee46994258b01ff69d4c1c607f16c25f24fd4bb582fa0178255e1a17b2e46",
+      "bytes": 14018,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh16_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band4/FiducialSpec_Band4_SubCh17_17_Cent.csv",
+      "sha256": "bd74f3b9bca62acdcf4d36734c31d4d9e6b8e40bd9dc35d500f5c6a0887b9222",
+      "bytes": 14022,
+      "local_file": "MiddlePixel__SubChannel17__Band4__FiducialSpec_Band4_SubCh17_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh01_17_Cent.csv",
+      "sha256": "2b31d5870e96208f49f7cf66dc318901592e01b169c4323f2b040c5c169bbec3",
+      "bytes": 9392,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh01_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh02_17_Cent.csv",
+      "sha256": "949858c5143b702b43acd33a2cf1837f032c10d0d60eaa721962a12de8cf28a8",
+      "bytes": 9418,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh02_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh03_17_Cent.csv",
+      "sha256": "1961d495e65d0d46fe1e4ff45a2b8208b806756ae2e6d32a282bea9b4b7af117",
+      "bytes": 9390,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh03_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh04_17_Cent.csv",
+      "sha256": "e045d621cfa520cfe39725a111e958b6d3ccd4c14daa51681a7fd56e00aceb46",
+      "bytes": 9385,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh04_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh05_17_Cent.csv",
+      "sha256": "1fc42dbdbacaf28ea6354be6555d239b4bb9bd9c8246645f1ad00c691d816947",
+      "bytes": 9387,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh05_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh06_17_Cent.csv",
+      "sha256": "00915cc5bf6d7cd49ad6765d19375731fc191c6df58eed277fc57e68459bab25",
+      "bytes": 9394,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh06_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh07_17_Cent.csv",
+      "sha256": "40c4776d4d33dbbaf0106ee0b0ab54a9a4504291e461d65b2080d07d77392f2e",
+      "bytes": 9392,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh07_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh08_17_Cent.csv",
+      "sha256": "144e2dc3207d5ecfeda13c649c5c72ed6fe1a79ae81af1cce9d66345b7cc9015",
+      "bytes": 9384,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh08_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh09_17_Cent.csv",
+      "sha256": "78bc2828297f2fa7f79e8e275b9fcedf3e7d020d2de6f5d7cca338385fb01bc8",
+      "bytes": 9382,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh09_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh10_17_Cent.csv",
+      "sha256": "6d053a06b821d3a3b1e10dbbdae86018d174296187bdcc682e87869f91f33213",
+      "bytes": 9364,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh10_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh11_17_Cent.csv",
+      "sha256": "d4e6ed0ff5be7923ef5da09d94ee4ea612f7625b954d9b59b763b48029863a53",
+      "bytes": 9387,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh11_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh12_17_Cent.csv",
+      "sha256": "e13b38eed1da1d8c0fb588c63fe8f7df373c309d69daa8bf97de40e4a15efebd",
+      "bytes": 9390,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh12_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh13_17_Cent.csv",
+      "sha256": "81cb53b2fc3ad50eaac5dc22ea9c41318f38f96b459939d47733fc517369771e",
+      "bytes": 9395,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh13_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh14_17_Cent.csv",
+      "sha256": "b7703670b49d9ccb28199b9fdeb1df9c46223aa665d347cfe5b9ba01e6117cf4",
+      "bytes": 9392,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh14_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh15_17_Cent.csv",
+      "sha256": "5d2826089b3c55fbbbd7d4104ce345d2c721136beeb1b649206e1fd89de95109",
+      "bytes": 9393,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh15_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh16_17_Cent.csv",
+      "sha256": "5fe7df8905d14912a3c955920bc4d5db095093a461a8628c953b1167b5f85b22",
+      "bytes": 9400,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh16_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band5/FiducialSpec_Band5_SubCh17_17_Cent.csv",
+      "sha256": "35e7624ce5ece49f8e52b4fa5b3b585042ded5c0d46402c910fe4bdb9843cd3c",
+      "bytes": 9410,
+      "local_file": "MiddlePixel__SubChannel17__Band5__FiducialSpec_Band5_SubCh17_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh01_17_Cent.csv",
+      "sha256": "509a642a18a685b8cc789cb87dcfb48aea43fded70f7c40776a15e44b6497764",
+      "bytes": 6465,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh01_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh02_17_Cent.csv",
+      "sha256": "0573960947e052b405276a95d539538f8c41a60784dd2320b1684e4896ed4194",
+      "bytes": 6460,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh02_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh03_17_Cent.csv",
+      "sha256": "6597cd38c80d7c7e3090f6f4e18e4352255419165f250bc1c72a9da1c45df16d",
+      "bytes": 6448,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh03_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh04_17_Cent.csv",
+      "sha256": "855e9a0324ca9863b66d4734388554184149d43b9734d9e47fd75a404e1a573b",
+      "bytes": 6465,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh04_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh05_17_Cent.csv",
+      "sha256": "66122d5ee52a077a88cc41d08fcb0d732f8fd080d2d03ae5874f7bf902ee92e9",
+      "bytes": 6461,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh05_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh06_17_Cent.csv",
+      "sha256": "9f2e2fcf5780f4bee9ce2e23f4e02757081a9df7fe994670b2b427bd4b33a865",
+      "bytes": 6470,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh06_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh07_17_Cent.csv",
+      "sha256": "9dc50e45d68b9feb57ca3055b311e98334dfac30e432e76d6191d0dc6e4c4665",
+      "bytes": 6470,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh07_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh08_17_Cent.csv",
+      "sha256": "7b7c07f4a63a0bc5d43d9b602aeaafb2472a68a9b29d70f9fe4ea7dbab60a7ed",
+      "bytes": 6466,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh08_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh09_17_Cent.csv",
+      "sha256": "b80237049ed6a9a11fd90dffb815ae4f007c44f84202933353011b92dce092cf",
+      "bytes": 6445,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh09_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh10_17_Cent.csv",
+      "sha256": "6237dd667e791036603d34c36ff678e74af4f943e63aeaef9f37be21999c120f",
+      "bytes": 6473,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh10_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh11_17_Cent.csv",
+      "sha256": "f492ba80343a4ed6b52a7ae5d271744581ecbd1ab3b1642dad537f76f3675709",
+      "bytes": 6465,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh11_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh12_17_Cent.csv",
+      "sha256": "7474e7349c4b8692fea8d86cd2d94f152176b121f2060128483c18bddfa90e3d",
+      "bytes": 6463,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh12_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh13_17_Cent.csv",
+      "sha256": "60b9cc03dd5c6538045d7ad400d94ed5acf7cd30f886dccc0b0a069ac286ed9f",
+      "bytes": 6458,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh13_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh14_17_Cent.csv",
+      "sha256": "11b2cdc47bda8e19493b3d6af23dc0abfc376f9cbd0c0a20b9adb94b37385378",
+      "bytes": 6450,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh14_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh15_17_Cent.csv",
+      "sha256": "87688de60a071ed8ea67ea4c5311a9a6121e931377609991e1467177fe65baaa",
+      "bytes": 6448,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh15_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh16_17_Cent.csv",
+      "sha256": "2e934080e431c5f21eb7f8ac01be64cb0455c09d1acd099215a54376ff4d7609",
+      "bytes": 6443,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh16_17_Cent.csv"
+    },
+    {
+      "member": "MiddlePixel/SubChannel17/Band6/FiducialSpec_Band6_SubCh17_17_Cent.csv",
+      "sha256": "436772898dd89165c7a28905b65bfbaa50b05f2fb76b1fbf89c3a6e70f815d83",
+      "bytes": 6432,
+      "local_file": "MiddlePixel__SubChannel17__Band6__FiducialSpec_Band6_SubCh17_17_Cent.csv"
+    }
+  ]
+}

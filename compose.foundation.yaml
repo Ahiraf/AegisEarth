@@ -1,0 +1,83 @@
+# Isolated verification project. Does not touch existing application/previous project volumes.
+name: cosmic-foundation
+services:
+  db:
+    image: postgres:17-alpine@sha256:266d3c257594e195b309ae9d1805e54c788f1d7b375f56bf6c367aac6c917e7b
+    environment:
+      POSTGRES_USER: cosmic
+      POSTGRES_PASSWORD: local-foundation-only
+      POSTGRES_DB: cosmic_foundation
+    ports: ["127.0.0.1:55432:5432"]
+    volumes:
+      - foundation_db:/var/lib/postgresql/data
+      - ./infra/foundation/bootstrap.sql:/docker-entrypoint-initdb.d/bootstrap.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cosmic -d cosmic_foundation"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  migrate:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://cosmic:local-foundation-only@db:5432/cosmic_foundation
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db: {condition: service_healthy}
+  grants:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://cosmic:local-foundation-only@db:5432/cosmic_foundation
+    volumes: ["./scripts/provision_local_gateway.py:/verification/provision.py:ro"]
+    command: ["python", "/verification/provision.py"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  rest:
+    image: postgrest/postgrest:v14.1@sha256:e9490aa503a5fb07d8e8c80da46e5c0c193894e583b59ed9077e74c4101ffae2
+    environment:
+      PGRST_DB_URI: postgres://cosmic_authenticator:local-foundation-only@db:5432/cosmic_foundation
+      PGRST_DB_SCHEMAS: gateway
+      PGRST_DB_ANON_ROLE: cosmic_anon
+      PGRST_JWT_SECRET: local-foundation-jwt-secret-not-for-production-2026
+    depends_on:
+      grants: {condition: service_completed_successfully}
+  gateway:
+    image: caddy:2.10.2-alpine@sha256:4c6e91c6ed0e2fa03efd5b44747b625fec79bc9cd06ac5235a779726618e530d
+    ports: ["127.0.0.1:18443:8443"]
+    volumes:
+      - ./infra/foundation/Caddyfile:/etc/caddy/Caddyfile:ro
+      - foundation_tls:/data
+    depends_on: [rest]
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://cosmic:local-foundation-only@db:5432/cosmic_foundation
+      PUBLIC_TOKEN_SECRET: local-foundation-public-token-secret-not-production-2026
+      PUBLIC_COOKIE_SECURE: "false"
+    volumes: ["foundation_artifacts:/app/var/artifacts"]
+    ports: ["127.0.0.1:18000:8000"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["python", "-m", "app.modules.views.worker"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://cosmic:local-foundation-only@db:5432/cosmic_foundation
+    volumes: ["foundation_artifacts:/app/var/artifacts"]
+    mem_limit: 768m
+    cpus: 1.0
+    pids_limit: 64
+    restart: unless-stopped
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+volumes:
+  foundation_db:
+  foundation_tls:
+  foundation_artifacts:

@@ -1,120 +1,110 @@
-# Backend pipeline and module responsibilities
+# Backend pipeline: coordinate-driven SPHEREx time viewing
 
-Baseline: 26 October 2026. This is the target execution architecture; the registry exists, but all
-scientific executors are currently unimplemented. `python -m app.pipeline.cli` reports that honestly.
+Target design, 29 October 2026. Runtime now includes health/request validation, curated target catalog,
+native/HTTPS job-persistence primitives and offline QR2/QR3 research inspection. The image pipeline
+preparation stages below remain unimplemented; a separate input-acquisition worker now exists (step 3). The existing eleven-stage detection registry is a retained disabled legacy
+specification; replace/version it deliberately when implementing viewer execution.
 
-The main model is built and trained by the ML researcher and integrated by the backend developer.
-The stages below are logical responsibilities: the supplied inference package may implement one or
-several of them. Agree the input boundary and reuse the researcher's preprocessing/postprocessing;
-do not implement duplicate transforms merely to match directory names. See [model handoff](model_handoff.md).
+Step 2 update (31 October): `normalize_region` and `discover_products` now have standalone implemented
+services/routes with immutable native/HTTPS persistence and real five-target checks. Available bands
+at this stage mean whole-image SIA bounds, not local responses. Scientific image preparation remains future; bounded acquisition/structural validation is now implemented.
+See [discovery implementation](discovery.md).
 
-## End-to-end flow
+## Primary path
 
 ```mermaid
 flowchart TD
-  A[Frontend server or trusted demo client] --> B[FastAPI validation and authorization]
-  B --> C[IRSA discovery and persisted observation IDs]
-  C --> D[Compatibility checks]
-  D --> E[Durable PostgreSQL analysis queue]
-  E --> F[Leased CPU worker]
-  F --> G[FITS cutouts and quality masks]
-  G --> H[Common WCS and background/PSF matching]
-  H --> I[Difference and uncertainty maps]
-  I --> J[Source detection and association]
-  J --> K[Classical or validated ML ranking]
-  K --> L[Evidence and atomic result publication]
-  L --> M[Candidate and artifact APIs]
+  A[Public React: RA / Dec / FOV] --> B[Normalize input and enforce quotas]
+  B --> C[Discover releases, epochs and local bands]
+  C --> D[Persist view request and bounded job]
+  D --> E[Worker: acquire trusted cutouts and inspect]
+  E --> F[Choose spectral and temporal groups]
+  F --> G[Fixed sky grid, masks and display preparation]
+  G --> H[Publish ordered frame manifest and artifacts]
+  H --> I[React: play, blink, scrub and inspect]
+  H --> J[Expanded jobs: coadds, differences and spectra]
+  H --> K[Gaia / WISE context and share or embed]
+  H --> L[Optional researcher model suggestions]
 ```
 
-Discovery is a precursor to analysis, not an expensive operation repeated inside every scientific stage.
-The public viewer consumes image/evidence artifacts and JSON; it does not need FITS processing logic.
+Single/no-epoch results return truthful data states. Movie assembly does not call detection/ranking.
+Optional operations have separate eligibility checks and jobs; their failure does not destroy originals.
 
-## Ordered scientific stages
+## Stage contracts and feature ownership
 
-| Order / registry name | Owner | Input | Output / required exit condition |
-| --- | --- | --- | --- |
-| 1 `validate_compatibility` | comparisons | Persisted ordered observations, sky region, versioned policy | Report verifying footprint, distinct epochs, known time scales, local wavelength/bandwidth, release/calibration and usable data |
-| 2 `acquire_cutouts` | cutouts | Trusted provider references and cutout request | Immutable bounded downloads with checksums and source provenance |
-| 3 `inspect_and_mask` | preprocessing | FITS cutouts and calibration references | Science/variance/flags/wavelength/WCS arrays; valid-pixel and coverage masks |
-| 4 `register` | registration | Usable input arrays and celestial WCS | Common grid, footprint and residual alignment metrics; reject bad alignment |
-| 5 `match_background_psf` | preprocessing | Registered images, variance, PSF/calibration | Matched background/flux response and PSF with transformations and uncertainty assumptions |
-| 6 `difference` | differencing | Matched images and common validity mask | Signed difference, propagated variance/significance, coverage and correlation caveats |
-| 7 `detect` | detection | Per-epoch images and residual maps | Source catalogs, centroids/uncertainty, residual segments, SNR/morphology features |
-| 8 `associate` | association | Epoch detections, uncertainties and residual features | Candidate hypotheses: possible_motion, brightness_change, artifact, uncertain |
-| 9 `rank` | ranking | Evidence stamps/features and immutable ranker version | Candidate scores, method, explanation codes and calibration reference if approved |
-| 10 `build_evidence` | artifacts | Valid scientific outputs and candidate hypotheses | Original/aligned/difference previews, cutout stamps, overlays and JSON manifests |
-| 11 `publish` | analyses | Complete validated output manifest | Atomic succeeded state and public artifact/candidate references |
-
-Stage 8 may produce tentative sequence associations for >=3 observations in the advanced milestone.
-Pair mode is exactly two observations. An analysis with no significant candidate is a valid successful
-result, with quality/coverage evidence; it is different from a failed analysis.
-
-## Discovery and compatibility details
-
-- Query IRSA SIA2 by bounded sky region, time window and selected collection; parse status/errors as
-  well as transport success. Save external product/release identifiers and server-assigned local IDs.
-- Verify usable multi-epoch data early. A valid zero-result query proves endpoint access, not demo feasibility.
-- Observation matching uses celestial footprints and epochs, not filename resemblance or pixel coordinates.
-- Detector band labels alone do not establish equal wavelength at the selected sky location. Use local
-  wavelength/bandwidth metadata and a reviewed overlap tolerance. Unknown metadata blocks scientific comparison.
-- Prefer one reviewed release/calibration pipeline. Cross-release comparisons require explicit validation.
-- Keep source time scale, original time representation, normalized UTC and conversion assumptions.
-- Compatibility tolerances (time separation, wavelength overlap, registration RMS, usable coverage, PSF
-  mismatch) are versioned research decisions. Establish values from real data before enabling analysis.
-
-## Durable worker design (planned)
-
-Use PostgreSQL for the MVP queue rather than introducing an additional broker before it is needed.
-Enqueue and persist inputs in one transaction. A dedicated worker claims eligible jobs with
-`FOR UPDATE SKIP LOCKED`, sets worker/lease/heartbeat metadata, and commits before CPU processing.
-Do not keep a transaction or request connection open while downloading or processing images.
-
-| State | Allowed transition | Meaning |
+| Target stage | Owner | Inputs → outputs / boundary |
 | --- | --- | --- |
-| queued | running, canceled | Accepted and durably recorded |
-| running | succeeded, failed, canceled | Worker lease held; stage metrics recorded |
-| running with expired lease | queued through controlled recovery | Attempts bounded; partial artifacts not published |
-| succeeded / failed / canceled | No in-place scientific rerun | New run references the same inputs/config as appropriate |
+| normalize_region | targets, views | RA/Dec units, FOV/dates → canonical ICRS request, limits and request hash |
+| discover_products | observations, releases | Versioned source registry + region → immutable products, snapshots, completeness, dates/bands |
+| plan_frames | views, bands, comparisons | Actual local coverage/time support → explicit temporal/spectral grouping, eligibility and resource estimate |
+| acquire_inputs | cutouts, artifacts | Persisted trusted products/region → verified raw FITS keys, bytes and hashes |
+| inspect_inputs | preprocessing | Release-aware HDUs → science/variance/masks/WCS/local response/PSF or ePSF with warnings |
+| validate_frame_plan | comparisons, bands | Real downloaded metadata → revalidated band/time groups; estimates alone cannot authorize science |
+| prepare_grid | registration | Sky-fixed grid + inputs → science/masks/variance/coverage and registration residuals; no target recentering |
+| build_frames | views, bands, artifacts | Groups + display policy → chronological native/common-grid previews, WCS/grid/stretch/metadata |
+| publish_view | views, analyses | Valid complete frame set → immutable view manifest with source/config/artifact lineage |
 
-Required before worker acceptance:
+`plan_frames` estimates before expensive downloads; `validate_frame_plan` checks the real local
+wavelength/quality evidence afterwards. Do not assume SIA's detector-wide band equals a local response.
+Native inspection can remain available for insufficiently comparable products with explicit labels.
 
-- Atomic claims, lease renewal, worker death recovery, maximum attempts and retry classification.
-- Idempotency key + request hash: same key/body returns existing job; different body returns 409.
-  Scope keys to authenticated caller before multi-client use; the initial schema supports a single demo client.
-- Stage checkpoints keyed by input checksums, config and code/model versions; never reuse solely by filename.
-- Cancellation checked between stages and before publication; incomplete artifacts stay private.
-- Transient provider errors may retry with backoff; incompatible data, invalid FITS and scientific QC
-  failures are terminal until inputs/config change. A model exception must not silently change ranker.
-- Classify safe messages such as `incompatible_wavelength`, `insufficient_coverage`, `registration_failed`,
-  `invalid_fits`, `upstream_unavailable`, `model_unavailable`, `resource_limit` and `worker_timeout`.
-- A worker image/entrypoint and Compose service are added when real executors exist. No idle/fake worker
-  is supplied in this scaffold. Submission remains disabled until the queue, limits and stages work.
+## Expanded branches
 
-## Storage and reproducibility
+| Branch | Inputs → outputs | Gates |
+| --- | --- | --- |
+| D1–D6 composites | Per-detector bounded time groups → weighted mean/sum, count/variance/coverage/effective response | Consistent spectral support over compared epochs; mask propagation |
+| Temporal coadd | Explicit selected epochs → separate stack plus contributor/time-span manifest | Motion-smearing/variable-flux warning; original movie retained |
+| Signed difference | Approved pair → later-minus-earlier science/variance/mask/preview | Empirical registration, local response, calibration, background and PSF/ePSF validation |
+| Spectrum | Coordinate/aperture + epoch group → available flux/error/wavelength/response samples and CSV | Validated photometry, units, proper motion/epoch, saturation/blend/missing-data checks |
+| Survey context | Region + frame epoch → Gaia markers and WISE image/catalog layer | Source epoch/pm/frame/uncertainty and cross-survey attribution; isolated timeouts |
+| Refresh/share/export | Canonical state or frozen view → refreshed version, URL state, embedded artifacts or export job | Frozen snapshots immutable, bounded refresh/encoding and no secrets in public links |
+| Optional AI | Approved frames/package → supplied model hints, stamps and score semantics | Researcher goldens/parity, runtime limits, explicit enabled version; not a viewer dependency |
 
-PostgreSQL stores observations, run configs/status, ordered inputs, stages, models, candidates and
-artifact metadata. File bytes live in local artifact storage for development or external object storage
-for production. Use generated storage keys, immutable checksums and temporary-to-final publication.
+Coadds and spectra are not created from PNGs. Preserve calibrated arrays, masks and noise information.
+PSF/background matching is operation-specific; a subtraction-grade fit need not block native inspection.
+102 nominal bands do not mean every image/epoch samples all 102 channels at the selected coordinate.
 
-Every result identifies source products/release, original epoch/time scale, sky region, local wavelength,
-calibration/PSF references, transformations, masks, code version, dependency environment, pipeline/config
-versions and ranker checksum. Previews also carry WCS/display transforms needed to overlay correctly.
-Raw FITS and full precision data remain distinct from stretched/normalized browser PNGs.
+## Worker, persistence and publication
 
-## Resource boundaries
+- FastAPI validates, enforces quotas and transactionally accepts work; leased workers do network-heavy
+  downloads/science/encoding. Reuse `analyses` infrastructure with typed job kinds and views relations.
+- States: queued, running, succeeded, failed, cancel_requested, cancelled, with safe reason codes and
+  per-stage completion. Data outcomes no_data/single_epoch/ready_for_animation are distinct from job state.
+- Use atomic PostgreSQL claims, heartbeat/lease expiry, bounded attempts/deadline and checkpoints for cancel.
+  An HTTPS DB gateway must preserve transaction semantics using explicit SQL functions, not multi-request races.
+- Publish manifests only after artifact integrity and required relations pass. Cache by source/release,
+  observing groups, region, response/mask/grid/stretch/config versions; never mutate a published view.
+- Persist PostgreSQL metadata and external object files together. Local Space disk is a disposable cache;
+  a separate durable worker/scheduler handles Space sleep. Backups restore referenced file generations.
+- HF database egress is a milestone-zero decision: test supported transport or authenticated HTTPS
+  repository adapter before relying on default psycopg/5432. See [deployment](deployment.md).
 
-Initial request limits: radius <=0.1 degree; search window <=730 days; <=100 search rows;
-2–6 distinct observations; cutout width <=5 arcmin; processing grid longest edge <=512 pixels;
-download cap 128 MiB per object; provider timeout 30 seconds. These are engineering ceilings,
-not guarantees that observations are scientifically compatible. Measure memory/time before production.
+## Proposed resource and API migration
 
-Before parsing, enforce byte limits; before allocating, inspect FITS dimensions/HDU count; for compressed
-files, also bound decoded pixels and memory. Limit concurrent jobs, total job bytes, CPU time, retries and
-per-client quotas. Default development concurrency is one scientific job when workers are implemented.
+Viewer budgets: FOV 1–30′, default 5′; enclosing cone ≤0.5°; window ≤5 years; ≤100 discovery rows/page;
+≤60 output frames/300 inputs per job; output edge ≤512 pixels; ≤128 MiB/input and ≤1 GiB/job.
+These are proposals awaiting measurements, not changes to current request validation.
+Beyond limits, require explicit bins/batches/pagination or reject; never silently shrink FOV/drop epochs.
 
-## Backend implementation boundary
+Current legacy analysis limits remain 2–6 inputs and ≤5′, and current search radius ≤0.1°/730 days.
+Implement new viewer schemas/routes/capability versioning and compatible migrations before changing
+clients. The checked-in OpenAPI snapshot must reflect only actual app routes, not this target design.
 
-Routers validate/authorize and call services. Feature services own scientific/domain rules and use
-repositories/storage/provider adapters. Pipeline orchestration calls explicit stage interfaces.
-Scientific functions accept arrays/metadata and return arrays/metrics; they should not depend on HTTP,
-ORM sessions or an active model service. This enables synthetic image tests and reproducible notebooks.
+Pure astronomy functions depend on arrays/units/metadata; feature services compose repositories/provider
+adapters, and routers handle HTTP. Feature folders with planning READMEs are boundaries, not executors.
+
+## Step 3 runtime boundary
+
+[Durable input acquisition](views.md) implements submission/quota/idempotency, leases/fencing, trusted
+FITS downloads, structural validation, local/S3 publication and bounded retention. The separate
+worker is implemented; the detection registry remains disabled. Input success is not a registered movie.
+
+## Step 4 implementation update
+
+[view-v2 frame preparation](frame_preparation.md) now uses release-aware readers, strict masks,
+fixed-grid reprojection/marginal variance, independent-reference residual checks, nominal/local-band
+context, explicit bins and shared/per-frame previews. Additive cosmic_0005 adds prepared_frame_sets
+and prepared_artifacts with fenced atomic raw/derived publication and bounded merged cleanup.
+Existing v1 jobs are preserved. API and native worker images include SciPy/Pillow; the official
+R7 catalog is packaged with source member hashes. Movie delivery and quantitative operations remain
+later slices; no cloud deployment or scientific target-recovery sign-off is implied.

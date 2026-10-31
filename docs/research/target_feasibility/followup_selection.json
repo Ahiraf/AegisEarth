@@ -1,0 +1,52 @@
+{
+  "barnards-star": {
+    "collection": "spherex_qr3",
+    "observation_ids": [
+      "2026W34_2A_0264_2",
+      "2026W35_1A_0038_1"
+    ],
+    "footprint_relative_distance": 0.056454954522736654,
+    "separation_days": 2.3765760000023874,
+    "method": "footprint_heuristic_only_actual_wavelength_checks_required"
+  },
+  "epsilon-indi-b": {
+    "collection": "spherex_qr2",
+    "observation_ids": [
+      "2026W18_1A_0457_2",
+      "2026W19_1A_0041_1"
+    ],
+    "footprint_relative_distance": 0.056311000282175665,
+    "separation_days": 4.8848070000021835,
+    "method": "footprint_heuristic_only_actual_wavelength_checks_required"
+  },
+  "wise-0855": {
+    "collection": "spherex_qr2",
+    "observation_ids": [
+      "2026W18_2A_0065_1",
+      "2026W19_2A_0568_1"
+    ],
+    "footprint_relative_distance": 0.0005292389681483368,
+    "separation_days": 8.213921000002301,
+    "method": "footprint_heuristic_only_actual_wavelength_checks_required"
+  },
+  "rw-aurigae": {
+    "collection": "spherex_qr3",
+    "observation_ids": [
+      "2026W37_1A_0615_1",
+      "2026W38_1A_0254_3"
+    ],
+    "footprint_relative_distance": 0.017878792113413842,
+    "separation_days": 4.958176000000094,
+    "method": "footprint_heuristic_only_actual_wavelength_checks_required"
+  },
+  "r-draconis": {
+    "collection": "spherex_qr3_deep",
+    "observation_ids": [
+      "2026W30_2A_0561_1",
+      "2026W31_1B_0329_4"
+    ],
+    "footprint_relative_distance": 0.000539610019566777,
+    "separation_days": 2.654117000005499,
+    "method": "footprint_heuristic_only_actual_wavelength_checks_required"
+  }
+}

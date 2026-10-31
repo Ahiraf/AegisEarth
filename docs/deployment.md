@@ -1,68 +1,102 @@
-# Backend-only deployment
+# Backend deployment plan
 
-The root Dockerfile is the Hugging Face Docker Space API image. `backend/Dockerfile` is the local API
-image built from repository root. Both package Python only and do not build or host the separately
-maintained React app in `frontend/`.
+Revised 29 October 2026. FastAPI remains the Python REST API in a Hugging Face Docker Space.
+PostgreSQL and durable files remain external. The React owner owns its separate frontend container/
+Space, public playback and embed route. Root/backend Dockerfiles package the API and standalone input-acquisition worker; the isolated local foundation now includes a verified HTTPS database gateway. No cloud viewer,
+worker, gateway or model has been deployed.
 
-## Local environment
+## 1. Prove production database transport first
 
-1. Install/start Docker Desktop's Linux engine and choose free local ports if 5432/8000 are occupied.
-2. Compare `.env.example` with any existing `.env`; retain private values and update database names/URLs.
-3. Run `docker compose up --build` from root. The Compose project is `cosmic-motion-ai` and uses new volumes.
-4. Check `http://localhost:8000/docs`, health endpoints and `/api/v1/system/capabilities`.
-5. `docker compose down` stops the new project while retaining its named volumes. No old data volume
-   deletion or migration of a previous product is required or performed by this plan.
+[HF networking documentation](https://huggingface.co/docs/hub/spaces-overview#networking) restricts
+outbound requests to ports 80, 443 and 8080. Ordinary PostgreSQL 5432 must not be assumed reachable.
+This is an early architecture gate in plan step 0, not an issue to discover after building every slice.
 
-The replacement Alembic revision is `cosmic_0001` and must target a fresh database. If an old database
-exists, keep it separate; do not stamp/reset it as a shortcut. Migration tests use only a disposable
-`TEST_DATABASE_URL` (or temporary SQLite locally) and deliberately downgrade that test database.
+The user selected local-only preparation because cloud resources are not set up. A restricted HTTPS
+PostgREST adapter and disposable local TLS stack now pass transaction/lease/restart checks; see
+[foundation](foundation.md). The actual Space/provider check below remains a deployment task.
 
-## Hugging Face API setup
+1. Use a temporary development Space plus a disposable database to test DNS/TLS, credentials,
+   the actual supported provider port/transport, read/write transactions and API readiness.
+2. If native PostgreSQL on an allowed port is genuinely supported, pin/test that configuration with
+   certificate verification; do not merely change a 5432 URL to 443 and assume it works.
+3. Otherwise use a provider-supported authenticated HTTPS database API/gateway on 443. A candidate
+   is [PostgREST](https://docs.postgrest.org/en/stable/references/api/functions.html), backed by PostgreSQL.
+   Implement a distinct repository/readiness adapter; the current SQLAlchemy engine does not speak that API.
+4. Multi-table job acceptance, lease claim/renewal, cancel and publication require transactional SQL
+   functions/RPCs with constraints. Several independent REST writes are not an atomic transaction.
+5. Run Alembic migrations and native SQL workers from a DB-reachable CI/worker network. Validate
+   transport equivalence with disposable PostgreSQL tests and restrictive gateway roles/function exposure.
+6. Record the selected route, provider/cost/credentials/network/restore evidence before enabling jobs.
 
-1. Build/test `docker build -t cosmic-motion-api .` locally/CI.
-2. Create a Docker Space and preserve root README `sdk: docker` and `app_port: 7860` metadata.
-3. Provision external PostgreSQL and durable artifact/model object storage. Verify permitted outbound
-   access, TLS, least-privilege roles, capacity and backups.
-4. Set DATABASE_URL as a runtime secret using `postgresql+psycopg://...` and provider-required TLS options.
-   Configure explicit CORS_ORIGINS for the separate frontend. Do not put database/submission secrets in React.
-5. Run migrations once as a release job against the new production database.
-6. Deploy the API image; validate docs, liveness, schema readiness, CORS and capability truthfulness.
-7. Keep submission disabled (currently explicit 503) until the real adapters/queue/stages, storage, model
-   selection and protection/quotas have been implemented and tested.
-8. When artifacts are implemented, persist them externally; local Space disk is only a cache. Configure
-   the storage adapter and private submission credential through runtime settings added at that milestone.
-9. Verify restart does not lose published files or accepted jobs and that frontend artifact URLs work.
+No external provider/gateway has been provisioned; the local PostgREST gateway is tested. Do not expose a broad SQL/admin endpoint
+or put database/service-role credentials into the public React application.
 
-## Worker and model hosting decision
+## 2. Local development
 
-No worker is implemented or launched by the current Compose/Dockerfiles. Add a worker service when
-actual stage executors and leased jobs exist. Preferred production design: API in the Space and a
-separate durable CPU worker sharing PostgreSQL and object storage. It may be a second managed service.
+With Docker Desktop's Linux engine available, compare `.env.example` to existing private environment
+files and run `docker compose up --build`. Current Compose starts a fresh project PostgreSQL,
+migration, API and a resource-bounded input-acquisition worker; frontend is separate. Retain existing volumes and unrelated DBs.
+`cosmic_0001` is the initial schema; subsequent feature changes use new migrations.
 
-If co-locating worker and API within one Space, add a proper supervisor with signal handling, measure
-CPU/memory limits and validate lease recovery after sleep/restart. A sleeping API is not a reliable
-always-running worker. Start with one worker slot and small cutouts. GPU selection is conditional on
-measured model requirements; no GPU/trained model is assumed by this scaffold.
+API docs: `http://localhost:8000/docs`. Check liveness, database/schema readiness and actual disabled
+capabilities. discovery-v1 is now implemented; legacy radius search returns 410 and analysis remains
+503. Apply cosmic_0004 and the documented discovery/view grants. Public submissions need a stable
+PUBLIC_TOKEN_SECRET; [view input guide](views.md) covers TLS cookies, quotas and storage. Migration tests target only
+the disposable TEST_DATABASE_URL or temporary local SQLite; SQLite is not a PostgreSQL deployment proof.
 
-Model weights need a checksum, permitted use, model card and approval. Download/cache only a pinned
-approved model reference; do not execute arbitrary pickle/checkpoint content or load a random model
-while labeling its scores as trained predictions.
-The researcher supplies the model/runtime requirements; backend deployment installs that pinned
-inference runtime and verifies golden outputs in the worker image. Do not choose PyTorch/ONNX/CUDA
-versions or GPU hardware before checking the delivered package. Training containers/jobs are outside scope.
+## 3. API, files and worker topology
 
-## Release checks
+1. Build/test root API image on port 7860 as UID 1000; preserve README Docker Space metadata.
+2. Configure external PostgreSQL through the tested repository transport and external object storage
+   through HTTPS with TLS, least privilege, bounded cache/retention and consistent backups.
+3. Deploy a durable CPU worker/scheduler where database/native science/network requirements are met.
+   Use one slot initially, leased PostgreSQL work, bounded retries/deadlines and no heavy FastAPI handlers.
+4. If co-locating API/worker, supervise both processes and explicitly test signal handling, sleep/restart,
+   lease recovery and cold-start resources. Do not rely on a sleeping Space to perform continuous refresh.
+5. Set explicit React origin/API CORS and artifact/cache/Range behavior as needed for FITS/preview/exports.
+   Public bounded view requests need quotas/cancel ownership; admin refresh/bulk actions need private auth.
+6. Expose named, truthful availability for movie/coadd/difference/spectrum/Gaia/WISE/optional AI.
+   Missing inference does not disable image playback. Optional framework/GPU follows the researcher's package.
 
-- Backend tests/lint and real PostgreSQL migration/drift tests pass.
-- Real pair and synthetic-control end-to-end processing meet measured science/resource thresholds.
-- Public reads and protected submission/cancel permissions/quotas work from the frontend integration.
-- Queue claims, worker crash/restart/cancel, provider outage and storage failure are tested.
-- Database plus file references restore consistently; curated demo results survive restart.
-- Health/capabilities, source/calibration/model versions and error messages are truthful.
-- Confirm the complete challenge brief/submission requirements before claiming release readiness.
+Server-side secrets include DB/gateway/object storage and optional approved weights access. React and
+share/embed URLs carry no secrets. Space disk is a cache; published manifests and curated target
+artifacts persist externally. Run migrations as a controlled release action, not on every worker claim.
 
-GitHub synchronization/deployment automation is not enabled by this setup. Commit/push to main using
-anindya357 only when explicitly requested. Repository URL/name remains unchanged.
+## 4. Frontend deployment handoff
+
+The frontend team builds its React Docker image/Space and supplies public explore/view/embed routes,
+play/pause/speed/scrub, FOV/band selectors, metadata/flags, spectrum and overlay presentation.
+Use direct public quota-limited API calls; a BFF may be added for a justified purpose but is not required
+to hide a shared key for ordinary users. Never bundle admin/DB credentials into JavaScript.
+
+Agree source attribution, accessible keyboard/reduced-motion controls, image preloading and public
+artifact origins. Validate Aladin FITS/WCS/catalog layers separately from the lightweight frame player.
+Test CSP/frame-ancestors and actual iframe embedding from another site; coordinate query URLs and
+immutable view links have distinct latest-versus-frozen semantics.
+
+## 5. Release evidence
+
+- API/image/package checks and disposable PostgreSQL migration/drift/repository-transport tests.
+- Atomic job acceptance/claim/cancel/publish, cache invalidation and source-refresh deduplication.
+- External DB/object storage restore plus Space/API/worker sleep/restart recovery.
+- Cold/warm CPU/memory/transfer measurements on all five target fields and larger FOVs.
+- Real backend → public React → movie, bands/coadds/difference/spectrum, Gaia/WISE, URL restore/iframe.
+- Target-specific query/quality/sensitivity limits and dated cached examples for upstream outages.
+- Source/software/model credits and full organizer submission/eligibility/deadline verification.
+
+Continuous deployment/synchronization is not enabled by this planning update. Commit/push to main as
+anindya357 and deployment actions occur only when explicitly authorized; preserve existing history.
 
 Primary hosting references: [Docker Spaces](https://huggingface.co/docs/hub/spaces-sdks-docker),
-[Space storage](https://huggingface.co/docs/hub/spaces-storage).
+[Space storage](https://huggingface.co/docs/hub/spaces-storage),
+[network/lifecycle](https://huggingface.co/docs/hub/spaces-overview#networking).
+
+## Step 4 implementation update
+
+[view-v2 frame preparation](frame_preparation.md) now uses release-aware readers, strict masks,
+fixed-grid reprojection/marginal variance, independent-reference residual checks, nominal/local-band
+context, explicit bins and shared/per-frame previews. Additive cosmic_0005 adds prepared_frame_sets
+and prepared_artifacts with fenced atomic raw/derived publication and bounded merged cleanup.
+Existing v1 jobs are preserved. API and native worker images include SciPy/Pillow; the official
+R7 catalog is packaged with source member hashes. Movie delivery and quantitative operations remain
+later slices; no cloud deployment or scientific target-recovery sign-off is implied.

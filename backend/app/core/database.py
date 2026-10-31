@@ -8,7 +8,13 @@ class Base(DeclarativeBase):
     pass
 
 
-engine = create_engine(get_settings().database_url, pool_pre_ping=True)
+engine = create_engine(
+    get_settings().database_url,
+    pool_pre_ping=True,
+    connect_args={"connect_timeout": 5}
+    if get_settings().database_url.startswith("postgresql")
+    else {},
+)
 SessionLocal = sessionmaker(bind=engine)
 
 

@@ -1,0 +1,13 @@
+{
+  "contract_version": "view-v2",
+  "region": {"ra": 269.45, "dec": 4.76, "width_arcmin": 3, "height_arcmin": 3},
+  "collections": ["spherex_qr3"],
+  "max_frames": 6,
+  "preparation": {
+    "spectral_mode": "common_available",
+    "temporal_bin_seconds": 0,
+    "stretch": "shared_asinh",
+    "native_preview_policy": "masked",
+    "target_exclusion_radius_arcsec": 30
+  }
+}

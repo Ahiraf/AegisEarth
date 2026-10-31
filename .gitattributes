@@ -1,0 +1,7 @@
+# Preserve pinned source-response bytes across Windows/Linux checkouts.
+backend/tests/fixtures/observations/*.xml -text
+backend/tests/fixtures/observations/*.vot -text
+docs/research/target_feasibility/metadata/*.xml -text
+docs/research/target_feasibility/catalog/*.txt -text -whitespace
+docs/research/target_feasibility/*.txt -text -whitespace
+docs/research/target_feasibility/simbad_response.json -text

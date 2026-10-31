@@ -1,0 +1,3 @@
+# Build tooling locked separately from production runtime.
+setuptools>=75
+wheel>=0.45

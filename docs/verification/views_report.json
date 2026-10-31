@@ -1,0 +1,67 @@
+{
+  "verified_at_utc": "2026-10-31T12:39:07.660443+00:00",
+  "checks": {
+    "durable_idempotent_acceptance": true,
+    "actual_isolated_worker_completed": true,
+    "raw_fits_hash_and_structural_integrity": true,
+    "completed_input_cache_reuse": true
+  },
+  "view_id": "2f7daf7e-a85a-497e-86d9-4a72dc05abda",
+  "request": {
+    "contract_version": "view-v1",
+    "region": {
+      "ra": 269.45,
+      "dec": 4.76,
+      "width_arcmin": 3,
+      "height_arcmin": 3
+    },
+    "collections": [
+      "spherex_qr3"
+    ],
+    "max_frames": 1
+  },
+  "result": {
+    "stage": "inputs_ready",
+    "input_count": 1,
+    "total_bytes": 3951360,
+    "viewer_execution_available": false
+  },
+  "artifacts": [
+    {
+      "id": "ca785038-a484-4289-a19c-402452393bc5",
+      "product_id": "a1026f942629afd0b7b0bf1b7845cffafe1d7f23ac7090d2a3dbc92db0b66248",
+      "sha256": "6c634d51abcd0c74743d97334a70ffbb6f61f56943afc331e4b4bebb38435d7c",
+      "size_bytes": 3951360,
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W33_2A/l2b-v27-2026-241/6/level2_2026W33_2A_0594_3D6_spx_l2b-v27-2026-241.fits?center=269.450000000000%2C4.760000000000&size=0.087377342298",
+      "validation": {
+        "hdus": [
+          "PRIMARY",
+          "IMAGE",
+          "FLAGS",
+          "VARIANCE",
+          "ZODI",
+          "EPSF",
+          "WCS-WAVE"
+        ],
+        "shape": [
+          12,
+          51
+        ],
+        "decoded_bytes": 3870144,
+        "full_fov_coverage": "not_evaluated",
+        "science_eligibility": "not_evaluated",
+        "fits_checksums_present": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "structurally_validated": true
+      }
+    }
+  ],
+  "scope": "local_input_acquisition_not_registered_movie_or_cloud_deployment"
+}

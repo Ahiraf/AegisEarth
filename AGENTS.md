@@ -1,6 +1,9 @@
 # Project working instructions
 
-- Current product: Cosmic Motion AI, a backend for SPHEREx image comparison and moving-source candidates.
+- Current product: Cosmic Motion AI, a backend for a public coordinate-driven SPHEREx sky time viewer.
+- Prioritize RA/Dec + FOV -> chronological images/movie, including brightness variation as well as motion.
+- All supplied challenge considerations are planned for the expanded release; test the five named targets.
+- AI suggestions are optional after the viewer; automatic detection/ranking/tracking must not gate playback.
 - Work is backend-only: FastAPI, PostgreSQL, Python image processing, Docker and Hugging Face API deployment.
 - The ML researcher builds, trains and scientifically evaluates the main model and supplies the inference package.
 - The backend developer integrates that package, validates inference parity and handles serving, jobs, storage and deployment; model training is outside this backend work plan.

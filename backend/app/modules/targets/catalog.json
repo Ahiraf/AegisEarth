@@ -1,0 +1,171 @@
+{
+  "version": "2026-10-29",
+  "epoch_evidence": "docs/research/target_feasibility/catalog/",
+  "targets": [
+    {
+      "slug": "barnards-star",
+      "name": "Barnard's Star",
+      "canonical_id": "NAME Barnard's star",
+      "ra_deg": 269.4520769586187,
+      "dec_deg": 4.693364966576667,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": -801.551,
+      "pm_dec_mas_yr": 10362.394,
+      "astrometry": {
+        "matched_id": "NAME Barnard's star",
+        "main_id": "NAME Barnard's star",
+        "ra": 269.4520769586187,
+        "dec": 4.693364966576667,
+        "coo_err_maj": 0.0262,
+        "coo_err_min": 0.029,
+        "coo_bibcode": "2020yCat.1350....0G",
+        "pmra": -801.551,
+        "pmdec": 10362.394,
+        "pm_err_maj": 0.032,
+        "pm_err_min": 0.036,
+        "pm_bibcode": "2020yCat.1350....0G",
+        "plx_value": 546.9759,
+        "plx_bibcode": "2020yCat.1350....0G"
+      },
+      "source_receipt": "docs/research/target_feasibility/astrometry_receipt.json",
+      "supplied_coordinate": null,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    },
+    {
+      "slug": "epsilon-indi-b",
+      "name": "Epsilon Indi B",
+      "canonical_id": "* eps Ind B",
+      "ra_deg": 331.04414658852124,
+      "dec_deg": -56.782844195116105,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": 3981.977,
+      "pm_dec_mas_yr": -2466.832,
+      "astrometry": {
+        "matched_id": "* eps Ind B",
+        "main_id": "* eps Ind B",
+        "ra": 331.04414658852124,
+        "dec": -56.782844195116105,
+        "coo_err_maj": 0.5048,
+        "coo_err_min": 0.4676,
+        "coo_bibcode": "2020yCat.1350....0G",
+        "pmra": 3981.977,
+        "pmdec": -2466.832,
+        "pm_err_maj": 0.602,
+        "pm_err_min": 0.626,
+        "pm_bibcode": "2020yCat.1350....0G",
+        "plx_value": 270.658,
+        "plx_bibcode": "2020yCat.1350....0G"
+      },
+      "source_receipt": "docs/research/target_feasibility/astrometry_receipt.json",
+      "supplied_coordinate": null,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate",
+        "Brown-dwarf system B selected, distinct from primary eps Ind; Ba/Bb may be unresolved"
+      ]
+    },
+    {
+      "slug": "wise-0855",
+      "name": "WISE 0855",
+      "canonical_id": "WISEA J085510.74-071442.5",
+      "ra_deg": 133.81890825,
+      "dec_deg": -7.247048000000001,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": -8123.7,
+      "pm_dec_mas_yr": 673.2,
+      "astrometry": {
+        "matched_id": "WISE J085510.83-071442.5",
+        "main_id": "WISEA J085510.74-071442.5",
+        "ra": 133.81890825,
+        "dec": -7.247048000000001,
+        "coo_err_maj": null,
+        "coo_err_min": null,
+        "coo_bibcode": "2021ApJS..253....7K",
+        "pmra": -8123.7,
+        "pmdec": 673.2,
+        "pm_err_maj": 1.3,
+        "pm_err_min": 1.3,
+        "pm_bibcode": "2021ApJS..253....7K",
+        "plx_value": 439,
+        "plx_bibcode": "2021ApJS..253....7K"
+      },
+      "source_receipt": "docs/research/target_feasibility/astrometry_receipt.json",
+      "supplied_coordinate": {
+        "ra_sexagesimal": "08h55m10.831s",
+        "dec_sexagesimal": "-07d14m42.53s",
+        "reference_epoch": null
+      },
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    },
+    {
+      "slug": "rw-aurigae",
+      "name": "RW Aurigae",
+      "canonical_id": "V* RW Aur",
+      "ra_deg": 76.95652603458333,
+      "dec_deg": 30.401438173888888,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": 7.23,
+      "pm_dec_mas_yr": -20.33,
+      "astrometry": {
+        "matched_id": "V* RW Aur",
+        "main_id": "V* RW Aur",
+        "ra": 76.95652603458333,
+        "dec": 30.401438173888888,
+        "coo_err_maj": 3.31,
+        "coo_err_min": 2,
+        "coo_bibcode": "2007A&A...474..653V",
+        "pmra": 7.23,
+        "pmdec": -20.33,
+        "pm_err_maj": 3.81,
+        "pm_err_min": 2.23,
+        "pm_bibcode": "2007A&A...474..653V",
+        "plx_value": 15.42,
+        "plx_bibcode": "2007A&A...474..653V"
+      },
+      "source_receipt": "docs/research/target_feasibility/astrometry_receipt.json",
+      "supplied_coordinate": null,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    },
+    {
+      "slug": "r-draconis",
+      "name": "R Draconis",
+      "canonical_id": "V* R Dra",
+      "ra_deg": 248.16761083295,
+      "dec_deg": 66.75497941722,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": -20.643,
+      "pm_dec_mas_yr": 6.149,
+      "astrometry": {
+        "matched_id": "V* R Dra",
+        "main_id": "V* R Dra",
+        "ra": 248.16761083295,
+        "dec": 66.75497941722,
+        "coo_err_maj": 0.0669,
+        "coo_err_min": 0.066,
+        "coo_bibcode": "2020yCat.1350....0G",
+        "pmra": -20.643,
+        "pmdec": 6.149,
+        "pm_err_maj": 0.085,
+        "pm_err_min": 0.091,
+        "pm_bibcode": "2020yCat.1350....0G",
+        "plx_value": 1.2509,
+        "plx_bibcode": "2020yCat.1350....0G"
+      },
+      "source_receipt": "docs/research/target_feasibility/astrometry_receipt.json",
+      "supplied_coordinate": null,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    }
+  ]
+}

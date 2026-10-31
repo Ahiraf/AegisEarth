@@ -1,5 +1,11 @@
 # ML researcher to backend: model handoff and acceptance
 
+Scope update, 29 October 2026: inference is an optional enhancement after the coordinate-driven
+SPHEREx time viewer. Core/expanded challenge releases do not depend on model delivery, classical
+ranking or automatic tracks. Keep existing interfaces disabled until integration evidence exists;
+model failure must not disable playback, spectra or survey context. This contract applies when the
+researcher's package is integrated and does not assign backend training work.
+
 The ML researcher will build/train the main Cosmic Motion AI model and deliver a completed inference
 package. The backend developer integrates and operates it. Model architecture research, data labeling,
 training, tuning, calibration and retraining are not backend deliverables.

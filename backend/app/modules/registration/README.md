@@ -1,4 +1,6 @@
-# Registration (planned)
-Reproject to a common celestial WCS; verify residual alignment using suitable stationary sources.
-Own target grid, interpolation/coverage and registration-quality metrics. Return an explicit failure
-when calibration/alignment quality is insufficient. Account for resampling-induced noise correlation.
+# Registration
+
+Step 4 implements exact-FOV north-up TAN grids, conservative bilinear science/mask/variance sampling
+and a bounded reference-candidate translation fit with held-out and post-resampling checks. The
+requested target region is excluded. This is relative engineering support, not absolute astrometry
+or confirmed static-star membership. [Policy](../../../../docs/frame_preparation.md).

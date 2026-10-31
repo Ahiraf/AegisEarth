@@ -1,78 +1,91 @@
-# Scientific processing and ML validation plan
+# Scientific and model validation: viewer first
 
-The system prioritizes candidate changes for human inspection. It does not confirm new objects,
-solve orbits, identify Planet X or infer physical impact danger from image residuals.
+Revised 29 October 2026. The primary result is a public time sequence, not a classified candidate list.
+Use the [five-target protocol](target_validation.md) and [challenge matrix](challenge_alignment.md).
+Original image viewing, comparable time viewing, subtraction, photometry and inference need distinct
+eligibility policies. The historical QR2 engineering preflight is useful regression evidence, not
+science sign-off or a universal viewer gate.
 
-## False-positive controls
+## Viewer and change interpretation
 
-| Confounder | Required evidence/control |
+| Confounder | Required control / user-visible interpretation |
 | --- | --- |
-| Different wavelength response | Local wavelength/bandwidth and source color context; reject unsupported comparisons |
-| Registration error | Residuals from stationary sources; centroid errors; reject poor/common-mode shifts |
-| Different PSF/photometric calibration | Appropriate local PSF/ePSF matching, background/flux diagnostics and calibration provenance |
-| Variable brightness | Same-position source match with intensity change; distinguish from displacement hypothesis |
-| Cosmic-ray-like events/bad pixels | Quality flags, morphology, per-epoch support and optional repeated observations |
-| Saturation/edges/gaps/NaN | Masks, coverage, boundary proximity and explicit quality warnings |
-| Blends/crowding | Ambiguous-association flag, source morphology, multiple hypotheses and lower confidence |
-| Resampling/convolution noise | Propagated variance, noise correlation caveat and empirical control/injection calibration |
+| Local wavelength/response changes | Actual WCS-WAVE/response support per epoch/pixel; common supported band for motion playback; label mixed-band exploration |
+| Registration drift | Independent stationary references, residual/centroid uncertainty and fixed orientation/grid; never align on the moving target |
+| Independent per-frame stretches | Shared default intensity scaling; label alternate normalized display so brightness changes are not erased |
+| Variable brightness | Matched band/epoch and photometry evidence; RW Aurigae/R Draconis need brightness tests, not forced motion labels |
+| Bad pixels/contamination | Decoded flags/coverage and masks; informational SOURCE/FULLSAMPLE preserved; quality policy reviewed per release |
+| PSF/calibration/background | Release-aware QR2 PSF versus QR3 ePSF, local references and operation-specific fits; inspect originals even if subtraction blocked |
+| Unresolved blends/saturation | Report limitations for bright/crowded sources and Epsilon Indi B components; no invented component detections |
+| Faint-source nondetection | Record WISE 0855 SPHEREx coverage/SNR limits; catalog/WISE context does not establish SPHEREx recovery |
+| Catalog epoch mismatch | Preserve reference epoch/proper-motion convention/errors; label propagation/parallax/apparent-position limitations |
+| Missing epochs or channels | Show gaps and actual observing times; no fake frames, inferred detections or filled-in spectra |
 
-SPHEREx has a position-dependent wavelength response; comparisons cannot be justified solely by
-matching a broad detector label. Use the [IRSA overview](https://irsa.ipac.caltech.edu/onlinehelp/spherex/spherex/overview.html)
-and [data-product guide](https://caltech-ipac.github.io/spherex-archive-documentation/spherex-data-products/)
-to identify appropriate wavelength, quality, uncertainty and calibration information.
+Frames are sky-fixed by default. Do not center each frame on a propagated target when demonstrating
+its apparent motion. Actual cadence and elapsed gaps remain distinct from animation playback rate.
+At least two independent observing epochs are needed for change; reprocessed copies of one exposure
+do not count. The survey's nominal six-month repeat does not guarantee exact cadence for every patch.
 
-## Scientific baseline
+## Detector composites and temporal coaddition
 
-Start with validated source detection, registration, difference imaging and explainable feature ranking.
-Keep the baseline executable as a reference when adding a CNN/Siamese ranker. Choose scientific thresholds
-from representative controls/injection tests; this scaffold does not invent validated numeric cutoffs.
+The six detector labels cover broad changing local responses; they are not six universal fixed filters.
+For each detector/time bin define target wavelength support, weights and actual coverage. Compare
+epochs with the same supported response policy, or label composites as exploratory and block quantitative
+differences. Do not indiscriminately sum all 102 nominal channels or mix response support between dates.
 
-Two epochs produce possible motion evidence. Three or more may support a tentative trajectory over the
-observed baseline, subject to association/model limits. Confirmation requires additional evidence/review.
-A stationary variable, noise spike or subtraction artifact remains a separate interpretation.
+For validated independent equal-response samples, weighted mean is sum(w_i I_i)/sum(w_i), with
+w_i=1/variance_i and output variance 1/sum(w_i). A literal sum has sum-of-variance semantics and
+different effective exposure/interpretation. Masks, overlap and resampling correlations require explicit
+treatment; the simple independent formula is a tested reference, not a universal noise model.
+Store contributor/count/weight/coverage/effective-response maps and original units. Pixels with no
+support remain masked, never measured zero. Long temporal bins smear movers and dilute variability;
+retain uncoadded frames and disclose the tradeoff.
 
-## Training and model integration
+## Difference imaging
 
-The ML researcher owns model design, training, evaluation and calibration, and supplies the complete
-inference package. The backend developer owns its adapter, inference parity, resource limits, job/API
-integration, storage, deployment and provenance. Training/retraining is not a backend delivery task.
-The researcher is expected to provide evidence of the following with the model, rather than asking the
-backend developer to repeat the training workflow:
+Use later-minus-earlier sign convention. Validate local response, calibration, empirical registration,
+background and local PSF/ePSF matching before subtraction. Propagate masks/variance and document
+correlation after interpolation/convolution; raw pixel significance is not automatically a calibrated
+detection significance. A residual may indicate flux variation, noise, blending or calibration error.
+Ineligible subtraction returns reasons while the original movie remains available.
 
-1. Define a label guide, annotator/review process and uncertain cases.
-2. Assemble permitted-use real examples and realistic synthetic injections; retain origin labels.
-3. Split data by sky field/source/sequence and observing epoch before making overlapping stamps.
-4. Use identical transforms/channel order at training and inference; retain original-image context.
-5. Train one compact CNN or Siamese model and compare it with the baseline under identical test conditions.
-6. Record data/code/config/weights checksums, seeds, dependencies, license and inference hardware.
-7. Evaluate held-out performance and out-of-domain behavior; record failure examples, not only aggregate accuracy.
-8. Calibrate and label probabilities only if representative labeled evaluation supports them.
+## On-demand spectra and brightness measurements
 
-Injection recovery demonstrates sensitivity to the injection assumptions. It does not alone establish
-real-world precision or discovery rate. Known-object ephemeris matches can provide supporting labels,
-but are not mandatory primary data integrations and must include their own time/frame uncertainties.
+Baseline implementation choice is reviewed local per-epoch photometry using calibrated inputs and
+appropriate ePSF/aperture corrections; evaluate official SPHEREx spectrophotometry tooling as a
+reference or documented adapter. No undocumented GUI endpoint is a production dependency.
 
-## Metrics and acceptance targets
+Define source aperture/PSF model, background estimation, pixel solid angle, calibration, response,
+uncertainty and quality selection. IMAGE MJy/sr is surface brightness, not source flux: integrating
+background-subtracted brightness over pixel solid angles requires the appropriate unit conversion and
+aperture/PSF correction. Background uncertainty and correlated pixels must be included where relevant.
+Validate against analytic sources and suitable official/reference extractions before publishing fluxes.
 
-The researcher supplies precision-recall curves, false positives per field, recovery versus motion/brightness/SNR,
-association errors, calibration error/reliability when applicable and CPU/memory/inference latency.
-Partition results by wavelength regime, crowding, masks, release, baseline and source morphology.
-Do not use pixel accuracy as the only metric or mix neighboring cutouts across train/test splits.
+Keep spectra scoped to an epoch/time bin; do not construct a variable source's spectrum from unrelated
+dates without labeling that model/assumption. For movers, use explicit per-epoch source positions and
+their uncertainty so an aperture does not drift onto a different source. Return measured samples,
+errors/flags/response and defensible upper limits, with gaps when unavailable; no fake 102-channel curve.
 
-Before acceptance, the team/scientific reviewer must set numeric thresholds using real-data feasibility
-results. Until then, all numeric ML quality targets are TBD, and no “95% accurate” or “95% certain” claim
-is justified. The default output remains candidate_score with method/version and explanation codes.
+## Tests and review gates
 
-## Model card required before enabling trained ranking
+- Execute all five named targets with retained query/frame/quality reports; preserve M101 as additional
+  engineering control and 3I/ATLAS as optional follow-up, not replacements.
+- Add generated static fields, known offsets/rotations, variable-only sources, blends, masked edges,
+  cosmic-ray-like artifacts and controlled PSF/response changes; test analytic coadd/variance/flux units.
+- Verify roundtrip WCS/pixel overlays, sky-fixed geometry and browser playback separately from numerical tests.
+- Choose numeric response/coverage/registration/photometry tolerances from representative data and
+  reviewer evidence. No universal sensitivity or SNR improvement is asserted before measurements.
+- Separate target-test completion from a positive motion/variation recovery. Report missing coverage,
+  nondetection and unresolved effects without claiming successful detection or hiding limitations.
 
-- Intended use and explicitly unsupported uses.
-- Data/label source, license, split policy and known biases.
-- Architecture, preprocessing, version, weights checksum and reproducibility record.
-- Held-out baseline/model comparisons and subgroup failure examples.
-- Score meaning, calibration dataset/version, uncertainty and decision thresholds.
-- CPU/GPU requirements, time/memory limits and supported input shape/channel order.
-- Reviewer, approval status and rollback/disable procedure.
+## Optional researcher model
 
-The ranker schema's calibration-reference guard is a software check, not a substitute for this evidence.
-Backend integration checks reference outputs and operational behavior against the supplied package;
-it does not certify new model accuracy. See [handoff and acceptance](model_handoff.md).
+The researcher designs/trains/evaluates/calibrates and supplies the inference package. Backend
+integration verifies goldens/parity, exact preprocessing, coordinate/score semantics, checksums,
+resource limits and isolated errors. The viewer does not require a backend-built classical ranker,
+automatic association/tracks or trained network. Keep such interfaces disabled until integrated.
+
+Obtain model card, evaluation/split/leakage/failure evidence and calibration provenance with the
+package; do not repeat model training as a backend deliverable. Uncalibrated outputs are candidate
+scores, not probabilities, confirmation or Planet X discovery claims. [Model handoff](model_handoff.md)
+defines the integration contract. Inference unavailability must not disable browsing, spectra or overlays.

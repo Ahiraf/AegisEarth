@@ -1,0 +1,7 @@
+{
+  "contract_version": "view-v1",
+  "region": {"ra": 269.45, "dec": 4.76, "width_arcmin": 3, "height_arcmin": 3},
+  "collections": ["spherex_qr3"],
+  "max_frames": 1,
+  "selection_policy": "evenly_spaced_sample"
+}
