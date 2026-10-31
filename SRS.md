@@ -1,9 +1,9 @@
-# Cosmic Motion AI — Software Requirements Specification
+# AegisEarth AI — Software Requirements Specification
 
 | Attribute | Baseline |
 | --- | --- |
 | Version / date | 2.3 — band and prepared-frame implementation update, 31 October 2026 |
-| Product | Public SPHEREx sky time viewer with optional AI-assisted hints |
+| Product | AegisEarth AI — public SPHEREx sky time viewer with optional AI-assisted hints |
 | Required journey | Enter RA/Dec → choose sky patch/band → inspect chronological frames like a movie |
 | Backend ownership | FastAPI REST, PostgreSQL, Python processing, Docker and Hugging Face API |
 | Frontend ownership | Separate React developer: public viewer, playback, sky map and accessibility |
@@ -14,7 +14,7 @@
 
 ## 1. Purpose, priorities and implementation status
 
-Help anyone inspect changes in SPHEREx sky images over time. The brief requires a public coordinate-
+AegisEarth AI helps anyone inspect changes in SPHEREx sky images over time. The brief requires a public coordinate-
 driven image sequence and testing on Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae and
 R Draconis. Motion and brightness variation are both relevant. Automatic object detection is not
 necessary to deliver that experience. The model is an optional enhancement, never a viewing prerequisite.
