@@ -298,6 +298,11 @@ def prepare(paths, products, region, raw_artifact_ids, options, root):
                 "preview": artifact(png, "temporal_bin_preview", ids),
             }
             bin_["method"] = "explicit_display_inverse_variance_mean_not_validated_photometry"
+            bin_["stretch"] = {
+                "mode": "shared_asinh",
+                "limits_mjy_sr": list(shared),
+                "asinh_softening": 10,
+            }
         elif len(contributors) > 1:
             bin_["reason"] = "registration_support_insufficient_no_combination"
     report = {

@@ -2,7 +2,7 @@
 
 | Attribute | Baseline |
 | --- | --- |
-| Version / date | 2.3 — band and prepared-frame implementation update, 31 October 2026 |
+| Version / date | 2.4 — movie delivery and React handoff update, 1 November 2026 |
 | Product | AegisEarth AI — public SPHEREx sky time viewer with optional AI-assisted hints |
 | Required journey | Enter RA/Dec → choose sky patch/band → inspect chronological frames like a movie |
 | Backend ownership | FastAPI REST, PostgreSQL, Python processing, Docker and Hugging Face API |
@@ -37,8 +37,7 @@ are implemented and locally verified. Step 2 adds discovery-v1 coordinate/FOV/ti
 GET /releases, coordinate normalization, immutable product/snapshot persistence (cosmic_0003),
 TTL revalidation and stable pagination over bounded IRSA results, through native SQL or HTTPS.
 All five targets have live discovery evidence and real native-cutout evidence. Analysis remains 503;
-legacy radius search is explicitly retired with 410. No public movie/model or measured target
-motion/variability is implemented. See [discovery](docs/discovery.md), [foundation](docs/foundation.md)
+legacy radius search is explicitly retired with 410. No model or measured target motion/variability is implemented; public cloud deployment remains pending. See [discovery](docs/discovery.md), [foundation](docs/foundation.md)
 and [target evidence](docs/research/target_feasibility/README.md).
 Step 3 implements anonymous view submission, transactional quotas/idempotency, scoped cancellation,
 isolated native acquisition workers, byte/FITS integrity, local/S3 adapters, artifact reads and bounded
@@ -48,8 +47,15 @@ Step 4 now implements view-v2 frame preparation, official 102-channel/response m
 PSF/ePSF readers, strict masks, exact sky-fixed grids, marginal variance propagation, held-out static
 reference checks, explicit temporal bins and shared-stretch transparent previews. cosmic_0005 adds
 atomic raw/derived publication. WCS-WAVE wavelengths remain visualization proxies; quantitative
-CWAVE/CBAND/response/PSF/photometric acceptance is not claimed. Movie delivery remains step 5.
+CWAVE/CBAND/response/PSF/photometric acceptance is not claimed.
 See [prepared frame contract](docs/frame_preparation.md).
+Step 5 implements movie-v1 immutable manifests/pages, explicit no_data/single_epoch/ready_for_animation,
+UTC intervals/physical gaps, provenance/WCS/coverage/warnings, conditional caching and primary 2D FITS
+for Aladin. Additive cosmic_0006 preserves earlier views. A separate React/Aladin reference demonstrates
+real coordinate-to-animation without ML, controls/accessibility and widget-failure isolation locally.
+Quality-limited browsing does not assert scientific comparison eligibility. Production frontend-owner
+integration, public cloud deployment and step-6 five-target scientific acceptance remain open.
+See [movie delivery contract and evidence](docs/movie_delivery.md).
 This document describes target behavior. Existing OpenAPI remains the actual runtime contract.
 
 Excluded/deferred: full-sky searches, orbit/automatic track solutions, discovery confirmation, impact

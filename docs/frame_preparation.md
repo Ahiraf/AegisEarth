@@ -2,7 +2,7 @@
 
 Implemented locally, 31 October 2026. This slice adds **view-v2** to the existing durable job flow.
 It prepares native previews, fixed-grid arrays/previews, band/quality context and operation eligibility.
-Movie manifests, timeline pagination and React playback remain step 5. No ML package is required.
+Step 5 now implements [movie manifests, pagination and an isolated React handoff](movie_delivery.md). No ML package is required.
 
 ## Submit and inspect
 

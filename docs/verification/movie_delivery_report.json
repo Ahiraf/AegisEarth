@@ -1,0 +1,478 @@
+{
+  "verified_at_utc": "2026-10-31T18:24:12.396130+00:00",
+  "view_id": "fe440a60-3b19-4820-a404-a5da1bab57b7",
+  "request": {
+    "contract_version": "view-v2",
+    "region": {
+      "ra": 269.45,
+      "dec": 4.76,
+      "width_arcmin": 3,
+      "height_arcmin": 3
+    },
+    "collections": [
+      "spherex_qr3"
+    ],
+    "max_frames": 3,
+    "preparation": {
+      "spectral_mode": "common_available"
+    }
+  },
+  "checks": {
+    "frozen_manifest_etag": true,
+    "https_lookup_parity": true,
+    "quality_limited_browsing": true,
+    "stable_paginated_chronology": true,
+    "preview_hashes_and_304": true,
+    "primary_fits_units_wcs_cors_304": true,
+    "png_sky_roundtrip": true,
+    "real_single_epoch_worker_and_https_publication": true,
+    "real_no_data_worker_and_https_publication": true
+  },
+  "frames": [
+    {
+      "frame_id": "fea4da6f-516b-5e49-89d8-9a0857a7c6c7",
+      "ordinal": 0,
+      "time": {
+        "scale": "UTC",
+        "end_utc": "2026-08-21T09:09:22.609497Z",
+        "label_utc": "2026-08-21T09:08:25.050768Z",
+        "start_utc": "2026-08-21T09:07:27.492038Z",
+        "label_kind": "observation_midpoint",
+        "end_mjd_utc": "61273.381511684",
+        "gap_seconds": 0,
+        "mid_mjd_utc": "61273.380845495",
+        "start_mjd_utc": "61273.380179306",
+        "elapsed_seconds": 0.0,
+        "overlap_seconds": 0
+      },
+      "preview_sha256": "3cc19df8d0b6eafcbb11e8edbba09f50fb2fd42927bc965e61c59d842a65d6e2",
+      "science_primary_sha256": "eab2c02097bd4c44bc458db90ea2ed3026b569b6bf2270f4645ebbdafaaf4b37",
+      "inputs": [
+        {
+          "doi": "10.26131/IRSA662",
+          "url": "/api/v1/artifacts/0f24fcbf-d34d-4bea-8400-369da3b67d9f/content",
+          "sha256": "2263909ef21e94433ddaaef664f0bd0ba7bac90dcb0423334c4a4dd69c97acb5",
+          "release": "qr3",
+          "detector": "D5",
+          "collection": "spherex_qr3",
+          "product_id": "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a",
+          "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W34_2A/l2b-v27-2026-243/5/level2_2026W34_2A_0178_2D5_spx_l2b-v27-2026-243.fits?center=269.450000000000%2C4.760000000000&size=0.137377342298",
+          "artifact_id": "0f24fcbf-d34d-4bea-8400-369da3b67d9f",
+          "end_mjd_utc": "61273.381511684",
+          "mid_mjd_utc": "61273.380845495",
+          "start_mjd_utc": "61273.380179306",
+          "calibration_version": "l2b-v27-2026-243"
+        }
+      ],
+      "quality": {
+        "contributors": [
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 430,
+              "plane_sha256": "f015f188bace8d160042a9a2022b9c645aaceb10c5fbe4e5a3de83ea71d136d1",
+              "support_stars": 493,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1053.431237455753,
+                2024.7810656501078
+              ]
+            },
+            "mask": {
+              "policy": "strict-flags-v1",
+              "finite_fraction": 0.9995510662177329,
+              "usable_fraction": 0.9840628507295174,
+              "flag_definitions": {
+                "MP_HOT": 10,
+                "MP_COLD": 11,
+                "MP_HALO": 28,
+                "MP_BLOOM": 26,
+                "MP_GHOST": 22,
+                "MP_SOURCE": 21,
+                "MP_STREAK": 25,
+                "MP_NONFUNC": 6,
+                "MP_OUTLIER": 19,
+                "MP_PERSIST": 17,
+                "MP_DICHROIC": 7,
+                "MP_OVERFLOW": 1,
+                "MP_PHANMISS": 14,
+                "MP_SNOWBALL": 27,
+                "MP_CROSSTALK": 20,
+                "MP_GHOST_EXT": 24,
+                "MP_GHOST_FPA": 23,
+                "MP_NONLINEAR": 15,
+                "MP_SUR_ERROR": 2,
+                "MP_TRANSIENT": 0,
+                "MP_FULLSAMPLE": 12,
+                "MP_MISSING_DATA": 9
+              },
+              "informational_flags": [
+                "MP_SOURCE",
+                "MP_FULLSAMPLE"
+              ],
+              "unknown_flag_pixels": 0
+            },
+            "product_id": "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            },
+            "common_grid_usable_fraction": 0.9433333333333334
+          }
+        ],
+        "photometry_eligible": false,
+        "comparison_supported": false,
+        "subtraction_eligible": false
+      },
+      "spectral": {
+        "unit": "MJy/sr",
+        "detectors": [
+          "D5"
+        ],
+        "contributors": [
+          {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "product_id": "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a",
+            "center_inside": true,
+            "center_usable": true,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "native_range_scope": "padded_native_cutout",
+            "center_bandwidth_um": 0.03475062636750125,
+            "wavelength_range_um": [
+              3.7983829975128174,
+              3.8142480267127055
+            ],
+            "center_wavelength_um": 3.8025435706814465,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [],
+            "usable_wavelength_range_um": [
+              3.7983829975128174,
+              3.8142480267127055
+            ],
+            "requested_region_nominal_window_candidates": [],
+            "requested_region_usable_wavelength_range_um": [
+              3.7984779754496367,
+              3.806826400921973
+            ]
+          }
+        ],
+        "variance_unit": "(MJy/sr)^2",
+        "quantitative_calibration": false
+      }
+    },
+    {
+      "frame_id": "570fe648-d49c-5fa6-998c-aba612fdf0f1",
+      "ordinal": 1,
+      "time": {
+        "scale": "UTC",
+        "end_utc": "2026-08-21T12:23:18.615466Z",
+        "label_utc": "2026-08-21T12:22:21.056736Z",
+        "start_utc": "2026-08-21T12:21:23.498006Z",
+        "label_kind": "observation_midpoint",
+        "end_mjd_utc": "61273.516187679",
+        "gap_seconds": 11520.888509019283,
+        "mid_mjd_utc": "61273.51552149",
+        "start_mjd_utc": "61273.514855301",
+        "elapsed_seconds": 11636.005968251271,
+        "overlap_seconds": 0
+      },
+      "preview_sha256": "94938843a1728974445142fcebb60ae59fd0e2da63125c599c05b46543d9ad50",
+      "science_primary_sha256": "fc977e10858a0ba2e5bdd4d97cd7ec302eb50b7e612510d98a2a9835d301852a",
+      "inputs": [
+        {
+          "doi": "10.26131/IRSA662",
+          "url": "/api/v1/artifacts/74a34b2f-7fe9-4bee-8069-fc4542b0e2bf/content",
+          "sha256": "74c3dd0ac13763c2e8d62a2bfa68dd43d1d833f1caa0e0563c4dd8eceed9e5cc",
+          "release": "qr3",
+          "detector": "D5",
+          "collection": "spherex_qr3",
+          "product_id": "f1c2588564a79a701e473cd6a6b1e05bf4cab53545098ae670aec4d1cc19626f",
+          "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W34_2A/l2b-v27-2026-243/5/level2_2026W34_2A_0206_2D5_spx_l2b-v27-2026-243.fits?center=269.450000000000%2C4.760000000000&size=0.137377342298",
+          "artifact_id": "74a34b2f-7fe9-4bee-8069-fc4542b0e2bf",
+          "end_mjd_utc": "61273.516187679",
+          "mid_mjd_utc": "61273.51552149",
+          "start_mjd_utc": "61273.514855301",
+          "calibration_version": "l2b-v27-2026-243"
+        }
+      ],
+      "quality": {
+        "contributors": [
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 346,
+              "plane_sha256": "6e024ebcb83bfe262e94ce1d23e5541a866e6c11ae0b47906c8877edab296248",
+              "support_stars": 353,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1045.2577278813626,
+                1566.3091571024959
+              ]
+            },
+            "mask": {
+              "policy": "strict-flags-v1",
+              "finite_fraction": 0.9992283950617284,
+              "usable_fraction": 0.9794753086419753,
+              "flag_definitions": {
+                "MP_HOT": 10,
+                "MP_COLD": 11,
+                "MP_HALO": 28,
+                "MP_BLOOM": 26,
+                "MP_GHOST": 22,
+                "MP_SOURCE": 21,
+                "MP_STREAK": 25,
+                "MP_NONFUNC": 6,
+                "MP_OUTLIER": 19,
+                "MP_PERSIST": 17,
+                "MP_DICHROIC": 7,
+                "MP_OVERFLOW": 1,
+                "MP_PHANMISS": 14,
+                "MP_SNOWBALL": 27,
+                "MP_CROSSTALK": 20,
+                "MP_GHOST_EXT": 24,
+                "MP_GHOST_FPA": 23,
+                "MP_NONLINEAR": 15,
+                "MP_SUR_ERROR": 2,
+                "MP_TRANSIENT": 0,
+                "MP_FULLSAMPLE": 12,
+                "MP_MISSING_DATA": 9
+              },
+              "informational_flags": [
+                "MP_SOURCE",
+                "MP_FULLSAMPLE"
+              ],
+              "unknown_flag_pixels": 0
+            },
+            "product_id": "f1c2588564a79a701e473cd6a6b1e05bf4cab53545098ae670aec4d1cc19626f",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            },
+            "common_grid_usable_fraction": 0.9488888888888889
+          }
+        ],
+        "photometry_eligible": false,
+        "comparison_supported": false,
+        "subtraction_eligible": false
+      },
+      "spectral": {
+        "unit": "MJy/sr",
+        "detectors": [
+          "D5"
+        ],
+        "contributors": [
+          {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "product_id": "f1c2588564a79a701e473cd6a6b1e05bf4cab53545098ae670aec4d1cc19626f",
+            "center_inside": true,
+            "center_usable": true,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "native_range_scope": "padded_native_cutout",
+            "center_bandwidth_um": 0.03622267304050768,
+            "wavelength_range_um": [
+              3.9244364406548295,
+              3.9481570903982943
+            ],
+            "center_wavelength_um": 3.9364276108022795,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              72
+            ],
+            "usable_wavelength_range_um": [
+              3.9244364406548295,
+              3.9481570903982943
+            ],
+            "requested_region_nominal_window_candidates": [
+              72
+            ],
+            "requested_region_usable_wavelength_range_um": [
+              3.931994937238628,
+              3.9406779717871556
+            ]
+          }
+        ],
+        "variance_unit": "(MJy/sr)^2",
+        "quantitative_calibration": false
+      }
+    },
+    {
+      "frame_id": "7bbd380e-acf9-5d7e-b0ea-143548a1b336",
+      "ordinal": 2,
+      "time": {
+        "scale": "UTC",
+        "end_utc": "2026-08-21T15:39:05.132477Z",
+        "label_utc": "2026-08-21T15:38:07.573747Z",
+        "start_utc": "2026-08-21T15:37:10.015018Z",
+        "label_kind": "observation_midpoint",
+        "end_mjd_utc": "61273.652142737",
+        "gap_seconds": 11631.399552128278,
+        "mid_mjd_utc": "61273.651476548",
+        "start_mjd_utc": "61273.650810359",
+        "elapsed_seconds": 23382.522979611535,
+        "overlap_seconds": 0
+      },
+      "preview_sha256": "cfab16d77f6429f68ab66512468186ec3d3f65259e86044b31cf25321d9a0b06",
+      "science_primary_sha256": "e207ca5afd3f10b483513284c500dd702f2629be076792b41ba8cf297eea00b0",
+      "inputs": [
+        {
+          "doi": "10.26131/IRSA662",
+          "url": "/api/v1/artifacts/0a3eae65-8916-47f5-9f03-aa3db54f7d05/content",
+          "sha256": "a93578d051097aea0c4ab56af4f0b985408393954b93781d4abf5edc77bef133",
+          "release": "qr3",
+          "detector": "D5",
+          "collection": "spherex_qr3",
+          "product_id": "5fba592640c81c7bcdc90fd76734773f09add56f14b57fdf94b5f6a454d0654a",
+          "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W34_2A/l2b-v27-2026-243/5/level2_2026W34_2A_0233_2D5_spx_l2b-v27-2026-243.fits?center=269.450000000000%2C4.760000000000&size=0.137377342298",
+          "artifact_id": "0a3eae65-8916-47f5-9f03-aa3db54f7d05",
+          "end_mjd_utc": "61273.652142737",
+          "mid_mjd_utc": "61273.651476548",
+          "start_mjd_utc": "61273.650810359",
+          "calibration_version": "l2b-v27-2026-243"
+        }
+      ],
+      "quality": {
+        "contributors": [
+          {
+            "psf": {
+              "sum": 0.9999999999999999,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 241,
+              "plane_sha256": "a90fa7bf4396b45ad074a1ca794a311bd5e7015fe6fbd2f960a45ab4d2e9ba6b",
+              "support_stars": 384,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1036.8422485160763,
+                1106.494749147876
+              ]
+            },
+            "mask": {
+              "policy": "strict-flags-v1",
+              "finite_fraction": 0.999537037037037,
+              "usable_fraction": 0.9848765432098765,
+              "flag_definitions": {
+                "MP_HOT": 10,
+                "MP_COLD": 11,
+                "MP_HALO": 28,
+                "MP_BLOOM": 26,
+                "MP_GHOST": 22,
+                "MP_SOURCE": 21,
+                "MP_STREAK": 25,
+                "MP_NONFUNC": 6,
+                "MP_OUTLIER": 19,
+                "MP_PERSIST": 17,
+                "MP_DICHROIC": 7,
+                "MP_OVERFLOW": 1,
+                "MP_PHANMISS": 14,
+                "MP_SNOWBALL": 27,
+                "MP_CROSSTALK": 20,
+                "MP_GHOST_EXT": 24,
+                "MP_GHOST_FPA": 23,
+                "MP_NONLINEAR": 15,
+                "MP_SUR_ERROR": 2,
+                "MP_TRANSIENT": 0,
+                "MP_FULLSAMPLE": 12,
+                "MP_MISSING_DATA": 9
+              },
+              "informational_flags": [
+                "MP_SOURCE",
+                "MP_FULLSAMPLE"
+              ],
+              "unknown_flag_pixels": 0
+            },
+            "product_id": "5fba592640c81c7bcdc90fd76734773f09add56f14b57fdf94b5f6a454d0654a",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            },
+            "common_grid_usable_fraction": 0.9622222222222222
+          }
+        ],
+        "photometry_eligible": false,
+        "comparison_supported": false,
+        "subtraction_eligible": false
+      },
+      "spectral": {
+        "unit": "MJy/sr",
+        "detectors": [
+          "D5"
+        ],
+        "contributors": [
+          {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "product_id": "5fba592640c81c7bcdc90fd76734773f09add56f14b57fdf94b5f6a454d0654a",
+            "center_inside": true,
+            "center_usable": true,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "native_range_scope": "padded_native_cutout",
+            "center_bandwidth_um": 0.03673066366192248,
+            "wavelength_range_um": [
+              4.063416185050175,
+              4.087798191073241
+            ],
+            "center_wavelength_um": 4.075729361728075,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              76
+            ],
+            "usable_wavelength_range_um": [
+              4.063416185050175,
+              4.087798191073241
+            ],
+            "requested_region_nominal_window_candidates": [
+              76
+            ],
+            "requested_region_usable_wavelength_range_um": [
+              4.071105658668308,
+              4.08005104391577
+            ]
+          }
+        ],
+        "variance_unit": "(MJy/sr)^2",
+        "quantitative_calibration": false
+      }
+    }
+  ],
+  "single_epoch_view_id": "c7769628-5ea7-43b5-bf1b-59682c4651e6",
+  "no_data_view_id": "5213e77e-5e30-44c3-9256-30926aa081be",
+  "manifest_sha256": "b5a6a4ae0f4e3752a0789a5913c5de28e8ca45e7352d3062549a346b6f50730f",
+  "limitations": [
+    "Local foundation only; no HF deployment or external storage acceptance",
+    "Three observed epochs are a bounded archive sample, not a complete survey",
+    "No scientific motion/variability or quantitative comparison claim; no ML loaded"
+  ]
+}

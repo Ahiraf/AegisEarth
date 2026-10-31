@@ -584,6 +584,284 @@
         }
       }
     },
+    "/api/v1/views/{view_id}/manifest": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Movie Manifest",
+        "operationId": "movie_manifest_api_v1_views__view_id__manifest_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieManifest"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Preparation pending"
+          },
+          "409": {
+            "description": "Failed/canceled or legacy unprepared view"
+          },
+          "410": {
+            "description": "Expired"
+          },
+          "304": {
+            "description": "Cached"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/frames": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Movie Frames",
+        "operationId": "movie_frames_api_v1_views__view_id__frames_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "common",
+                "native"
+              ],
+              "type": "string",
+              "default": "common",
+              "title": "Mode"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 12,
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 12,
+              "minimum": 1,
+              "default": 4,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MovieFramePage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/frames/{ordinal}/coordinates": {
+      "get": {
+        "tags": [
+          "movies"
+        ],
+        "summary": "Frame Coordinates",
+        "operationId": "frame_coordinates_api_v1_views__view_id__frames__ordinal__coordinates_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "ordinal",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Ordinal"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "common",
+                "native"
+              ],
+              "type": "string",
+              "default": "common",
+              "title": "Mode"
+            }
+          },
+          {
+            "name": "origin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "png",
+                "fits"
+              ],
+              "type": "string",
+              "default": "png",
+              "title": "Origin"
+            }
+          },
+          {
+            "name": "x",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X"
+            }
+          },
+          {
+            "name": "y",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Y"
+            }
+          },
+          {
+            "name": "ra",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Dec"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/artifacts/{artifact_id}": {
       "get": {
         "tags": [
@@ -632,6 +910,47 @@
         ],
         "summary": "Artifact Content",
         "operationId": "artifact_content_api_v1_artifacts__artifact_id__content_get",
+        "parameters": [
+          {
+            "name": "artifact_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Artifact Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/artifacts/{artifact_id}/science.fits": {
+      "get": {
+        "tags": [
+          "artifacts"
+        ],
+        "summary": "Aladin Science",
+        "operationId": "aladin_science_api_v1_artifacts__artifact_id__science_fits_get",
         "parameters": [
           {
             "name": "artifact_id",
@@ -1177,6 +1496,394 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "MovieArtifact": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Sha256"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "image/png",
+              "application/fits",
+              "application/json"
+            ],
+            "title": "Content Type"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "maximum": 134217728.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Size Bytes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "url",
+          "sha256",
+          "content_type",
+          "size_bytes"
+        ],
+        "title": "MovieArtifact"
+      },
+      "MovieFrame": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "ordinal": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Ordinal"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "observation",
+              "temporal_bin"
+            ],
+            "title": "Kind"
+          },
+          "time": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Time"
+          },
+          "preview": {
+            "$ref": "#/components/schemas/MovieArtifact"
+          },
+          "science": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MovieArtifact"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "science_image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Science Image Url"
+          },
+          "original_inputs": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Original Inputs"
+          },
+          "spatial": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Spatial"
+          },
+          "spectral": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Spectral"
+          },
+          "stretch": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stretch"
+          },
+          "quality": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Quality"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "ordinal",
+          "kind",
+          "time",
+          "preview",
+          "original_inputs",
+          "spatial",
+          "spectral",
+          "stretch",
+          "quality",
+          "warnings"
+        ],
+        "title": "MovieFrame"
+      },
+      "MovieFramePage": {
+        "properties": {
+          "manifest_version": {
+            "type": "string",
+            "const": "movie-v1",
+            "title": "Manifest Version",
+            "default": "movie-v1"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "title": "Manifest Sha256"
+          },
+          "view_id": {
+            "type": "string",
+            "title": "View Id"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "common",
+              "native"
+            ],
+            "title": "Mode"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MovieFrame"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "next_page": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Page"
+          },
+          "preload": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preload"
+          }
+        },
+        "type": "object",
+        "required": [
+          "manifest_sha256",
+          "view_id",
+          "mode",
+          "total",
+          "offset",
+          "limit",
+          "items",
+          "next_page",
+          "preload"
+        ],
+        "title": "MovieFramePage"
+      },
+      "MovieManifest": {
+        "properties": {
+          "manifest_version": {
+            "type": "string",
+            "const": "movie-v1",
+            "title": "Manifest Version",
+            "default": "movie-v1"
+          },
+          "manifest_sha256": {
+            "type": "string",
+            "title": "Manifest Sha256"
+          },
+          "view_id": {
+            "type": "string",
+            "title": "View Id"
+          },
+          "source_snapshot_id": {
+            "type": "string",
+            "title": "Source Snapshot Id"
+          },
+          "source_registry_version": {
+            "type": "string",
+            "title": "Source Registry Version"
+          },
+          "processing_version": {
+            "type": "string",
+            "title": "Processing Version"
+          },
+          "job_created_at_utc": {
+            "type": "string",
+            "title": "Job Created At Utc"
+          },
+          "request": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Request"
+          },
+          "default_timeline": {
+            "type": "string",
+            "const": "common",
+            "title": "Default Timeline",
+            "default": "common"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "no_data",
+              "single_epoch",
+              "ready_for_animation"
+            ],
+            "title": "Outcome"
+          },
+          "timelines": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/MovieTimeline"
+            },
+            "type": "object",
+            "title": "Timelines"
+          },
+          "playback": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Playback"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "manifest_sha256",
+          "view_id",
+          "source_snapshot_id",
+          "source_registry_version",
+          "processing_version",
+          "job_created_at_utc",
+          "request",
+          "outcome",
+          "timelines",
+          "playback",
+          "warnings",
+          "provenance"
+        ],
+        "title": "MovieManifest"
+      },
+      "MovieTimeline": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "common",
+              "native"
+            ],
+            "title": "Mode"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "no_data",
+              "single_epoch",
+              "ready_for_animation"
+            ],
+            "title": "Outcome"
+          },
+          "frame_count": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 0.0,
+            "title": "Frame Count"
+          },
+          "distinct_epoch_count": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 0.0,
+            "title": "Distinct Epoch Count"
+          },
+          "comparison_supported": {
+            "type": "boolean",
+            "title": "Comparison Supported"
+          },
+          "frames_url": {
+            "type": "string",
+            "title": "Frames Url"
+          },
+          "first_frame": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MovieFrame"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "preload": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preload"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "outcome",
+          "frame_count",
+          "distinct_epoch_count",
+          "comparison_supported",
+          "frames_url",
+          "preload",
+          "warnings"
+        ],
+        "title": "MovieTimeline"
       },
       "ObservationSearch": {
         "properties": {

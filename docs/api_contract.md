@@ -1,8 +1,8 @@
 # REST contract and React handoff
 
-Revision: 31 October 2026. Base `/api/v1`.
+Revision: 1 November 2026. Base `/api/v1`.
 **Only existing routes in [openapi.json](openapi.json) are runtime contracts.** Step 2 discovery is
-implemented; step-3 view input acquisition is also implemented. Step 4 view-v2 frame/band preparation is also implemented; movie delivery and quantitative derived operations remain planned. See [discovery](discovery.md)
+implemented; step-3 view input acquisition is also implemented. Step 4 view-v2 frame/band preparation is also implemented; step-5 movie delivery is implemented and locally verified, while quantitative derived operations remain planned. See [movie-v1 handoff](movie_delivery.md). See [discovery](discovery.md)
 for the full React handoff, limits, cache semantics and [working request](examples/discovery_search.json).
 
 ## Current scaffold
@@ -17,6 +17,8 @@ for the full React handoff, limits, cache semantics and [working request](exampl
 | POST `/views`, GET `/views/{id}`, `/jobs/{id}`, POST `/views/{id}/cancel` | Implemented durable inputs_ready flow; [active contract](views.md) |
 | GET `/artifacts/{id}`, `/artifacts/{id}/content` | Committed input metadata and verified FITS bytes |
 | POST `/views` with view-v2; GET `/views/{id}/preparation`, `/views/{id}/bands` | Implemented prepared-frame report/local band context; [active contract](frame_preparation.md) |
+| GET `/views/{id}/manifest`, `/views/{id}/frames`, `/views/{id}/frames/{ordinal}/coordinates` | Implemented frozen movie-v1 summaries/pages, time/WCS/provenance and coordinate mapping |
+| GET `/artifacts/{id}/science.fits` | Implemented primary 2D FITS delivery for Aladin v3 |
 | GET `/bands`, `/bands/{id}` | Official nominal channels and representative curves |
 | POST `/analyses` | Strict legacy pair/sequence schema validated, then 503 feature_not_ready |
 
@@ -35,10 +37,10 @@ The planned view body below is not accepted by discovery or analyses.
 | GET `/releases` | Implemented enabled collections/formats/review/citations; scheduler remains future | 2, 10 |
 | POST `/observations/search` | Implemented discovery-v1 FOV/time/collection/band with explicit sample completeness | 2 |
 | GET `/observations/{id}`, `/observations/snapshots/{id}` | Implemented immutable source metadata and deterministic sample pages | 2 |
-| POST `/views` | Implemented view-v1 inputs and view-v2 preparation; movie manifests remain step 5 | 3–5 |
-| GET `/views/{id}` | Implemented input-job state/canonical selection/artifacts; no movie manifest yet | 5 |
-| GET `/views/{id}/manifest` | Frozen, versioned ordered frame manifest | 5 |
-| GET `/views/{id}/frames` | Stable frame pagination, metadata and artifacts | 5 |
+| POST `/views` | Implemented view-v1 inputs and view-v2 preparation; movie-v1 delivery implemented | 3–5 |
+| GET `/views/{id}` | Implemented input-job state/canonical selection/artifacts; manifest URL and separate movie readiness | 5 |
+| GET `/views/{id}/manifest` | Implemented frozen movie-v1 ordered frame manifest | 5 |
+| GET `/views/{id}/frames` | Implemented stable frame pagination, metadata and artifacts | 5 |
 | POST `/views/{id}/cancel` | Implemented creator capability cancellation with worker fencing | 3 |
 | GET `/views/{id}/bands` | 102 nominal-channel definitions plus actual local coverage/detectors | 4 |
 | POST `/comparisons/validate` | Operation-specific display/difference/coadd/photometry eligibility and reasons | 4, 7 |
@@ -84,7 +86,7 @@ A new job returns 202 only after durable acceptance, with ID/status URL/Location
 returned privately to the creator. An Idempotency-Key plus same normalized body reuses work; conflicting
 reuse returns 409. A cache hit may return 200 with a published view. Admin keys never enter React.
 
-## Planned manifest contract
+## Manifest requirements (movie-v1 implemented in step 5)
 
 | Field group | Required semantics |
 | --- | --- |

@@ -38,6 +38,8 @@ class GatewayRepository:
             "view_artifact",
             "view_preflight",
             "frame_set_get",
+            "movie_lookup",
+            "movie_publish",
         }
     )
 

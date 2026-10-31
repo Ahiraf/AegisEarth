@@ -27,7 +27,7 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 ## Start here
 
 - [Detailed implementation plan](todo_plan.md): ordered feature slices and actual exit evidence.
-- [SRS v2.3](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
+- [SRS v2.4](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
 - [Challenge coverage matrix](docs/challenge_alignment.md): every supplied objective/consideration mapped.
 - [Five-target validation protocol](docs/target_validation.md): exact investigations and honest outcome states.
 - [Public source register](docs/sources_and_challenge.md): independently checked resources and access limits.
@@ -37,6 +37,7 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 - [Existing real-data research](docs/research/README.md): pinned M101 controls/report/executed notebook.
 - [Local foundation](docs/foundation.md): locked Docker/PostgreSQL/HTTPS gateway and reproducible checks.
 - [Five-target data evidence](docs/research/target_feasibility/README.md): real cutouts, identities, flags and limitations.
+- [Movie delivery and React handoff](docs/movie_delivery.md): frozen timelines, cached previews and local Aladin proof.
 - [Prepared frame/band contract](docs/frame_preparation.md): view-v2, official channels, masked grids and eligibility.
 - [Durable view inputs](docs/views.md): anonymous jobs, isolated worker, verified artifacts and storage.
 - [Implemented discovery API](docs/discovery.md): coordinates/FOV, releases, snapshots and React examples.
@@ -45,19 +46,22 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 
 | Present now | Planned; not implemented |
 | --- | --- |
-| Health/config/CORS and truthful capability reporting | Chronological movie manifests and playback |
+| Health/config/CORS and truthful capability reporting | Production frontend-owner/public hosting acceptance |
 | discovery-v1 coordinate/FOV/date/band discovery, target presets and release registry | Full five-target viewer/science acceptance |
-| Additive jobs/discovery/sky_views/submission/pin/file tables and restricted transaction RPCs | Movie/spectrum/overlay publication services |
-| Public quota-limited view input jobs, isolated native worker, fenced cancellation and verified local/S3 storage adapters | Registered viewer pipeline and frame manifests; optional researcher inference |
+| Additive jobs/discovery/view/preparation/movie tables and restricted transaction RPCs | Spectrum/overlay publication services |
+| Quota-limited view jobs, isolated worker, cancellation and local/S3 storage adapters | Optional researcher inference; scientific target acceptance |
 | QR2/QR3 readers, official 102-channel catalog, fixed-grid frames/previews, quality/registration/band gates | Coadds/subtraction/spectra/Gaia/WISE and scheduled refresh |
-| Hash-locked/pinned Docker builds, disposable PostgreSQL and verified authenticated TLS gateway | End-to-end React playback/share/embed and cloud deployment |
+| Frozen movie manifests/pages, ETag previews, isolated React/Aladin playback and local real-data proof | Production share/embed and cloud deployment |
+| Hash-locked Docker builds, disposable PostgreSQL and authenticated TLS gateway | Production HF/storage connectivity acceptance |
 
 `POST /api/v1/observations/search` now implements **discovery-v1**; the old radius-search body receives
 410 with an explicit replacement. See [the working example](docs/examples/discovery_search.json).
 `POST /api/v1/analyses` remains **503 feature_not_ready**. Its legacy analysis limits are not viewer limits.
 `POST /api/v1/views` now durably queues bounded input acquisition without a model.
 Legacy view-v1 reports **inputs_ready**. New view-v2 reports **frames_prepared**, with PNG/FITS
-artifacts and comparison diagnostics. Movie manifests/React playback remain step 5.
+artifacts and comparison diagnostics. Step 5 adds movie-v1 manifests/pages, explicit readiness states,
+physical time metadata and a verified local React/Aladin reference. Playback readiness is independent
+of scientific comparison eligibility; the production frontend and cloud deployment remain separate.
 Current [OpenAPI](docs/openapi.json) describes runtime routes. Discovery returns actual sampled epochs
 and whole-image band bounds; it does not claim a complete survey, local wavelength coverage or a movie.
 
@@ -95,7 +99,8 @@ Existing infrastructure/science modules: `observations`, `comparisons`, `analyse
 `detection`, `association`, `ranking`, `candidates`.
 
 `targets` now supplies the verified catalog/GET route and `releases` a four-collection registry.
-`views`, `bands`, `coadds`, `spectra`, `overlays` remain planning-only feature boundaries. Scientific
+`views` and `bands` now implement acquisition/preparation/movie delivery and band context.
+`coadds`, `spectra` and `overlays` remain planned feature boundaries. Scientific
 functions consume arrays/units/metadata; routers handle HTTP and heavy work belongs in leased workers.
 PostgreSQL stores relations/provenance; raw/derived files live in external object storage or local dev cache.
 

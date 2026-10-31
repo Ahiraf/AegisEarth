@@ -1,5 +1,29 @@
 # Backend foundation and data-path verification
 
+## Step 5 backend and local handoff implemented — 1 November 2026
+
+- **128 backend tests passed** against disposable PostgreSQL 17, including additive cosmic_0006
+  upgrade/drift/downgrade, source-bound first-writer manifest publication, expiry, pagination/chronology,
+  UTC gaps, empty/single readiness, coordinate mapping and deterministic primary FITS. The existing
+  Starlette/httpx deprecation warning remains; no broken Python requirements were found.
+- [Real delivery proof](verification/movie_delivery_report.json): a bounded three-epoch QR3 D5 job,
+  frozen SHA/ETag/304, stable one-frame pages, verified preview bytes, primary FITS units/WCS/CORS,
+  PNG/sky coordinate round trip and native/authenticated HTTPS publication parity. Separate actual
+  one-input and pre-mission empty worker jobs return single_epoch and no_data without looping.
+- [React/Aladin proof](verification/movie_player_report.json): coordinate form → real backend images
+  → animation without ML, controls/keyboard/reduced-motion text and optional Aladin 3.8.1 FITS/catalog
+  loading with ICRS round-trip error below 1e-6 degrees. Forced widget failure preserves image stepping;
+  simulated empty/single UI cases cannot animate. No unhandled browser errors on the successful run.
+- The isolated handoff build passes; optional Aladin remains a separately loaded large chunk. CI now
+  builds this handoff independently of the production frontend. Local checks do not claim a remote CI run.
+- [Contract/reproduction](movie_delivery.md), OpenAPI, SRS v2.4, plan and implementation boundaries
+  are updated. No production frontend files, existing remote history or source bytes were rewritten.
+
+The real sample's comparison_supported=false is retained: this is quality-limited image browsing,
+not scientific detection/photometry or confirmed visible target motion. Step 6 five-target science,
+production frontend-owner integration, actual public HF deployment and external storage acceptance
+remain pending. No ML package was loaded. No commit/push is performed by this task.
+
 ## Step 4 implemented — 31 October 2026
 
 - **115 backend tests passed** on the disposable PostgreSQL 17 database, including additive

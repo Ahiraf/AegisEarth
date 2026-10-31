@@ -389,6 +389,47 @@ def test_prepared_publication_rolls_back_raw_publication_and_fences(context):
         )
 
 
+def test_movie_manifest_is_source_bound_immutable_and_expiry_scoped(context):
+    from app.modules.preprocessing.models import PreparedFrameSet
+    from app.modules.views.movie import fingerprint
+
+    session, settings, svc = context
+    view, _, _ = publish(svc, settings)
+    report = {"version": "test", "frames": []}
+    session.add(PreparedFrameSet(view_id=view["id"], report=report))
+    session.commit()
+    payload = {
+        "manifest_version": "movie-v1",
+        "view_id": view["id"],
+        "frames": {"common": [], "native": []},
+    }
+    params = {
+        "p_id": view["id"],
+        "p_report": report,
+        "p_payload": payload,
+        "p_sha256": fingerprint(payload),
+    }
+    with pytest.raises(GatewayConflict):
+        svc.repository.rpc("movie_publish", params | {"p_report": {"wrong": "source"}})
+    first = svc.repository.rpc("movie_publish", params)
+    changed = payload | {"extra": "must not replace original"}
+    assert (
+        svc.repository.rpc(
+            "movie_publish", params | {"p_payload": changed, "p_sha256": fingerprint(changed)}
+        )
+        == first
+    )
+    assert svc.repository.rpc("movie_lookup", {"p_id": view["id"]}) == first
+    session.execute(
+        text("UPDATE sky_views SET expires_at=now()-interval '1 second' WHERE id=:id"),
+        {"id": view["id"]},
+    )
+    session.commit()
+    assert svc.repository.rpc("movie_lookup", {"p_id": view["id"]}) is None
+    with pytest.raises(GatewayConflict):
+        svc.repository.rpc("movie_publish", params)
+
+
 def test_prepared_and_raw_cleanup_share_one_ordered_cursor(context):
     from app.modules.preprocessing.models import PreparedArtifact
 

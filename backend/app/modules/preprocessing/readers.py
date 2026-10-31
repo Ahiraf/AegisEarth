@@ -130,6 +130,7 @@ def read_native(path, product, region):
                 "flag_definitions": definitions,
                 "unknown_flag_pixels": unknown,
                 "usable_fraction": float(valid.mean()),
+                "finite_fraction": float(np.isfinite(science).mean()),
             },
             "spectral": {
                 "method": "WCS-WAVE_visualization_proxy",

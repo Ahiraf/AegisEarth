@@ -8,6 +8,8 @@ from sqlalchemy.exc import DBAPIError
 from app.core.gateway import GatewayConflict, GatewayQuota, GatewayRepository
 
 PUBLIC_METHODS = {
+    "movie_lookup",
+    "movie_publish",
     "frame_set_get",
     "view_submit",
     "view_replay",

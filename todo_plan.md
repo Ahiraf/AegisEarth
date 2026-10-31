@@ -19,7 +19,7 @@ you integrate the supplied inference package later. No commit/push without expli
 Existing: health/config, strict request scaffolds, initial seven-table migration plus additive processing-job
 migration/RPCs, curated GET /targets, disabled eleven-stage registry, QR2/QR3 inspection and engineering
 compatibility helpers. Live discovery and durable input acquisition/worker are implemented in steps 2–3;
-view-v2 frame preparation is implemented in step 4. Movie manifests/React playback, coadds/spectra/overlays remain future. The old 2–6 observation analysis request is not a viewer API.
+view-v2 frame preparation is implemented in step 4. Step 5 movie delivery and an isolated React/Aladin handoff are locally verified; production frontend acceptance and coadds/spectra/overlays remain pending. The old 2–6 observation analysis request is not a viewer API.
 The 26 October M101 QR2 proof (36.394305-day repeat, 353/400 usable common pixels) remains a useful
 control. It does not validate the five challenge targets, QR3, photometry or moving-source detection.
 
@@ -111,7 +111,7 @@ operator cleanup requires native database/storage credentials. External S3 SDK c
 locally; real cloud-provider provisioning/connectivity remains deployment work, as requested.
 
 Exit: public coordinate work is durable and resource bounded, without requiring model access or user accounts.
-Success currently means validated native inputs_ready, not a registered movie; steps 4–5 remain open.
+Legacy view-v1 success remains inputs_ready. Steps 4–5 now provide view-v2 prepared frames and a separate movie readiness outcome; legacy jobs are preserved.
 
 ## 4. Band selection and comparable frames (`bands`, `comparisons`, `preprocessing`, `registration`)
 
@@ -140,22 +140,31 @@ and calibrated photometry are not claimed; quantitative operations remain blocke
 Old unpadded target samples do not all form comparable sequences; those failures remain visible.
 
 Exit: scientifically interpretable geometry and spectral context, without silently hiding motion/variability.
-Prepared artifacts/report are implemented; movie manifests/playback remain step 5.
+Prepared artifacts/report are implemented; step 5 below now adds locally verified movie delivery.
 
 ## 5. Movie manifests and public React handoff (`views`, `artifacts`, frontend owner)
 
-- [ ] Implement view status/manifest/frame routes with stable chronological order, UTC labels, actual time
+- [x] Implement view status/manifest/frame routes with stable chronological order, UTC labels, actual time
       gaps, band/units, WCS/grid/stretch, quality warnings, coverage, source links and artifact references.
-- [ ] Distinguish no_data, single_epoch and ready_for_animation; no looping one frame as apparent motion.
-- [ ] Serve small cached previews first, preload subsequent frames and paginate timelines; video encoding
-      is optional export, not the normal playback path.
-- [ ] Hand off play/pause/loop/speed/scrub/step controls, blink and side-by-side to React. Playback speed
-      is separate from physical time spacing; show both. Include keyboard/reduced-motion/text metadata support.
-- [ ] With the frontend owner, spike Aladin Lite v3 FITS/catalog loading, sky/pixel mapping and CORS;
-      keep the sequence player usable if the sky-map widget fails.
-- [ ] Verify backend → React → real chronological animation without an ML package.
+- [x] Distinguish no_data, single_epoch and ready_for_animation; no looping one frame as apparent motion.
+- [x] Serve small cached previews first, preload subsequent frames and paginate timelines; video encoding
+      is optional export, not the normal playback path. Respect download concurrency and retry bounds.
+- [x] Deliver an isolated React reference for play/pause/loop/speed/scrub/step, blink and side-by-side.
+      Show physical time separately; include keyboard/reduced-motion/text metadata support.
+- [x] Provide a working Aladin Lite 3.8.1 spike: real primary-2D FITS, catalog marker, sky/pixel mapping,
+      CORS and widget-failure isolation. Production frontend files remain untouched.
+- [x] Verify local coordinate submission → backend → React → real chronological animation without ML.
+- [ ] Frontend owner ports/accepts the handoff in the production UI; verify the real public deployment
+      once cloud resources are provisioned. These are external integration/deployment gates.
 
-Exit: core coordinate-to-movie workflow works publicly, with truthful metadata and quality labels.
+Backend/local handoff complete, 1 November 2026: [movie contract](docs/movie_delivery.md),
+[real API/HTTPS/empty/single proof](docs/verification/movie_delivery_report.json),
+[React/Aladin proof](docs/verification/movie_player_report.json). Additive cosmic_0006 freezes manifests.
+The real three-epoch QR3 D5 sequence is quality-limited browsing with comparison_supported=false;
+no scientific motion/variability claim is made. Empty/single worker jobs were also exercised.
+
+Exit: the local anonymous coordinate-to-movie workflow and handoff work with truthful labels.
+Public frontend integration/deployment acceptance remains explicit above; five-target science is step 6.
 
 ## 6. Required target validation (`targets`, `views`, frontend owner)
 

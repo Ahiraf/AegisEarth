@@ -107,3 +107,10 @@ the failed Docker processes were stopped, the runtime-socket directory was renam
 and Docker restarted successfully. Images/containers/volumes/settings were retained; no factory reset,
 WSL unregister, reinstall or data pruning was used. The machine-local backup remains under Docker's
 local application runtime directory. This repair is not an application deployment prerequisite elsewhere.
+
+## Step 5 local update
+
+Additive cosmic_0006 adds immutable movie manifests/readiness and restricted HTTPS movie RPCs.
+Local CORS explicitly allows the isolated reference player on localhost/127.0.0.1:15173. The
+[real-data/API/React/Aladin evidence](movie_delivery.md) covers local playback without ML and zero/single
+outcomes; no actual Space-to-database test or production frontend-owner acceptance is implied.

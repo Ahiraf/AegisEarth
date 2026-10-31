@@ -1,5 +1,7 @@
-# Views: implemented input acquisition
+# Views: acquisition, preparation and movie delivery
 
-view-v1 accepts coordinate/FOV/date/band criteria without IDs, ranker or model. Transactional admission,
-scoped idempotency/cancellation and an isolated native worker acquire inputs. Success is inputs_ready.
-[View contract](../../../../docs/views.md). Registered frames/manifests remain steps 4-5.
+view-v1 preserves bounded native input acquisition. view-v2 adds exact-grid prepared frames and
+movie-v1 manifests/pages with separate data readiness, chronology and quality/provenance metadata.
+Anonymous jobs use transactional quotas/idempotency and scoped cancellation; science stays in the
+isolated native worker. Optional ML never gates delivery. Both repository transports preserve source-
+bound immutable publication and expiry. [Movie contract](../../../../docs/movie_delivery.md).

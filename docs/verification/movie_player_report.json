@@ -1,0 +1,18 @@
+{
+  "verified_at_utc": "2026-10-31T18:38:42.304Z",
+  "browser": "156.0.8078.48",
+  "view_id": "23febcfb-a757-45a3-ac19-008db953aeb2",
+  "scope": "Local real coordinate submission + React player + optional Aladin; production frontend owner/cloud acceptance separate",
+  "checks": {
+    "coordinate_to_real_chronological_images": true,
+    "real_animation_without_model": true,
+    "play_pause_speed_loop_scrub_step_blink_side_keyboard": true,
+    "reduced_motion_starts_paused": true,
+    "aladin_v3_real_2d_fits_cors_catalog_and_roundtrip": true,
+    "widget_failure_does_not_gate_player": true,
+    "simulated_single_epoch_cannot_animate": true,
+    "simulated_no_data_cannot_animate": true
+  },
+  "aladin_status": "FITS + field-center catalog loaded. Epoch 2026-08-21T09:08:25.050768Z. ICRS round-trip error 1.78e-15 degrees.",
+  "page_errors": []
+}

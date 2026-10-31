@@ -9,6 +9,7 @@ from app.modules.observations.models import Observation
 from app.modules.preprocessing.models import PreparedArtifact, PreparedFrameSet
 from app.modules.ranking.models import ModelVersion
 from app.modules.views.models import SkyView, ViewFile, ViewInputPin, ViewSubmission
+from app.modules.views.movie_models import MovieManifestRecord
 
 __all__ = [
     "AnalysisInput",
@@ -17,6 +18,7 @@ __all__ = [
     "Candidate",
     "DiscoverySnapshot",
     "ModelVersion",
+    "MovieManifestRecord",
     "Observation",
     "PreparedArtifact",
     "PreparedFrameSet",

@@ -1,7 +1,9 @@
+import hashlib
 import threading
+from io import BytesIO
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request, Response
 from fastapi.responses import StreamingResponse
 from starlette.background import BackgroundTask
 
@@ -29,8 +31,20 @@ def artifact_metadata(artifact_id: UUID, repository: Repository):
 
 
 @router.get("/{artifact_id}/content")
-def artifact_content(artifact_id: UUID, repository: Repository):
+def artifact_content(artifact_id: UUID, repository: Repository, request: Request):
     record = record_or_404(repository, artifact_id)
+    etag = '"' + record["sha256"] + '"'
+    if (
+        etag
+        in [
+            v.strip().removeprefix("W/")
+            for v in request.headers.get("if-none-match", "").split(",")
+        ]
+        or request.headers.get("if-none-match") == "*"
+    ):
+        return Response(
+            status_code=304, headers={"ETag": etag, "Cache-Control": "private, max-age=60"}
+        )
     if not DOWNLOAD_SLOTS.acquire(blocking=False):
         raise HTTPException(429, detail={"code": "download_busy"}, headers={"Retry-After": "5"})
     manager = None
@@ -78,3 +92,47 @@ def artifact_content(artifact_id: UUID, repository: Repository):
             else f'attachment; filename="{artifact_id}.{suffix}"',
         },
     )
+
+
+def science_image(stream):
+    """Small, deterministic primary 2D FITS for Aladin v3; original MEF stays available."""
+    from astropy.io import fits
+
+    with fits.open(stream, memmap=False) as hdus:
+        science = hdus["SCIENCE"]
+        if science.data.ndim != 2 or max(science.data.shape) > 512:
+            raise ValueError("Science image exceeds delivery bounds")
+        header = science.header.copy()
+        for key in ("CHECKSUM", "DATASUM", "EXTNAME", "XTENSION", "PCOUNT", "GCOUNT"):
+            header.remove(key, ignore_missing=True, remove_all=True)
+        output = BytesIO()
+        fits.PrimaryHDU(science.data, header=header).writeto(output)
+        return output.getvalue()
+
+
+@router.get("/{artifact_id}/science.fits")
+def aladin_science(artifact_id: UUID, repository: Repository, request: Request):
+    record = record_or_404(repository, artifact_id)
+    if record.get("kind") not in ("common_grid_planes", "temporal_bin_planes"):
+        raise HTTPException(422, detail={"code": "prepared_common_grid_fits_required"})
+    if not DOWNLOAD_SLOTS.acquire(blocking=False):
+        raise HTTPException(429, detail={"code": "download_busy"}, headers={"Retry-After": "5"})
+    try:
+        with get_store(get_settings()).open_verified(record) as stream:
+            body = science_image(stream)
+    except (StorageError, OSError, ValueError, KeyError) as exc:
+        raise HTTPException(503, detail={"code": "artifact_unavailable_or_corrupt"}) from exc
+    finally:
+        DOWNLOAD_SLOTS.release()
+    etag = '"' + hashlib.sha256(body).hexdigest() + '"'
+    headers = {
+        "ETag": etag,
+        "Cache-Control": "private, max-age=60",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Disposition": f'inline; filename="{artifact_id}-science.fits"',
+    }
+    if etag in [
+        v.strip().removeprefix("W/") for v in request.headers.get("if-none-match", "").split(",")
+    ]:
+        return Response(status_code=304, headers=headers)
+    return Response(body, media_type="application/fits", headers=headers)

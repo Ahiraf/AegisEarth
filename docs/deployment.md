@@ -98,5 +98,5 @@ fixed-grid reprojection/marginal variance, independent-reference residual checks
 context, explicit bins and shared/per-frame previews. Additive cosmic_0005 adds prepared_frame_sets
 and prepared_artifacts with fenced atomic raw/derived publication and bounded merged cleanup.
 Existing v1 jobs are preserved. API and native worker images include SciPy/Pillow; the official
-R7 catalog is packaged with source member hashes. Movie delivery and quantitative operations remain
-later slices; no cloud deployment or scientific target-recovery sign-off is implied.
+R7 catalog is packaged with source member hashes. Step 5 now adds [frozen movie delivery](movie_delivery.md) and a locally verified React/Aladin handoff.
+Quantitative operations, cloud deployment and scientific target-recovery sign-off remain later gates.

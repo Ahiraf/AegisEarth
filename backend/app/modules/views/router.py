@@ -116,6 +116,24 @@ def view_status(view_id: UUID, repository: Repository, response: Response):
     if not view:
         raise HTTPException(404, detail={"code": "view_not_found"})
     response.headers["Cache-Control"] = "no-store"
+    view["manifest_url"] = f"/api/v1/views/{view_id}/manifest"
+    view["delivery_state"] = "pending" if view["status"] in ("queued", "running") else "unavailable"
+    if (
+        view["status"] == "succeeded"
+        and view["canonical_request"].get("contract_version") == "view-v2"
+    ):
+        from app.modules.views.movie_router import movie_record
+
+        try:
+            record, _ = movie_record(repository, view_id)
+            view["delivery_state"] = record["payload"]["outcome"]
+            view["viewer_execution_available"] = bool(
+                record["payload"]["timelines"]["common"]["frame_count"]
+            )
+        except HTTPException as exc:
+            if exc.status_code != 410:
+                raise
+            view["delivery_state"] = "expired"
     return view
 
 
