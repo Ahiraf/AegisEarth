@@ -16,6 +16,12 @@ class Settings(BaseSettings):
     provider_user_agent: str = "AegisEarth/0.1 (+https://github.com/Ahiraf/AegisEarth/issues)"
     max_download_bytes: int = Field(134217728, gt=0)
     provider_timeout_seconds: int = Field(30, ge=1, le=120)
+    discovery_ttl_seconds: int = Field(900, ge=60, le=86400)
+    overlay_ttl_seconds: int = Field(3600, ge=60, le=86400)
+    refresh_admin_token: SecretStr | None = None
+    refresh_cooldown_seconds: int = Field(300, ge=60, le=86400)
+    frontend_viewer_url: str = "http://localhost:5173/viewer"
+    embed_ancestors: list[str] = ["'self'"]
     database_transport: Literal["postgresql", "postgrest"] = "postgresql"
     gateway_url: str | None = None
     gateway_token: SecretStr | None = None

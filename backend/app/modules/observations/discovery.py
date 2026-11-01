@@ -96,14 +96,21 @@ def deduplicate(products):
 
 
 class DiscoveryService:
-    def __init__(self, repository, provider, *, now=lambda: datetime.now(UTC)):
+    def __init__(
+        self, repository, provider, *, now=lambda: datetime.now(UTC), ttl_seconds=TTL_SECONDS
+    ):
         self.repository, self.provider, self.now = repository, provider, now
+        self.ttl_seconds = ttl_seconds
 
-    def search(self, query):
+    def search(self, query, *, force=False):
         canonical = canonical_query(query)
         key = hashlib.sha256(json.dumps(canonical, sort_keys=True).encode()).hexdigest()
         cached = self.repository.find(query_hash=key)
-        if cached and self.now() < datetime.fromisoformat(cached["revalidate_after_utc"]):
+        if (
+            not force
+            and cached
+            and self.now() < datetime.fromisoformat(cached["revalidate_after_utc"])
+        ):
             return self.page(cached, 0, query.limit, cache_hit=True)
         if not SEARCH_SLOTS.acquire(blocking=False):
             raise DiscoveryBusy
@@ -228,7 +235,7 @@ class DiscoveryService:
             "registry_version": REGISTRY_VERSION,
             "canonical_query": canonical,
             "created_at_utc": now.isoformat(),
-            "revalidate_after_utc": (now + timedelta(seconds=TTL_SECONDS)).isoformat(),
+            "revalidate_after_utc": (now + timedelta(seconds=self.ttl_seconds)).isoformat(),
             "upstream_complete": complete,
             "items": [{k: v for k, v in p.items() if k != "source_metadata"} for p in items],
             "sources": receipts,

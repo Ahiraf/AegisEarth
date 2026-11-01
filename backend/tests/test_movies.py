@@ -145,6 +145,44 @@ def test_readiness_chronology_and_scientific_limits(count, outcome):
     assert fingerprint(movie) == fingerprint(build_movie(view, report))
 
 
+def test_overlay_provider_outage_leaves_frozen_movie_usable(client, monkeypatch):
+    from app.modules.overlays.provider import OverlayUnavailable
+    from app.modules.targets.coordinates import RectangularRegion
+
+    http, repo, path = client
+    repo.view["canonical_request"]["region"] = RectangularRegion(ra=359.999, dec=10).geometry()
+    baseline = http.get(path + "/manifest").json()
+
+    def unavailable(*args, **kwargs):
+        raise OverlayUnavailable("provider_unavailable")
+
+    monkeypatch.setattr("app.modules.overlays.provider.ContextProvider.catalog", unavailable)
+    response = http.get(path + "/overlays/catalogs?survey=gaia")
+    assert response.status_code == 503 and response.json()["viewer_remains_available"]
+    assert http.get(path + "/manifest").json() == baseline
+    assert http.get(path + "/frames").status_code == 200
+
+
+def test_frozen_share_metadata_and_admin_refresh_protection(client):
+    from app.modules.targets.coordinates import RectangularRegion
+
+    http, repo, path = client
+    repo.view["canonical_request"].update(
+        region=RectangularRegion(ra=359.999, dec=10).geometry(),
+        max_frames=3,
+        collections=["spherex_qr3"],
+        detectors=[],
+        preparation={},
+    )
+    linked = http.get(path + "/links")
+    assert linked.status_code == 200
+    assert linked.json()["view_id"] == repo.view["id"] and "expires_at_utc" in linked.json()
+    assert http.get(linked.json()["resolve_url"]).status_code == 200
+    metadata = http.get(path + "/export-metadata").json()
+    assert metadata["manifest_sha256"] == linked.json()["manifest_sha256"]
+    assert http.get(path + "/export-metadata?format=csv").text.count("NASA/IPAC IRSA") == 6
+
+
 def test_same_epoch_and_masked_frames_are_not_motion():
     view, report = source()
     for f in report["frames"]:

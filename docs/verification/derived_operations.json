@@ -1,0 +1,2383 @@
+{
+  "verified_at_utc": "2026-11-01T17:14:37.733670+00:00",
+  "parent_view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+  "checks": {
+    "six_detector_options": true,
+    "shared_stretch_and_exposure_exports": true,
+    "immutable_parent": true,
+    "idempotent_admission": true,
+    "real_native_spectrum_json_csv": true,
+    "science_gate_does_not_fabricate_difference": true,
+    "comparison_preflight_reasons": true,
+    "unavailable_detector_and_temporal_response_rejected": true,
+    "authenticated_https_admission_and_publication": true,
+    "all_six_live_detectors": false
+  },
+  "operations": [
+    {
+      "id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+      "request": {
+        "inputs": [
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 0
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 1
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 2
+          }
+        ],
+        "detector": "D6",
+        "wavelength_min_um": 4.4,
+        "wavelength_max_um": 5.0
+      },
+      "report": {
+        "kind": "coadd",
+        "groups": [
+          {
+            "unit": "MJy/sr",
+            "status": "ready",
+            "end_mjd": 61151.199265584,
+            "indices": [
+              0
+            ],
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.24999457985162735,
+                0.8930180615186663
+              ],
+              "asinh_softening": 10
+            },
+            "response": "per_pixel_inverse_variance_weighted_WCS_WAVE_proxy_with_min_max_support_maps",
+            "warnings": [
+              "WCS-only display alignment; independent registration may be unsupported",
+              "Different local wavelengths are broadband display information, not one calibrated monochromatic measurement",
+              "Temporal stacks smear motion and dilute variability; source movie is retained",
+              "PSF matching, covariance and quantitative response validation are not applied"
+            ],
+            "start_mjd": 61151.197933206,
+            "count_range": [
+              0,
+              1
+            ],
+            "usable_fraction": 0.931695127030404,
+            "artifact_indices": {
+              "planes": 3,
+              "preview": 6
+            },
+            "weight_definition": "normalized_inverse_variance",
+            "wavelength_window_um": [
+              4.4,
+              5.0
+            ],
+            "quantitative_eligible": false
+          },
+          {
+            "unit": "MJy/sr",
+            "status": "ready",
+            "end_mjd": 61152.760128212,
+            "indices": [
+              1
+            ],
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.24999457985162735,
+                0.8930180615186663
+              ],
+              "asinh_softening": 10
+            },
+            "response": "per_pixel_inverse_variance_weighted_WCS_WAVE_proxy_with_min_max_support_maps",
+            "warnings": [
+              "WCS-only display alignment; independent registration may be unsupported",
+              "Different local wavelengths are broadband display information, not one calibrated monochromatic measurement",
+              "Temporal stacks smear motion and dilute variability; source movie is retained",
+              "PSF matching, covariance and quantitative response validation are not applied"
+            ],
+            "start_mjd": 61152.758795833,
+            "count_range": [
+              0,
+              1
+            ],
+            "usable_fraction": 0.9254477301124532,
+            "artifact_indices": {
+              "planes": 4,
+              "preview": 7
+            },
+            "weight_definition": "normalized_inverse_variance",
+            "wavelength_window_um": [
+              4.4,
+              5.0
+            ],
+            "quantitative_eligible": false
+          },
+          {
+            "unit": "MJy/sr",
+            "status": "ready",
+            "end_mjd": 61153.442266186,
+            "indices": [
+              2
+            ],
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.24999457985162735,
+                0.8930180615186663
+              ],
+              "asinh_softening": 10
+            },
+            "response": "per_pixel_inverse_variance_weighted_WCS_WAVE_proxy_with_min_max_support_maps",
+            "warnings": [
+              "WCS-only display alignment; independent registration may be unsupported",
+              "Different local wavelengths are broadband display information, not one calibrated monochromatic measurement",
+              "Temporal stacks smear motion and dilute variability; source movie is retained",
+              "PSF matching, covariance and quantitative response validation are not applied"
+            ],
+            "start_mjd": 61153.440933808,
+            "count_range": [
+              0,
+              1
+            ],
+            "usable_fraction": 0.8929612661391088,
+            "artifact_indices": {
+              "planes": 5,
+              "preview": 8
+            },
+            "weight_definition": "normalized_inverse_variance",
+            "wavelength_window_um": [
+              4.4,
+              5.0
+            ],
+            "quantitative_eligible": false
+          }
+        ],
+        "inputs": [
+          {
+            "psf": {
+              "sum": 0.9999999827103989,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 120,
+              "plane_sha256": "3c69a81c7c7a03c51aab1c1ca16e44264960c3bfeb68cb3a7ec71b689c86b8aa",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1779.1685577141864,
+                1995.8066642081862
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+            "raw_sha256": "8e900545573d510d6c033376ab88105ba7ca6d5ed166b4dd1853fa9cc5ce904e",
+            "grid_sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999798515606,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 98,
+              "plane_sha256": "4bd80aaf5244b38880a8d502dbb9c11441cf05b59db05e47bd98fd297269b25b",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1778.1681087677691,
+                1540.062492211067
+              ]
+            },
+            "ref": {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+            "raw_sha256": "b8e00f31984697cbda05dec69f4da7fd2e8904ce842383df486a3e95a38b4e1f",
+            "grid_sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999432528193,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 65,
+              "plane_sha256": "6a2fc680293927a5ce8b21a4748c82ec3cab6eeb9f8eb089fec16ad28da75e87",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1776.1861481369056,
+                969.0549087391521
+              ]
+            },
+            "ref": {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e",
+            "raw_sha256": "0c01ae4b5fc80659becf1e092d33b70a74b150a82a48a452e587f587a85415d4",
+            "grid_sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ready",
+        "request": {
+          "mode": "detector_composite",
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            }
+          ],
+          "detector": "D6",
+          "contract_version": "coadd-v1",
+          "wavelength_max_um": 5.0,
+          "wavelength_min_um": 4.4,
+          "epoch_window_seconds": 300,
+          "minimum_contributors": 1
+        },
+        "version": "derived-v1",
+        "detector": "D6",
+        "artifacts": [
+          {
+            "id": "4792ac9b-5244-4c4c-ab9f-349be1f270e1",
+            "kind": "source_common_grid",
+            "sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "05d661e0-89f6-441d-a799-c98fd76d7b9d",
+            "kind": "source_common_grid",
+            "sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          },
+          {
+            "id": "4778206f-562f-4cb4-9575-abe5cf98773c",
+            "kind": "source_common_grid",
+            "sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          },
+          {
+            "id": "59253d69-a807-4ce5-8fa5-aeaa1b107733",
+            "kind": "coadd_planes",
+            "sha256": "66738e0fe7e9a34141ecbde96d09809a6b3460bd7197799dfebf3f29e2723cdd",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 158400,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "3cdc4449-c171-4956-ba50-b60037f6dcf0",
+            "kind": "coadd_planes",
+            "sha256": "0fe8beed1d5b47b2772a4c2047e63a9ea573ce42f30fe836de904fa432b7e07b",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 158400,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          },
+          {
+            "id": "1c99ba10-aea3-4190-b4bf-0a55db44f930",
+            "kind": "coadd_planes",
+            "sha256": "415eadb62c1340a5b9971681a269c3f5a4ad4c5509f3ff832d309cf7ca4ab178",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 158400,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          },
+          {
+            "id": "77004893-2464-40d5-9ce9-edfff9f60347",
+            "kind": "coadd_preview",
+            "sha256": "7d28764044efbce746ed9a0d674c51ac2fcee30b867755a1af3354d9305d8782",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 6866,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "d2b66c88-8c0c-4793-b090-cf53ebb074b9",
+            "kind": "coadd_preview",
+            "sha256": "e0332f8574ab63566ee4f243520622c1676cf2fa8b487e3b85d7cdd226e25404",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 6628,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          },
+          {
+            "id": "dd86e603-dd5c-4108-9e20-502c672dd092",
+            "kind": "coadd_preview",
+            "sha256": "b90d038610284448851f1ccfa1c5a2484ca2733f6649da2cc8a71eed532e8aa3",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 5835,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          },
+          {
+            "id": "0daac230-f4b7-474a-ab39-8fc4cc1bb7f8",
+            "kind": "derived_report",
+            "sha256": "c7689ee6ac3672bc79eb013fc9abf9f0c4aab4206f0c5f945b720276d270a51b",
+            "view_id": "8e897ba0-b0ac-4e3d-a223-ce0a5ffad2cb",
+            "size_bytes": 5733,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          }
+        ],
+        "processing_version": "derived-v1.1",
+        "available_detectors": [
+          "D6"
+        ],
+        "parent_preparation_sha256": {
+          "7f14633a-be0b-4ec0-a310-ced1b60d910f": "be473fd344aa38628d0f0483f42edce225e6ddeabf7802347758a1c4606757b2"
+        }
+      }
+    },
+    {
+      "id": "8e7d72b6-2355-464c-91e1-e7ebe418e292",
+      "request": {
+        "inputs": [
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 0
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 1
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 2
+          }
+        ],
+        "epoch_positions": [
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 0,
+            "ra_deg": 133.7590789545509,
+            "dec_deg": -7.242125671633989
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 1,
+            "ra_deg": 133.75906923380353,
+            "dec_deg": -7.242124871236142
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 2,
+            "ra_deg": 133.75906498558146,
+            "dec_deg": -7.242124521441193
+          }
+        ]
+      },
+      "report": {
+        "kind": "spectrum",
+        "inputs": [
+          {
+            "psf": {
+              "sum": 0.9999999827103989,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 120,
+              "plane_sha256": "3c69a81c7c7a03c51aab1c1ca16e44264960c3bfeb68cb3a7ec71b689c86b8aa",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1779.1685577141864,
+                1995.8066642081862
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+            "raw_sha256": "8e900545573d510d6c033376ab88105ba7ca6d5ed166b4dd1853fa9cc5ce904e",
+            "grid_sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999798515606,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 98,
+              "plane_sha256": "4bd80aaf5244b38880a8d502dbb9c11441cf05b59db05e47bd98fd297269b25b",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1778.1681087677691,
+                1540.062492211067
+              ]
+            },
+            "ref": {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+            "raw_sha256": "b8e00f31984697cbda05dec69f4da7fd2e8904ce842383df486a3e95a38b4e1f",
+            "grid_sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999432528193,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 65,
+              "plane_sha256": "6a2fc680293927a5ce8b21a4748c82ec3cab6eeb9f8eb089fec16ad28da75e87",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1776.1861481369056,
+                969.0549087391521
+              ]
+            },
+            "ref": {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e",
+            "raw_sha256": "0c01ae4b5fc80659becf1e092d33b70a74b150a82a48a452e587f587a85415d4",
+            "grid_sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ready",
+        "request": {
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            }
+          ],
+          "position": null,
+          "epoch_positions": [
+            {
+              "index": 0,
+              "ra_deg": 133.7590789545509,
+              "dec_deg": -7.242125671633989,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 1,
+              "ra_deg": 133.75906923380353,
+              "dec_deg": -7.242124871236142,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 2,
+              "ra_deg": 133.75906498558146,
+              "dec_deg": -7.242124521441193,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            }
+          ],
+          "contract_version": "spectrum-v1",
+          "aperture_radius_pixels": 2.5,
+          "background_inner_pixels": 4.0,
+          "background_outer_pixels": 8.0
+        },
+        "samples": [
+          {
+            "psf": {
+              "kind": "QR2_legacy_PSF",
+              "zone": 120,
+              "warning": "QR3 ePSF is recommended by IRSA even for QR2",
+              "oversampling": 10
+            },
+            "unit": "uJy",
+            "input": {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "errors": "diagonal_variance_and_robust_median_background_proxy",
+            "method": "native_point_source_PSF_corrected_aperture_v1",
+            "reason": "absolute_photometry_response_covariance_and_source_model_not_independently_validated",
+            "status": "diagnostic_only",
+            "detector": "D6",
+            "flux_uJy": 528.6346931901088,
+            "position": {
+              "index": 0,
+              "ra_deg": 133.7590789545509,
+              "dec_deg": -7.242125671633989,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "warnings": [
+              "Science CWAVE/CBAND and absolute photometric acceptance are not applied",
+              "Point-source assumption; extended/blended sources need a joint fit",
+              "No resampling; covariance and PSF-model uncertainty are not included",
+              "No formal upper limit or detection is inferred from these diagnostic samples"
+            ],
+            "snr_proxy": 2.373177874785642,
+            "product_id": "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+            "time_scale": "UTC",
+            "end_mjd_utc": "61151.199265584",
+            "epoch_group": "61151.198599395",
+            "mid_mjd_utc": "61151.198599395",
+            "pixel_flags": {
+              "MP_HOT": 0,
+              "MP_COLD": 0,
+              "MP_HALO": 0,
+              "MP_BLOOM": 0,
+              "MP_GHOST": 0,
+              "MP_SOURCE": 21,
+              "MP_NONFUNC": 0,
+              "MP_OUTLIER": 0,
+              "MP_PERSIST": 0,
+              "MP_PHANTOM": 0,
+              "MP_DICHROIC": 0,
+              "MP_OVERFLOW": 0,
+              "MP_PHANMISS": 0,
+              "MP_SNOWBALL": 0,
+              "MP_GHOST_EXT": 0,
+              "MP_GHOST_FPA": 0,
+              "MP_NONLINEAR": 0,
+              "MP_REFERENCE": 0,
+              "MP_SUR_ERROR": 0,
+              "MP_TRANSIENT": 0,
+              "MP_FULLSAMPLE": 0,
+              "MP_MISSING_DATA": 0
+            },
+            "bandwidth_um": 0.03583604327595555,
+            "source_sha256": "8e900545573d510d6c033376ab88105ba7ca6d5ed166b4dd1853fa9cc5ce904e",
+            "start_mjd_utc": "61151.197933206",
+            "wavelength_um": 4.417363808409335,
+            "flux_error_uJy": 222.75392788998505,
+            "aperture_pixels": 21,
+            "observed_at_utc": "2026-04-21T04:45:58.987728Z",
+            "potential_blend": true,
+            "upper_limit_uJy": null,
+            "aperture_fraction": 0.9938689224101996,
+            "background_mjy_sr": 0.31123802065849304,
+            "background_pixels": 93,
+            "wavelength_method": "WCS-WAVE_visualization_proxy",
+            "unknown_flag_pixels": 0,
+            "quantitative_eligible": false,
+            "background_variance_proxy": 3.9252855875592596e-05,
+            "pixel_solid_angle_range_sr": [
+              9.027870866308507e-10,
+              9.028342835308753e-10
+            ],
+            "negative_PSF_support_clipped_fraction": 6.49943434409953e-09
+          },
+          {
+            "psf": {
+              "kind": "QR2_legacy_PSF",
+              "zone": 98,
+              "warning": "QR3 ePSF is recommended by IRSA even for QR2",
+              "oversampling": 10
+            },
+            "unit": "uJy",
+            "input": {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "errors": "diagonal_variance_and_robust_median_background_proxy",
+            "method": "native_point_source_PSF_corrected_aperture_v1",
+            "reason": "absolute_photometry_response_covariance_and_source_model_not_independently_validated",
+            "status": "diagnostic_only",
+            "detector": "D6",
+            "flux_uJy": 1178.73861694521,
+            "position": {
+              "index": 1,
+              "ra_deg": 133.75906923380353,
+              "dec_deg": -7.242124871236142,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "warnings": [
+              "Science CWAVE/CBAND and absolute photometric acceptance are not applied",
+              "Point-source assumption; extended/blended sources need a joint fit",
+              "No resampling; covariance and PSF-model uncertainty are not included",
+              "No formal upper limit or detection is inferred from these diagnostic samples"
+            ],
+            "snr_proxy": 5.4161330541473305,
+            "product_id": "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+            "time_scale": "UTC",
+            "end_mjd_utc": "61152.760128212",
+            "epoch_group": "61152.759462023",
+            "mid_mjd_utc": "61152.759462023",
+            "pixel_flags": {
+              "MP_HOT": 0,
+              "MP_COLD": 0,
+              "MP_HALO": 0,
+              "MP_BLOOM": 0,
+              "MP_GHOST": 0,
+              "MP_SOURCE": 20,
+              "MP_NONFUNC": 0,
+              "MP_OUTLIER": 0,
+              "MP_PERSIST": 0,
+              "MP_PHANTOM": 0,
+              "MP_DICHROIC": 0,
+              "MP_OVERFLOW": 0,
+              "MP_PHANMISS": 0,
+              "MP_SNOWBALL": 0,
+              "MP_GHOST_EXT": 0,
+              "MP_GHOST_FPA": 0,
+              "MP_NONLINEAR": 0,
+              "MP_REFERENCE": 0,
+              "MP_SUR_ERROR": 0,
+              "MP_TRANSIENT": 0,
+              "MP_FULLSAMPLE": 0,
+              "MP_MISSING_DATA": 0
+            },
+            "bandwidth_um": 0.03566784765597847,
+            "source_sha256": "b8e00f31984697cbda05dec69f4da7fd2e8904ce842383df486a3e95a38b4e1f",
+            "start_mjd_utc": "61152.758795833",
+            "wavelength_um": 4.544571394677196,
+            "flux_error_uJy": 217.63472299533095,
+            "aperture_pixels": 20,
+            "observed_at_utc": "2026-04-22T18:13:37.518787Z",
+            "potential_blend": true,
+            "upper_limit_uJy": null,
+            "aperture_fraction": 0.9911709769455512,
+            "background_mjy_sr": 0.3435409367084503,
+            "background_pixels": 99,
+            "wavelength_method": "WCS-WAVE_visualization_proxy",
+            "unknown_flag_pixels": 0,
+            "quantitative_eligible": false,
+            "background_variance_proxy": 2.9938135448174463e-05,
+            "pixel_solid_angle_range_sr": [
+              8.987701033416902e-10,
+              8.988143681755427e-10
+            ],
+            "negative_PSF_support_clipped_fraction": 2.525479798259313e-08
+          },
+          {
+            "psf": {
+              "kind": "QR2_legacy_PSF",
+              "zone": 65,
+              "warning": "QR3 ePSF is recommended by IRSA even for QR2",
+              "oversampling": 10
+            },
+            "unit": "uJy",
+            "input": {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "errors": "diagonal_variance_and_robust_median_background_proxy",
+            "method": "native_point_source_PSF_corrected_aperture_v1",
+            "reason": "absolute_photometry_response_covariance_and_source_model_not_independently_validated",
+            "status": "diagnostic_only",
+            "detector": "D6",
+            "flux_uJy": 807.8203228118905,
+            "position": {
+              "index": 2,
+              "ra_deg": 133.75906498558146,
+              "dec_deg": -7.242124521441193,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "warnings": [
+              "Science CWAVE/CBAND and absolute photometric acceptance are not applied",
+              "Point-source assumption; extended/blended sources need a joint fit",
+              "No resampling; covariance and PSF-model uncertainty are not included",
+              "No formal upper limit or detection is inferred from these diagnostic samples"
+            ],
+            "snr_proxy": 3.2486344919228456,
+            "product_id": "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e",
+            "time_scale": "UTC",
+            "end_mjd_utc": "61153.442266186",
+            "epoch_group": "61153.441599997",
+            "mid_mjd_utc": "61153.441599997",
+            "pixel_flags": {
+              "MP_HOT": 0,
+              "MP_COLD": 0,
+              "MP_HALO": 0,
+              "MP_BLOOM": 0,
+              "MP_GHOST": 0,
+              "MP_SOURCE": 21,
+              "MP_NONFUNC": 0,
+              "MP_OUTLIER": 0,
+              "MP_PERSIST": 0,
+              "MP_PHANTOM": 0,
+              "MP_DICHROIC": 0,
+              "MP_OVERFLOW": 0,
+              "MP_PHANMISS": 0,
+              "MP_SNOWBALL": 0,
+              "MP_GHOST_EXT": 0,
+              "MP_GHOST_FPA": 0,
+              "MP_NONLINEAR": 0,
+              "MP_REFERENCE": 0,
+              "MP_SUR_ERROR": 0,
+              "MP_TRANSIENT": 0,
+              "MP_FULLSAMPLE": 0,
+              "MP_MISSING_DATA": 0
+            },
+            "bandwidth_um": 0.036492725058997005,
+            "source_sha256": "0c01ae4b5fc80659becf1e092d33b70a74b150a82a48a452e587f587a85415d4",
+            "start_mjd_utc": "61153.440933808",
+            "wavelength_um": 4.7127338293989265,
+            "flux_error_uJy": 248.66457732330082,
+            "aperture_pixels": 21,
+            "observed_at_utc": "2026-04-23T10:35:54.239741Z",
+            "potential_blend": true,
+            "upper_limit_uJy": null,
+            "aperture_fraction": 0.9985291361528854,
+            "background_mjy_sr": 0.442678302526474,
+            "background_pixels": 97,
+            "wavelength_method": "WCS-WAVE_visualization_proxy",
+            "unknown_flag_pixels": 0,
+            "quantitative_eligible": false,
+            "background_variance_proxy": 4.122872647302094e-05,
+            "pixel_solid_angle_range_sr": [
+              8.94055933372089e-10,
+              8.940960526042407e-10
+            ],
+            "negative_PSF_support_clipped_fraction": 7.159229568464761e-09
+          }
+        ],
+        "version": "derived-v1",
+        "artifacts": [
+          {
+            "id": "96599120-6e68-4af8-97e7-d507da11b7ba",
+            "kind": "source_common_grid",
+            "sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "view_id": "8e7d72b6-2355-464c-91e1-e7ebe418e292",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "472ce1e5-27d8-4da3-a272-9e2ce5ef5821",
+            "kind": "source_common_grid",
+            "sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "view_id": "8e7d72b6-2355-464c-91e1-e7ebe418e292",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          },
+          {
+            "id": "ba97c370-9e65-43e8-bcb0-0445be7b1418",
+            "kind": "source_common_grid",
+            "sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "view_id": "8e7d72b6-2355-464c-91e1-e7ebe418e292",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          },
+          {
+            "id": "a438c0c2-6ba1-42fb-962b-c1a557e65545",
+            "kind": "spectrum_csv",
+            "sha256": "1e9b0da94f76cef7d34fc7090ad4e48a3c7cb40cda1e2d7d8e01cd134ea1466e",
+            "view_id": "8e7d72b6-2355-464c-91e1-e7ebe418e292",
+            "size_bytes": 901,
+            "content_type": "text/csv",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          },
+          {
+            "id": "5f620f23-eed2-478f-a13c-ff6ed549e02b",
+            "kind": "derived_report",
+            "sha256": "66052167bf814db95cce97e715b3b3ce463e98f69765650ddc74a1234e35030b",
+            "view_id": "8e7d72b6-2355-464c-91e1-e7ebe418e292",
+            "size_bytes": 11564,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          }
+        ],
+        "missing_channels": "unmeasured_not_interpolated",
+        "nominal_channels": 102,
+        "csv_artifact_index": 3,
+        "processing_version": "derived-v1.1",
+        "epochs_kept_separate": true,
+        "brightness_comparisons": [
+          {
+            "reason": "PSF_response_calibration_covariance_and_source_model_acceptance_missing",
+            "products": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ],
+            "brightness_change_uJy": null,
+            "quantitative_eligible": false,
+            "interval_overlap_proxy": 0.0
+          },
+          {
+            "reason": "PSF_response_calibration_covariance_and_source_model_acceptance_missing",
+            "products": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ],
+            "brightness_change_uJy": null,
+            "quantitative_eligible": false,
+            "interval_overlap_proxy": 0.0
+          },
+          {
+            "reason": "PSF_response_calibration_covariance_and_source_model_acceptance_missing",
+            "products": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ],
+            "brightness_change_uJy": null,
+            "quantitative_eligible": false,
+            "interval_overlap_proxy": 0.0
+          }
+        ],
+        "parent_preparation_sha256": {
+          "7f14633a-be0b-4ec0-a310-ced1b60d910f": "be473fd344aa38628d0f0483f42edce225e6ddeabf7802347758a1c4606757b2"
+        }
+      }
+    },
+    {
+      "id": "1565a494-bc94-46d5-8ccb-b6aa68680d9f",
+      "request": {
+        "inputs": [
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 0
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 1
+          }
+        ]
+      },
+      "report": {
+        "kind": "difference",
+        "order": "later_minus_earlier",
+        "inputs": [
+          {
+            "psf": {
+              "sum": 0.9999999827103989,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 120,
+              "plane_sha256": "3c69a81c7c7a03c51aab1c1ca16e44264960c3bfeb68cb3a7ec71b689c86b8aa",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1779.1685577141864,
+                1995.8066642081862
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+            "raw_sha256": "8e900545573d510d6c033376ab88105ba7ca6d5ed166b4dd1853fa9cc5ce904e",
+            "grid_sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999798515606,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 98,
+              "plane_sha256": "4bd80aaf5244b38880a8d502dbb9c11441cf05b59db05e47bd98fd297269b25b",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1778.1681087677691,
+                1540.062492211067
+              ]
+            },
+            "ref": {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+            "raw_sha256": "b8e00f31984697cbda05dec69f4da7fd2e8904ce842383df486a3e95a38b4e1f",
+            "grid_sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ineligible",
+        "request": {
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            }
+          ],
+          "contract_version": "difference-v1"
+        },
+        "version": "derived-v1",
+        "artifacts": [
+          {
+            "id": "4d5a42c4-8b1e-42f2-a17a-c969c6489f2b",
+            "kind": "source_common_grid",
+            "sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "view_id": "1565a494-bc94-46d5-8ccb-b6aa68680d9f",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "2da2a6f0-732d-4481-abaf-2ba42e7ab203",
+            "kind": "source_common_grid",
+            "sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "view_id": "1565a494-bc94-46d5-8ccb-b6aa68680d9f",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          },
+          {
+            "id": "6c3d4096-4971-47e6-b610-82076e9d8b55",
+            "kind": "derived_report",
+            "sha256": "9e7efaa02308a629a6912cbb0aed46909d3bcf6193bd26e385b38714dede1eec",
+            "view_id": "1565a494-bc94-46d5-8ccb-b6aa68680d9f",
+            "size_bytes": 2887,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          }
+        ],
+        "eligibility": {
+          "reasons": [
+            "local_wavelength_interval_mismatch",
+            "spectral_display_support_missing",
+            "pipeline_CWAVE_CBAND_not_applied",
+            "PSF_matching_not_performed",
+            "photometric_background_calibration_not_validated",
+            "resampling_covariance_not_propagated",
+            "independent_registration_not_validated",
+            "PSF_matching_not_validated"
+          ],
+          "eligible": false
+        },
+        "later_input": 1,
+        "earlier_input": 0,
+        "pair_evidence": {
+          "reasons": [
+            "local_wavelength_interval_mismatch"
+          ],
+          "response_method": "WCS-WAVE_FWHM_interval_proxy_not_full_response_equivalence",
+          "quantitative_eligible": false,
+          "common_usable_fraction": 0.8667221990837152,
+          "spectral_display_eligible": false,
+          "quantitative_blocking_reasons": [
+            "pipeline_CWAVE_CBAND_not_applied",
+            "PSF_matching_not_performed",
+            "photometric_background_calibration_not_validated",
+            "resampling_covariance_not_propagated"
+          ],
+          "minimum_interval_overlap_proxy": 0.0
+        },
+        "processing_version": "derived-v1.1",
+        "parent_preparation_sha256": {
+          "7f14633a-be0b-4ec0-a310-ced1b60d910f": "be473fd344aa38628d0f0483f42edce225e6ddeabf7802347758a1c4606757b2"
+        }
+      }
+    },
+    {
+      "id": "6ab3ae49-ff6d-4a24-9e34-93efe5ad089b",
+      "request": {
+        "inputs": [
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 0
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 1
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 2
+          }
+        ],
+        "detector": "D1"
+      },
+      "report": {
+        "kind": "coadd",
+        "groups": [],
+        "inputs": [
+          {
+            "psf": {
+              "sum": 0.9999999827103989,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 120,
+              "plane_sha256": "3c69a81c7c7a03c51aab1c1ca16e44264960c3bfeb68cb3a7ec71b689c86b8aa",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1779.1685577141864,
+                1995.8066642081862
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+            "raw_sha256": "8e900545573d510d6c033376ab88105ba7ca6d5ed166b4dd1853fa9cc5ce904e",
+            "grid_sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999798515606,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 98,
+              "plane_sha256": "4bd80aaf5244b38880a8d502dbb9c11441cf05b59db05e47bd98fd297269b25b",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1778.1681087677691,
+                1540.062492211067
+              ]
+            },
+            "ref": {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+            "raw_sha256": "b8e00f31984697cbda05dec69f4da7fd2e8904ce842383df486a3e95a38b4e1f",
+            "grid_sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999432528193,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 65,
+              "plane_sha256": "6a2fc680293927a5ce8b21a4748c82ec3cab6eeb9f8eb089fec16ad28da75e87",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1776.1861481369056,
+                969.0549087391521
+              ]
+            },
+            "ref": {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e",
+            "raw_sha256": "0c01ae4b5fc80659becf1e092d33b70a74b150a82a48a452e587f587a85415d4",
+            "grid_sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "no_data",
+        "request": {
+          "mode": "detector_composite",
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            }
+          ],
+          "detector": "D1",
+          "contract_version": "coadd-v1",
+          "wavelength_max_um": 5.5,
+          "wavelength_min_um": 0.7,
+          "epoch_window_seconds": 300,
+          "minimum_contributors": 1
+        },
+        "version": "derived-v1",
+        "detector": "D1",
+        "artifacts": [
+          {
+            "id": "2645075f-f4bc-417f-82c5-9a0938393922",
+            "kind": "source_common_grid",
+            "sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "view_id": "6ab3ae49-ff6d-4a24-9e34-93efe5ad089b",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "2bfa488e-b71c-4b4c-860c-5240b81c7a61",
+            "kind": "source_common_grid",
+            "sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "view_id": "6ab3ae49-ff6d-4a24-9e34-93efe5ad089b",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          },
+          {
+            "id": "36791ed8-20ee-4636-a47a-78fba4ddf4c1",
+            "kind": "source_common_grid",
+            "sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "view_id": "6ab3ae49-ff6d-4a24-9e34-93efe5ad089b",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          },
+          {
+            "id": "cf2ac43d-4d1c-4e71-bec5-2b0273c868be",
+            "kind": "derived_report",
+            "sha256": "abf239e4cf4ad686c785de38d13c04b1da7851f747e432ae5ef24b697cce180e",
+            "view_id": "6ab3ae49-ff6d-4a24-9e34-93efe5ad089b",
+            "size_bytes": 2984,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          }
+        ],
+        "processing_version": "derived-v1.1",
+        "available_detectors": [
+          "D6"
+        ],
+        "parent_preparation_sha256": {
+          "7f14633a-be0b-4ec0-a310-ced1b60d910f": "be473fd344aa38628d0f0483f42edce225e6ddeabf7802347758a1c4606757b2"
+        }
+      }
+    },
+    {
+      "id": "19726bef-3e27-400f-9fee-b7f132616d65",
+      "request": {
+        "inputs": [
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 0
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 1
+          },
+          {
+            "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+            "index": 2
+          }
+        ],
+        "detector": "D6",
+        "mode": "temporal_mean"
+      },
+      "report": {
+        "kind": "coadd",
+        "groups": [
+          {
+            "status": "ineligible",
+            "indices": [
+              0,
+              1,
+              2
+            ],
+            "reasons": [
+              "local_wavelength_interval_mismatch"
+            ]
+          }
+        ],
+        "inputs": [
+          {
+            "psf": {
+              "sum": 0.9999999827103989,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 120,
+              "plane_sha256": "3c69a81c7c7a03c51aab1c1ca16e44264960c3bfeb68cb3a7ec71b689c86b8aa",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1779.1685577141864,
+                1995.8066642081862
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+            "raw_sha256": "8e900545573d510d6c033376ab88105ba7ca6d5ed166b4dd1853fa9cc5ce904e",
+            "grid_sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999798515606,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 98,
+              "plane_sha256": "4bd80aaf5244b38880a8d502dbb9c11441cf05b59db05e47bd98fd297269b25b",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1778.1681087677691,
+                1540.062492211067
+              ]
+            },
+            "ref": {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+            "raw_sha256": "b8e00f31984697cbda05dec69f4da7fd2e8904ce842383df486a3e95a38b4e1f",
+            "grid_sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "psf": {
+              "sum": 0.9999999432528193,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 65,
+              "plane_sha256": "6a2fc680293927a5ce8b21a4748c82ec3cab6eeb9f8eb089fec16ad28da75e87",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1776.1861481369056,
+                969.0549087391521
+              ]
+            },
+            "ref": {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e",
+            "raw_sha256": "0c01ae4b5fc80659becf1e092d33b70a74b150a82a48a452e587f587a85415d4",
+            "grid_sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ineligible",
+        "request": {
+          "mode": "temporal_mean",
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 1,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            {
+              "index": 2,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            }
+          ],
+          "detector": "D6",
+          "contract_version": "coadd-v1",
+          "wavelength_max_um": 5.5,
+          "wavelength_min_um": 0.7,
+          "epoch_window_seconds": 300,
+          "minimum_contributors": 1
+        },
+        "version": "derived-v1",
+        "detector": "D6",
+        "artifacts": [
+          {
+            "id": "6b47660f-435f-4983-87e0-2067d6e1d240",
+            "kind": "source_common_grid",
+            "sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "view_id": "19726bef-3e27-400f-9fee-b7f132616d65",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "1910482c-6893-4d43-ac63-c01e19486798",
+            "kind": "source_common_grid",
+            "sha256": "d5f70e0d41df90260a77064b29b18148f257b84ce7ee9b8bb1041397cdb36d04",
+            "view_id": "19726bef-3e27-400f-9fee-b7f132616d65",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78"
+            ]
+          },
+          {
+            "id": "054c6543-46ce-4294-aa85-9f661607cf7e",
+            "kind": "source_common_grid",
+            "sha256": "6605bfbbdc5151929b7232009ab6e9c7235e032671fe45c12c5c5b15b9a18d19",
+            "view_id": "19726bef-3e27-400f-9fee-b7f132616d65",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          },
+          {
+            "id": "052217f0-1064-49de-b462-7a8566432472",
+            "kind": "derived_report",
+            "sha256": "d18c85c15b03351e9948a47e5e51739b29f992454c6f4e39f49c02a9612a9d77",
+            "view_id": "19726bef-3e27-400f-9fee-b7f132616d65",
+            "size_bytes": 3079,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+              "314aa9afabd6bee6d28ce78b7bb2d18e1cd806efd7619fe2103d5fa83662ab78",
+              "bb6e9b66b3e5c5d008c286683883134c189c98327da4622073715ac8ec25c76e"
+            ]
+          }
+        ],
+        "processing_version": "derived-v1.1",
+        "available_detectors": [
+          "D6"
+        ],
+        "parent_preparation_sha256": {
+          "7f14633a-be0b-4ec0-a310-ced1b60d910f": "be473fd344aa38628d0f0483f42edce225e6ddeabf7802347758a1c4606757b2"
+        }
+      }
+    }
+  ],
+  "six_detector_live": [
+    {
+      "detector": "D1",
+      "attempts": [
+        {
+          "request": {
+            "contract_version": "view-v2",
+            "region": {
+              "ra": 269.45,
+              "dec": 4.76,
+              "width_arcmin": 3,
+              "height_arcmin": 3
+            },
+            "collections": [
+              "spherex_qr3"
+            ],
+            "detectors": [
+              "D1"
+            ],
+            "wavelength_min_um": 0.8,
+            "wavelength_max_um": 1.0,
+            "max_frames": 1,
+            "preparation": {
+              "spectral_mode": "detector",
+              "detector": "D1"
+            }
+          },
+          "http_status": 202,
+          "id": "47eee079-a12c-49ea-87c9-4eb0181c860a",
+          "outcome": "download_budget_exceeded"
+        },
+        {
+          "request": {
+            "contract_version": "view-v2",
+            "region": {
+              "ra": 269.45,
+              "dec": 4.76,
+              "width_arcmin": 3,
+              "height_arcmin": 3
+            },
+            "collections": [
+              "spherex_qr2"
+            ],
+            "detectors": [
+              "D1"
+            ],
+            "wavelength_min_um": 0.8,
+            "wavelength_max_um": 1.0,
+            "max_frames": 1,
+            "preparation": {
+              "spectral_mode": "detector",
+              "detector": "D1"
+            }
+          },
+          "http_status": 202,
+          "id": "11541634-1e3a-4896-971f-a687b3749b97",
+          "outcome": "download_budget_exceeded"
+        }
+      ],
+      "parent_view_id": "87e6c9c9-b9bc-495d-a54f-bf31a35c0aa2",
+      "input_method": "reused_verified_frozen_real_input",
+      "coadd_id": "c5169a39-4707-4f61-9266-266291a02ec4",
+      "coadd_outcome": "ready",
+      "report": {
+        "kind": "coadd",
+        "groups": [
+          {
+            "unit": "MJy/sr",
+            "status": "ready",
+            "end_mjd": 61246.631615527,
+            "indices": [
+              0
+            ],
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.1596065691113472,
+                4.131254906654358
+              ],
+              "asinh_softening": 10
+            },
+            "response": "per_pixel_inverse_variance_weighted_WCS_WAVE_proxy_with_min_max_support_maps",
+            "warnings": [
+              "WCS-only display alignment; independent registration may be unsupported",
+              "Different local wavelengths are broadband display information, not one calibrated monochromatic measurement",
+              "Temporal stacks smear motion and dilute variability; source movie is retained",
+              "PSF matching, covariance and quantitative response validation are not applied"
+            ],
+            "start_mjd": 61246.630283148,
+            "count_range": [
+              0,
+              1
+            ],
+            "usable_fraction": 0.9408579758433986,
+            "artifact_indices": {
+              "planes": 1,
+              "preview": 2
+            },
+            "weight_definition": "normalized_inverse_variance",
+            "wavelength_window_um": [
+              0.7,
+              5.5
+            ],
+            "quantitative_eligible": false
+          }
+        ],
+        "inputs": [
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 428,
+              "plane_sha256": "deb3b1a5679a950c24a541a7e2e95372be616c941541e1062218acd562c6f122",
+              "support_stars": 455,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                810.7005915629655,
+                1950.017222235081
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "87e6c9c9-b9bc-495d-a54f-bf31a35c0aa2"
+            },
+            "product_id": "2ad828dc65254d5bb877ad7b751255043951749568e69e2944e233c440d879f8",
+            "raw_sha256": "4f7d4e80c0398c63c5e73b9b35630568a910741dadad569eb05f7f9b171aebcf",
+            "grid_sha256": "cc178f6435096df8645d99950a145648600c9635b4f53c3a4c532f56cb822f60",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ready",
+        "request": {
+          "mode": "detector_composite",
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "87e6c9c9-b9bc-495d-a54f-bf31a35c0aa2"
+            }
+          ],
+          "detector": "D1",
+          "contract_version": "coadd-v1",
+          "wavelength_max_um": 5.5,
+          "wavelength_min_um": 0.7,
+          "epoch_window_seconds": 300,
+          "minimum_contributors": 1
+        },
+        "version": "derived-v1",
+        "detector": "D1",
+        "artifacts": [
+          {
+            "id": "62351e89-7b4b-4f14-8843-4f3e751e056a",
+            "kind": "source_common_grid",
+            "sha256": "cc178f6435096df8645d99950a145648600c9635b4f53c3a4c532f56cb822f60",
+            "view_id": "c5169a39-4707-4f61-9266-266291a02ec4",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "2ad828dc65254d5bb877ad7b751255043951749568e69e2944e233c440d879f8"
+            ]
+          },
+          {
+            "id": "7571dfbf-18a9-4a99-8250-1c2bf32435f2",
+            "kind": "coadd_planes",
+            "sha256": "2d69d217b805c171e32db00295e5c420f186f112e4b2d84cc5ba719a09a213e7",
+            "view_id": "c5169a39-4707-4f61-9266-266291a02ec4",
+            "size_bytes": 158400,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "2ad828dc65254d5bb877ad7b751255043951749568e69e2944e233c440d879f8"
+            ]
+          },
+          {
+            "id": "4740aa25-d6ea-47fb-9c7f-794f748887cd",
+            "kind": "coadd_preview",
+            "sha256": "9a5380cef7cf8402e2eeaa5ebc1a3f9d654d5860d467d36b248ade3d473aac3b",
+            "view_id": "c5169a39-4707-4f61-9266-266291a02ec4",
+            "size_bytes": 3410,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "2ad828dc65254d5bb877ad7b751255043951749568e69e2944e233c440d879f8"
+            ]
+          },
+          {
+            "id": "4bab5bdc-7dfd-4a9a-abec-21ab7b72de89",
+            "kind": "derived_report",
+            "sha256": "452aad8006a4fa00187179feafd56d5ed21378c4ce5b5c8d359d4e5c8819a0b8",
+            "view_id": "c5169a39-4707-4f61-9266-266291a02ec4",
+            "size_bytes": 2278,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "2ad828dc65254d5bb877ad7b751255043951749568e69e2944e233c440d879f8"
+            ]
+          }
+        ],
+        "processing_version": "derived-v1.1",
+        "available_detectors": [
+          "D1"
+        ],
+        "parent_preparation_sha256": {
+          "87e6c9c9-b9bc-495d-a54f-bf31a35c0aa2": "31672805fa832d0b67851287d274bf268cc561d40920d6396861a1df0372476e"
+        }
+      }
+    },
+    {
+      "detector": "D2",
+      "attempts": [],
+      "parent_view_id": "5b624be2-bd3b-46b7-8076-7cfc7845fd19",
+      "input_method": "reused_verified_frozen_real_input",
+      "coadd_id": "c7ecfac3-0d32-46c1-9374-2672086767c3",
+      "coadd_outcome": "ready",
+      "report": {
+        "kind": "coadd",
+        "groups": [
+          {
+            "unit": "MJy/sr",
+            "status": "ready",
+            "end_mjd": 61273.383003929,
+            "indices": [
+              0
+            ],
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.26254337280988693,
+                6.911704182624817
+              ],
+              "asinh_softening": 10
+            },
+            "response": "per_pixel_inverse_variance_weighted_WCS_WAVE_proxy_with_min_max_support_maps",
+            "warnings": [
+              "WCS-only display alignment; independent registration may be unsupported",
+              "Different local wavelengths are broadband display information, not one calibrated monochromatic measurement",
+              "Temporal stacks smear motion and dilute variability; source movie is retained",
+              "PSF matching, covariance and quantitative response validation are not applied"
+            ],
+            "start_mjd": 61273.381671551,
+            "count_range": [
+              0,
+              1
+            ],
+            "usable_fraction": 0.9271137026239067,
+            "artifact_indices": {
+              "planes": 1,
+              "preview": 2
+            },
+            "weight_definition": "normalized_inverse_variance",
+            "wavelength_window_um": [
+              0.7,
+              5.5
+            ],
+            "quantitative_eligible": false
+          }
+        ],
+        "inputs": [
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 409,
+              "plane_sha256": "4566d78e0eebd50eefe8f08a837b91c917545e6330ecb8aefb230297f1f0ac10",
+              "support_stars": 319,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1042.7205503206246,
+                1916.3987881602366
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "5b624be2-bd3b-46b7-8076-7cfc7845fd19"
+            },
+            "product_id": "c0a39638ca1bd197a8f934c81b32b3fd7e70550151cfcf5b2c621ccec2ee9480",
+            "raw_sha256": "ac988eae17faeafd1f8c8fa90131c09b59da6e2f40233dd1e22baf82e598711d",
+            "grid_sha256": "ba10960fcd17a0f5287088752f1cd8339c032731077862c9af3ca1efc9c6760f",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ready",
+        "request": {
+          "mode": "detector_composite",
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "5b624be2-bd3b-46b7-8076-7cfc7845fd19"
+            }
+          ],
+          "detector": "D2",
+          "contract_version": "coadd-v1",
+          "wavelength_max_um": 5.5,
+          "wavelength_min_um": 0.7,
+          "epoch_window_seconds": 300,
+          "minimum_contributors": 1
+        },
+        "version": "derived-v1",
+        "detector": "D2",
+        "artifacts": [
+          {
+            "id": "fa5a387f-9914-448d-9c81-54165d8dddb2",
+            "kind": "source_common_grid",
+            "sha256": "ba10960fcd17a0f5287088752f1cd8339c032731077862c9af3ca1efc9c6760f",
+            "view_id": "c7ecfac3-0d32-46c1-9374-2672086767c3",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "c0a39638ca1bd197a8f934c81b32b3fd7e70550151cfcf5b2c621ccec2ee9480"
+            ]
+          },
+          {
+            "id": "f16ee013-4fa0-4a6a-b944-a27cba87add2",
+            "kind": "coadd_planes",
+            "sha256": "65bfb50814e5eb0829379736c65d47482b4ec5be69efd6b57fb613a07cba8fca",
+            "view_id": "c7ecfac3-0d32-46c1-9374-2672086767c3",
+            "size_bytes": 158400,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "c0a39638ca1bd197a8f934c81b32b3fd7e70550151cfcf5b2c621ccec2ee9480"
+            ]
+          },
+          {
+            "id": "8ecf1cc6-0865-430e-a80b-cd03d6db8e6d",
+            "kind": "coadd_preview",
+            "sha256": "969f95f22443b7e5454792cd6d998d2dbd3a1506e9cd7ce84978b98479c7a6f2",
+            "view_id": "c7ecfac3-0d32-46c1-9374-2672086767c3",
+            "size_bytes": 4329,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "c0a39638ca1bd197a8f934c81b32b3fd7e70550151cfcf5b2c621ccec2ee9480"
+            ]
+          },
+          {
+            "id": "4855bd6b-92d0-4ea2-8250-f1a7aaea3caf",
+            "kind": "derived_report",
+            "sha256": "1b4942d02625f5a8278bb804f0ae22324cf0f15c51f65bfb47ba69086180dfe4",
+            "view_id": "c7ecfac3-0d32-46c1-9374-2672086767c3",
+            "size_bytes": 2261,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "c0a39638ca1bd197a8f934c81b32b3fd7e70550151cfcf5b2c621ccec2ee9480"
+            ]
+          }
+        ],
+        "processing_version": "derived-v1.1",
+        "available_detectors": [
+          "D2"
+        ],
+        "parent_preparation_sha256": {
+          "5b624be2-bd3b-46b7-8076-7cfc7845fd19": "121aec9fa9fa28173dd5948fd0ccbcc6e3f2c872b1811a923320dbd83a6306cf"
+        }
+      }
+    },
+    {
+      "detector": "D3",
+      "attempts": [
+        {
+          "request": {
+            "contract_version": "view-v2",
+            "region": {
+              "ra": 269.45,
+              "dec": 4.76,
+              "width_arcmin": 3,
+              "height_arcmin": 3
+            },
+            "collections": [
+              "spherex_qr3"
+            ],
+            "detectors": [
+              "D3"
+            ],
+            "wavelength_min_um": 1.9,
+            "wavelength_max_um": 2.1,
+            "max_frames": 1,
+            "preparation": {
+              "spectral_mode": "detector",
+              "detector": "D3"
+            }
+          },
+          "http_status": 202,
+          "id": "c729ebed-dd4d-43e5-a759-f185160ce16f",
+          "outcome": "download_budget_exceeded"
+        },
+        {
+          "request": {
+            "contract_version": "view-v2",
+            "region": {
+              "ra": 269.45,
+              "dec": 4.76,
+              "width_arcmin": 3,
+              "height_arcmin": 3
+            },
+            "collections": [
+              "spherex_qr2"
+            ],
+            "detectors": [
+              "D3"
+            ],
+            "wavelength_min_um": 1.9,
+            "wavelength_max_um": 2.1,
+            "max_frames": 1,
+            "preparation": {
+              "spectral_mode": "detector",
+              "detector": "D3"
+            }
+          },
+          "http_status": 202,
+          "id": "909edf69-0587-4ec1-bd12-a83d7112e7b6",
+          "outcome": "download_budget_exceeded"
+        }
+      ],
+      "coadd_outcome": "source_unavailable"
+    },
+    {
+      "detector": "D4",
+      "attempts": [
+        {
+          "request": {
+            "contract_version": "view-v2",
+            "region": {
+              "ra": 269.45,
+              "dec": 4.76,
+              "width_arcmin": 3,
+              "height_arcmin": 3
+            },
+            "collections": [
+              "spherex_qr3"
+            ],
+            "detectors": [
+              "D4"
+            ],
+            "wavelength_min_um": 2.8,
+            "wavelength_max_um": 3.2,
+            "max_frames": 1,
+            "preparation": {
+              "spectral_mode": "detector",
+              "detector": "D4"
+            }
+          },
+          "http_status": 202,
+          "id": "fc776d47-082a-4936-8c53-e2965085587e",
+          "outcome": "download_budget_exceeded"
+        },
+        {
+          "request": {
+            "contract_version": "view-v2",
+            "region": {
+              "ra": 269.45,
+              "dec": 4.76,
+              "width_arcmin": 3,
+              "height_arcmin": 3
+            },
+            "collections": [
+              "spherex_qr2"
+            ],
+            "detectors": [
+              "D4"
+            ],
+            "wavelength_min_um": 2.8,
+            "wavelength_max_um": 3.2,
+            "max_frames": 1,
+            "preparation": {
+              "spectral_mode": "detector",
+              "detector": "D4"
+            }
+          },
+          "http_status": 202,
+          "id": "ad61b457-a245-409d-bbfe-1a2e12cb7ec9",
+          "outcome": "download_budget_exceeded"
+        }
+      ],
+      "coadd_outcome": "source_unavailable"
+    },
+    {
+      "detector": "D5",
+      "attempts": [],
+      "parent_view_id": "23febcfb-a757-45a3-ac19-008db953aeb2",
+      "input_method": "reused_verified_frozen_real_input",
+      "coadd_id": "772b3b57-03bc-4190-9cf6-21645708bba0",
+      "coadd_outcome": "ready",
+      "report": {
+        "kind": "coadd",
+        "groups": [
+          {
+            "unit": "MJy/sr",
+            "status": "ready",
+            "end_mjd": 61273.381511684,
+            "indices": [
+              0
+            ],
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.12999629318714143,
+                13.693229866027822
+              ],
+              "asinh_softening": 10
+            },
+            "response": "per_pixel_inverse_variance_weighted_WCS_WAVE_proxy_with_min_max_support_maps",
+            "warnings": [
+              "WCS-only display alignment; independent registration may be unsupported",
+              "Different local wavelengths are broadband display information, not one calibrated monochromatic measurement",
+              "Temporal stacks smear motion and dilute variability; source movie is retained",
+              "PSF matching, covariance and quantitative response validation are not applied"
+            ],
+            "start_mjd": 61273.380179306,
+            "count_range": [
+              0,
+              1
+            ],
+            "usable_fraction": 0.9433333333333334,
+            "artifact_indices": {
+              "planes": 1,
+              "preview": 2
+            },
+            "weight_definition": "normalized_inverse_variance",
+            "wavelength_window_um": [
+              0.7,
+              5.5
+            ],
+            "quantitative_eligible": false
+          }
+        ],
+        "inputs": [
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 430,
+              "plane_sha256": "f015f188bace8d160042a9a2022b9c645aaceb10c5fbe4e5a3de83ea71d136d1",
+              "support_stars": 493,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1053.431237455753,
+                2024.7810656501078
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "23febcfb-a757-45a3-ac19-008db953aeb2"
+            },
+            "product_id": "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a",
+            "raw_sha256": "2263909ef21e94433ddaaef664f0bd0ba7bac90dcb0423334c4a4dd69c97acb5",
+            "grid_sha256": "35740296b5381554de1c2ed7d1b36aca80966ca62ec2d03ff642fe909338bdff",
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ready",
+        "request": {
+          "mode": "detector_composite",
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "23febcfb-a757-45a3-ac19-008db953aeb2"
+            }
+          ],
+          "detector": "D5",
+          "contract_version": "coadd-v1",
+          "wavelength_max_um": 5.5,
+          "wavelength_min_um": 0.7,
+          "epoch_window_seconds": 300,
+          "minimum_contributors": 1
+        },
+        "version": "derived-v1",
+        "detector": "D5",
+        "artifacts": [
+          {
+            "id": "001e73cd-3c9a-4177-8e36-e6cb986cae40",
+            "kind": "source_common_grid",
+            "sha256": "35740296b5381554de1c2ed7d1b36aca80966ca62ec2d03ff642fe909338bdff",
+            "view_id": "772b3b57-03bc-4190-9cf6-21645708bba0",
+            "size_bytes": 43200,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+            ]
+          },
+          {
+            "id": "fe8010c4-f69f-40d3-9672-12691c6ea3e1",
+            "kind": "coadd_planes",
+            "sha256": "85fdcf9a4ca6d0d92faaf70846368d12c0b5a1e3da9a7423a12022f498391422",
+            "view_id": "772b3b57-03bc-4190-9cf6-21645708bba0",
+            "size_bytes": 100800,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+            ]
+          },
+          {
+            "id": "3902478b-b339-4db2-9c77-0304651586e2",
+            "kind": "coadd_preview",
+            "sha256": "d1de786550a70327a706e4fb0900dff4bda027a50b9f99f2490a72553530b2d7",
+            "view_id": "772b3b57-03bc-4190-9cf6-21645708bba0",
+            "size_bytes": 1380,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+            ]
+          },
+          {
+            "id": "e35a02da-bda1-46e0-9b0b-bd2edc591ccb",
+            "kind": "derived_report",
+            "sha256": "440ba2ea97b8171a3976ed8d34dfe40cabecbc9a30371c294ace7d81b66774ff",
+            "view_id": "772b3b57-03bc-4190-9cf6-21645708bba0",
+            "size_bytes": 2261,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "0277f41c393dcf87d66b78c6e8faa0465ae3a84d5d52e4bdfda942fdb323c42a"
+            ]
+          }
+        ],
+        "processing_version": "derived-v1.1",
+        "available_detectors": [
+          "D5"
+        ],
+        "parent_preparation_sha256": {
+          "23febcfb-a757-45a3-ac19-008db953aeb2": "506ad1f4468ce9802d05988dda4604690e262606b40d118ed22ba739fd00dcab"
+        }
+      }
+    },
+    {
+      "detector": "D6",
+      "attempts": [],
+      "parent_view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+      "input_method": "reused_verified_frozen_real_input",
+      "coadd_id": "0bf9f9eb-a0d1-4013-b7a3-3e9da16ce6c2",
+      "coadd_outcome": "ready",
+      "report": {
+        "kind": "coadd",
+        "groups": [
+          {
+            "unit": "MJy/sr",
+            "status": "ready",
+            "end_mjd": 61151.199265584,
+            "indices": [
+              0
+            ],
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.2358184450864792,
+                0.8233679389953653
+              ],
+              "asinh_softening": 10
+            },
+            "response": "per_pixel_inverse_variance_weighted_WCS_WAVE_proxy_with_min_max_support_maps",
+            "warnings": [
+              "WCS-only display alignment; independent registration may be unsupported",
+              "Different local wavelengths are broadband display information, not one calibrated monochromatic measurement",
+              "Temporal stacks smear motion and dilute variability; source movie is retained",
+              "PSF matching, covariance and quantitative response validation are not applied"
+            ],
+            "start_mjd": 61151.197933206,
+            "count_range": [
+              0,
+              1
+            ],
+            "usable_fraction": 0.931695127030404,
+            "artifact_indices": {
+              "planes": 1,
+              "preview": 2
+            },
+            "weight_definition": "normalized_inverse_variance",
+            "wavelength_window_um": [
+              0.7,
+              5.5
+            ],
+            "quantitative_eligible": false
+          }
+        ],
+        "inputs": [
+          {
+            "psf": {
+              "sum": 0.9999999827103989,
+              "shape": [
+                101,
+                101
+              ],
+              "format": "qr2_psf_cube",
+              "available": true,
+              "zone_1based": 120,
+              "plane_sha256": "3c69a81c7c7a03c51aab1c1ca16e44264960c3bfeb68cb3a7ec71b689c86b8aa",
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1779.1685577141864,
+                1995.8066642081862
+              ]
+            },
+            "ref": {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            },
+            "product_id": "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3",
+            "raw_sha256": "8e900545573d510d6c033376ab88105ba7ca6d5ed166b4dd1853fa9cc5ce904e",
+            "grid_sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "outcome": "ready",
+        "request": {
+          "mode": "detector_composite",
+          "inputs": [
+            {
+              "index": 0,
+              "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f"
+            }
+          ],
+          "detector": "D6",
+          "contract_version": "coadd-v1",
+          "wavelength_max_um": 5.5,
+          "wavelength_min_um": 0.7,
+          "epoch_window_seconds": 300,
+          "minimum_contributors": 1
+        },
+        "version": "derived-v1",
+        "detector": "D6",
+        "artifacts": [
+          {
+            "id": "5259ff59-05f8-498d-93c9-1a62855aeb9c",
+            "kind": "source_common_grid",
+            "sha256": "318dcda5083d82f3afcf91bd58c6fc4891eb1fb539e92e257e3d0d6f3227fd5f",
+            "view_id": "0bf9f9eb-a0d1-4013-b7a3-3e9da16ce6c2",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "a87469a1-d25b-45a9-86d9-08fd728eead0",
+            "kind": "coadd_planes",
+            "sha256": "1bfc8adcc8f27cd4a742858bcfffcadd9ee6226dcc2226f59dfedc2156dac373",
+            "view_id": "0bf9f9eb-a0d1-4013-b7a3-3e9da16ce6c2",
+            "size_bytes": 158400,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "f44cc241-7831-4765-84bb-9688b4bdeb8c",
+            "kind": "coadd_preview",
+            "sha256": "1638a0db66b0dc774e2f0e11f875168d359423abd26e210e12ab41fbc48b44a6",
+            "view_id": "0bf9f9eb-a0d1-4013-b7a3-3e9da16ce6c2",
+            "size_bytes": 6897,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          },
+          {
+            "id": "eceeb717-dce7-432d-9038-00546bcf4d17",
+            "kind": "derived_report",
+            "sha256": "8a5d285d29e8c2b9c55651c3be6ccaf0b288c88e9df60b1e60e7bd0b57303233",
+            "view_id": "0bf9f9eb-a0d1-4013-b7a3-3e9da16ce6c2",
+            "size_bytes": 2274,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "9312aef84412ec3e862b727439d818be207ae69169dd92c5de26b575de5dd8a3"
+            ]
+          }
+        ],
+        "processing_version": "derived-v1.1",
+        "available_detectors": [
+          "D6"
+        ],
+        "parent_preparation_sha256": {
+          "7f14633a-be0b-4ec0-a310-ced1b60d910f": "be473fd344aa38628d0f0483f42edce225e6ddeabf7802347758a1c4606757b2"
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Existing frames-v1 lacks science-grade response/PSF/covariance acceptance; real differences remain ineligible.",
+    "Local physical-unit spectra are diagnostic, not externally validated research spectra or detections.",
+    "Fresh D3/D4 archive acquisition exceeded the existing budget in both tested releases; no live coadd success is claimed for those sources.",
+    "Four real detector coadd outputs use retained verified inputs; six selectors are covered by independent numerical tests.",
+    "No documented callable IRSA spectrophotometry submission API was verified; no GUI endpoint was invented.",
+    "Local foundation only; scientific review and cloud deployment remain separate gates."
+  ],
+  "live_detector_coverage": {
+    "ready": [
+      "D1",
+      "D2",
+      "D5",
+      "D6"
+    ],
+    "unavailable": [
+      "D3",
+      "D4"
+    ]
+  },
+  "final_container_check": {
+    "coadd_job_id": "722929c5-e52f-4984-855b-d78715cc078c",
+    "routes_and_six_options": true,
+    "worker_artifact_hashes": true,
+    "frozen_parent": true,
+    "spectrum_and_difference_results": true,
+    "retention_guard_rpc_synchronized": true
+  }
+}

@@ -114,3 +114,22 @@ Additive cosmic_0006 adds immutable movie manifests/readiness and restricted HTT
 Local CORS explicitly allows the isolated reference player on localhost/127.0.0.1:15173. The
 [real-data/API/React/Aladin evidence](movie_delivery.md) covers local playback without ML and zero/single
 outcomes; no actual Space-to-database test or production frontend-owner acceptance is implied.
+
+## Steps 7–8 implementation update
+
+[Derived jobs](derived_operations.md) now reuse shared admission/lease/cancellation/retention and the
+raw/prepared artifact ledger. Additive cosmic_0007 adds guarded derivative admission, CSV publication
+and typed coadd/spectrum/difference routes without resetting tables. Coadds and physical-unit sparse
+spectra are implemented; actual frames-v1 differences remain blocked by missing quantitative science
+acceptance. Diagnostic extraction is not validated spectrophotometry. Public cloud deployment and
+scientific calibration/reference acceptance remain separate gates.
+
+
+## Steps 9–10 implementation update — 2 November 2026
+
+[Survey context and sharing](context_sharing.md) implement bounded Gaia DR3/AllWISE markers and W1/W2
+images, actual epoch/WCS/quality/attribution, coordinate-state links, finite frozen IDs, reference iframe
+delivery, explicit metadata refresh and durable GIF exports. `cosmic_0008` adds `release_refresh_checks`
+for fenced per-query metadata checks; export jobs reuse the existing job/upload/retention protocol.
+Optional context uses a bounded process-local cache; it never mutates a published SPHEREx movie.
+New production React controls, external scheduler operation and public-host acceptance remain separate.

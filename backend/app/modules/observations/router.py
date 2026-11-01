@@ -26,7 +26,9 @@ def get_discovery_service(db: Annotated[Session, Depends(get_db)]):
             repository = GatewayDiscoveryRepository(gateway)
         else:
             repository = DiscoveryRepository(db)
-        yield DiscoveryService(repository, SIAProvider(settings))
+        yield DiscoveryService(
+            repository, SIAProvider(settings), ttl_seconds=settings.discovery_ttl_seconds
+        )
     except (SQLAlchemyError, GatewayError, OSError, ValueError) as exc:
         raise HTTPException(503, detail={"code": "discovery_storage_unavailable"}) from exc
     finally:

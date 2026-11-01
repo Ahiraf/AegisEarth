@@ -1,0 +1,199 @@
+[
+  {
+    "detector": "D1",
+    "attempts": [
+      {
+        "request": {
+          "contract_version": "view-v2",
+          "region": {
+            "ra": 269.45,
+            "dec": 4.76,
+            "width_arcmin": 3,
+            "height_arcmin": 3
+          },
+          "collections": [
+            "spherex_qr3"
+          ],
+          "detectors": [
+            "D1"
+          ],
+          "wavelength_min_um": 0.8,
+          "wavelength_max_um": 1.0,
+          "max_frames": 1,
+          "preparation": {
+            "spectral_mode": "detector",
+            "detector": "D1"
+          }
+        },
+        "http_status": 202,
+        "id": "47eee079-a12c-49ea-87c9-4eb0181c860a",
+        "outcome": "download_budget_exceeded"
+      },
+      {
+        "request": {
+          "contract_version": "view-v2",
+          "region": {
+            "ra": 269.45,
+            "dec": 4.76,
+            "width_arcmin": 3,
+            "height_arcmin": 3
+          },
+          "collections": [
+            "spherex_qr2"
+          ],
+          "detectors": [
+            "D1"
+          ],
+          "wavelength_min_um": 0.8,
+          "wavelength_max_um": 1.0,
+          "max_frames": 1,
+          "preparation": {
+            "spectral_mode": "detector",
+            "detector": "D1"
+          }
+        },
+        "http_status": 202,
+        "id": "11541634-1e3a-4896-971f-a687b3749b97",
+        "outcome": "download_budget_exceeded"
+      }
+    ],
+    "parent_view_id": "87e6c9c9-b9bc-495d-a54f-bf31a35c0aa2",
+    "input_method": "reused_verified_frozen_real_input"
+  },
+  {
+    "detector": "D2",
+    "attempts": [],
+    "parent_view_id": "5b624be2-bd3b-46b7-8076-7cfc7845fd19",
+    "input_method": "reused_verified_frozen_real_input"
+  },
+  {
+    "detector": "D3",
+    "attempts": [
+      {
+        "request": {
+          "contract_version": "view-v2",
+          "region": {
+            "ra": 269.45,
+            "dec": 4.76,
+            "width_arcmin": 3,
+            "height_arcmin": 3
+          },
+          "collections": [
+            "spherex_qr3"
+          ],
+          "detectors": [
+            "D3"
+          ],
+          "wavelength_min_um": 1.9,
+          "wavelength_max_um": 2.1,
+          "max_frames": 1,
+          "preparation": {
+            "spectral_mode": "detector",
+            "detector": "D3"
+          }
+        },
+        "http_status": 202,
+        "id": "c729ebed-dd4d-43e5-a759-f185160ce16f",
+        "outcome": "download_budget_exceeded"
+      },
+      {
+        "request": {
+          "contract_version": "view-v2",
+          "region": {
+            "ra": 269.45,
+            "dec": 4.76,
+            "width_arcmin": 3,
+            "height_arcmin": 3
+          },
+          "collections": [
+            "spherex_qr2"
+          ],
+          "detectors": [
+            "D3"
+          ],
+          "wavelength_min_um": 1.9,
+          "wavelength_max_um": 2.1,
+          "max_frames": 1,
+          "preparation": {
+            "spectral_mode": "detector",
+            "detector": "D3"
+          }
+        },
+        "http_status": 202,
+        "id": "909edf69-0587-4ec1-bd12-a83d7112e7b6",
+        "outcome": "download_budget_exceeded"
+      }
+    ]
+  },
+  {
+    "detector": "D4",
+    "attempts": [
+      {
+        "request": {
+          "contract_version": "view-v2",
+          "region": {
+            "ra": 269.45,
+            "dec": 4.76,
+            "width_arcmin": 3,
+            "height_arcmin": 3
+          },
+          "collections": [
+            "spherex_qr3"
+          ],
+          "detectors": [
+            "D4"
+          ],
+          "wavelength_min_um": 2.8,
+          "wavelength_max_um": 3.2,
+          "max_frames": 1,
+          "preparation": {
+            "spectral_mode": "detector",
+            "detector": "D4"
+          }
+        },
+        "http_status": 202,
+        "id": "fc776d47-082a-4936-8c53-e2965085587e",
+        "outcome": "download_budget_exceeded"
+      },
+      {
+        "request": {
+          "contract_version": "view-v2",
+          "region": {
+            "ra": 269.45,
+            "dec": 4.76,
+            "width_arcmin": 3,
+            "height_arcmin": 3
+          },
+          "collections": [
+            "spherex_qr2"
+          ],
+          "detectors": [
+            "D4"
+          ],
+          "wavelength_min_um": 2.8,
+          "wavelength_max_um": 3.2,
+          "max_frames": 1,
+          "preparation": {
+            "spectral_mode": "detector",
+            "detector": "D4"
+          }
+        },
+        "http_status": 202,
+        "id": "ad61b457-a245-409d-bbfe-1a2e12cb7ec9",
+        "outcome": "download_budget_exceeded"
+      }
+    ]
+  },
+  {
+    "detector": "D5",
+    "attempts": [],
+    "parent_view_id": "23febcfb-a757-45a3-ac19-008db953aeb2",
+    "input_method": "reused_verified_frozen_real_input"
+  },
+  {
+    "detector": "D6",
+    "attempts": [],
+    "parent_view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+    "input_method": "reused_verified_frozen_real_input"
+  }
+]

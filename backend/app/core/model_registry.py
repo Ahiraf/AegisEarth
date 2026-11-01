@@ -8,6 +8,7 @@ from app.modules.observations.discovery_models import DiscoverySnapshot, SourceP
 from app.modules.observations.models import Observation
 from app.modules.preprocessing.models import PreparedArtifact, PreparedFrameSet
 from app.modules.ranking.models import ModelVersion
+from app.modules.releases.models import RefreshCheck
 from app.modules.views.models import SkyView, ViewFile, ViewInputPin, ViewSubmission
 from app.modules.views.movie_models import MovieManifestRecord
 
@@ -23,6 +24,7 @@ __all__ = [
     "PreparedArtifact",
     "PreparedFrameSet",
     "ProcessingJob",
+    "RefreshCheck",
     "SkyView",
     "SourceProduct",
     "StageExecution",

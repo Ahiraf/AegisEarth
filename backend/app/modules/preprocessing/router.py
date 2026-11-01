@@ -19,6 +19,8 @@ def preparation_report(view_id: UUID, repository: Repository):
 @router.get("/views/{view_id}/bands")
 def available_bands(view_id: UUID, repository: Repository):
     result = preparation_report(view_id, repository)
+    if result.get("version") != "frames-v1":
+        raise HTTPException(409, detail={"code": "prepared_source_view_required"})
     return {
         "version": catalog()["version"],
         "nominal_total": 102,

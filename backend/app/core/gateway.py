@@ -24,6 +24,9 @@ class GatewayRepository:
     METHODS = frozenset(
         {
             "readiness",
+            "release_refresh_claim",
+            "release_refresh_finish",
+            "release_refresh_status",
             "enqueue_job",
             "claim_job",
             "heartbeat_job",
@@ -38,6 +41,7 @@ class GatewayRepository:
             "view_artifact",
             "view_preflight",
             "frame_set_get",
+            "derived_submit",
             "movie_lookup",
             "movie_publish",
         }

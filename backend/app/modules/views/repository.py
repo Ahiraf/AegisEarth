@@ -8,6 +8,10 @@ from sqlalchemy.exc import DBAPIError
 from app.core.gateway import GatewayConflict, GatewayQuota, GatewayRepository
 
 PUBLIC_METHODS = {
+    "release_refresh_claim",
+    "release_refresh_finish",
+    "release_refresh_status",
+    "derived_submit",
     "movie_lookup",
     "movie_publish",
     "frame_set_get",

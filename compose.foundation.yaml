@@ -59,6 +59,8 @@ services:
       DATABASE_URL: postgresql+psycopg://cosmic:local-foundation-only@db:5432/cosmic_foundation
       PUBLIC_TOKEN_SECRET: local-foundation-public-token-secret-not-production-2026
       PUBLIC_COOKIE_SECURE: "false"
+      EMBED_ANCESTORS: '["''self''","http://127.0.0.1:15174"]'
+      FRONTEND_VIEWER_URL: http://127.0.0.1:15173/
       CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:15173","http://localhost:15173"]'
     volumes: ["foundation_artifacts:/app/var/artifacts"]
     ports: ["127.0.0.1:18000:8000"]

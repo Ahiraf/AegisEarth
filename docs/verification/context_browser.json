@@ -1,0 +1,15 @@
+{
+  "verified_at_utc": "2026-11-01T19:18:24.408Z",
+  "browser": "156.0.8078.74",
+  "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+  "scope": "Backend reference pages only; production React and public deployment are separate",
+  "checks": {
+    "second_origin_iframe_real_images": true,
+    "real_catalog_toggles_w2_image_opacity_and_epoch_legend": true,
+    "keyboard_frame_step_and_paused_start": true,
+    "simulated_overlay_outage_preserves_playback": true,
+    "fresh_browser_restores_full_coordinate_state_without_automatic_job": true,
+    "frozen_id_link_reopens_same_real_movie": true,
+    "no_unhandled_browser_errors": true
+  }
+}

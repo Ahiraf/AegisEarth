@@ -17,7 +17,7 @@ class StorageError(Exception):
 
 def safe_key(key):
     if not re.fullmatch(
-        r"objects/[0-9a-f-]{36}/[0-9a-f-]{36}/[0-9a-f]{64}\.(?:fits|png|json)", key
+        r"objects/[0-9a-f-]{36}/[0-9a-f-]{36}/[0-9a-f]{64}\.(?:fits|png|json|csv|gif)", key
     ):
         raise StorageError("invalid_storage_key")
     return key

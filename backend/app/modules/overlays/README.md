@@ -1,6 +1,7 @@
-# Overlays — planned expanded feature
+# Overlays — implemented optional context
 
-No live provider adapter/route is implemented here. Own bounded Gaia DR3 catalog and WISE image/
-catalog context, native survey epochs/bands, quality/citations and tested coordinate mapping.
-Preserve proper-motion/reference-epoch/error semantics; catalog predictions are not SPHEREx detections.
-React/Aladin handles presentation; isolate failures from playback. Plan step 9.
+Fixed IRSA TAP Gaia DR3/AllWISE queries, exact string IDs, explicit proper-motion/reference-epoch
+limits, native quality fields, sky/PNG pixel mapping and W1/W2 IBE images on the selected frame grid.
+Bounded bodies/concurrency/TTL cache and isolated errors preserve SPHEREx playback. These are survey
+context and predictions, not SPHEREx detections or calibrated cross-survey photometry.
+See [API/methods and React handoff](../../../../docs/context_sharing.md).

@@ -116,6 +116,14 @@ def view_status(view_id: UUID, repository: Repository, response: Response):
     if not view:
         raise HTTPException(404, detail={"code": "view_not_found"})
     response.headers["Cache-Control"] = "no-store"
+    if view["canonical_request"].get("contract_version") == "derived-v1":
+        kind = view["canonical_request"]["kind"]
+        view["kind"] = kind
+        view["result_url"] = (
+            f"/api/v1/{'spectra' if kind == 'spectrum' else 'coadds' if kind == 'coadd' else 'exports' if kind == 'export' else 'differences'}/{view_id}"
+        )
+        view["delivery_state"] = view["status"]
+        return view
     view["manifest_url"] = f"/api/v1/views/{view_id}/manifest"
     view["delivery_state"] = "pending" if view["status"] in ("queued", "running") else "unavailable"
     if (

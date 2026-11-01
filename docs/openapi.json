@@ -250,6 +250,398 @@
         }
       }
     },
+    "/api/v1/views/{view_id}/coadds": {
+      "post": {
+        "tags": [
+          "coadds"
+        ],
+        "summary": "Coadd",
+        "operationId": "coadd_api_v1_views__view_id__coadds_post",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CoaddRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DerivedAcceptance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/coadds/{identifier}": {
+      "get": {
+        "tags": [
+          "coadds"
+        ],
+        "summary": "Coadd Result",
+        "operationId": "coadd_result_api_v1_coadds__identifier__get",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/coadds/options": {
+      "get": {
+        "tags": [
+          "coadds"
+        ],
+        "summary": "Options",
+        "operationId": "options_api_v1_views__view_id__coadds_options_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/differences": {
+      "post": {
+        "tags": [
+          "differencing"
+        ],
+        "summary": "Difference",
+        "operationId": "difference_api_v1_views__view_id__differences_post",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DifferenceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DerivedAcceptance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/differences/{identifier}": {
+      "get": {
+        "tags": [
+          "differencing"
+        ],
+        "summary": "Difference Result",
+        "operationId": "difference_result_api_v1_differences__identifier__get",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/spectra": {
+      "post": {
+        "tags": [
+          "spectra"
+        ],
+        "summary": "Spectrum",
+        "operationId": "spectrum_api_v1_views__view_id__spectra_post",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpectrumRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DerivedAcceptance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/spectra/{identifier}": {
+      "get": {
+        "tags": [
+          "spectra"
+        ],
+        "summary": "Spectrum Result",
+        "operationId": "spectrum_result_api_v1_spectra__identifier__get",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comparisons/validate": {
+      "post": {
+        "tags": [
+          "comparisons"
+        ],
+        "summary": "Validate Comparison",
+        "operationId": "validate_comparison_api_v1_comparisons_validate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComparisonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/system/capabilities": {
       "get": {
         "tags": [
@@ -342,6 +734,82 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/releases/refresh-status": {
+      "get": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Refresh Status",
+        "operationId": "refresh_status_api_v1_releases_refresh_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/releases/refresh": {
+      "post": {
+        "tags": [
+          "releases"
+        ],
+        "summary": "Admin Refresh",
+        "operationId": "admin_refresh_api_v1_releases_refresh_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiscoverySearch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
@@ -1125,6 +1593,634 @@
           }
         }
       }
+    },
+    "/api/v1/views/{view_id}/overlays/catalogs": {
+      "get": {
+        "tags": [
+          "overlays"
+        ],
+        "summary": "Catalog Layer",
+        "operationId": "catalog_layer_api_v1_views__view_id__overlays_catalogs_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "survey",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "gaia",
+                "wise"
+              ],
+              "type": "string",
+              "default": "gaia",
+              "title": "Survey"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "common",
+                "native"
+              ],
+              "type": "string",
+              "default": "common",
+              "title": "Mode"
+            }
+          },
+          {
+            "name": "ordinal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 11,
+              "minimum": 0,
+              "default": 0,
+              "title": "Ordinal"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "propagate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Propagate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/overlays/wise/{band}": {
+      "get": {
+        "tags": [
+          "overlays"
+        ],
+        "summary": "Wise Layer",
+        "operationId": "wise_layer_api_v1_views__view_id__overlays_wise__band__get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "band",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 2,
+              "minimum": 1,
+              "title": "Band"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "common",
+                "native"
+              ],
+              "type": "string",
+              "default": "common",
+              "title": "Mode"
+            }
+          },
+          {
+            "name": "ordinal",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 11,
+              "minimum": 0,
+              "default": 0,
+              "title": "Ordinal"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "json",
+                "png",
+                "fits"
+              ],
+              "type": "string",
+              "default": "json",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/share/links": {
+      "post": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Create Share Links",
+        "operationId": "create_share_links_api_v1_share_links_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShareState"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/share/resolve": {
+      "get": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Resolve Share",
+        "operationId": "resolve_share_api_v1_share_resolve_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/links": {
+      "get": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Frozen Links",
+        "operationId": "frozen_links_api_v1_views__view_id__links_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/refresh": {
+      "post": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Rebuild",
+        "operationId": "rebuild_api_v1_views__view_id__refresh_post",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/export-metadata": {
+      "get": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Export Metadata",
+        "operationId": "export_metadata_api_v1_views__view_id__export_metadata_get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "json",
+                "csv"
+              ],
+              "type": "string",
+              "default": "json",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/share/embed/{view_id}": {
+      "get": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Embed",
+        "operationId": "embed_api_v1_share_embed__view_id__get",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "common",
+                "native"
+              ],
+              "type": "string",
+              "default": "common",
+              "title": "Mode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/share/viewer": {
+      "get": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Reference Viewer",
+        "operationId": "reference_viewer_api_v1_share_viewer_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/share/assets/{name}": {
+      "get": {
+        "tags": [
+          "sharing"
+        ],
+        "summary": "Asset",
+        "operationId": "asset_api_v1_share_assets__name__get",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "enum": [
+                "player.js",
+                "player.css",
+                "entry.js"
+              ],
+              "type": "string",
+              "title": "Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/views/{view_id}/exports": {
+      "post": {
+        "tags": [
+          "exports"
+        ],
+        "summary": "Submit Export",
+        "operationId": "submit_export_api_v1_views__view_id__exports_post",
+        "parameters": [
+          {
+            "name": "view_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "View Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MovieExportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DerivedAcceptance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/exports/{identifier}": {
+      "get": {
+        "tags": [
+          "exports"
+        ],
+        "summary": "Export Result",
+        "operationId": "export_result_api_v1_exports__identifier__get",
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1195,6 +2291,107 @@
         ],
         "title": "AnalysisRequest"
       },
+      "CoaddRequest": {
+        "properties": {
+          "inputs": {
+            "items": {
+              "$ref": "#/components/schemas/FrameInput"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Inputs"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "coadd-v1",
+            "title": "Contract Version",
+            "default": "coadd-v1"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "detector_composite",
+              "temporal_mean",
+              "weighted_sum"
+            ],
+            "title": "Mode",
+            "default": "detector_composite"
+          },
+          "detector": {
+            "type": "string",
+            "enum": [
+              "D1",
+              "D2",
+              "D3",
+              "D4",
+              "D5",
+              "D6"
+            ],
+            "title": "Detector"
+          },
+          "epoch_window_seconds": {
+            "type": "integer",
+            "maximum": 300.0,
+            "minimum": 0.0,
+            "title": "Epoch Window Seconds",
+            "default": 300
+          },
+          "wavelength_min_um": {
+            "type": "number",
+            "maximum": 5.5,
+            "minimum": 0.7,
+            "title": "Wavelength Min Um",
+            "default": 0.7
+          },
+          "wavelength_max_um": {
+            "type": "number",
+            "maximum": 5.5,
+            "minimum": 0.7,
+            "title": "Wavelength Max Um",
+            "default": 5.5
+          },
+          "minimum_contributors": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "Minimum Contributors",
+            "default": 1
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "inputs",
+          "detector"
+        ],
+        "title": "CoaddRequest"
+      },
+      "ComparisonRequest": {
+        "properties": {
+          "inputs": {
+            "items": {
+              "$ref": "#/components/schemas/FrameInput"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Inputs"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "comparison-v1",
+            "title": "Contract Version",
+            "default": "comparison-v1"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "inputs"
+        ],
+        "title": "ComparisonRequest"
+      },
       "Coordinates": {
         "properties": {
           "ra": {
@@ -1248,6 +2445,72 @@
           "dec"
         ],
         "title": "Coordinates"
+      },
+      "DerivedAcceptance": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status_url": {
+            "type": "string",
+            "title": "Status Url"
+          },
+          "result_url": {
+            "type": "string",
+            "title": "Result Url"
+          },
+          "cache_hit": {
+            "type": "boolean",
+            "title": "Cache Hit"
+          },
+          "cancel_token": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancel Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status_url",
+          "result_url",
+          "cache_hit"
+        ],
+        "title": "DerivedAcceptance"
+      },
+      "DifferenceRequest": {
+        "properties": {
+          "inputs": {
+            "items": {
+              "$ref": "#/components/schemas/FrameInput"
+            },
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Inputs"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "difference-v1",
+            "title": "Contract Version",
+            "default": "difference-v1"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "inputs"
+        ],
+        "title": "DifferenceRequest"
       },
       "DiscoveryPage": {
         "properties": {
@@ -1484,6 +2747,64 @@
         ],
         "title": "DiscoverySearch"
       },
+      "EpochPosition": {
+        "properties": {
+          "ra_deg": {
+            "type": "number",
+            "exclusiveMaximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          },
+          "view_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "View Id"
+          },
+          "index": {
+            "type": "integer",
+            "maximum": 11.0,
+            "minimum": 0.0,
+            "title": "Index"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ra_deg",
+          "dec_deg",
+          "view_id",
+          "index"
+        ],
+        "title": "EpochPosition"
+      },
+      "FrameInput": {
+        "properties": {
+          "view_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "View Id"
+          },
+          "index": {
+            "type": "integer",
+            "maximum": 11.0,
+            "minimum": 0.0,
+            "title": "Index"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "view_id",
+          "index"
+        ],
+        "title": "FrameInput"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -1537,6 +2858,43 @@
           "size_bytes"
         ],
         "title": "MovieArtifact"
+      },
+      "MovieExportRequest": {
+        "properties": {
+          "inputs": {
+            "items": {
+              "$ref": "#/components/schemas/FrameInput"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Inputs"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "export-v1",
+            "title": "Contract Version",
+            "default": "export-v1"
+          },
+          "frame_duration_ms": {
+            "type": "integer",
+            "maximum": 2000.0,
+            "minimum": 100.0,
+            "title": "Frame Duration Ms",
+            "default": 700
+          },
+          "loop": {
+            "type": "boolean",
+            "title": "Loop",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "inputs"
+        ],
+        "title": "MovieExportRequest"
       },
       "MovieFrame": {
         "properties": {
@@ -1926,6 +3284,29 @@
         ],
         "title": "ObservationSearch"
       },
+      "Position": {
+        "properties": {
+          "ra_deg": {
+            "type": "number",
+            "exclusiveMaximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "ra_deg",
+          "dec_deg"
+        ],
+        "title": "Position"
+      },
       "PreparationOptions": {
         "properties": {
           "spectral_mode": {
@@ -2191,6 +3572,34 @@
         ],
         "title": "RectangularRegion"
       },
+      "ShareState": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "const": "share-v1",
+            "title": "Version",
+            "default": "share-v1"
+          },
+          "request": {
+            "$ref": "#/components/schemas/PreparedViewRequest"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "common",
+              "native"
+            ],
+            "title": "Mode",
+            "default": "common"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request"
+        ],
+        "title": "ShareState"
+      },
       "SkyRegion": {
         "properties": {
           "ra_deg": {
@@ -2220,6 +3629,70 @@
           "radius_deg"
         ],
         "title": "SkyRegion"
+      },
+      "SpectrumRequest": {
+        "properties": {
+          "inputs": {
+            "items": {
+              "$ref": "#/components/schemas/FrameInput"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Inputs"
+          },
+          "contract_version": {
+            "type": "string",
+            "const": "spectrum-v1",
+            "title": "Contract Version",
+            "default": "spectrum-v1"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Position"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "epoch_positions": {
+            "items": {
+              "$ref": "#/components/schemas/EpochPosition"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Epoch Positions"
+          },
+          "aperture_radius_pixels": {
+            "type": "number",
+            "maximum": 3.0,
+            "minimum": 1.0,
+            "title": "Aperture Radius Pixels",
+            "default": 2.5
+          },
+          "background_inner_pixels": {
+            "type": "number",
+            "maximum": 8.0,
+            "minimum": 3.5,
+            "title": "Background Inner Pixels",
+            "default": 4
+          },
+          "background_outer_pixels": {
+            "type": "number",
+            "maximum": 12.0,
+            "minimum": 5.0,
+            "title": "Background Outer Pixels",
+            "default": 8
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "inputs"
+        ],
+        "title": "SpectrumRequest"
       },
       "Target": {
         "properties": {

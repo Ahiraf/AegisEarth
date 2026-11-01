@@ -1,6 +1,5 @@
-# Spectra — planned expanded feature
+# Spectra — implemented derived operations
 
-No extraction job/service/route is implemented here. Own coordinate/aperture/per-epoch extraction,
-calibrated flux density/error/unit/wavelength/response/flags, gaps/upper limits and CSV/JSON delivery.
-Use reviewed local photometry/ePSF or a verified documented tool adapter. Do not interpret MJy/sr
-pixels as integrated flux, mix variable epochs or invent full channel coverage. Plan step 8.
+Native point-source PSF-corrected aperture extraction is implemented with exact spherical pixel solid angles, masked/source-excluded background, per-epoch positions and physical uJy JSON/CSV. Real outputs remain diagnostic_only; calibration, CWAVE/CBAND, covariance and deblended-reference acceptance are not fabricated.
+
+[API/method/limits](../../../../docs/derived_operations.md).

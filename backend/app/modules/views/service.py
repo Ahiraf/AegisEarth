@@ -37,7 +37,7 @@ class ViewService:
             tokens,
         )
 
-    def submit(self, request, scope, ip, key):
+    def submit(self, request, scope, ip, key, *, refresh=False):
         canonical = {
             **canonical_query(request.discovery()),
             "contract_version": request.contract_version,
@@ -50,6 +50,8 @@ class ViewService:
         if request.contract_version == "view-v2":
             canonical["preparation"] = request.preparation.model_dump()
             canonical["acquisition_policy"] = "single_release_detector_v1"
+        if refresh:
+            canonical["refresh_requested"] = True
         request_hash, key_hash = digest(canonical), hashlib.sha256(key.encode()).hexdigest()
         replay = self.repository.rpc(
             "view_replay", {"p_scope": scope, "p_key": key_hash, "p_hash": request_hash}
@@ -58,6 +60,10 @@ class ViewService:
             return self.accepted(replay, scope)
         limits = policy(self.settings)
         self.repository.rpc("view_preflight", {"p_scope": scope, "p_ip": ip, "p_policy": limits})
+        if refresh:
+            from app.modules.releases.refresh import refresh as refresh_metadata
+
+            refresh_metadata(self.repository, self.discovery, request.discovery(), self.settings)
         page = self.discovery.search(request.discovery())
         snapshot = self.discovery.repository.find(snapshot_id=page["snapshot_id"])
         available = snapshot["items"]

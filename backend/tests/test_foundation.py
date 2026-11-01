@@ -71,7 +71,7 @@ def test_gateway_readiness_uses_selected_transport_without_native_queries(monkey
 
     class HealthyGateway:
         def rpc(self, method):
-            return {"status": "ready", "schema_revision": "cosmic_0006"}
+            return {"status": "ready", "schema_revision": "cosmic_0008"}
 
         def close(self):
             pass

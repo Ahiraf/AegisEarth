@@ -1,3 +1,5 @@
-# Differencing (planned)
-Produce signed difference, variance/significance and common-coverage artifacts from matched inputs.
-Record conventions and shared masks. A nonzero residual is evidence of change, not proof of motion.
+# Differencing — implemented derived operations
+
+Signed later-minus-earlier subtraction, marginal variance/masks and symmetric signed rendering are implemented, with a strict public eligibility gate. Existing frames-v1 does not provide quantitative calibration/PSF/covariance acceptance, so real requests return an ineligible report instead of a fabricated difference image.
+
+[API/method/limits](../../../../docs/derived_operations.md).

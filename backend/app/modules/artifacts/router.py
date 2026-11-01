@@ -75,9 +75,13 @@ def artifact_content(artifact_id: UUID, repository: Repository, request: Request
             close()
 
     content_type = record.get("content_type", "application/fits")
-    suffix = {"image/png": "png", "application/json": "json", "application/fits": "fits"}[
-        content_type
-    ]
+    suffix = {
+        "image/png": "png",
+        "application/json": "json",
+        "application/fits": "fits",
+        "text/csv": "csv",
+        "image/gif": "gif",
+    }[content_type]
     return StreamingResponse(
         chunks(),
         media_type=content_type,
@@ -113,7 +117,13 @@ def science_image(stream):
 @router.get("/{artifact_id}/science.fits")
 def aladin_science(artifact_id: UUID, repository: Repository, request: Request):
     record = record_or_404(repository, artifact_id)
-    if record.get("kind") not in ("common_grid_planes", "temporal_bin_planes"):
+    if record.get("kind") not in (
+        "common_grid_planes",
+        "temporal_bin_planes",
+        "coadd_planes",
+        "difference_planes",
+        "source_common_grid",
+    ):
         raise HTTPException(422, detail={"code": "prepared_common_grid_fits_required"})
     if not DOWNLOAD_SLOTS.acquire(blocking=False):
         raise HTTPException(429, detail={"code": "download_busy"}, headers={"Retry-After": "5"})

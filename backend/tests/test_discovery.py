@@ -235,6 +235,31 @@ def test_cache_pagination_revalidation_and_immutable_products(service):
     assert db.scalar(select(func.count()).select_from(DiscoverySnapshot)) == 2
 
 
+def test_explicit_refresh_observes_new_data_preserves_frozen_snapshot(service):
+    service.ttl_seconds = 1800
+    original = service.search(request())
+    frozen = copy.deepcopy(service.repository.find(snapshot_id=original["snapshot_id"]))
+    old = service.provider
+
+    class NewProvider:
+        def search(self, collection, params):
+            rows, receipt = old.search(collection, params)
+            added = copy.deepcopy(rows[0])
+            added["id"] = "c" * 64
+            added["exposure_key"] += "-new"
+            return [*rows, added], receipt
+
+    service.provider = NewProvider()
+    assert service.search(request())["sampled_count"] == 3
+    new = service.search(request(), force=True)
+    assert new["sampled_count"] == 4 and new["snapshot_id"] != original["snapshot_id"]
+    assert service.repository.find(snapshot_id=original["snapshot_id"]) == frozen
+    assert (
+        datetime.fromisoformat(new["revalidate_after_utc"])
+        - datetime.fromisoformat(new["created_at_utc"])
+    ).total_seconds() == 1800
+
+
 def test_empty_partial_and_total_failure_not_confused(service):
     class PartialProvider:
         def search(self, collection, params):

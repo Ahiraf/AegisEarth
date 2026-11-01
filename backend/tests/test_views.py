@@ -463,3 +463,271 @@ def test_prepared_and_raw_cleanup_share_one_ordered_cursor(context):
     assert not store.path(key).exists() and store.path(raw["storage_key"]).exists()
     second = cleanup(session, store, settings, limit=1, cursor=first["next_cursor"])
     assert second["objects_deleted"] == 1 and not store.path(raw["storage_key"]).exists()
+
+
+def derived_fixture(context):
+    from app.modules.preprocessing.models import PreparedArtifact, PreparedFrameSet
+
+    session, settings, svc = context
+    view, raw, _ = publish(svc, settings)
+    plane = {
+        "id": str(uuid4()),
+        "view_id": view["id"],
+        "sha256": "b" * 64,
+        "size_bytes": 10,
+        "content_type": "application/fits",
+        "kind": "common_grid_planes",
+        "source_product_ids": [raw["product_id"]],
+        "storage_key": raw["storage_key"].replace(raw["sha256"], "b" * 64),
+    }
+    meta = {
+        "index": 0,
+        "product_id": raw["product_id"],
+        "raw_artifact_id": raw["id"],
+        "detector": "D2",
+        "artifact_indices": {"planes": 0},
+    }
+    report = {
+        "version": "frames-v1",
+        "frames": [meta],
+        "grid": {"header": "test", "shape": [2, 2]},
+        "artifacts": [plane],
+    }
+    session.add(
+        PreparedArtifact(
+            id=plane["id"], view_id=view["id"], payload=plane, published=True, storage_deleted=False
+        )
+    )
+    session.add(PreparedFrameSet(view_id=view["id"], report=report))
+    session.commit()
+    return view, raw, report
+
+
+def test_derived_jobs_share_idempotency_claim_cancellation_and_parent_isolation(context):
+    from uuid import UUID
+
+    from app.modules.analyses.derived_service import submit as derived_submit
+    from app.modules.coadds.schemas import CoaddRequest
+
+    session, settings, svc = context
+    parent, _raw, report = derived_fixture(context)
+    query = CoaddRequest(inputs=[{"view_id": parent["id"], "index": 0}], detector="D2")
+    key = str(uuid4())
+    scope = "c" * 64
+
+    def accept(query=query, key=key):
+        return derived_submit(
+            svc.repository,
+            DiscoveryRepository(session),
+            UUID(parent["id"]),
+            query,
+            "coadd",
+            settings,
+            PublicTokens(settings),
+            scope,
+            "d" * 64,
+            key,
+        )
+
+    first, status = accept()
+    assert status == 202
+    replay, status = accept()
+    assert status == 200 and replay["id"] == first["id"]
+    with pytest.raises(GatewayConflict):
+        accept(query.model_copy(update={"detector": "D3"}))
+    job = claim(svc.repository)
+    assert job["kind"] == "coadd" and job["config"]["derived"]["kind"] == "coadd"
+    assert job["config"]["sources"][0]["metadata"] == report["frames"][0]
+    svc.repository.rpc(
+        "view_cancel", {"p_id": first["id"], "p_digest": token_digest(first["cancel_token"])}
+    )
+    assert svc.repository.rpc("view_get", {"p_id": first["id"]})["status"] == "canceled"
+    assert svc.repository.rpc("view_get", {"p_id": parent["id"]})["status"] == "succeeded"
+    assert svc.repository.rpc("frame_set_get", {"p_id": parent["id"]}) == report
+    with pytest.raises(GatewayConflict):
+        svc.repository.rpc("view_heartbeat", {"p_id": first["id"], "p_token": job["lease_token"]})
+
+
+def test_derived_admission_rejects_forged_source_before_creating_a_job(context):
+    from app.modules.views.service import policy
+
+    session, settings, svc = context
+    parent, raw, report = derived_fixture(context)
+    product = DiscoveryRepository(session).find(product_id=raw["product_id"])
+    canonical = {"contract_version": "derived-v1", "kind": "coadd", "primary_view_id": parent["id"]}
+    source = {
+        "ref": {"view_id": parent["id"], "index": 0},
+        "metadata": report["frames"][0],
+        "raw": raw,
+        "planes": report["artifacts"][0] | {"sha256": "c" * 64},
+    }
+    config = {
+        "derived": canonical,
+        "sources": [source],
+        "products": [product],
+        "limits": policy(settings),
+    }
+    before = session.scalar(select(func.count()).select_from(ViewSubmission))
+    with pytest.raises(GatewayConflict):
+        svc.repository.rpc(
+            "derived_submit",
+            {
+                "p_id": str(uuid4()),
+                "p_scope": "c" * 64,
+                "p_ip": "d" * 64,
+                "p_key": "e" * 64,
+                "p_hash": "f" * 64,
+                "p_digest": "1" * 64,
+                "p_canonical": canonical,
+                "p_parents": [{"id": parent["id"], "report": report}],
+                "p_config": config,
+                "p_policy": policy(settings),
+            },
+        )
+    assert session.scalar(select(func.count()).select_from(ViewSubmission)) == before
+
+
+def test_derived_source_retention_covers_queue_deadline(context):
+    from uuid import UUID
+
+    from fastapi import HTTPException
+
+    from app.modules.analyses.derived_service import submit as derived_submit
+    from app.modules.coadds.schemas import CoaddRequest
+
+    session, settings, svc = context
+    parent, _, _ = derived_fixture(context)
+    session.execute(
+        text("UPDATE sky_views SET expires_at=now()+interval '5 minutes' WHERE id=:id"),
+        {"id": parent["id"]},
+    )
+    session.commit()
+    query = CoaddRequest(inputs=[{"view_id": parent["id"], "index": 0}], detector="D2")
+    with pytest.raises(HTTPException) as error:
+        derived_submit(
+            svc.repository,
+            DiscoveryRepository(session),
+            UUID(parent["id"]),
+            query,
+            "coadd",
+            settings,
+            PublicTokens(settings),
+            "c" * 64,
+            "d" * 64,
+            str(uuid4()),
+        )
+    assert (
+        error.value.status_code == 409
+        and error.value.detail["code"] == "source_retention_too_short_resubmit_view"
+    )
+
+
+def test_refresh_lease_cooldown_and_fencing(context):
+    _session, _settings, svc = context
+    key = hashlib.sha256(str(uuid4()).encode()).hexdigest()
+    repository = svc.repository
+    receipt = repository.rpc("release_refresh_claim", {"p_hash": key, "p_cooldown": 300})
+    assert receipt["claimed"]
+    assert not repository.rpc("release_refresh_claim", {"p_hash": key, "p_cooldown": 300})[
+        "claimed"
+    ]
+    with pytest.raises(GatewayConflict):
+        repository.rpc(
+            "release_refresh_finish",
+            {"p_hash": key, "p_token": str(uuid4()), "p_report": {"status": "checked"}},
+        )
+    repository.rpc(
+        "release_refresh_finish",
+        {
+            "p_hash": key,
+            "p_token": receipt["token"],
+            "p_report": {"status": "checked", "snapshot_id": str(uuid4())},
+        },
+    )
+    replay = repository.rpc("release_refresh_claim", {"p_hash": key, "p_cooldown": 300})
+    assert not replay["claimed"] and replay["payload"]["status"] == "checked"
+    assert any(item["query_hash"] == key for item in repository.rpc("release_refresh_status"))
+
+
+def test_export_uses_shared_job_admission_and_gif_upload_ledger(context):
+    from uuid import UUID
+
+    from app.modules.analyses.derived_service import submit as derived_submit
+    from app.modules.artifacts.export_router import MovieExportRequest
+
+    session, settings, svc = context
+    parent, _, _ = derived_fixture(context)
+    query = MovieExportRequest(inputs=[{"view_id": parent["id"], "index": 0}])
+    receipt, status = derived_submit(
+        svc.repository,
+        DiscoveryRepository(session),
+        UUID(parent["id"]),
+        query,
+        "export",
+        settings,
+        PublicTokens(settings),
+        "c" * 64,
+        "d" * 64,
+        str(uuid4()),
+    )
+    assert status == 202 and receipt["result_url"] == f"/api/v1/exports/{receipt['id']}"
+    job = claim(svc.repository)
+    assert job["kind"] == "export"
+    file = {
+        "id": str(uuid4()),
+        "view_id": job["id"],
+        "sha256": "a" * 64,
+        "size_bytes": 50,
+        "content_type": "image/gif",
+        "kind": "movie_gif",
+        "source_product_ids": [p["id"] for p in job["config"]["products"]],
+        "storage_key": f"objects/{job['id']}/{job['lease_token']}/" + "a" * 64 + ".gif",
+    }
+    assert svc.repository.rpc(
+        "prepare_frame_upload", {"p_id": job["id"], "p_token": job["lease_token"], "p_file": file}
+    )["prepared"]
+
+
+def test_explicit_refresh_retry_replays_before_any_discovery(context):
+    _session, _settings, svc = context
+    key = str(uuid4())
+    receipt, status = svc.submit(request(), "a" * 64, "b" * 64, key, refresh=True)
+    assert status == 202
+    svc.discovery = None
+    replay, status = svc.submit(request(), "a" * 64, "b" * 64, key, refresh=True)
+    assert status == 200 and replay["id"] == receipt["id"]
+
+
+def test_admin_refresh_requires_configured_secret_and_records_result(context, monkeypatch):
+    from app.modules.views.router import get_view_repository
+
+    _session, settings, svc = context
+    settings.refresh_admin_token = __import__("pydantic").SecretStr("local-test-admin-secret-" * 3)
+    monkeypatch.setattr("app.modules.releases.router.get_settings", lambda: settings)
+    app.dependency_overrides[get_view_repository] = lambda: svc.repository
+    app.dependency_overrides[get_discovery_service] = lambda: svc.discovery
+    try:
+        with TestClient(app) as client:
+            query = request().discovery().model_dump(mode="json")
+            assert client.post("/api/v1/releases/refresh", json=query).status_code == 403
+            assert (
+                client.post(
+                    "/api/v1/releases/refresh",
+                    json=query,
+                    headers={"Authorization": "Bearer wrong"},
+                ).status_code
+                == 403
+            )
+            response = client.post(
+                "/api/v1/releases/refresh",
+                json=query,
+                headers={
+                    "Authorization": "Bearer " + settings.refresh_admin_token.get_secret_value()
+                },
+            )
+            assert response.status_code == 200 and response.json()["status"] in {
+                "checked",
+                "cooldown",
+            }
+    finally:
+        app.dependency_overrides.clear()

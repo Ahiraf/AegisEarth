@@ -19,7 +19,7 @@ you integrate the supplied inference package later. No commit/push without expli
 Existing: health/config, strict request scaffolds, initial seven-table migration plus additive processing-job
 migration/RPCs, curated GET /targets, disabled eleven-stage registry, QR2/QR3 inspection and engineering
 compatibility helpers. Live discovery and durable input acquisition/worker are implemented in steps 2–3;
-view-v2 frame preparation is implemented in step 4. Step 5 movie delivery and an isolated React/Aladin handoff are locally verified; frontend handoff is user-accepted; coadds/spectra/overlays and public deployment remain pending. The old 2–6 observation analysis request is not a viewer API.
+view-v2 frame preparation is implemented in step 4. Step 5 movie delivery and an isolated React/Aladin handoff are locally verified; frontend handoff is user-accepted; coadd/spectrum job delivery is implemented; science-grade acceptance, overlays and public deployment remain pending. The old 2–6 observation analysis request is not a viewer API.
 The 26 October M101 QR2 proof (36.394305-day repeat, 353/400 usable common pixels) remains a useful
 control. It does not validate the five challenge targets, QR3, photometry or moving-source detection.
 
@@ -187,60 +187,85 @@ coverage/sensitivity limitations remain explicit, not relabeled as successful di
 
 ## 7. Six detector composites, add and subtract (`bands`, `coadds`, `differencing`)
 
-- [ ] Offer D1–D6 per-epoch composites with fixed documented wavelength support/weighting and contributor maps.
-- [ ] Implement variance-aware weighted means for calibrated intensity, or clearly labeled weighted sums;
-      retain count/coverage/effective-response/uncertainty maps and invalid-pixel masks.
-- [ ] Add across selected epochs as a distinct product; retain the original movie and warn that long
-      sky-fixed stacks smear movers and dilute variability. Do not coadd changing spectral coverage silently.
-- [ ] Gate signed later-minus-earlier differences on wavelength, registration, background, calibration and
-      PSF/ePSF support. Return reasons for ineligible pairs while allowing original-image inspection.
-- [ ] Export coadd/difference/mask/variance previews and FITS with units and lineage.
-- [ ] Test analytic flux/variance, static fields, injected shifts, variables, PSF/response changes and masks.
+- [x] Offer D1–D6 detector/epoch composites with fixed requested wavelength windows and per-input weight/support maps.
+- [x] Implement inverse-variance intensity means and explicitly count-scaled weighted sums; export masks,
+      variance, count, coverage, exposure, wavelength proxies and contributor maps/FITS lineage.
+- [x] Make explicit temporal stacks distinct from the movie; reject changing local spectral/calibration
+      support and preserve motion-smearing/variability warnings. Coadd epoch previews share one stretch.
+- [x] Implement signed later-minus-earlier numerical subtraction and operation-specific response,
+      registration, PSF/background/calibration/covariance gates. Unsupported real pairs return reasons.
+- [x] Export FITS/PNG/JSON products and preserve verified raw/common-grid inputs under child retention.
+- [x] Test analytic means/variance, shifts, variables, masks, PSF/response rejection, source integrity,
+      shared quotas/idempotency, fenced cancellation and native/HTTPS publication.
+- [ ] Enable science-grade real subtraction only after matched-response/PSF, independent registration,
+      CWAVE/CBAND/background/photometry/covariance acceptance exists. Existing frames-v1 is not certified.
 
-Exit: all six detector options and image addition/subtraction work on eligible inputs, with honest failures.
+Backend delivery: [implementation/React contract](docs/derived_operations.md),
+[executed derived-job evidence](docs/verification/derived_operations.json). All six options are offered;
+source acquisition availability/failures are recorded separately rather than manufactured into success.
+The signed numerical engine is verified on controlled eligible inputs; public real-data subtraction
+correctly remains ineligible under the current preparation's scientific limits.
+
+Exit: bounded combination/export workflows are implemented and tested; real science-grade difference
+acceptance remains the explicit checkbox above. Display readiness is not calibration approval.
 
 ## 8. On-demand spectra and brightness evidence (`spectra`)
 
-- [ ] Add a clicked-coordinate/aperture spectrum job scoped to selected epoch groups, with wavelength,
-      calibrated flux-density unit, errors, bandwidth/response, quality flags and contributors.
-- [ ] Check official SPHEREx spectrophotometry tooling first; use a documented callable interface if suitable,
-      otherwise a reviewed local photometry/ePSF method. A GUI link is not a verified API.
-- [ ] Validate background, PSF/aperture correction, pixel solid angle and calibration; MJy/sr pixels are not
-      integrated source flux. Flag blends, extended sources, saturation and missing channels.
-- [ ] Keep variable-source epochs separate and use explicit per-epoch positions for moving-source extraction.
-- [ ] Return only available samples/defensible upper limits; never interpolate missing channels into a fake 102-point spectrum.
-- [ ] Provide plot-ready JSON/CSV and per-epoch brightness comparisons; test against appropriate reference extractions.
+- [x] Add bounded clicked-coordinate/aperture jobs with explicit input epochs or per-epoch positions;
+      return physical flux-density/error units, wavelength/width proxies, flags and source lineage.
+- [x] Inspect official SPHEREx spectrophotometry guidance. No documented callable submission API was
+      verified; implement/test a local point-source PSF-corrected aperture method in diagnostic mode.
+- [x] Implement strict native masks, source-excluded background, spatial QR3 ePSF/guarded QR2 PSF,
+      exact spherical pixel solid angles and aperture correction. MJy/sr sums are never called source flux.
+- [x] Keep variable epochs separate, require complete supplied moving-source positions, flag potential
+      blends/extended-source assumptions/saturation and preserve unavailable samples as null.
+- [x] Return measured sparse samples only, no invented upper limits and no fake 102-channel interpolation.
+- [x] Provide plot-ready JSON/CSV plus gated brightness-comparison metadata; verify flux conversion
+      against an independent pixel-integrated Gaussian reference and real native-data outputs.
+- [ ] Complete absolute calibration/response/covariance and deblended reference-extraction acceptance
+      before promoting diagnostic samples to science-grade spectra or calibrated variability claims.
 
-Exit: on-demand spectra are usable and inspectable, with method/coverage/uncertainty limits.
+Backend delivery: [spectrum method and API](docs/derived_operations.md) and
+[executed data/CSV evidence](docs/verification/derived_operations.json). Diagnostic fluxes are physical
+unit conversions with explicit approximate errors, not externally validated research spectra.
+
+Exit: on-demand extraction/export is usable and inspectable; the scientific acceptance gate above
+remains honest. Model training and the researcher's inference package are not prerequisites.
 
 ## 9. Gaia and WISE overlays (`overlays`)
 
-- [ ] Implement bounded Gaia DR3 TAP queries and WISE catalog/image discovery using current IRSA schemas.
-- [ ] Retain survey epoch/time span, band, coordinate frame, errors, flags, IDs and attribution.
-- [ ] Propagate positions only with known reference epoch/proper motion and correct pmRA*cos(dec) convention;
+- [x] Implement bounded Gaia DR3 TAP queries and WISE catalog/image discovery using current IRSA schemas.
+- [x] Retain survey epoch/time span, band, coordinate frame, errors, flags, IDs and attribution.
+- [x] Propagate positions only with known reference epoch/proper motion and correct pmRA*cos(dec) convention;
       label missing astrometry/parallax/apparent-position limits. Predictions are not SPHEREx detections.
-- [ ] Serve Gaia markers and WISE W1/W2 image/catalog context in a tested common sky/pixel mapping;
-      React supplies toggles/opacity/legends, optionally through Aladin.
-- [ ] Label deep coadds by time span; do not substitute WISE for missing SPHEREx movie frames or compare
+- [x] Serve Gaia markers and WISE W1/W2 image/catalog context in a tested common sky/pixel mapping;
+      backend reference supplies toggles/opacity/legends; production React consumes the documented contract.
+- [x] Label deep coadds by time span; do not substitute WISE for missing SPHEREx movie frames or compare
       unlike surveys quantitatively without separate validation.
-- [ ] Test high-proper-motion mismatches, empty layers, PSF differences, provider outages and CORS.
+- [x] Test high-proper-motion mismatches, empty layers, PSF differences, provider outages and CORS.
 
-Exit: both Gaia and WISE context are usable; overlay failure does not break core SPHEREx playback.
+Backend/local exit: Gaia and WISE catalog/image context are usable; optional-layer failures do not
+break SPHEREx playback. See [context/sharing contract](docs/context_sharing.md). Production React
+integration of these new controls and actual public-host acceptance remain step 11.
 
 ## 10. Latest releases, coordinate URLs, embedding and exports (`releases`, `views`, `artifacts`)
 
-- [ ] Add bounded scheduled/admin refresh, configurable TTL, last-checked time and source registry version;
+- [x] Implement bounded admin refresh and an external-scheduler CLI, configurable TTL, last-checked time and source registry version;
       account for IRSA ingestion/SIA lag and new release schema/PSF/calibration validation.
-- [ ] Freeze published view manifests; rebuild explicitly for latest data and deduplicate reprocessed exposures.
-- [ ] Define versioned frontend query URLs (RA/Dec/FOV/dates/band/mode) plus immutable view-ID links;
+- [x] Freeze published view manifests; rebuild explicitly for latest data and deduplicate reprocessed exposures.
+- [x] Define versioned frontend query URLs (RA/Dec/FOV/dates/band/mode) plus immutable view-ID links;
       backend returns canonical normalized state. Reopening restores choices within resource quotas.
-- [ ] Coordinate an embeddable route/iframe policy, validated URL parameters, framing/CORS and accessibility
-      with React. Test both coordinate links and actual embedding in a second site.
-- [ ] Export metadata/spectrum JSON/CSV and derived FITS; add bounded asynchronous GIF/MP4 export with
+- [x] Deliver the embeddable route/iframe policy, validated URL parameters, framing/CORS and accessible
+      reference handoff for React. Test coordinate restore and actual embedding in a second local site.
+- [x] Export metadata/spectrum JSON/CSV and derived FITS; add bounded asynchronous GIF export with
       date/band/quality captions and provenance sidecar if useful to submission.
-- [ ] Verify refresh discovers new eligible data without changing frozen links; share/restore/export preserve credits.
+- [x] Verify refresh discovers new eligible data without changing frozen links; share/restore/export preserve credits.
 
-Exit: every potential consideration has implementation and acceptance evidence, not just planning coverage.
+Backend/local exit: refresh, state links, reference embedding and GIF/metadata exports have implementation
+and verification evidence. [API/job evidence](docs/verification/context_sharing.json) and
+[browser evidence](docs/verification/context_browser.json) distinguish real data from simulated failures.
+The external scheduler is prepared, not provisioned; production React/public deployment remain step 11.
+Unfinished step-7/8 scientific acceptance is not erased by completing these backend features.
 
 ## 11. Reliability, Hugging Face and expanded release (`health`, deployment)
 

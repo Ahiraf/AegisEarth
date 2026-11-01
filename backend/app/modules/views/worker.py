@@ -132,7 +132,9 @@ def process_job(repository, job, settings):
                 for receipt in payload["files"]:
                     name = receipt["path"]
                     if not re.fullmatch(
-                        r"(?:(?:native|common|bin)_\d+\.png|(?:planes|bin)_\d+\.fits|preparation_report\.json)",
+                        r"(?:(?:native|common|bin)_\d+\.png|(?:planes|bin)_\d+\.fits|preparation_report\.json)"
+                        if not job["config"].get("derived")
+                        else r"(?:input_\d+\.fits|result_\d+\.(?:png|fits)|spectrum\.csv|derived_report\.json|movie\.gif|export_provenance\.json)",
                         name,
                     ):
                         raise WorkerLimit("invalid_prepared_path")
@@ -167,7 +169,7 @@ def process_job(repository, job, settings):
         if time.monotonic() - started > limits["wall_seconds"]:
             raise WorkerLimit("wall_time_exceeded")
         repository.rpc("view_heartbeat", parameters)
-        if job["config"].get("preparation"):
+        if job["config"].get("preparation") or job["config"].get("derived"):
             if prepared is None:
                 raise WorkerLimit("missing_preparation_result")
             repository.rpc(

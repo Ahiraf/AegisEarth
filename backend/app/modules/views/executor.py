@@ -12,6 +12,10 @@ from app.modules.observations.provider import ProviderError
 
 
 def execute(job, root):
+    if job["config"].get("derived"):
+        from app.modules.analyses.derived_executor import execute as execute_derived
+
+        return execute_derived(job, root)
     total = 0
     limits = job["config"]["limits"]
     products = job["config"]["products"]

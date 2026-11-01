@@ -100,3 +100,22 @@ and prepared_artifacts with fenced atomic raw/derived publication and bounded me
 Existing v1 jobs are preserved. API and native worker images include SciPy/Pillow; the official
 R7 catalog is packaged with source member hashes. Step 5 now adds [frozen movie delivery](movie_delivery.md) and a locally verified React/Aladin handoff.
 Quantitative operations, cloud deployment and scientific target-recovery sign-off remain later gates.
+
+## Steps 7–8 implementation update
+
+[Derived jobs](derived_operations.md) now reuse shared admission/lease/cancellation/retention and the
+raw/prepared artifact ledger. Additive cosmic_0007 adds guarded derivative admission, CSV publication
+and typed coadd/spectrum/difference routes without resetting tables. Coadds and physical-unit sparse
+spectra are implemented; actual frames-v1 differences remain blocked by missing quantitative science
+acceptance. Diagnostic extraction is not validated spectrophotometry. Public cloud deployment and
+scientific calibration/reference acceptance remain separate gates.
+
+
+## Steps 9–10 implementation update — 2 November 2026
+
+[Survey context and sharing](context_sharing.md) implement bounded Gaia DR3/AllWISE markers and W1/W2
+images, actual epoch/WCS/quality/attribution, coordinate-state links, finite frozen IDs, reference iframe
+delivery, explicit metadata refresh and durable GIF exports. `cosmic_0008` adds `release_refresh_checks`
+for fenced per-query metadata checks; export jobs reuse the existing job/upload/retention protocol.
+Optional context uses a bounded process-local cache; it never mutates a published SPHEREx movie.
+New production React controls, external scheduler operation and public-host acceptance remain separate.

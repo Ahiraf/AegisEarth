@@ -37,7 +37,7 @@ def movie_record(repository, view_id):
     record = repository.rpc("movie_lookup", {"p_id": str(view_id)})
     if not record:
         report = repository.rpc("frame_set_get", {"p_id": str(view_id)})
-        if report is None:
+        if report is None or report.get("version") != "frames-v1":
             raise HTTPException(409, detail={"code": "prepared_view_required"})
         payload = build_movie(view, report)
         record = repository.rpc(

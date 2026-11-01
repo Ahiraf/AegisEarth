@@ -30,7 +30,7 @@ def ready(db: Annotated[Session, Depends(get_db)]):
         try:
             gateway = GatewayRepository(settings)
             result = gateway.rpc("readiness")
-            if result != {"status": "ready", "schema_revision": "cosmic_0006"}:
+            if result != {"status": "ready", "schema_revision": "cosmic_0008"}:
                 raise GatewayError("schema_not_ready")
         except (GatewayError, ValueError, OSError):
             logging.getLogger(__name__).warning("Gateway/database readiness failed")
@@ -45,7 +45,7 @@ def ready(db: Annotated[Session, Depends(get_db)]):
         db.execute(select(ProcessingJob.id).limit(1))
         if (
             db.execute(text("SELECT version_num FROM alembic_version")).scalar_one()
-            != "cosmic_0006"
+            != "cosmic_0008"
         ):
             raise SQLAlchemyError("schema_not_ready")
     except SQLAlchemyError:

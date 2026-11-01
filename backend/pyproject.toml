@@ -35,7 +35,7 @@ cosmic-worker = "app.modules.views.worker:main"
 include = ["app*"]
 
 [tool.setuptools.package-data]
-app = ["modules/analyses/*.sql", "modules/observations/*.sql", "modules/views/*.sql", "modules/preprocessing/*.sql", "modules/bands/*.json", "modules/targets/*.json"]
+app = ["modules/analyses/*.sql", "modules/observations/*.sql", "modules/views/*.sql", "modules/preprocessing/*.sql", "modules/bands/*.json", "modules/targets/*.json", "modules/releases/*.sql", "modules/views/embed/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

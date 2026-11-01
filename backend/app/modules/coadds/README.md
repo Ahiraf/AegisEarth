@@ -1,6 +1,5 @@
-# Coadds — planned expanded feature
+# Coadds — implemented derived operations
 
-No coadd service/executor is implemented here. Own D1–D6 per-epoch composites and explicit selected-
-epoch addition/weighted means, with units, response/weight/count/variance/coverage and contributor lineage.
-Temporal stacks are separate from the movie; label motion smearing and variability dilution.
-Plan step 7; use calibrated arrays/masks, not previews, and operation-specific compatibility policies.
+Detector/epoch composites and explicit temporal means/count-scaled sums are implemented in schemas/router/pipeline/processing modules. All six selectors expose actual sample availability; exports include coefficient/count/variance/coverage/exposure/WCS and contributor maps. Shared stretch preserves displayed differences. These are display products, not validated monochromatic photometry.
+
+[API/method/limits](../../../../docs/derived_operations.md).

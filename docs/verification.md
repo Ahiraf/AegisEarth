@@ -1,5 +1,69 @@
 # Backend foundation and data-path verification
 
+## Steps 9–10 backend and local reference delivery — 2 November 2026
+
+- **169 backend tests passed** on disposable PostgreSQL 17, including cosmic_0008 upgrade/drift/
+  downgrade, new-input discovery without changing old snapshots, refresh lease/cooldown/fencing and
+  outage-independent idempotent retries, admin authorization, GIF admission/publication, proper-motion
+  cos(dec)/RA wrap/missing-astrometry cases, empty-versus-unavailable catalogs, WCS/PNG orientation,
+  WISE reprojection/masks, provider body/redirect limits and full coordinate-state round trips.
+  The existing Starlette/httpx deprecation warning remains.
+- [Live API/worker evidence](verification/context_sharing.json) records real Gaia DR3 and AllWISE
+  catalog records, W1/W2 image cutouts reprojected onto the selected SPHEREx frame, CORS and source/
+  output hashes, captioned GIF/provenance artifacts, metadata JSON/CSV, a new refreshed snapshot/view
+  with its old manifest unchanged, and restricted authenticated HTTPS refresh-status parity.
+- Actual IRSA transient failures are retained with bounded retry receipts. The initial WISE parser
+  failure was traced to the documented default gzip response; requests now explicitly use
+  `gzip=false` with an uncompressed byte bound and a regression test. No compressed body is silently
+  treated as a FITS image. Provider unavailability remains separate from no coverage.
+  Capped catalogs prioritize nearest native positions using IRSA's supported SELECT alias + ORDER BY
+  syntax; its returned DISTANCE value is explicitly named in arcseconds. A regression test guards the
+  query contract, and live/browser checks require markers inside the displayed patch.
+- [Browser evidence](verification/context_browser.json) verifies an actual iframe at a second local
+  origin, real images/catalog toggles/W2 opacity and epoch legend, keyboard stepping/paused start,
+  fresh-browser coordinate restore without an automatic job, and a saved-ID link reopening the movie.
+  A separately simulated overlay outage preserves playback. No unhandled browser errors were observed.
+- [Embed screenshot](verification/context_embed.png) and [captioned export frame](verification/export_preview.png)
+  were inspected. Small GIF previews use disclosed nearest-neighbor enlargement; original science
+  grids remain in provenance. The native external-scheduler CLI also ran locally and produced a checked
+  metadata snapshot; this does not provision a scheduled cloud runner.
+- Ruff lint/format, Python dependency consistency, OpenAPI/document links, JavaScript syntax and local
+  Docker build/runtime checks passed. SRS/README/todo/API/pipeline/data/deployment/feature docs now
+  link the [current limits and React handoff](context_sharing.md). Production frontend files remain unchanged.
+
+All context markers are catalog positions/predictions, not SPHEREx detections. WISE coadds keep their
+own time spans/bands/PSF/display scaling and never substitute for missing SPHEREx frames. Archive caps
+still limit completeness. Production React integration of the new controls, public hosting/embedding,
+external scheduler operation and step-7/8 scientific acceptance remain separate gates. No commit/push
+or cloud resource provisioning is performed by this task.
+
+## Steps 7–8 backend delivery — 1 November 2026
+
+- **149 backend tests passed** against disposable PostgreSQL 17, including cosmic_0007 upgrade,
+  drift/downgrade, all six detector selectors, independent Gaussian flux recovery, variance/masks,
+  shared display stretch/exposure maps, signed static/variable/shift controls, scientific rejection
+  gates, immutable-source admission, idempotency, cancellation and source-retention bounds.
+  The existing Starlette/httpx deprecation warning remains. A long Windows temporary path caused
+  artifact-path failures; the successful run uses `--basetemp=../var/t78` within the workspace.
+- [Executed jobs and exports](verification/derived_operations.json) record real native-data coadds,
+  three separate-epoch diagnostic flux samples, CSV/FITS/PNG hash checks, unchanged parent movies,
+  authenticated HTTPS admission/publication, absent-detector no-data and rejected temporal/difference
+  operations. [Detector acquisition evidence](verification/detector_inputs.json) retains failures.
+- D1/D2/D5/D6 display outputs were exercised using retained real source views. Fresh D3/D4 QR3 and
+  QR2 downloads exceeded the existing byte budget; six-detector live coverage is **not** claimed.
+  The detector proofs use separate sky fields, not one combined six-detector image.
+- [Shared-stretch coadd preview](verification/coadd_preview.png) and
+  [sparse diagnostic samples](verification/spectrum_samples.png) were generated and visually inspected.
+  Count-one images claim no coaddition signal-to-noise gain; epochs and wavelength proxies stay separate.
+- Ruff lint/format, Python dependency consistency and OpenAPI/document links were checked. The local
+  API/worker containers were rebuilt. The feature-based [API/method contract](derived_operations.md),
+  SRS, README and todo plan distinguish available backend behavior from scientific acceptance.
+
+Real differences remain ineligible without quantitative response, independently validated registration,
+PSF/background/photometric and covariance support. Real extracted fluxes are `diagnostic_only`; external
+reference-extraction, CWAVE/CBAND and absolute calibration acceptance remain open. No model training,
+production frontend edits, cloud deployment, external scientific sign-off, commit or push is implied.
+
 ## Step 6 executed — 1 November 2026
 
 - **133 backend tests passed** on disposable PostgreSQL 17. New numerical controls preserve intensity
