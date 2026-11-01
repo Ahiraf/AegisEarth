@@ -1,9 +1,21 @@
 {
-  "name": "cosmic-motion-player-handoff",
+  "name": "aegisearth-player-handoff",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "scripts": {"dev": "vite --host 127.0.0.1 --port 15173 --strictPort", "build": "vite build", "verify": "node verify.mjs"},
-  "dependencies": {"aladin-lite": "3.8.1", "react": "19.0.0", "react-dom": "19.0.0"},
-  "devDependencies": {"vite": "6.4.1", "@playwright/test": "1.56.1"}
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 15173 --strictPort",
+    "build": "vite build",
+    "verify": "node verify.mjs",
+    "verify:targets": "node verify-targets.mjs"
+  },
+  "dependencies": {
+    "aladin-lite": "3.8.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "vite": "6.4.1",
+    "@playwright/test": "1.56.1"
+  }
 }

@@ -9,7 +9,7 @@ def test_liveness_and_pipeline_transparency():
     with TestClient(app) as client:
         assert client.get("/api/v1/health/live").json() == {"status": "ok"}
         capabilities = client.get("/api/v1/system/capabilities").json()
-        assert capabilities["service"] == "Cosmic Motion AI"
+        assert capabilities["service"] == "AegisEarth"
         assert capabilities["pipeline"]["execution_available"] is False
         assert len(capabilities["pipeline"]["stages"]) == 11
         assert client.get("/api/v1/neos").status_code == 404
@@ -27,7 +27,7 @@ def test_analysis_contract_and_unimplemented_execution():
 
 def test_openapi_exposes_new_scope_only():
     schema = app.openapi()
-    assert schema["info"]["title"] == "Cosmic Motion AI API"
+    assert schema["info"]["title"] == "AegisEarth API"
     assert "/api/v1/observations/search" in schema["paths"]
     assert "/api/v1/analyses" in schema["paths"]
     assert "/api/v1/neos" not in schema["paths"]

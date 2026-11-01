@@ -1,6 +1,6 @@
 # Project working instructions
 
-- Current product: Cosmic Motion AI, a backend for a public coordinate-driven SPHEREx sky time viewer.
+- Current product: AegisEarth, a backend for a public coordinate-driven SPHEREx sky time viewer.
 - Prioritize RA/Dec + FOV -> chronological images/movie, including brightness variation as well as motion.
 - All supplied challenge considerations are planned for the expanded release; test the five named targets.
 - AI suggestions are optional after the viewer; automatic detection/ranking/tracking must not gate playback.

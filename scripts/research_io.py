@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-USER_AGENT = "CosmicMotionAI-Feasibility/0.1 (+https://github.com/Ahiraf/AegisEarth/issues)"
+USER_AGENT = "AegisEarth-Feasibility/0.1 (+https://github.com/Ahiraf/AegisEarth/issues)"
 
 
 def validate_url(url):

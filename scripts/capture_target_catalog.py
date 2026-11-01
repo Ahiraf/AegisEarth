@@ -20,9 +20,7 @@ TARGETS = (
 
 
 def fetch(url):
-    with urlopen(
-        Request(url, headers={"User-Agent": "CosmicMotionAI/0.1"}), timeout=30
-    ) as response:
+    with urlopen(Request(url, headers={"User-Agent": "AegisEarth/0.1"}), timeout=30) as response:
         raw = response.read(2_000_001)
     if len(raw) > 2_000_000:
         raise ValueError("Catalog response exceeded cap")

@@ -1,18 +1,20 @@
 # Required challenge targets: data and acceptance protocol
 
-Baseline: 29 October 2026. Source/identity/native-cutout investigations have now run for all five targets;
-see [the evidence packet](research/target_feasibility/README.md). Registered public-viewer acceptance
-and measured motion/variability have not run. Existing M101/3I/ATLAS research remains additional evidence.
+Updated 1 November 2026. All five source/native investigations and step-6 backend/API movie cases
+have now executed. See [dated results, per-target receipts and plots](verification/targets/README.md)
+and [local browser receipt](verification/targets/browser.json). Frontend handoff acceptance in the
+production UI is user-confirmed. Scientific motion/variability approval and actual public deployment
+are separate from these engineering checks; missing measurements remain explicit null values.
 
 ## Target matrix
 
 | Target | Identity/coordinate acquisition | Test intent | Important limits / required evidence | Current state |
 | --- | --- | --- | --- | --- |
-| Barnard's Star | Verified CDS/SIMBAD identity/epoch/proper motion and source receipts | Inspect a nearby moving star over real SPHEREx epochs | Native QR3 data inspected; short baseline and target flags, no matched local-response pair in bounded sample | Source investigation done; viewer/science pending |
-| Epsilon Indi B | Verified system B and separate primary catalog identity; Ba/Bb individual resolution unclaimed | Inspect the brown-dwarf pair's field and changes | QR2 D6 data inspected; no matched local-response pair in bounded sample | Source investigation done; viewer/science pending |
-| WISE 0855 | Supplied coordinate kept with unknown epoch; catalog identity/J2000 epoch verified separately | Test fast-motion/faint-source behavior and wavelength selection | QR2 D6 data inspected; matched interval proxy but low contrast/common-coverage limitations; no validated detection | Source investigation done; viewer/science pending |
-| RW Aurigae | Verified catalog identity/reference coordinates/proper motion | Inspect brightness changes as well as position | QR3 data inspected; response/flags differ and variability is not established | Source investigation done; viewer/science pending |
-| R Draconis | Verified catalog identity/reference coordinates/proper motion | Inspect time-variable brightness | QR3 deep D1 inspected, with close wavelength pair but masked aperture/common-coverage limits | Source investigation done; viewer/science pending |
+| Barnard's Star | Verified CDS/SIMBAD identity/epoch/proper motion and source receipts | Inspect a nearby moving star over real SPHEREx epochs | Live QR3 D2 sequence; short baseline and overflow/bloom-masked target aperture prevent a motion measurement | Backend/viewer investigation executed; scientific change unvalidated |
+| Epsilon Indi B | Verified system B and separate primary catalog identity; Ba/Bb individual resolution unclaimed | Inspect the brown-dwarf pair's field and changes | Live QR2 D6 sequence after a bounded wavelength-search follow-up; system B identity retained, component resolution and scientific comparison unvalidated | Backend/viewer investigation executed; scientific change unvalidated |
+| WISE 0855 | Supplied coordinate kept with unknown epoch; catalog identity/J2000 epoch verified separately | Test fast-motion/faint-source behavior and wavelength selection | Both supplied and predicted-coordinate QR2 D6 fields executed; long-wave aperture proxies are not a validated identification, detection or nondetection limit | Backend/viewer investigation executed; scientific change unvalidated |
+| RW Aurigae | Verified catalog identity/reference coordinates/proper motion | Inspect brightness changes as well as position | Single-epoch initial result retained; D2 follow-up yields repeated frames, with flagged apertures and differing local wavelengths | Backend/viewer investigation executed; scientific change unvalidated |
+| R Draconis | Verified catalog identity/reference coordinates/proper motion | Inspect time-variable brightness | Live QR3 deep D1 sequence; target aperture has overflow/bloom flags, with calibrated brightness variation unvalidated | Backend/viewer investigation executed; scientific change unvalidated |
 
 The supplied WISE coordinate converts to **RA 133.7951291667°, Dec −7.2451472222°**, calculated
 with Astropy from the supplied sexagesimal strings. This conversion supplies neither a reference epoch

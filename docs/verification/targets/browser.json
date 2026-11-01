@@ -1,0 +1,97 @@
+{
+  "product": "AegisEarth",
+  "run_id": "b40e46de-ec7b-43ea-83fb-5da354592865",
+  "verified_at_utc": "2026-11-01T15:28:52.764Z",
+  "scope": "Local reference-player evidence; user-confirmed production handoff acceptance is separate",
+  "cases": [
+    {
+      "target": "barnards-star",
+      "case": "catalog_prediction",
+      "view_id": "5b624be2-bd3b-46b7-8076-7cfc7845fd19",
+      "real_animation": true,
+      "outcome": "ready_for_animation",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 2/3 · 2026-08-21T12:24:29.986790Z\n\nPhysical elapsed: 11636.006 s · gap from preceding exposure: 11520.889 s · overlap: 0.000 s.\n\nUTC interval: 2026-08-21T12:23:32.427974Z – 2026-08-21T12:25:27.545520Z. Units: MJy/sr. Detector: D2. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 91.7%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may lag ",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "epsilon-indi-b",
+      "case": "catalog_prediction",
+      "view_id": "ba8d9a25-df46-4480-bad4-a052d7f230e4",
+      "outcome": "no_data",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nNo usable image in this timeline. Inspect coverage and try another region/date/band.\n\nNot loaded.\n\nKeyboard: focus this player, Space play/pause, Left/Right step. Leaving the tab pauses playback.",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "epsilon-indi-b",
+      "case": "archive_band_followup",
+      "view_id": "fdc5cc2f-2b9f-4395-9a18-b80a4c69ffa3",
+      "real_animation": true,
+      "outcome": "ready_for_animation",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 2/3 · 2026-04-29T08:47:55.495738Z\n\nPhysical elapsed: 17586.773 s · gap from preceding exposure: 17471.656 s · overlap: 0.000 s.\n\nUTC interval: 2026-04-29T08:46:57.937008Z – 2026-04-29T08:48:53.054467Z. Units: MJy/sr. Detector: D6. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 86.3%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may lag ",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "wise-0855",
+      "case": "catalog_prediction",
+      "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+      "real_animation": true,
+      "outcome": "ready_for_animation",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 2/3 · 2026-04-22T18:13:37.518787Z\n\nPhysical elapsed: 134858.531 s · gap from preceding exposure: 134743.414 s · overlap: 0.000 s.\n\nUTC interval: 2026-04-22T18:12:39.959971Z – 2026-04-22T18:14:35.077517Z. Units: MJy/sr. Detector: D6. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 92.5%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may la",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "wise-0855",
+      "case": "supplied_coordinate",
+      "view_id": "840c4f28-32c2-4e20-892a-8d1a7d2931c4",
+      "real_animation": true,
+      "outcome": "ready_for_animation",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 2/3 · 2026-04-22T18:13:37.518787Z\n\nPhysical elapsed: 134858.531 s · gap from preceding exposure: 134743.414 s · overlap: 0.000 s.\n\nUTC interval: 2026-04-22T18:12:39.959971Z – 2026-04-22T18:14:35.077517Z. Units: MJy/sr. Detector: D6. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 91.1%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may la",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "rw-aurigae",
+      "case": "catalog_prediction",
+      "view_id": "38fa813b-bdf8-4e80-b4d5-3336b4b6574d",
+      "outcome": "single_epoch",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 1/1 · 2026-09-11T21:02:28.958784Z\n\nPhysical elapsed: 0.000 s · gap from preceding exposure: 0.000 s · overlap: 0.000 s.\n\nUTC interval: 2026-09-11T21:01:31.399968Z – 2026-09-11T21:03:26.517514Z. Units: MJy/sr. Detector: D2. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 91.2%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may lag new arch",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "rw-aurigae",
+      "case": "archive_band_followup",
+      "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+      "real_animation": true,
+      "outcome": "ready_for_animation",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 2/3 · 2026-09-12T23:05:13.901712Z\n\nPhysical elapsed: 93764.943 s · gap from preceding exposure: 93649.825 s · overlap: 0.000 s.\n\nUTC interval: 2026-09-12T23:04:16.342982Z – 2026-09-12T23:06:11.460528Z. Units: MJy/sr. Detector: D2. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 93.2%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may lag ",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "r-draconis",
+      "case": "catalog_prediction",
+      "view_id": "87e6c9c9-b9bc-495d-a54f-bf31a35c0aa2",
+      "real_animation": true,
+      "outcome": "ready_for_animation",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 2/3 · 2026-07-27T12:46:08.837731Z\n\nPhysical elapsed: 164254.815 s · gap from preceding exposure: 164139.697 s · overlap: 0.000 s.\n\nUTC interval: 2026-07-27T12:45:11.279002Z – 2026-07-27T12:47:06.396461Z. Units: MJy/sr. Detector: D1. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 92.9%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may la",
+      "unhandled_errors": [],
+      "passed": true
+    },
+    {
+      "target": "r-draconis",
+      "case": "archive_band_followup",
+      "view_id": "ce6c6eff-890c-4185-8a42-6adf32eaf59e",
+      "real_animation": true,
+      "outcome": "ready_for_animation",
+      "metadata_text": "Timeline\nSky-fixed common grid\nNative inspection — varying orientation\n\nReduced motion: playback starts paused. Use steps or deliberately select Play.\n\nPlay\nPrevious\nNext\nLoop\nDisplay speed\n0.5×\n1×\n2×\n4×\nDisplay\nSequence\nBlink first two epochs\nSide by side\nFrame\n\nDisplay interval: 700 ms/frame. Physical time is shown below; playback speed does not change observation times.\n\nFrame 2/3 · 2026-07-29T15:15:30.620707Z\n\nPhysical elapsed: 346016.598 s · gap from preceding exposure: 345901.480 s · overlap: 0.000 s.\n\nUTC interval: 2026-07-29T15:14:33.061978Z – 2026-07-29T15:16:28.179523Z. Units: MJy/sr. Detector: D1. Stretch: shared_asinh.\n\nScientific comparison supported: false. Coverage: 92.6%.\n\nBrowsing is available; scientific comparison/registration support is not established\nWCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied\nNominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment\nRelative static-field registration is not absolute astrometry; central target is excluded\nPixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked\nNative flagged previews are inspectable; quantitative eligibility is independent of display eligibility\nExplicit temporal averaging can blur change within the recorded contributor span; native inputs remain available\nImage wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch\nFootprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required\nSIA may la",
+      "unhandled_errors": [],
+      "passed": true
+    }
+  ],
+  "all_cases_passed": true
+}

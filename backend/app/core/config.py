@@ -11,9 +11,9 @@ class Settings(BaseSettings):
         "postgresql+psycopg://cosmic:local-development-only@localhost:5432/cosmic_motion"
     )
     cors_origins: list[str] = ["http://localhost:5173"]
-    service_name: str = "Cosmic Motion AI API"
+    service_name: str = "AegisEarth API"
     artifact_root: str = "./var/artifacts"
-    provider_user_agent: str = "CosmicMotionAI/0.1 (+https://github.com/Ahiraf/AegisEarth/issues)"
+    provider_user_agent: str = "AegisEarth/0.1 (+https://github.com/Ahiraf/AegisEarth/issues)"
     max_download_bytes: int = Field(134217728, gt=0)
     provider_timeout_seconds: int = Field(30, ge=1, le=120)
     database_transport: Literal["postgresql", "postgrest"] = "postgresql"

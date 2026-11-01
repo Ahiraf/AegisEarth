@@ -1,5 +1,5 @@
 ---
-title: Cosmic Motion AI API
+title: AegisEarth API
 emoji: 🔭
 colorFrom: blue
 colorTo: purple
@@ -7,7 +7,7 @@ sdk: docker
 app_port: 7860
 ---
 
-# Cosmic Motion AI
+# AegisEarth
 
 FastAPI backend for a public **SPHEREx sky time viewer**: enter Right Ascension/declination and
 field of view, then inspect real images of that patch in chronological playback. Motion and brightness
@@ -18,6 +18,8 @@ is the coordinate-driven movie and tests on **Barnard's Star, Epsilon Indi B, WI
 and R Draconis**. The expanded release includes every potential consideration: 102-band exploration,
 six detector composites, spectra, add/subtract, FOV control, Gaia/WISE, updates, links/embedding and flags.
 
+The product name is **AegisEarth**, as confirmed on 1 November 2026. The SPHEREx viewer scope and current implementation plan continue unchanged. Existing database/volume names, migration revisions and legacy CLI aliases are retained for compatibility. The frontend owner has accepted the production UI handoff.
+
 Your work is **backend-only**: Python/FastAPI, PostgreSQL, scientific processing, Docker and Hugging Face.
 The React teammate owns the public UI/playback/Aladin and frontend Docker/Space. The researcher
 owns model development/training/evaluation; backend work integrates/verifies/serves the package.
@@ -27,8 +29,9 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 ## Start here
 
 - [Detailed implementation plan](todo_plan.md): ordered feature slices and actual exit evidence.
-- [SRS v2.4](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
+- [SRS v2.5](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
 - [Challenge coverage matrix](docs/challenge_alignment.md): every supplied objective/consideration mapped.
+- [Executed step 6 results](docs/verification/targets/README.md): five-target API/browser receipts and scientific limits.
 - [Five-target validation protocol](docs/target_validation.md): exact investigations and honest outcome states.
 - [Public source register](docs/sources_and_challenge.md): independently checked resources and access limits.
 - [Pipeline](docs/backend_pipeline.md), [API/React contract](docs/api_contract.md), [data model](docs/data_model.md).
@@ -46,10 +49,10 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 
 | Present now | Planned; not implemented |
 | --- | --- |
-| Health/config/CORS and truthful capability reporting | Production frontend-owner/public hosting acceptance |
-| discovery-v1 coordinate/FOV/date/band discovery, target presets and release registry | Full five-target viewer/science acceptance |
+| Health/config/CORS and truthful capability reporting | Public hosting acceptance |
+| discovery-v1 coordinate/FOV/date/band discovery, target presets and release registry | Scientific motion/variability approval |
 | Additive jobs/discovery/view/preparation/movie tables and restricted transaction RPCs | Spectrum/overlay publication services |
-| Quota-limited view jobs, isolated worker, cancellation and local/S3 storage adapters | Optional researcher inference; scientific target acceptance |
+| Quota-limited view jobs, isolated worker, cancellation and local/S3 storage adapters | Optional researcher inference; scientific motion/variability approval |
 | QR2/QR3 readers, official 102-channel catalog, fixed-grid frames/previews, quality/registration/band gates | Coadds/subtraction/spectra/Gaia/WISE and scheduled refresh |
 | Frozen movie manifests/pages, ETag previews, isolated React/Aladin playback and local real-data proof | Production share/embed and cloud deployment |
 | Hash-locked Docker builds, disposable PostgreSQL and authenticated TLS gateway | Production HF/storage connectivity acceptance |

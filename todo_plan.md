@@ -1,4 +1,4 @@
-# Cosmic Motion AI — challenge-first backend delivery plan
+# AegisEarth — challenge-first backend delivery plan
 
 Baseline: **29 October 2026**, revised against the full challenge description supplied by the user.
 Required workflow: **RA/Dec → same sky patch → chronological SPHEREx images → play/blink/scrub**.
@@ -19,7 +19,7 @@ you integrate the supplied inference package later. No commit/push without expli
 Existing: health/config, strict request scaffolds, initial seven-table migration plus additive processing-job
 migration/RPCs, curated GET /targets, disabled eleven-stage registry, QR2/QR3 inspection and engineering
 compatibility helpers. Live discovery and durable input acquisition/worker are implemented in steps 2–3;
-view-v2 frame preparation is implemented in step 4. Step 5 movie delivery and an isolated React/Aladin handoff are locally verified; production frontend acceptance and coadds/spectra/overlays remain pending. The old 2–6 observation analysis request is not a viewer API.
+view-v2 frame preparation is implemented in step 4. Step 5 movie delivery and an isolated React/Aladin handoff are locally verified; frontend handoff is user-accepted; coadds/spectra/overlays and public deployment remain pending. The old 2–6 observation analysis request is not a viewer API.
 The 26 October M101 QR2 proof (36.394305-day repeat, 353/400 usable common pixels) remains a useful
 control. It does not validate the five challenge targets, QR3, photometry or moving-source detection.
 
@@ -154,8 +154,9 @@ Prepared artifacts/report are implemented; step 5 below now adds locally verifie
 - [x] Provide a working Aladin Lite 3.8.1 spike: real primary-2D FITS, catalog marker, sky/pixel mapping,
       CORS and widget-failure isolation. Production frontend files remain untouched.
 - [x] Verify local coordinate submission → backend → React → real chronological animation without ML.
-- [ ] Frontend owner ports/accepts the handoff in the production UI; verify the real public deployment
-      once cloud resources are provisioned. These are external integration/deployment gates.
+- [x] Frontend owner accepts the handoff in the production UI — user-confirmed 1 November 2026.
+      This acceptance is recorded from the user, not independently inferred from local browser tests.
+- [ ] Verify the actual public deployment after cloud resources are provisioned.
 
 Backend/local handoff complete, 1 November 2026: [movie contract](docs/movie_delivery.md),
 [real API/HTTPS/empty/single proof](docs/verification/movie_delivery_report.json),
@@ -164,18 +165,22 @@ The real three-epoch QR3 D5 sequence is quality-limited browsing with comparison
 no scientific motion/variability claim is made. Empty/single worker jobs were also exercised.
 
 Exit: the local anonymous coordinate-to-movie workflow and handoff work with truthful labels.
-Public frontend integration/deployment acceptance remains explicit above; five-target science is step 6.
+Frontend-owner handoff acceptance is user-confirmed; public deployment remains open; five-target science is step 6.
 
 ## 6. Required target validation (`targets`, `views`, frontend owner)
 
-- [ ] Execute every row in [the five-target matrix](docs/target_validation.md) and record exact source evidence.
-- [ ] Barnard's Star: compare measured/expected displacement to resolution and registration uncertainty.
-- [ ] Epsilon Indi B: verify brown-dwarf system identity; do not require unresolved components to be separately seen.
-- [ ] WISE 0855: test supplied coordinate, unknown epoch/proper motion and actual long-wavelength signal;
+- [x] Execute every row in [the five-target matrix](docs/target_validation.md) and record exact source evidence.
+- [x] Barnard's Star: compare measured/expected displacement to resolution and registration uncertainty.
+- [x] Epsilon Indi B: verify brown-dwarf system identity; do not require unresolved components to be separately seen.
+- [x] WISE 0855: test supplied coordinate, unknown epoch/proper motion and actual long-wavelength signal;
       record defensible nondetection/coverage limits rather than demand a visible moving point.
-- [ ] RW Aurigae and R Draconis: preserve brightness differences with shared stretch, inspect saturation,
+- [x] RW Aurigae and R Draconis: preserve brightness differences with shared stretch, inspect saturation,
       wavelength/calibration confounds and avoid interpreting all change as displacement.
-- [ ] Keep target query/epoch/band/frame/warning/reviewer evidence and re-run after release/processing changes.
+- [x] Keep target query/epoch/band/frame/warning/reviewer evidence and re-run after release/processing changes.
+
+Engineering execution complete, 1 November 2026: [results and limitations](docs/verification/targets/README.md),
+[aggregate receipt](docs/verification/targets/summary.json) and [local browser checks](docs/verification/targets/browser.json).
+Scientific reviewer is recorded as unavailable; no scientific approval is fabricated. Public deployment remains a separate gate.
 
 Exit: all five prescribed targets actually tested. Claims about visible change require positive evidence;
 coverage/sensitivity limitations remain explicit, not relabeled as successful discoveries.

@@ -1,0 +1,2836 @@
+{
+  "version": "target-validation-v1",
+  "target": "rw-aurigae",
+  "identity": {
+    "slug": "rw-aurigae",
+    "name": "RW Aurigae",
+    "canonical_id": "V* RW Aur",
+    "ra_deg": 76.95652603458333,
+    "dec_deg": 30.401438173888888,
+    "reference_epoch_jyear": 2000.0,
+    "pm_ra_cosdec_mas_yr": 7.23,
+    "pm_dec_mas_yr": -20.33,
+    "astrometry": {
+      "matched_id": "V* RW Aur",
+      "main_id": "V* RW Aur",
+      "ra": 76.95652603458333,
+      "dec": 30.401438173888888,
+      "coo_err_maj": 3.31,
+      "coo_err_min": 2,
+      "coo_bibcode": "2007A&A...474..653V",
+      "pmra": 7.23,
+      "pmdec": -20.33,
+      "pm_err_maj": 3.81,
+      "pm_err_min": 2.23,
+      "pm_bibcode": "2007A&A...474..653V",
+      "plx_value": 15.42,
+      "plx_bibcode": "2007A&A...474..653V"
+    },
+    "source_receipt": "docs/research/target_feasibility/astrometry_receipt.json",
+    "supplied_coordinate": null,
+    "caveats": [
+      "Catalog prediction is a search aid, not SPHEREx astrometry",
+      "No parallax/observer-position or radial-velocity correction in search estimate"
+    ]
+  },
+  "source_receipt": "docs/research/target_feasibility/astrometry_receipt.json",
+  "catalog_sha256": "892d15d7a38a0d7b5b37dca1b0198e1753cc1c4a3aed86c7cf885c7012cf96df",
+  "run_id": "b40e46de-ec7b-43ea-83fb-5da354592865",
+  "operator": "automated_backend_engineering_validation",
+  "scientific_reviewer": null,
+  "pinned_native_diagnostics": [
+    {
+      "sha256": "91a2dc14d08475d6cd5ab17c43e1422571b82ea97c2569891690246e790a4efc",
+      "local_path": "var/research/targets/cutouts/rw-aurigae_2026W37_1A_0615_1_D2.fits",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W37_1A/l2b-v27-2026-255/2/level2_2026W37_1A_0615_1D2_spx_l2b-v27-2026-255.fits?center=76.95658657548722%2C30.401291346097146deg&size=3arcmin&gzip=false",
+      "collection": "spherex_qr3",
+      "diagnostic": {
+        "observed_at_utc": "2026-09-10T09:05:57.672Z",
+        "mid_mjd_utc": "61293.379139719",
+        "start_mjd_utc": "61293.37847353",
+        "end_mjd_utc": "61293.379805909",
+        "prediction": {
+          "ra_deg": 76.95658818442081,
+          "dec_deg": 30.401287443998964,
+          "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+          "at_utc": "2026-09-10T09:05:57.672"
+        },
+        "prediction_inside": true,
+        "prediction_pixel_0based": [
+          13.794638604712784,
+          14.046236350532325
+        ],
+        "predicted_offset_from_fixed_center_arcsec": 0.014909436489670474,
+        "pixel_scale_arcsec": 6.138947896640998,
+        "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+        "sampling_is_not_angular_resolution": true,
+        "aperture": {
+          "aperture_radius_pixels": 1.5,
+          "aperture_pixels": 7,
+          "usable_pixels": 1,
+          "usable_fraction": 0.14285714285714285,
+          "background_pixels": 253,
+          "edge_truncated": false,
+          "contrast_sum_mjy_sr_pixels": null,
+          "diagonal_error_proxy": null,
+          "contrast_snr_proxy": null,
+          "centroid_pixel_0based": null,
+          "scientific_detection_validated": false,
+          "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+          "reason": "incomplete_masked_aperture_or_background"
+        },
+        "aperture_flags": {
+          "MP_TRANSIENT": 4,
+          "MP_OVERFLOW": 1,
+          "MP_SUR_ERROR": 0,
+          "MP_NONFUNC": 0,
+          "MP_DICHROIC": 0,
+          "MP_MISSING_DATA": 0,
+          "MP_HOT": 0,
+          "MP_COLD": 0,
+          "MP_FULLSAMPLE": 0,
+          "MP_PHANMISS": 0,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 1,
+          "MP_OUTLIER": 0,
+          "MP_CROSSTALK": 0,
+          "MP_SOURCE": 7,
+          "MP_GHOST": 0,
+          "MP_GHOST_FPA": 0,
+          "MP_GHOST_EXT": 0,
+          "MP_STREAK": 0,
+          "MP_BLOOM": 5,
+          "MP_SNOWBALL": 0,
+          "MP_HALO": 0
+        },
+        "unknown_flag_pixels_in_image": 0,
+        "saturation_or_bright_artifact_flags": {
+          "MP_OVERFLOW": 1,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 1,
+          "MP_BLOOM": 5,
+          "MP_HALO": 0
+        },
+        "target_local_wavelength_um": 1.4619023589629536,
+        "target_local_bandwidth_um": 0.03594397270938349,
+        "candidate_centroid_icrs_deg_unvalidated": null,
+        "scientific_motion_arcsec": null,
+        "scientific_brightness_change": null,
+        "limits": [
+          "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+          "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+          "No covariance, aperture correction or PSF/response/photometric matching applied"
+        ]
+      }
+    },
+    {
+      "sha256": "05ed818ab49d1f3857ce506db7e01f086bf7275686252de5c6846b68fcb1e45a",
+      "local_path": "var/research/targets/cutouts/rw-aurigae_2026W37_2A_0516_1_D2.fits",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W37_2A/l2b-v27-2026-259/2/level2_2026W37_2A_0516_1D2_spx_l2b-v27-2026-259.fits?center=76.95658657548722%2C30.401291346097146deg&size=3arcmin&gzip=false",
+      "collection": "spherex_qr3",
+      "diagnostic": {
+        "observed_at_utc": "2026-09-12T23:00:56.040Z",
+        "mid_mjd_utc": "61295.958981942",
+        "start_mjd_utc": "61295.958315752",
+        "end_mjd_utc": "61295.959648131",
+        "prediction": {
+          "ra_deg": 76.95658820086746,
+          "dec_deg": 30.401287404111372,
+          "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+          "at_utc": "2026-09-12T23:00:56.040"
+        },
+        "prediction_inside": true,
+        "prediction_pixel_0based": [
+          13.82704292555757,
+          14.153844665653384
+        ],
+        "predicted_offset_from_fixed_center_arcsec": 0.015061842047323947,
+        "pixel_scale_arcsec": 6.140086313701402,
+        "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+        "sampling_is_not_angular_resolution": true,
+        "aperture": {
+          "aperture_radius_pixels": 1.5,
+          "aperture_pixels": 8,
+          "usable_pixels": 3,
+          "usable_fraction": 0.375,
+          "background_pixels": 263,
+          "edge_truncated": false,
+          "contrast_sum_mjy_sr_pixels": null,
+          "diagonal_error_proxy": null,
+          "contrast_snr_proxy": null,
+          "centroid_pixel_0based": null,
+          "scientific_detection_validated": false,
+          "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+          "reason": "incomplete_masked_aperture_or_background"
+        },
+        "aperture_flags": {
+          "MP_TRANSIENT": 4,
+          "MP_OVERFLOW": 1,
+          "MP_SUR_ERROR": 0,
+          "MP_NONFUNC": 0,
+          "MP_DICHROIC": 0,
+          "MP_MISSING_DATA": 0,
+          "MP_HOT": 0,
+          "MP_COLD": 0,
+          "MP_FULLSAMPLE": 0,
+          "MP_PHANMISS": 0,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 0,
+          "MP_OUTLIER": 0,
+          "MP_CROSSTALK": 0,
+          "MP_SOURCE": 8,
+          "MP_GHOST": 0,
+          "MP_GHOST_FPA": 0,
+          "MP_GHOST_EXT": 0,
+          "MP_STREAK": 0,
+          "MP_BLOOM": 5,
+          "MP_SNOWBALL": 0,
+          "MP_HALO": 0
+        },
+        "unknown_flag_pixels_in_image": 0,
+        "saturation_or_bright_artifact_flags": {
+          "MP_OVERFLOW": 1,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 0,
+          "MP_BLOOM": 5,
+          "MP_HALO": 0
+        },
+        "target_local_wavelength_um": 1.1476513843924778,
+        "target_local_bandwidth_um": 0.02765718851267262,
+        "candidate_centroid_icrs_deg_unvalidated": null,
+        "scientific_motion_arcsec": null,
+        "scientific_brightness_change": null,
+        "limits": [
+          "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+          "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+          "No covariance, aperture correction or PSF/response/photometric matching applied"
+        ]
+      }
+    },
+    {
+      "sha256": "5668774d5c4e4f223db301d3929218289ba23f9767a60bd771c2b99fa9c3b489",
+      "local_path": "var/research/targets/cutouts/rw-aurigae_2026W38_1A_0064_1_D2.fits",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W38_1A/l2b-v27-2026-261/2/level2_2026W38_1A_0064_1D2_spx_l2b-v27-2026-261.fits?center=76.95658657548722%2C30.401291346097146deg&size=3arcmin&gzip=false",
+      "collection": "spherex_qr3",
+      "diagnostic": {
+        "observed_at_utc": "2026-09-14T07:36:26.155Z",
+        "mid_mjd_utc": "61297.316969384",
+        "start_mjd_utc": "61297.316303194",
+        "end_mjd_utc": "61297.317635573",
+        "prediction": {
+          "ra_deg": 76.95658820952471,
+          "dec_deg": 30.401287383115182,
+          "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+          "at_utc": "2026-09-14T07:36:26.155"
+        },
+        "prediction_inside": true,
+        "prediction_pixel_0based": [
+          14.045077599356695,
+          13.807987305810645
+        ],
+        "predicted_offset_from_fixed_center_arcsec": 0.015142065896029172,
+        "pixel_scale_arcsec": 6.140974012072857,
+        "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+        "sampling_is_not_angular_resolution": true,
+        "aperture": {
+          "aperture_radius_pixels": 1.5,
+          "aperture_pixels": 7,
+          "usable_pixels": 4,
+          "usable_fraction": 0.5714285714285714,
+          "background_pixels": 223,
+          "edge_truncated": false,
+          "contrast_sum_mjy_sr_pixels": null,
+          "diagonal_error_proxy": null,
+          "contrast_snr_proxy": null,
+          "centroid_pixel_0based": null,
+          "scientific_detection_validated": false,
+          "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+          "reason": "incomplete_masked_aperture_or_background"
+        },
+        "aperture_flags": {
+          "MP_TRANSIENT": 2,
+          "MP_OVERFLOW": 1,
+          "MP_SUR_ERROR": 0,
+          "MP_NONFUNC": 0,
+          "MP_DICHROIC": 0,
+          "MP_MISSING_DATA": 0,
+          "MP_HOT": 0,
+          "MP_COLD": 0,
+          "MP_FULLSAMPLE": 0,
+          "MP_PHANMISS": 0,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 0,
+          "MP_OUTLIER": 0,
+          "MP_CROSSTALK": 0,
+          "MP_SOURCE": 7,
+          "MP_GHOST": 0,
+          "MP_GHOST_FPA": 0,
+          "MP_GHOST_EXT": 0,
+          "MP_STREAK": 0,
+          "MP_BLOOM": 3,
+          "MP_SNOWBALL": 0,
+          "MP_HALO": 0
+        },
+        "unknown_flag_pixels_in_image": 0,
+        "saturation_or_bright_artifact_flags": {
+          "MP_OVERFLOW": 1,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 0,
+          "MP_BLOOM": 3,
+          "MP_HALO": 0
+        },
+        "target_local_wavelength_um": 1.2609126599791785,
+        "target_local_bandwidth_um": 0.03013178547031749,
+        "candidate_centroid_icrs_deg_unvalidated": null,
+        "scientific_motion_arcsec": null,
+        "scientific_brightness_change": null,
+        "limits": [
+          "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+          "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+          "No covariance, aperture correction or PSF/response/photometric matching applied"
+        ]
+      }
+    },
+    {
+      "sha256": "3dc0a765a1883e286d329342d1087dee016588db5f9333d841874c6a22b22271",
+      "local_path": "var/research/targets/cutouts/rw-aurigae_2026W38_1A_0254_3_D2.fits",
+      "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W38_1A/l2b-v27-2026-261/2/level2_2026W38_1A_0254_3D2_spx_l2b-v27-2026-261.fits?center=76.95658657548722%2C30.401291346097146deg&size=3arcmin&gzip=false",
+      "collection": "spherex_qr3",
+      "diagnostic": {
+        "observed_at_utc": "2026-09-15T08:05:44.142Z",
+        "mid_mjd_utc": "61298.337316455",
+        "start_mjd_utc": "61298.336650266",
+        "end_mjd_utc": "61298.337982645",
+        "prediction": {
+          "ra_deg": 76.9565882160295,
+          "dec_deg": 30.40128736733934,
+          "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+          "at_utc": "2026-09-15T08:05:44.142"
+        },
+        "prediction_inside": true,
+        "prediction_pixel_0based": [
+          14.049238836761848,
+          13.56525234264258
+        ],
+        "predicted_offset_from_fixed_center_arcsec": 0.015202343475856722,
+        "pixel_scale_arcsec": 6.138726331356598,
+        "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+        "sampling_is_not_angular_resolution": true,
+        "aperture": {
+          "aperture_radius_pixels": 1.5,
+          "aperture_pixels": 7,
+          "usable_pixels": 5,
+          "usable_fraction": 0.7142857142857143,
+          "background_pixels": 259,
+          "edge_truncated": false,
+          "contrast_sum_mjy_sr_pixels": null,
+          "diagonal_error_proxy": null,
+          "contrast_snr_proxy": null,
+          "centroid_pixel_0based": null,
+          "scientific_detection_validated": false,
+          "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+          "reason": "incomplete_masked_aperture_or_background"
+        },
+        "aperture_flags": {
+          "MP_TRANSIENT": 0,
+          "MP_OVERFLOW": 2,
+          "MP_SUR_ERROR": 0,
+          "MP_NONFUNC": 0,
+          "MP_DICHROIC": 0,
+          "MP_MISSING_DATA": 0,
+          "MP_HOT": 0,
+          "MP_COLD": 0,
+          "MP_FULLSAMPLE": 0,
+          "MP_PHANMISS": 0,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 0,
+          "MP_OUTLIER": 0,
+          "MP_CROSSTALK": 0,
+          "MP_SOURCE": 7,
+          "MP_GHOST": 0,
+          "MP_GHOST_FPA": 0,
+          "MP_GHOST_EXT": 0,
+          "MP_STREAK": 0,
+          "MP_BLOOM": 0,
+          "MP_SNOWBALL": 0,
+          "MP_HALO": 0
+        },
+        "unknown_flag_pixels_in_image": 0,
+        "saturation_or_bright_artifact_flags": {
+          "MP_OVERFLOW": 2,
+          "MP_NONLINEAR": 0,
+          "MP_PERSIST": 0,
+          "MP_BLOOM": 0,
+          "MP_HALO": 0
+        },
+        "target_local_wavelength_um": 1.4510902777371617,
+        "target_local_bandwidth_um": 0.03558563885943693,
+        "candidate_centroid_icrs_deg_unvalidated": null,
+        "scientific_motion_arcsec": null,
+        "scientific_brightness_change": null,
+        "limits": [
+          "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+          "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+          "No covariance, aperture correction or PSF/response/photometric matching applied"
+        ]
+      }
+    }
+  ],
+  "cases": [
+    {
+      "case": "catalog_prediction",
+      "request": {
+        "contract_version": "view-v2",
+        "region": {
+          "ra": 76.95658657548722,
+          "dec": 30.401291346097146,
+          "width_arcmin": 5,
+          "height_arcmin": 5
+        },
+        "collections": [
+          "spherex_qr3"
+        ],
+        "detectors": [
+          "D2"
+        ],
+        "max_frames": 3,
+        "preparation": {
+          "spectral_mode": "detector",
+          "detector": "D2",
+          "stretch": "shared_asinh",
+          "target_exclusion_radius_arcsec": 60
+        }
+      },
+      "request_sha256": "900f5a2121b091c2168f083528893c2f30946508bab9729bee29f966297ac9db",
+      "query_center": {
+        "ra_deg": 76.95658657548722,
+        "dec_deg": 30.401291346097146,
+        "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+        "at_utc": "2026-01-01T00:00:00"
+      },
+      "started_at_utc": "2026-11-01T14:44:01.824547+00:00",
+      "status": "succeeded",
+      "submission_http_status": 202,
+      "view_id": "38fa813b-bdf8-4e80-b4d5-3336b4b6574d",
+      "error_code": null,
+      "snapshot_id": "6f5909d9-f4e9-4168-860e-312998210f6d",
+      "canonical_request": {
+        "end_at": null,
+        "region": {
+          "frame": "icrs",
+          "ra_deg": 76.95658657548722,
+          "dec_deg": 30.401291346097146,
+          "projection": "TAN_north_up_east_left",
+          "width_arcmin": 5.0,
+          "height_arcmin": 5.0,
+          "corners_icrs_deg": [
+            [
+              76.90829813017278,
+              30.35961580507814
+            ],
+            [
+              77.00487502080165,
+              30.35961580507814
+            ],
+            [
+              77.00491624578552,
+              30.44294910879043
+            ],
+            [
+              76.90825690518892,
+              30.442949108790422
+            ]
+          ],
+          "search_radius_deg": 0.05892555571129446
+        },
+        "start_at": null,
+        "detectors": [
+          "D2"
+        ],
+        "selection": {
+          "limited": true,
+          "preselection": {
+            "reason": "prefer_full_requested_footprint_then_largest_consistent_sample; local_response_and_flags_require_FITS",
+            "release": "qr3",
+            "detector": "D2",
+            "coverage_method": "nine_TAN_points_in_SIA_polygon_geometry_only",
+            "processing_family": "l2b-v27-2026-259",
+            "family_sample_count": 2,
+            "full_footprint_candidates": 1
+          },
+          "sampled_count": 2,
+          "selected_count": 1,
+          "preselected_count": 1,
+          "upstream_complete": false,
+          "discovery_warnings": [
+            "Image wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch",
+            "Footprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required",
+            "SIA may lag new archive ingestion by about one day; reported gaps are not proof of no observations",
+            "Incomplete archive sample: narrow dates/FOV or select collections; pagination cannot recover upstream omitted rows"
+          ]
+        },
+        "max_frames": 3,
+        "collections": [
+          "spherex_qr3"
+        ],
+        "preparation": {
+          "stretch": "shared_asinh",
+          "detector": "D2",
+          "channel_id": null,
+          "spectral_mode": "detector",
+          "temporal_bin_seconds": 0,
+          "native_preview_policy": "masked",
+          "target_exclusion_radius_arcsec": 60.0
+        },
+        "contract_version": "view-v2",
+        "pipeline_version": "frames-v1",
+        "registry_version": "irsa-2026-10-31",
+        "selection_policy": "evenly_spaced_sample",
+        "wavelength_max_um": null,
+        "wavelength_min_um": null,
+        "acquisition_policy": "single_release_detector_v1"
+      },
+      "finished_at_utc": "2026-11-01T14:44:44.192024+00:00",
+      "manifest_sha256": "b758624f431a09d307c411b0d1af06865992ab43879fc9792389418de87635dc",
+      "manifest_url": "/api/v1/views/38fa813b-bdf8-4e80-b4d5-3336b4b6574d/manifest",
+      "movie_outcome": "single_epoch",
+      "timelines": {
+        "common": {
+          "outcome": "single_epoch",
+          "frame_count": 1,
+          "distinct_epoch_count": 1,
+          "comparison_supported": false
+        },
+        "native": {
+          "outcome": "single_epoch",
+          "frame_count": 1,
+          "distinct_epoch_count": 1,
+          "comparison_supported": false
+        }
+      },
+      "preparation_sha256": "6a34e74ef833de8a873fc9c1d0e2d9169950654e526c499c35ad3238d4c1f748",
+      "preparation": {
+        "grid": {
+          "mode": "sky_fixed",
+          "shape": [
+            49,
+            49
+          ],
+          "header": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =                 25.0 / Pixel coordinate of reference point            \nCRPIX2  =                 25.0 / Pixel coordinate of reference point            \nCDELT1  =  -0.0017006805719103 / [deg] Coordinate increment at reference point  \nCDELT2  =   0.0017006805719103 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN'           / Right ascension, gnomonic projection           \nCTYPE2  = 'DEC--TAN'           / Declination, gnomonic projection               \nCRVAL1  =      76.956586575487 / [deg] Coordinate value at reference point      \nCRVAL2  =      30.401291346097 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =      30.401291346097 / [deg] Native latitude of celestial pole        \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ",
+          "variance": "squared_bilinear_weights_marginal_only",
+          "png_flip_y": true,
+          "pixel_origin": "FITS_lower_left",
+          "requested_region": {
+            "frame": "icrs",
+            "ra_deg": 76.95658657548722,
+            "dec_deg": 30.401291346097146,
+            "projection": "TAN_north_up_east_left",
+            "width_arcmin": 5.0,
+            "height_arcmin": 5.0,
+            "corners_icrs_deg": [
+              [
+                76.90829813017278,
+                30.35961580507814
+              ],
+              [
+                77.00487502080165,
+                30.35961580507814
+              ],
+              [
+                77.00491624578552,
+                30.44294910879043
+              ],
+              [
+                76.90825690518892,
+                30.442949108790422
+              ]
+            ],
+            "search_radius_deg": 0.05892555571129446
+          }
+        },
+        "frames": [
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 418,
+              "plane_sha256": "1269157e67b9061817d1ff2255ca13b3c0999e0ba0eccecf995866e891892fa3",
+              "support_stars": 248,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1889.7661563388701,
+                1928.442506533838
+              ]
+            },
+            "unit": "MJy/sr",
+            "index": 0,
+            "end_mjd": 61294.877390249,
+            "mid_mjd": 61294.87672406,
+            "quality": {
+              "policy": "strict-flags-v1",
+              "finite_fraction": 0.9999142661179699,
+              "usable_fraction": 0.9729080932784636,
+              "flag_definitions": {
+                "MP_HOT": 10,
+                "MP_COLD": 11,
+                "MP_HALO": 28,
+                "MP_BLOOM": 26,
+                "MP_GHOST": 22,
+                "MP_SOURCE": 21,
+                "MP_STREAK": 25,
+                "MP_NONFUNC": 6,
+                "MP_OUTLIER": 19,
+                "MP_PERSIST": 17,
+                "MP_DICHROIC": 7,
+                "MP_OVERFLOW": 1,
+                "MP_PHANMISS": 14,
+                "MP_SNOWBALL": 27,
+                "MP_CROSSTALK": 20,
+                "MP_GHOST_EXT": 24,
+                "MP_GHOST_FPA": 23,
+                "MP_NONLINEAR": 15,
+                "MP_SUR_ERROR": 2,
+                "MP_TRANSIENT": 0,
+                "MP_FULLSAMPLE": 12,
+                "MP_MISSING_DATA": 9
+              },
+              "informational_flags": [
+                "MP_SOURCE",
+                "MP_FULLSAMPLE"
+              ],
+              "unknown_flag_pixels": 0
+            },
+            "release": "qr3",
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.3583532823043643,
+                4.35367493956664
+              ],
+              "asinh_softening": 10
+            },
+            "detector": "D2",
+            "spectral": {
+              "method": "WCS-WAVE_visualization_proxy",
+              "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+              "center_inside": true,
+              "center_usable": false,
+              "center_sampling": "nearest_native_pixel_visualization_proxy",
+              "native_range_scope": "padded_native_cutout",
+              "center_bandwidth_um": 0.026520515923794348,
+              "wavelength_range_um": [
+                1.1082206232325016,
+                1.1351042049566353
+              ],
+              "center_wavelength_um": 1.121768887273993,
+              "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+              "quantitative_calibration": false,
+              "nominal_window_candidates": [
+                18,
+                19
+              ],
+              "usable_wavelength_range_um": [
+                1.1082206232325016,
+                1.1351042049566353
+              ],
+              "requested_region_nominal_window_candidates": [
+                18,
+                19
+              ],
+              "requested_region_usable_wavelength_range_um": [
+                1.1160087907188672,
+                1.1273279774725347
+              ]
+            },
+            "start_mjd": 61294.87605787,
+            "collection": "spherex_qr3",
+            "native_wcs": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =               -815.5 / Pixel coordinate of reference point            \nCRPIX2  =               -854.5 / Pixel coordinate of reference point            \nPC1_1   =    -0.00170085559699 / Coordinate transformation matrix element       \nPC1_2   =   -0.000109617674167 / Coordinate transformation matrix element       \nPC2_1   =   -0.000108583561795 / Coordinate transformation matrix element       \nPC2_2   =      0.0017043643471 / Coordinate transformation matrix element       \nCDELT1  =                  1.0 / [deg] Coordinate increment at reference point  \nCDELT2  =                  1.0 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCTYPE2  = 'DEC--TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCRVAL1  =        78.7955559089 / [deg] Coordinate value at reference point      \nCRVAL2  =         28.950179462 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =         28.950179462 / [deg] Native latitude of celestial pole        \nTIMESYS = 'UTC'                / Time scale                                     \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nDATE-OBS= '2026-09-11T21:01:31.400' / ISO-8601 time of observation              \nMJD-OBS =       61294.87605787 / [d] MJD of observation                         \nDATE-BEG= '2026-09-11T21:01:31.400' / ISO-8601 time at start of observation     \nMJD-BEG =       61294.87605787 / [d] MJD at start of observation                \nDATE-AVG= '2026-09-11T21:02:28.959' / ISO-8601 time at midpoint of observation  \nMJD-AVG =       61294.87672406 / [d] MJD at midpoint of observation             \nDATE-END= '2026-09-11T21:03:26.518' / ISO-8601 time at end of observation       \nMJD-END =      61294.877390249 / [d] MJD at end of observation                  \nXPOSURE =             113.5826 / [s] Exposure (integration) time                \nTELAPSE =             118.1873 / [s] Elapsed time (start to stop)               \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nA_ORDER =                    3 / SIP polynomial order, axis 0, detector to sky  \nA_0_0   =      0.0311309453607 / SIP distortion coefficient                     \nA_0_1   =    0.000263628791728 / SIP distortion coefficient                     \nA_0_2   =    1.26533507703E-08 / SIP distortion coefficient                     \nA_0_3   =    3.14671054612E-13 / SIP distortion coefficient                     \nA_1_0   =   -0.000444266353114 / SIP distortion coefficient                     \nA_1_1   =    3.96406633776E-06 / SIP distortion coefficient                     \nA_1_2   =    6.19835144116E-10 / SIP distortion coefficient                     \nA_2_0   =   -4.19131802184E-08 / SIP distortion coefficient                     \nA_2_1   =    4.11155345135E-12 / SIP distortion coefficient                     \nA_3_0   =    5.57899448105E-10 / SIP distortion coefficient                     \nB_ORDER =                    3 / SIP polynomial order, axis 1, detector to sky  \nB_0_0   =      -0.877676125587 / SIP distortion coefficient                     \nB_0_1   =   -0.000304137452688 / SIP distortion coefficient                     \nB_0_2   =    1.94304712631E-06 / SIP distortion coefficient                     \nB_0_3   =    4.46162094509E-10 / SIP distortion coefficient                     \nB_1_0   =   -0.000337780401281 / SIP distortion coefficient                     \nB_1_1   =    3.50871256877E-08 / SIP distortion coefficient                     \nB_1_2   =   -2.53085069268E-11 / SIP distortion coefficient                     \nB_2_0   =    6.54201196147E-06 / SIP distortion coefficient                     \nB_2_1   =    5.90857178781E-10 / SIP distortion coefficient                     \nB_3_0   =    5.69935183607E-11 / SIP distortion coefficient                     \nAP_ORDER=                    3 / SIP polynomial order, axis 0, sky to detector  \nAP_0_0  =     -0.0313860259544 / SIP distortion coefficient                     \nAP_0_1  =   -0.000263717017501 / SIP distortion coefficient                     \nAP_0_2  =   -1.10909472715E-08 / SIP distortion coefficient                     \nAP_0_3  =    4.35978205838E-14 / SIP distortion coefficient                     \nAP_1_0  =    0.000439962387341 / SIP distortion coefficient                     \nAP_1_1  =   -3.95169927305E-06 / SIP distortion coefficient                     \nAP_1_2  =   -5.95080464553E-10 / SIP distortion coefficient                     \nAP_2_0  =    4.25171997025E-08 / SIP distortion coefficient                     \nAP_2_1  =   -4.12585431326E-12 / SIP distortion coefficient                     \nAP_3_0  =   -5.31032152534E-10 / SIP distortion coefficient                     \nBP_ORDER=                    3 / SIP polynomial order, axis 1, sky to detector  \nBP_0_0  =       0.873179615033 / SIP distortion coefficient                     \nBP_0_1  =    0.000299922980988 / SIP distortion coefficient                     \nBP_0_2  =   -1.93312667499E-06 / SIP distortion coefficient                     \nBP_0_3  =   -4.37665172898E-10 / SIP distortion coefficient                     \nBP_1_0  =    0.000338367108582 / SIP distortion coefficient                     \nBP_1_1  =   -3.39607434467E-08 / SIP distortion coefficient                     \nBP_1_2  =    2.54694332253E-11 / SIP distortion coefficient                     \nBP_2_0  =   -6.53138631542E-06 / SIP distortion coefficient                     \nBP_2_1  =   -5.12426605328E-10 / SIP distortion coefficient                     \nBP_3_0  =   -5.76022062853E-11 / SIP distortion coefficient                     \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ",
+            "product_id": "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08",
+            "time_scale": "UTC",
+            "native_shape": [
+              108,
+              108
+            ],
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            },
+            "variance_unit": "(MJy/sr)^2",
+            "raw_artifact_id": "0121c32e-4145-45f1-8c4c-77f49c7701ba",
+            "artifact_indices": {
+              "planes": 2,
+              "common_preview": 1,
+              "native_preview": 0
+            },
+            "pipeline_version": "7.0.5",
+            "calibration_version": "l2b-v27-2026-259",
+            "display_eligibility": {
+              "native_inspection": true,
+              "masked_common_grid": true,
+              "comparable_sequence": false,
+              "native_preview_policy": "masked"
+            },
+            "original_metadata_location": "unchanged_raw_FITS_input",
+            "selected_for_default_group": true,
+            "common_grid_usable_fraction": 0.9117034568929613,
+            "original_image_header_sha256": "d3539c3d0c2a25bdcecf93a2c12d1b6037dff0e530a7c5223de67b3205ce18d0"
+          }
+        ],
+        "options": {
+          "stretch": "shared_asinh",
+          "detector": "D2",
+          "channel_id": null,
+          "spectral_mode": "detector",
+          "temporal_bin_seconds": 0,
+          "native_preview_policy": "masked",
+          "target_exclusion_radius_arcsec": 60.0
+        },
+        "outcome": "single_epoch",
+        "version": "frames-v1",
+        "warnings": [
+          "WCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied",
+          "Nominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment",
+          "Relative static-field registration is not absolute astrometry; central target is excluded",
+          "Pixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked",
+          "Native flagged previews are inspectable; quantitative eligibility is independent of display eligibility",
+          "Explicit temporal averaging can blur change within the recorded contributor span; native inputs remain available"
+        ],
+        "artifacts": [
+          {
+            "id": "0a066ebb-dea8-41ad-b09e-9bca8878799f",
+            "kind": "native_preview",
+            "sha256": "fe75539d1df479db008d6f3a175eea58b08d0c632f60376b8b17dce36c0da422",
+            "view_id": "38fa813b-bdf8-4e80-b4d5-3336b4b6574d",
+            "size_bytes": 21496,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08"
+            ]
+          },
+          {
+            "id": "530211c1-74af-4722-a0c5-776b3e7a150d",
+            "kind": "common_preview",
+            "sha256": "e2dcf05bb3c35126f03a27ca9177ce2fd7e2961679f5b9c06ec181ff538908a2",
+            "view_id": "38fa813b-bdf8-4e80-b4d5-3336b4b6574d",
+            "size_bytes": 4479,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08"
+            ]
+          },
+          {
+            "id": "fe6f7779-2711-4118-af15-4b09ebcbff36",
+            "kind": "common_grid_planes",
+            "sha256": "e80d3cd5190a249153b27c9308ac0866b600a569d1362bc17d4865ca8bc8bbcc",
+            "view_id": "38fa813b-bdf8-4e80-b4d5-3336b4b6574d",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08"
+            ]
+          },
+          {
+            "id": "c4830fad-4672-405d-a2ad-ef54d986ef47",
+            "kind": "preparation_report",
+            "sha256": "3385a540401586c184b70e13251775e5e35c0227b7ce0bddd54ef675a9d1486a",
+            "view_id": "38fa813b-bdf8-4e80-b4d5-3336b4b6574d",
+            "size_bytes": 16533,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08"
+            ]
+          }
+        ],
+        "temporal_bins": [
+          {
+            "count": 1,
+            "reason": null,
+            "end_mjd": 61294.877390249,
+            "start_mjd": 61294.87605787,
+            "contributors": [
+              0
+            ],
+            "contributor_times": [
+              {
+                "index": 0,
+                "end_mjd": 61294.877390249,
+                "mid_mjd": 61294.87672406,
+                "start_mjd": 61294.87605787
+              }
+            ]
+          }
+        ],
+        "pair_eligibility": {},
+        "selected_indices": [
+          0
+        ],
+        "sequence_eligible": false,
+        "viewer_execution_available": false,
+        "spectral_calibration_version": "ssdc-r7-202607-nominal17-v1"
+      },
+      "frames": [
+        {
+          "product_id": "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08",
+          "raw_artifact_id": "0121c32e-4145-45f1-8c4c-77f49c7701ba",
+          "sha256": "d5b416681826a495031bb09c495a37a3490098e858b22d2f140e9a9e0cc9f5fe",
+          "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W37_2A/l2b-v27-2026-259/2/level2_2026W37_2A_0287_4D2_spx_l2b-v27-2026-259.fits?center=76.956586575487%2C30.401291346097&size=0.184517778089",
+          "local_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/catalog_prediction/0121c32e-4145-45f1-8c4c-77f49c7701ba.fits",
+          "diagnostic": {
+            "observed_at_utc": "2026-09-11T21:02:28.959Z",
+            "mid_mjd_utc": "61294.87672406",
+            "start_mjd_utc": "61294.87605787",
+            "end_mjd_utc": "61294.877390249",
+            "prediction": {
+              "ra_deg": 76.95658819396799,
+              "dec_deg": 30.401287420844437,
+              "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+              "at_utc": "2026-09-11T21:02:28.959"
+            },
+            "prediction_inside": true,
+            "prediction_pixel_0based": [
+              53.765536798619884,
+              53.44016638301332
+            ],
+            "predicted_offset_from_fixed_center_arcsec": 0.014997907078488694,
+            "pixel_scale_arcsec": 6.1419669788747715,
+            "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+            "sampling_is_not_angular_resolution": true,
+            "aperture": {
+              "aperture_radius_pixels": 1.5,
+              "aperture_pixels": 7,
+              "usable_pixels": 6,
+              "usable_fraction": 0.8571428571428571,
+              "background_pixels": 261,
+              "edge_truncated": false,
+              "contrast_sum_mjy_sr_pixels": null,
+              "diagonal_error_proxy": null,
+              "contrast_snr_proxy": null,
+              "centroid_pixel_0based": null,
+              "scientific_detection_validated": false,
+              "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+              "reason": "incomplete_masked_aperture_or_background"
+            },
+            "aperture_flags": {
+              "MP_TRANSIENT": 0,
+              "MP_OVERFLOW": 1,
+              "MP_SUR_ERROR": 0,
+              "MP_NONFUNC": 0,
+              "MP_DICHROIC": 0,
+              "MP_MISSING_DATA": 0,
+              "MP_HOT": 0,
+              "MP_COLD": 0,
+              "MP_FULLSAMPLE": 0,
+              "MP_PHANMISS": 0,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_OUTLIER": 0,
+              "MP_CROSSTALK": 0,
+              "MP_SOURCE": 7,
+              "MP_GHOST": 0,
+              "MP_GHOST_FPA": 0,
+              "MP_GHOST_EXT": 0,
+              "MP_STREAK": 0,
+              "MP_BLOOM": 0,
+              "MP_SNOWBALL": 0,
+              "MP_HALO": 0
+            },
+            "unknown_flag_pixels_in_image": 0,
+            "saturation_or_bright_artifact_flags": {
+              "MP_OVERFLOW": 1,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_BLOOM": 0,
+              "MP_HALO": 0
+            },
+            "target_local_wavelength_um": 1.1216637212708485,
+            "target_local_bandwidth_um": 0.026515076647222337,
+            "candidate_centroid_icrs_deg_unvalidated": null,
+            "scientific_motion_arcsec": null,
+            "scientific_brightness_change": null,
+            "limits": [
+              "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+              "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+              "No covariance, aperture correction or PSF/response/photometric matching applied"
+            ]
+          }
+        }
+      ],
+      "common_delivery": [
+        {
+          "id": "efc07c52-ad66-56e5-b032-7a611e4fa39c",
+          "ordinal": 0,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-11T21:03:26.517514Z",
+            "label_utc": "2026-09-11T21:02:28.958784Z",
+            "start_utc": "2026-09-11T21:01:31.399968Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61294.877390249",
+            "gap_seconds": 0,
+            "mid_mjd_utc": "61294.87672406",
+            "start_mjd_utc": "61294.87605787",
+            "elapsed_seconds": 0.0,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.3583532823043643,
+              4.35367493956664
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "e2dcf05bb3c35126f03a27ca9177ce2fd7e2961679f5b9c06ec181ff538908a2",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/catalog_prediction/common-0.png"
+        }
+      ],
+      "native_delivery": [
+        {
+          "id": "752d6b23-6c9b-5afe-9d95-a366a98e2af7",
+          "ordinal": 0,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-11T21:03:26.517514Z",
+            "label_utc": "2026-09-11T21:02:28.958784Z",
+            "start_utc": "2026-09-11T21:01:31.399968Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61294.877390249",
+            "gap_seconds": 0,
+            "mid_mjd_utc": "61294.87672406",
+            "start_mjd_utc": "61294.87605787",
+            "elapsed_seconds": 0.0,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.3583532823043643,
+              4.35367493956664
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "fe75539d1df479db008d6f3a175eea58b08d0c632f60376b8b17dce36c0da422",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/catalog_prediction/native-0.png"
+        }
+      ],
+      "comparisons": [],
+      "scientific_outcome": "inconclusive_motion_and_photometry_not_validated",
+      "scientific_detection_validated": false,
+      "discovery_evidence": {
+        "contract_version": "discovery-v1",
+        "snapshot_id": "6f5909d9-f4e9-4168-860e-312998210f6d",
+        "registry_version": "irsa-2026-10-31",
+        "canonical_query": {
+          "contract_version": "discovery-v1",
+          "registry_version": "irsa-2026-10-31",
+          "region": {
+            "ra_deg": 76.95658657548722,
+            "dec_deg": 30.401291346097146,
+            "frame": "icrs",
+            "width_arcmin": 5.0,
+            "height_arcmin": 5.0,
+            "projection": "TAN_north_up_east_left",
+            "corners_icrs_deg": [
+              [
+                76.90829813017278,
+                30.35961580507814
+              ],
+              [
+                77.00487502080165,
+                30.35961580507814
+              ],
+              [
+                77.00491624578552,
+                30.44294910879043
+              ],
+              [
+                76.90825690518892,
+                30.442949108790422
+              ]
+            ],
+            "search_radius_deg": 0.05892555571129446
+          },
+          "start_at": null,
+          "end_at": null,
+          "collections": [
+            "spherex_qr3"
+          ],
+          "detectors": [
+            "D2"
+          ],
+          "wavelength_min_um": null,
+          "wavelength_max_um": null
+        },
+        "created_at_utc": "2026-11-01T14:44:11.808163Z",
+        "revalidate_after_utc": "2026-11-01T14:59:11.808163Z",
+        "cache_hit": true,
+        "stale": false,
+        "upstream_complete": false,
+        "total": null,
+        "sampled_count": 2,
+        "offset": 0,
+        "limit": 1,
+        "next_page": "/api/v1/observations/snapshots/6f5909d9-f4e9-4168-860e-312998210f6d?offset=1&limit=1",
+        "availability": {
+          "scope": "returned_sample",
+          "epoch_intervals": [
+            {
+              "start_at_utc": "2026-09-11T20:59:22.502400+00:00",
+              "end_at_utc": "2026-09-11T21:01:17.587200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-11T21:01:31.411200+00:00",
+              "end_at_utc": "2026-09-11T21:03:26.496000+00:00",
+              "detector": "D2"
+            }
+          ],
+          "detectors": [
+            "D2"
+          ],
+          "earliest_at_utc": "2026-09-11T20:59:22.502400+00:00",
+          "latest_at_utc": "2026-09-11T21:03:26.496000+00:00",
+          "local_spectral_coverage": "requires_FITS_WCS_WAVE",
+          "outcome": "incomplete",
+          "sample_time_gaps": [
+            {
+              "start_at_utc": "2026-09-11T21:01:17.587200+00:00",
+              "end_at_utc": "2026-09-11T21:01:31.411200+00:00",
+              "seconds": 13.824
+            }
+          ],
+          "image_spectral_ranges_um": [
+            {
+              "detector": "D2",
+              "min": 1.1033000000000002,
+              "max": 1.6499000000000001
+            }
+          ]
+        },
+        "sources": [
+          {
+            "collection": "spherex_qr3",
+            "query_url": "https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+76.956586575487+30.401291346097+0.058925555711&COLLECTION=spherex_qr3&MAXREC=40",
+            "retrieved_at_utc": "2026-11-01T14:44:11.805140+00:00",
+            "sha256": "78e6a4b55b1d62eb1645b4a91ef41486bb2c9d16fa2507ae7b9f09ece877e838",
+            "bytes": 110485,
+            "rows": 40,
+            "truncated": true,
+            "status": "OVERFLOW_OR_CAP",
+            "query_status": [
+              "OVERFLOW"
+            ],
+            "attempts": 1
+          }
+        ],
+        "warnings": [
+          "Image wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch",
+          "Footprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required",
+          "SIA may lag new archive ingestion by about one day; reported gaps are not proof of no observations",
+          "Incomplete archive sample: narrow dates/FOV or select collections; pagination cannot recover upstream omitted rows"
+        ]
+      }
+    },
+    {
+      "case": "archive_band_followup",
+      "request": {
+        "contract_version": "view-v2",
+        "region": {
+          "ra": 76.95658657548722,
+          "dec": 30.401291346097146,
+          "width_arcmin": 5,
+          "height_arcmin": 5
+        },
+        "collections": [
+          "spherex_qr3"
+        ],
+        "detectors": [
+          "D2"
+        ],
+        "max_frames": 3,
+        "preparation": {
+          "spectral_mode": "detector",
+          "detector": "D2",
+          "stretch": "shared_asinh",
+          "target_exclusion_radius_arcsec": 60
+        },
+        "wavelength_min_um": 1.3,
+        "wavelength_max_um": 1.5
+      },
+      "request_sha256": "7335748c1d4e00321be07a5284a28de1dd5a1e35c7606399e1cb57684a7144c5",
+      "query_center": {
+        "ra_deg": 76.95658657548722,
+        "dec_deg": 30.401291346097146,
+        "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+        "at_utc": "2026-01-01T00:00:00"
+      },
+      "started_at_utc": "2026-11-01T14:49:30.363293+00:00",
+      "status": "succeeded",
+      "submission_http_status": 202,
+      "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+      "error_code": null,
+      "snapshot_id": "7bc67554-6990-45c8-84ec-4817b153051d",
+      "canonical_request": {
+        "end_at": null,
+        "region": {
+          "frame": "icrs",
+          "ra_deg": 76.95658657548722,
+          "dec_deg": 30.401291346097146,
+          "projection": "TAN_north_up_east_left",
+          "width_arcmin": 5.0,
+          "height_arcmin": 5.0,
+          "corners_icrs_deg": [
+            [
+              76.90829813017278,
+              30.35961580507814
+            ],
+            [
+              77.00487502080165,
+              30.35961580507814
+            ],
+            [
+              77.00491624578552,
+              30.44294910879043
+            ],
+            [
+              76.90825690518892,
+              30.442949108790422
+            ]
+          ],
+          "search_radius_deg": 0.05892555571129446
+        },
+        "start_at": null,
+        "detectors": [
+          "D2"
+        ],
+        "selection": {
+          "limited": true,
+          "preselection": {
+            "reason": "prefer_full_requested_footprint_then_largest_consistent_sample; local_response_and_flags_require_FITS",
+            "release": "qr3",
+            "detector": "D2",
+            "coverage_method": "nine_TAN_points_in_SIA_polygon_geometry_only",
+            "processing_family": "l2b-v27-2026-259",
+            "family_sample_count": 8,
+            "full_footprint_candidates": 7
+          },
+          "sampled_count": 19,
+          "selected_count": 3,
+          "preselected_count": 7,
+          "upstream_complete": true,
+          "discovery_warnings": [
+            "Image wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch",
+            "Footprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required",
+            "SIA may lag new archive ingestion by about one day; reported gaps are not proof of no observations"
+          ]
+        },
+        "max_frames": 3,
+        "collections": [
+          "spherex_qr3"
+        ],
+        "preparation": {
+          "stretch": "shared_asinh",
+          "detector": "D2",
+          "channel_id": null,
+          "spectral_mode": "detector",
+          "temporal_bin_seconds": 0,
+          "native_preview_policy": "masked",
+          "target_exclusion_radius_arcsec": 60.0
+        },
+        "contract_version": "view-v2",
+        "pipeline_version": "frames-v1",
+        "registry_version": "irsa-2026-10-31",
+        "selection_policy": "evenly_spaced_sample",
+        "wavelength_max_um": 1.5,
+        "wavelength_min_um": 1.3,
+        "acquisition_policy": "single_release_detector_v1"
+      },
+      "finished_at_utc": "2026-11-01T14:51:08.950033+00:00",
+      "manifest_sha256": "3a9d82e3c5e6adbb9ad5d617b55d07d33fe265cca51078d36073e24f61dae70f",
+      "manifest_url": "/api/v1/views/9a785411-2291-4c4c-8dc4-9d4523ecc73e/manifest",
+      "movie_outcome": "ready_for_animation",
+      "timelines": {
+        "common": {
+          "outcome": "ready_for_animation",
+          "frame_count": 3,
+          "distinct_epoch_count": 3,
+          "comparison_supported": false
+        },
+        "native": {
+          "outcome": "ready_for_animation",
+          "frame_count": 3,
+          "distinct_epoch_count": 3,
+          "comparison_supported": false
+        }
+      },
+      "preparation_sha256": "915c0464b8aac92ef7ef25a80550f9e62557e3c54c3975835b4070f80989f14b",
+      "preparation": {
+        "grid": {
+          "mode": "sky_fixed",
+          "shape": [
+            49,
+            49
+          ],
+          "header": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =                 25.0 / Pixel coordinate of reference point            \nCRPIX2  =                 25.0 / Pixel coordinate of reference point            \nCDELT1  =  -0.0017006805719103 / [deg] Coordinate increment at reference point  \nCDELT2  =   0.0017006805719103 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN'           / Right ascension, gnomonic projection           \nCTYPE2  = 'DEC--TAN'           / Declination, gnomonic projection               \nCRVAL1  =      76.956586575487 / [deg] Coordinate value at reference point      \nCRVAL2  =      30.401291346097 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =      30.401291346097 / [deg] Native latitude of celestial pole        \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ",
+          "variance": "squared_bilinear_weights_marginal_only",
+          "png_flip_y": true,
+          "pixel_origin": "FITS_lower_left",
+          "requested_region": {
+            "frame": "icrs",
+            "ra_deg": 76.95658657548722,
+            "dec_deg": 30.401291346097146,
+            "projection": "TAN_north_up_east_left",
+            "width_arcmin": 5.0,
+            "height_arcmin": 5.0,
+            "corners_icrs_deg": [
+              [
+                76.90829813017278,
+                30.35961580507814
+              ],
+              [
+                77.00487502080165,
+                30.35961580507814
+              ],
+              [
+                77.00491624578552,
+                30.44294910879043
+              ],
+              [
+                76.90825690518892,
+                30.442949108790422
+              ]
+            ],
+            "search_radius_deg": 0.05892555571129446
+          }
+        },
+        "frames": [
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 418,
+              "plane_sha256": "1269157e67b9061817d1ff2255ca13b3c0999e0ba0eccecf995866e891892fa3",
+              "support_stars": 248,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1889.7661563388701,
+                1928.442506533838
+              ]
+            },
+            "unit": "MJy/sr",
+            "index": 0,
+            "end_mjd": 61294.877390249,
+            "mid_mjd": 61294.87672406,
+            "quality": {
+              "policy": "strict-flags-v1",
+              "finite_fraction": 0.9999142661179699,
+              "usable_fraction": 0.9729080932784636,
+              "flag_definitions": {
+                "MP_HOT": 10,
+                "MP_COLD": 11,
+                "MP_HALO": 28,
+                "MP_BLOOM": 26,
+                "MP_GHOST": 22,
+                "MP_SOURCE": 21,
+                "MP_STREAK": 25,
+                "MP_NONFUNC": 6,
+                "MP_OUTLIER": 19,
+                "MP_PERSIST": 17,
+                "MP_DICHROIC": 7,
+                "MP_OVERFLOW": 1,
+                "MP_PHANMISS": 14,
+                "MP_SNOWBALL": 27,
+                "MP_CROSSTALK": 20,
+                "MP_GHOST_EXT": 24,
+                "MP_GHOST_FPA": 23,
+                "MP_NONLINEAR": 15,
+                "MP_SUR_ERROR": 2,
+                "MP_TRANSIENT": 0,
+                "MP_FULLSAMPLE": 12,
+                "MP_MISSING_DATA": 9
+              },
+              "informational_flags": [
+                "MP_SOURCE",
+                "MP_FULLSAMPLE"
+              ],
+              "unknown_flag_pixels": 0
+            },
+            "release": "qr3",
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.35534897810978106,
+                3.792997995565732
+              ],
+              "asinh_softening": 10
+            },
+            "detector": "D2",
+            "spectral": {
+              "method": "WCS-WAVE_visualization_proxy",
+              "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+              "center_inside": true,
+              "center_usable": false,
+              "center_sampling": "nearest_native_pixel_visualization_proxy",
+              "native_range_scope": "padded_native_cutout",
+              "center_bandwidth_um": 0.026520515923794348,
+              "wavelength_range_um": [
+                1.1082206232325016,
+                1.1351042049566353
+              ],
+              "center_wavelength_um": 1.121768887273993,
+              "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+              "quantitative_calibration": false,
+              "nominal_window_candidates": [
+                18,
+                19
+              ],
+              "usable_wavelength_range_um": [
+                1.1082206232325016,
+                1.1351042049566353
+              ],
+              "requested_region_nominal_window_candidates": [
+                18,
+                19
+              ],
+              "requested_region_usable_wavelength_range_um": [
+                1.1160087907188672,
+                1.1273279774725347
+              ]
+            },
+            "start_mjd": 61294.87605787,
+            "collection": "spherex_qr3",
+            "native_wcs": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =               -815.5 / Pixel coordinate of reference point            \nCRPIX2  =               -854.5 / Pixel coordinate of reference point            \nPC1_1   =    -0.00170085559699 / Coordinate transformation matrix element       \nPC1_2   =   -0.000109617674167 / Coordinate transformation matrix element       \nPC2_1   =   -0.000108583561795 / Coordinate transformation matrix element       \nPC2_2   =      0.0017043643471 / Coordinate transformation matrix element       \nCDELT1  =                  1.0 / [deg] Coordinate increment at reference point  \nCDELT2  =                  1.0 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCTYPE2  = 'DEC--TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCRVAL1  =        78.7955559089 / [deg] Coordinate value at reference point      \nCRVAL2  =         28.950179462 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =         28.950179462 / [deg] Native latitude of celestial pole        \nTIMESYS = 'UTC'                / Time scale                                     \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nDATE-OBS= '2026-09-11T21:01:31.400' / ISO-8601 time of observation              \nMJD-OBS =       61294.87605787 / [d] MJD of observation                         \nDATE-BEG= '2026-09-11T21:01:31.400' / ISO-8601 time at start of observation     \nMJD-BEG =       61294.87605787 / [d] MJD at start of observation                \nDATE-AVG= '2026-09-11T21:02:28.959' / ISO-8601 time at midpoint of observation  \nMJD-AVG =       61294.87672406 / [d] MJD at midpoint of observation             \nDATE-END= '2026-09-11T21:03:26.518' / ISO-8601 time at end of observation       \nMJD-END =      61294.877390249 / [d] MJD at end of observation                  \nXPOSURE =             113.5826 / [s] Exposure (integration) time                \nTELAPSE =             118.1873 / [s] Elapsed time (start to stop)               \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nA_ORDER =                    3 / SIP polynomial order, axis 0, detector to sky  \nA_0_0   =      0.0311309453607 / SIP distortion coefficient                     \nA_0_1   =    0.000263628791728 / SIP distortion coefficient                     \nA_0_2   =    1.26533507703E-08 / SIP distortion coefficient                     \nA_0_3   =    3.14671054612E-13 / SIP distortion coefficient                     \nA_1_0   =   -0.000444266353114 / SIP distortion coefficient                     \nA_1_1   =    3.96406633776E-06 / SIP distortion coefficient                     \nA_1_2   =    6.19835144116E-10 / SIP distortion coefficient                     \nA_2_0   =   -4.19131802184E-08 / SIP distortion coefficient                     \nA_2_1   =    4.11155345135E-12 / SIP distortion coefficient                     \nA_3_0   =    5.57899448105E-10 / SIP distortion coefficient                     \nB_ORDER =                    3 / SIP polynomial order, axis 1, detector to sky  \nB_0_0   =      -0.877676125587 / SIP distortion coefficient                     \nB_0_1   =   -0.000304137452688 / SIP distortion coefficient                     \nB_0_2   =    1.94304712631E-06 / SIP distortion coefficient                     \nB_0_3   =    4.46162094509E-10 / SIP distortion coefficient                     \nB_1_0   =   -0.000337780401281 / SIP distortion coefficient                     \nB_1_1   =    3.50871256877E-08 / SIP distortion coefficient                     \nB_1_2   =   -2.53085069268E-11 / SIP distortion coefficient                     \nB_2_0   =    6.54201196147E-06 / SIP distortion coefficient                     \nB_2_1   =    5.90857178781E-10 / SIP distortion coefficient                     \nB_3_0   =    5.69935183607E-11 / SIP distortion coefficient                     \nAP_ORDER=                    3 / SIP polynomial order, axis 0, sky to detector  \nAP_0_0  =     -0.0313860259544 / SIP distortion coefficient                     \nAP_0_1  =   -0.000263717017501 / SIP distortion coefficient                     \nAP_0_2  =   -1.10909472715E-08 / SIP distortion coefficient                     \nAP_0_3  =    4.35978205838E-14 / SIP distortion coefficient                     \nAP_1_0  =    0.000439962387341 / SIP distortion coefficient                     \nAP_1_1  =   -3.95169927305E-06 / SIP distortion coefficient                     \nAP_1_2  =   -5.95080464553E-10 / SIP distortion coefficient                     \nAP_2_0  =    4.25171997025E-08 / SIP distortion coefficient                     \nAP_2_1  =   -4.12585431326E-12 / SIP distortion coefficient                     \nAP_3_0  =   -5.31032152534E-10 / SIP distortion coefficient                     \nBP_ORDER=                    3 / SIP polynomial order, axis 1, sky to detector  \nBP_0_0  =       0.873179615033 / SIP distortion coefficient                     \nBP_0_1  =    0.000299922980988 / SIP distortion coefficient                     \nBP_0_2  =   -1.93312667499E-06 / SIP distortion coefficient                     \nBP_0_3  =   -4.37665172898E-10 / SIP distortion coefficient                     \nBP_1_0  =    0.000338367108582 / SIP distortion coefficient                     \nBP_1_1  =   -3.39607434467E-08 / SIP distortion coefficient                     \nBP_1_2  =    2.54694332253E-11 / SIP distortion coefficient                     \nBP_2_0  =   -6.53138631542E-06 / SIP distortion coefficient                     \nBP_2_1  =   -5.12426605328E-10 / SIP distortion coefficient                     \nBP_3_0  =   -5.76022062853E-11 / SIP distortion coefficient                     \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ",
+            "product_id": "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08",
+            "time_scale": "UTC",
+            "native_shape": [
+              108,
+              108
+            ],
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            },
+            "variance_unit": "(MJy/sr)^2",
+            "raw_artifact_id": "a25a8fbc-c99b-4b32-ac9b-586ac986be26",
+            "artifact_indices": {
+              "planes": 2,
+              "common_preview": 1,
+              "native_preview": 0
+            },
+            "pipeline_version": "7.0.5",
+            "calibration_version": "l2b-v27-2026-259",
+            "display_eligibility": {
+              "native_inspection": true,
+              "masked_common_grid": true,
+              "comparable_sequence": false,
+              "native_preview_policy": "masked"
+            },
+            "original_metadata_location": "unchanged_raw_FITS_input",
+            "selected_for_default_group": false,
+            "common_grid_usable_fraction": 0.9117034568929613,
+            "original_image_header_sha256": "d3539c3d0c2a25bdcecf93a2c12d1b6037dff0e530a7c5223de67b3205ce18d0"
+          },
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 355,
+              "plane_sha256": "56e393975f922f8bc331ab2c23e0fc77b27e8bd269595cbbd0672db0ea4cd901",
+              "support_stars": 305,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1886.6354768425815,
+                1584.1072451867371
+              ]
+            },
+            "unit": "MJy/sr",
+            "index": 1,
+            "end_mjd": 61295.962632645,
+            "mid_mjd": 61295.961966455,
+            "quality": {
+              "policy": "strict-flags-v1",
+              "finite_fraction": 1.0,
+              "usable_fraction": 0.9763374485596708,
+              "flag_definitions": {
+                "MP_HOT": 10,
+                "MP_COLD": 11,
+                "MP_HALO": 28,
+                "MP_BLOOM": 26,
+                "MP_GHOST": 22,
+                "MP_SOURCE": 21,
+                "MP_STREAK": 25,
+                "MP_NONFUNC": 6,
+                "MP_OUTLIER": 19,
+                "MP_PERSIST": 17,
+                "MP_DICHROIC": 7,
+                "MP_OVERFLOW": 1,
+                "MP_PHANMISS": 14,
+                "MP_SNOWBALL": 27,
+                "MP_CROSSTALK": 20,
+                "MP_GHOST_EXT": 24,
+                "MP_GHOST_FPA": 23,
+                "MP_NONLINEAR": 15,
+                "MP_SUR_ERROR": 2,
+                "MP_TRANSIENT": 0,
+                "MP_FULLSAMPLE": 12,
+                "MP_MISSING_DATA": 9
+              },
+              "informational_flags": [
+                "MP_SOURCE",
+                "MP_FULLSAMPLE"
+              ],
+              "unknown_flag_pixels": 0
+            },
+            "release": "qr3",
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.35534897810978106,
+                3.792997995565732
+              ],
+              "asinh_softening": 10
+            },
+            "detector": "D2",
+            "spectral": {
+              "method": "WCS-WAVE_visualization_proxy",
+              "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+              "center_inside": true,
+              "center_usable": false,
+              "center_sampling": "nearest_native_pixel_visualization_proxy",
+              "native_range_scope": "padded_native_cutout",
+              "center_bandwidth_um": 0.029054610057591086,
+              "wavelength_range_um": [
+                1.1883342028844361,
+                1.2179122066346557
+              ],
+              "center_wavelength_um": 1.2032361902419717,
+              "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+              "quantitative_calibration": false,
+              "nominal_window_candidates": [
+                21,
+                22
+              ],
+              "usable_wavelength_range_um": [
+                1.1883342028844361,
+                1.2179122066346557
+              ],
+              "requested_region_nominal_window_candidates": [
+                21
+              ],
+              "requested_region_usable_wavelength_range_um": [
+                1.1969508930135568,
+                1.2094444196423337
+              ]
+            },
+            "start_mjd": 61295.961300266,
+            "collection": "spherex_qr3",
+            "native_wcs": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =               -812.5 / Pixel coordinate of reference point            \nCRPIX2  =               -510.5 / Pixel coordinate of reference point            \nPC1_1   =    -0.00170028528857 / Coordinate transformation matrix element       \nPC1_2   =   -0.000110737448715 / Coordinate transformation matrix element       \nPC2_1   =   -0.000110046819609 / Coordinate transformation matrix element       \nPC2_2   =     0.00170400623706 / Coordinate transformation matrix element       \nCDELT1  =                  1.0 / [deg] Coordinate increment at reference point  \nCDELT2  =                  1.0 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCTYPE2  = 'DEC--TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCRVAL1  =        78.7431814514 / [deg] Coordinate value at reference point      \nCRVAL2  =        29.5386411874 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =        29.5386411874 / [deg] Native latitude of celestial pole        \nTIMESYS = 'UTC'                / Time scale                                     \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nDATE-OBS= '2026-09-12T23:04:16.343' / ISO-8601 time of observation              \nMJD-OBS =      61295.961300266 / [d] MJD of observation                         \nDATE-BEG= '2026-09-12T23:04:16.343' / ISO-8601 time at start of observation     \nMJD-BEG =      61295.961300266 / [d] MJD at start of observation                \nDATE-AVG= '2026-09-12T23:05:13.902' / ISO-8601 time at midpoint of observation  \nMJD-AVG =      61295.961966455 / [d] MJD at midpoint of observation             \nDATE-END= '2026-09-12T23:06:11.461' / ISO-8601 time at end of observation       \nMJD-END =      61295.962632645 / [d] MJD at end of observation                  \nXPOSURE =             113.5826 / [s] Exposure (integration) time                \nTELAPSE =             118.1873 / [s] Elapsed time (start to stop)               \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nA_ORDER =                    3 / SIP polynomial order, axis 0, detector to sky  \nA_0_0   =     0.00800140519678 / SIP distortion coefficient                     \nA_0_1   =    5.01398815094E-05 / SIP distortion coefficient                     \nA_0_2   =   -4.59819925823E-09 / SIP distortion coefficient                     \nA_0_3   =   -6.09622006075E-12 / SIP distortion coefficient                     \nA_1_0   =   -0.000139441455872 / SIP distortion coefficient                     \nA_1_1   =    3.95538938968E-06 / SIP distortion coefficient                     \nA_1_2   =    5.96111184994E-10 / SIP distortion coefficient                     \nA_2_0   =   -1.78301643027E-08 / SIP distortion coefficient                     \nA_2_1   =   -9.24339794294E-12 / SIP distortion coefficient                     \nA_3_0   =    5.25972171263E-10 / SIP distortion coefficient                     \nB_ORDER =                    3 / SIP polynomial order, axis 1, detector to sky  \nB_0_0   =      -0.940458640345 / SIP distortion coefficient                     \nB_0_1   =   -0.000143983746729 / SIP distortion coefficient                     \nB_0_2   =    1.95902482253E-06 / SIP distortion coefficient                     \nB_0_3   =    4.66488402701E-10 / SIP distortion coefficient                     \nB_1_0   =      0.0001038702679 / SIP distortion coefficient                     \nB_1_1   =    4.04263319718E-08 / SIP distortion coefficient                     \nB_1_2   =     1.2922445558E-11 / SIP distortion coefficient                     \nB_2_0   =    6.54478888817E-06 / SIP distortion coefficient                     \nB_2_1   =    5.93952310604E-10 / SIP distortion coefficient                     \nB_3_0   =   -6.07333459464E-12 / SIP distortion coefficient                     \nAP_ORDER=                    3 / SIP polynomial order, axis 0, sky to detector  \nAP_0_0  =    -0.00800351016122 / SIP distortion coefficient                     \nAP_0_1  =   -5.00902938958E-05 / SIP distortion coefficient                     \nAP_0_2  =    4.78423730294E-09 / SIP distortion coefficient                     \nAP_0_3  =    6.08558458131E-12 / SIP distortion coefficient                     \nAP_1_0  =    0.000134891139114 / SIP distortion coefficient                     \nAP_1_1  =   -3.94065770006E-06 / SIP distortion coefficient                     \nAP_1_2  =   -5.70941610474E-10 / SIP distortion coefficient                     \nAP_2_0  =    1.84026935355E-08 / SIP distortion coefficient                     \nAP_2_1  =    9.27622024714E-12 / SIP distortion coefficient                     \nAP_3_0  =    -4.9868790071E-10 / SIP distortion coefficient                     \nBP_ORDER=                    3 / SIP polynomial order, axis 1, sky to detector  \nBP_0_0  =       0.935838805433 / SIP distortion coefficient                     \nBP_0_1  =     0.00013949918849 / SIP distortion coefficient                     \nBP_0_2  =   -1.94805305755E-06 / SIP distortion coefficient                     \nBP_0_3  =    -4.5751541284E-10 / SIP distortion coefficient                     \nBP_1_0  =   -0.000103812899365 / SIP distortion coefficient                     \nBP_1_1  =   -3.88861548831E-08 / SIP distortion coefficient                     \nBP_1_2  =   -1.23374365819E-11 / SIP distortion coefficient                     \nBP_2_0  =   -6.52948899769E-06 / SIP distortion coefficient                     \nBP_2_1  =   -5.14998964226E-10 / SIP distortion coefficient                     \nBP_3_0  =    6.17314516737E-12 / SIP distortion coefficient                     \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ",
+            "product_id": "249a56d7dd5a6a05a9e8b29617804547bbe7d3a8e5bf95c3c67a23b79c6d8bbb",
+            "time_scale": "UTC",
+            "native_shape": [
+              108,
+              108
+            ],
+            "registration": {
+              "reason": "reference_grid_has_no_independent_absolute_solution",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            },
+            "variance_unit": "(MJy/sr)^2",
+            "raw_artifact_id": "2a29c918-5cd8-49d5-862f-4cf412399364",
+            "artifact_indices": {
+              "planes": 5,
+              "common_preview": 4,
+              "native_preview": 3
+            },
+            "pipeline_version": "7.0.5",
+            "calibration_version": "l2b-v27-2026-259",
+            "display_eligibility": {
+              "native_inspection": true,
+              "masked_common_grid": true,
+              "comparable_sequence": false,
+              "native_preview_policy": "masked"
+            },
+            "original_metadata_location": "unchanged_raw_FITS_input",
+            "selected_for_default_group": true,
+            "common_grid_usable_fraction": 0.9321116201582674,
+            "original_image_header_sha256": "30ea94397e21fca3b856e13cb53a5610378c89e71c214ecacf40bb9b5c5d4448"
+          },
+          {
+            "psf": {
+              "sum": 1.0,
+              "shape": [
+                33,
+                33
+              ],
+              "format": "qr3_epsf_table",
+              "available": true,
+              "row_0based": 19,
+              "plane_sha256": "a6e1a939ea9d228f5a1c401b9487bedce4f54bf45c6152aa15f408c94772c5aa",
+              "support_stars": 286,
+              "applied_psf_matching": false,
+              "representative_detector_pixel_0based": [
+                1871.693013105311,
+                49.89852224068848
+              ]
+            },
+            "unit": "MJy/sr",
+            "index": 2,
+            "end_mjd": 61296.572325341,
+            "mid_mjd": 61296.571659152,
+            "quality": {
+              "policy": "strict-flags-v1",
+              "finite_fraction": 1.0,
+              "usable_fraction": 0.9604700854700855,
+              "flag_definitions": {
+                "MP_HOT": 10,
+                "MP_COLD": 11,
+                "MP_HALO": 28,
+                "MP_BLOOM": 26,
+                "MP_GHOST": 22,
+                "MP_SOURCE": 21,
+                "MP_STREAK": 25,
+                "MP_NONFUNC": 6,
+                "MP_OUTLIER": 19,
+                "MP_PERSIST": 17,
+                "MP_DICHROIC": 7,
+                "MP_OVERFLOW": 1,
+                "MP_PHANMISS": 14,
+                "MP_SNOWBALL": 27,
+                "MP_CROSSTALK": 20,
+                "MP_GHOST_EXT": 24,
+                "MP_GHOST_FPA": 23,
+                "MP_NONLINEAR": 15,
+                "MP_SUR_ERROR": 2,
+                "MP_TRANSIENT": 0,
+                "MP_FULLSAMPLE": 12,
+                "MP_MISSING_DATA": 9
+              },
+              "informational_flags": [
+                "MP_SOURCE",
+                "MP_FULLSAMPLE"
+              ],
+              "unknown_flag_pixels": 0
+            },
+            "release": "qr3",
+            "stretch": {
+              "mode": "shared_asinh",
+              "limits_mjy_sr": [
+                0.35534897810978106,
+                3.792997995565732
+              ],
+              "asinh_softening": 10
+            },
+            "detector": "D2",
+            "spectral": {
+              "method": "WCS-WAVE_visualization_proxy",
+              "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+              "center_inside": true,
+              "center_usable": false,
+              "center_sampling": "nearest_native_pixel_visualization_proxy",
+              "native_range_scope": "padded_native_cutout",
+              "center_bandwidth_um": 0.039239129322978086,
+              "wavelength_range_um": [
+                1.6271486973840426,
+                1.6641785116756664
+              ],
+              "center_wavelength_um": 1.6461533620145767,
+              "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+              "quantitative_calibration": false,
+              "nominal_window_candidates": [
+                34
+              ],
+              "usable_wavelength_range_um": [
+                1.6271486973840426,
+                1.6641785116756664
+              ],
+              "requested_region_nominal_window_candidates": [
+                34
+              ],
+              "requested_region_usable_wavelength_range_um": [
+                1.6380759010750563,
+                1.654273202776413
+              ]
+            },
+            "start_mjd": 61296.570992963,
+            "collection": "spherex_qr3",
+            "native_wcs": "WCSAXES =                    2 / Number of coordinate axes                      \nCRPIX1  =               -797.5 / Pixel coordinate of reference point            \nCRPIX2  =               1020.5 / Pixel coordinate of reference point            \nPC1_1   =    -0.00170009671063 / Coordinate transformation matrix element       \nPC1_2   =   -0.000114280863894 / Coordinate transformation matrix element       \nPC2_1   =    -0.00011341115506 / Coordinate transformation matrix element       \nPC2_2   =     0.00170361756061 / Coordinate transformation matrix element       \nCDELT1  =                  1.0 / [deg] Coordinate increment at reference point  \nCDELT2  =                  1.0 / [deg] Coordinate increment at reference point  \nCUNIT1  = 'deg'                / Units of coordinate increment and value        \nCUNIT2  = 'deg'                / Units of coordinate increment and value        \nCTYPE1  = 'RA---TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCTYPE2  = 'DEC--TAN-SIP'       / TAN (gnomonic) projection + SIP distortions    \nCRVAL1  =        78.5021667347 / [deg] Coordinate value at reference point      \nCRVAL2  =        32.1503187502 / [deg] Coordinate value at reference point      \nLONPOLE =                180.0 / [deg] Native longitude of celestial pole       \nLATPOLE =        32.1503187502 / [deg] Native latitude of celestial pole        \nTIMESYS = 'UTC'                / Time scale                                     \nMJDREF  =                  0.0 / [d] MJD of fiducial time                       \nDATE-OBS= '2026-09-13T13:42:13.792' / ISO-8601 time of observation              \nMJD-OBS =      61296.570992963 / [d] MJD of observation                         \nDATE-BEG= '2026-09-13T13:42:13.792' / ISO-8601 time at start of observation     \nMJD-BEG =      61296.570992963 / [d] MJD at start of observation                \nDATE-AVG= '2026-09-13T13:43:11.351' / ISO-8601 time at midpoint of observation  \nMJD-AVG =      61296.571659152 / [d] MJD at midpoint of observation             \nDATE-END= '2026-09-13T13:44:08.910' / ISO-8601 time at end of observation       \nMJD-END =      61296.572325341 / [d] MJD at end of observation                  \nXPOSURE =             113.5826 / [s] Exposure (integration) time                \nTELAPSE =             118.1873 / [s] Elapsed time (start to stop)               \nRADESYS = 'ICRS'               / Equatorial coordinate system                   \nA_ORDER =                    3 / SIP polynomial order, axis 0, detector to sky  \nA_0_0   =      0.0669446033329 / SIP distortion coefficient                     \nA_0_1   =    0.000150044945826 / SIP distortion coefficient                     \nA_0_2   =   -2.94977275891E-08 / SIP distortion coefficient                     \nA_0_3   =   -2.39874968045E-11 / SIP distortion coefficient                     \nA_1_0   =   -0.000186306879111 / SIP distortion coefficient                     \nA_1_1   =     3.9697592249E-06 / SIP distortion coefficient                     \nA_1_2   =    6.16573320811E-10 / SIP distortion coefficient                     \nA_2_0   =   -3.00815857379E-08 / SIP distortion coefficient                     \nA_2_1   =    3.58247088796E-11 / SIP distortion coefficient                     \nA_3_0   =     5.6085920955E-10 / SIP distortion coefficient                     \nB_ORDER =                    3 / SIP polynomial order, axis 1, detector to sky  \nB_0_0   =       -1.15211562623 / SIP distortion coefficient                     \nB_0_1   =   -5.43939390869E-05 / SIP distortion coefficient                     \nB_0_2   =    1.96063694339E-06 / SIP distortion coefficient                     \nB_0_3   =    4.71875089252E-10 / SIP distortion coefficient                     \nB_1_0   =   -0.000121754434858 / SIP distortion coefficient                     \nB_1_1   =    3.81975606709E-08 / SIP distortion coefficient                     \nB_1_2   =   -5.00478709843E-12 / SIP distortion coefficient                     \nB_2_0   =    6.54089720749E-06 / SIP distortion coefficient                     \nB_2_1   =    5.91519197503E-10 / SIP distortion coefficient                     \nB_3_0   =    2.56194732141E-11 / SIP distortion coefficient                     \nAP_ORDER=                    3 / SIP polynomial order, axis 0, sky to detector  \nAP_0_0  =     -0.0671157172526 / SIP distortion coefficient                     \nAP_0_1  =   -0.000149737602807 / SIP distortion coefficient                     \nAP_0_2  =    3.02231152886E-08 / SIP distortion coefficient                     \nAP_0_3  =    2.38564439189E-11 / SIP distortion coefficient                     \nAP_1_0  =    0.000180818068784 / SIP distortion coefficient                     \nAP_1_1  =   -3.95459475134E-06 / SIP distortion coefficient                     \nAP_1_2  =   -5.91051555163E-10 / SIP distortion coefficient                     \nAP_2_0  =    3.08706874471E-08 / SIP distortion coefficient                     \nAP_2_1  =   -3.61583634837E-11 / SIP distortion coefficient                     \nAP_3_0  =   -5.33425433465E-10 / SIP distortion coefficient                     \nBP_ORDER=                    3 / SIP polynomial order, axis 1, sky to detector  \nBP_0_0  =        1.14731829247 / SIP distortion coefficient                     \nBP_0_1  =    4.90278045287E-05 / SIP distortion coefficient                     \nBP_0_2  =   -1.94926698015E-06 / SIP distortion coefficient                     \nBP_0_3  =   -4.62696736829E-10 / SIP distortion coefficient                     \nBP_1_0  =    0.000122592758088 / SIP distortion coefficient                     \nBP_1_1  =    -3.6778502681E-08 / SIP distortion coefficient                     \nBP_1_2  =    4.91943772379E-12 / SIP distortion coefficient                     \nBP_2_0  =   -6.52519862428E-06 / SIP distortion coefficient                     \nBP_2_1  =   -5.12307984414E-10 / SIP distortion coefficient                     \nBP_3_0  =   -2.58303526532E-11 / SIP distortion coefficient                     \nEND                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ",
+            "product_id": "caed37c2f7672ac20d12ae85cec204dab0b1e362f1fb2db5bf78fd3648b91bdd",
+            "time_scale": "UTC",
+            "native_shape": [
+              104,
+              108
+            ],
+            "registration": {
+              "reason": "outside_selected_spectral_group",
+              "validated": false,
+              "offset_pixels": [
+                0,
+                0
+              ]
+            },
+            "variance_unit": "(MJy/sr)^2",
+            "raw_artifact_id": "24c26f75-cb1b-4bbc-ab96-700619a71a9c",
+            "artifact_indices": {
+              "planes": 8,
+              "common_preview": 7,
+              "native_preview": 6
+            },
+            "pipeline_version": "7.0.5",
+            "calibration_version": "l2b-v27-2026-259",
+            "display_eligibility": {
+              "native_inspection": true,
+              "masked_common_grid": true,
+              "comparable_sequence": false,
+              "native_preview_policy": "masked"
+            },
+            "original_metadata_location": "unchanged_raw_FITS_input",
+            "selected_for_default_group": false,
+            "common_grid_usable_fraction": 0.9033735943356934,
+            "original_image_header_sha256": "7112e0256e6bf19b8477de8b2af04946b22462f82c706e07555116035cf0c762"
+          }
+        ],
+        "options": {
+          "stretch": "shared_asinh",
+          "detector": "D2",
+          "channel_id": null,
+          "spectral_mode": "detector",
+          "temporal_bin_seconds": 0,
+          "native_preview_policy": "masked",
+          "target_exclusion_radius_arcsec": 60.0
+        },
+        "outcome": "single_epoch",
+        "version": "frames-v1",
+        "warnings": [
+          "WCS-WAVE provides visualization wavelengths; quantitative pipeline maps are not applied",
+          "Nominal channel selection is a fiducial wavelength window, not a geometric channel-map assignment",
+          "Relative static-field registration is not absolute astrometry; central target is excluded",
+          "Pixel covariance, PSF matching and photometric calibration remain unvalidated; subtraction and photometry blocked",
+          "Native flagged previews are inspectable; quantitative eligibility is independent of display eligibility",
+          "Explicit temporal averaging can blur change within the recorded contributor span; native inputs remain available"
+        ],
+        "artifacts": [
+          {
+            "id": "af032b6f-e3a4-4df7-ae04-8c380118fb06",
+            "kind": "native_preview",
+            "sha256": "db54fb02adcc04be8e143a257dad90e992c5fece9eb956377280c52c9cca7348",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 22221,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08"
+            ]
+          },
+          {
+            "id": "df1311de-3d1f-4435-bb60-3b834846ab5f",
+            "kind": "common_preview",
+            "sha256": "cbc171d64217cb0af23bcaac1a482ebcc4c8bcfcc259323878301a67726d9bd8",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 4709,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08"
+            ]
+          },
+          {
+            "id": "589be146-0dba-4bd1-b9ec-40dfa5c61e96",
+            "kind": "common_grid_planes",
+            "sha256": "5923db4318ef1e61012eec5fffc9ba30c55f762166f7f6b25f46108a4ee83e31",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08"
+            ]
+          },
+          {
+            "id": "07d583dd-e466-4f21-b424-774c5079de89",
+            "kind": "native_preview",
+            "sha256": "a00a61eb322cb833de1e52ca602ae3dbea72ab69c857c5c4bdbbc1e62f6df52c",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 22311,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "249a56d7dd5a6a05a9e8b29617804547bbe7d3a8e5bf95c3c67a23b79c6d8bbb"
+            ]
+          },
+          {
+            "id": "ee0d380b-cd3c-4ab8-a337-14a6a77801ab",
+            "kind": "common_preview",
+            "sha256": "692c0ee94d2b949d0c7dec7a8d0ed87d9530d77da9956085e8c2b4d8beca39de",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 4637,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "249a56d7dd5a6a05a9e8b29617804547bbe7d3a8e5bf95c3c67a23b79c6d8bbb"
+            ]
+          },
+          {
+            "id": "da8824e2-325e-4720-be6c-0470ebd5520d",
+            "kind": "common_grid_planes",
+            "sha256": "b1b2b1c6afe75403cce81336ec141a04bee41eea429c9c4436951c98f5dc7875",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "249a56d7dd5a6a05a9e8b29617804547bbe7d3a8e5bf95c3c67a23b79c6d8bbb"
+            ]
+          },
+          {
+            "id": "f2dfeb4f-d335-4a69-aaae-d38bce454a70",
+            "kind": "native_preview",
+            "sha256": "07cecc5023e47bbd2854b95cc3b9624a3a55623c94f30a5d6409574c97f8d64b",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 22084,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "caed37c2f7672ac20d12ae85cec204dab0b1e362f1fb2db5bf78fd3648b91bdd"
+            ]
+          },
+          {
+            "id": "ca142b3a-f1e2-4257-826d-92facccde0f6",
+            "kind": "common_preview",
+            "sha256": "fadf0b35458f236f7b4d54756cff8855c6db3d94652224a663814ce70ca5d4ad",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 4706,
+            "content_type": "image/png",
+            "source_product_ids": [
+              "caed37c2f7672ac20d12ae85cec204dab0b1e362f1fb2db5bf78fd3648b91bdd"
+            ]
+          },
+          {
+            "id": "664adb56-31eb-4ca8-9368-1097abb154f1",
+            "kind": "common_grid_planes",
+            "sha256": "91142c8dd506739210f3ef0fe2f886acff2de14f6bc875e4510a86fbe31d8e66",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 66240,
+            "content_type": "application/fits",
+            "source_product_ids": [
+              "caed37c2f7672ac20d12ae85cec204dab0b1e362f1fb2db5bf78fd3648b91bdd"
+            ]
+          },
+          {
+            "id": "e53d3892-5660-4300-b735-d964c27f617d",
+            "kind": "preparation_report",
+            "sha256": "28ef6613befc626949dcf2557f2d66476492df3001d2647fb889604648cdd94d",
+            "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+            "size_bytes": 41368,
+            "content_type": "application/json",
+            "source_product_ids": [
+              "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08",
+              "249a56d7dd5a6a05a9e8b29617804547bbe7d3a8e5bf95c3c67a23b79c6d8bbb",
+              "caed37c2f7672ac20d12ae85cec204dab0b1e362f1fb2db5bf78fd3648b91bdd"
+            ]
+          }
+        ],
+        "temporal_bins": [
+          {
+            "count": 1,
+            "reason": null,
+            "end_mjd": 61295.962632645,
+            "start_mjd": 61295.961300266,
+            "contributors": [
+              1
+            ],
+            "contributor_times": [
+              {
+                "index": 1,
+                "end_mjd": 61295.962632645,
+                "mid_mjd": 61295.961966455,
+                "start_mjd": 61295.961300266
+              }
+            ]
+          }
+        ],
+        "pair_eligibility": {
+          "0:1": {
+            "reasons": [
+              "local_wavelength_interval_mismatch"
+            ],
+            "response_method": "WCS-WAVE_FWHM_interval_proxy_not_full_response_equivalence",
+            "quantitative_eligible": false,
+            "common_usable_fraction": 0.8696376509787589,
+            "spectral_display_eligible": false,
+            "quantitative_blocking_reasons": [
+              "pipeline_CWAVE_CBAND_not_applied",
+              "PSF_matching_not_performed",
+              "photometric_background_calibration_not_validated",
+              "resampling_covariance_not_propagated"
+            ],
+            "minimum_interval_overlap_proxy": 0.0
+          },
+          "0:2": {
+            "reasons": [
+              "local_wavelength_interval_mismatch"
+            ],
+            "response_method": "WCS-WAVE_FWHM_interval_proxy_not_full_response_equivalence",
+            "quantitative_eligible": false,
+            "common_usable_fraction": 0.8504789670970428,
+            "spectral_display_eligible": false,
+            "quantitative_blocking_reasons": [
+              "pipeline_CWAVE_CBAND_not_applied",
+              "PSF_matching_not_performed",
+              "photometric_background_calibration_not_validated",
+              "resampling_covariance_not_propagated"
+            ],
+            "minimum_interval_overlap_proxy": 0.0
+          },
+          "1:2": {
+            "reasons": [
+              "local_wavelength_interval_mismatch"
+            ],
+            "response_method": "WCS-WAVE_FWHM_interval_proxy_not_full_response_equivalence",
+            "quantitative_eligible": false,
+            "common_usable_fraction": 0.863390254060808,
+            "spectral_display_eligible": false,
+            "quantitative_blocking_reasons": [
+              "pipeline_CWAVE_CBAND_not_applied",
+              "PSF_matching_not_performed",
+              "photometric_background_calibration_not_validated",
+              "resampling_covariance_not_propagated"
+            ],
+            "minimum_interval_overlap_proxy": 0.0
+          }
+        },
+        "selected_indices": [
+          1
+        ],
+        "sequence_eligible": false,
+        "viewer_execution_available": false,
+        "spectral_calibration_version": "ssdc-r7-202607-nominal17-v1"
+      },
+      "frames": [
+        {
+          "product_id": "2f69bbc2c853d9ec68c41210465e75f3c0185b93e2baae26a377ab72b811bb08",
+          "raw_artifact_id": "a25a8fbc-c99b-4b32-ac9b-586ac986be26",
+          "sha256": "d5b416681826a495031bb09c495a37a3490098e858b22d2f140e9a9e0cc9f5fe",
+          "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W37_2A/l2b-v27-2026-259/2/level2_2026W37_2A_0287_4D2_spx_l2b-v27-2026-259.fits?center=76.956586575487%2C30.401291346097&size=0.184517778089",
+          "local_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/a25a8fbc-c99b-4b32-ac9b-586ac986be26.fits",
+          "diagnostic": {
+            "observed_at_utc": "2026-09-11T21:02:28.959Z",
+            "mid_mjd_utc": "61294.87672406",
+            "start_mjd_utc": "61294.87605787",
+            "end_mjd_utc": "61294.877390249",
+            "prediction": {
+              "ra_deg": 76.95658819396799,
+              "dec_deg": 30.401287420844437,
+              "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+              "at_utc": "2026-09-11T21:02:28.959"
+            },
+            "prediction_inside": true,
+            "prediction_pixel_0based": [
+              53.765536798619884,
+              53.44016638301332
+            ],
+            "predicted_offset_from_fixed_center_arcsec": 0.014997907078488694,
+            "pixel_scale_arcsec": 6.1419669788747715,
+            "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+            "sampling_is_not_angular_resolution": true,
+            "aperture": {
+              "aperture_radius_pixels": 1.5,
+              "aperture_pixels": 7,
+              "usable_pixels": 6,
+              "usable_fraction": 0.8571428571428571,
+              "background_pixels": 261,
+              "edge_truncated": false,
+              "contrast_sum_mjy_sr_pixels": null,
+              "diagonal_error_proxy": null,
+              "contrast_snr_proxy": null,
+              "centroid_pixel_0based": null,
+              "scientific_detection_validated": false,
+              "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+              "reason": "incomplete_masked_aperture_or_background"
+            },
+            "aperture_flags": {
+              "MP_TRANSIENT": 0,
+              "MP_OVERFLOW": 1,
+              "MP_SUR_ERROR": 0,
+              "MP_NONFUNC": 0,
+              "MP_DICHROIC": 0,
+              "MP_MISSING_DATA": 0,
+              "MP_HOT": 0,
+              "MP_COLD": 0,
+              "MP_FULLSAMPLE": 0,
+              "MP_PHANMISS": 0,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_OUTLIER": 0,
+              "MP_CROSSTALK": 0,
+              "MP_SOURCE": 7,
+              "MP_GHOST": 0,
+              "MP_GHOST_FPA": 0,
+              "MP_GHOST_EXT": 0,
+              "MP_STREAK": 0,
+              "MP_BLOOM": 0,
+              "MP_SNOWBALL": 0,
+              "MP_HALO": 0
+            },
+            "unknown_flag_pixels_in_image": 0,
+            "saturation_or_bright_artifact_flags": {
+              "MP_OVERFLOW": 1,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_BLOOM": 0,
+              "MP_HALO": 0
+            },
+            "target_local_wavelength_um": 1.1216637212708485,
+            "target_local_bandwidth_um": 0.026515076647222337,
+            "candidate_centroid_icrs_deg_unvalidated": null,
+            "scientific_motion_arcsec": null,
+            "scientific_brightness_change": null,
+            "limits": [
+              "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+              "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+              "No covariance, aperture correction or PSF/response/photometric matching applied"
+            ]
+          }
+        },
+        {
+          "product_id": "249a56d7dd5a6a05a9e8b29617804547bbe7d3a8e5bf95c3c67a23b79c6d8bbb",
+          "raw_artifact_id": "2a29c918-5cd8-49d5-862f-4cf412399364",
+          "sha256": "21e778fbdf8fa8e3dcf8a609a5e91fdee1ca8dd5fe7eaa8b0a65c00be75593df",
+          "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W37_2A/l2b-v27-2026-259/2/level2_2026W37_2A_0516_3D2_spx_l2b-v27-2026-259.fits?center=76.956586575487%2C30.401291346097&size=0.184517778089",
+          "local_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/2a29c918-5cd8-49d5-862f-4cf412399364.fits",
+          "diagnostic": {
+            "observed_at_utc": "2026-09-12T23:05:13.902Z",
+            "mid_mjd_utc": "61295.961966455",
+            "start_mjd_utc": "61295.961300266",
+            "end_mjd_utc": "61295.962632645",
+            "prediction": {
+              "ra_deg": 76.95658820088649,
+              "dec_deg": 30.40128740406523,
+              "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+              "at_utc": "2026-09-12T23:05:13.902"
+            },
+            "prediction_inside": true,
+            "prediction_pixel_0based": [
+              53.63485332128565,
+              53.10489128948891
+            ],
+            "predicted_offset_from_fixed_center_arcsec": 0.015062018368991632,
+            "pixel_scale_arcsec": 6.140598282048729,
+            "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+            "sampling_is_not_angular_resolution": true,
+            "aperture": {
+              "aperture_radius_pixels": 1.5,
+              "aperture_pixels": 7,
+              "usable_pixels": 2,
+              "usable_fraction": 0.2857142857142857,
+              "background_pixels": 260,
+              "edge_truncated": false,
+              "contrast_sum_mjy_sr_pixels": null,
+              "diagonal_error_proxy": null,
+              "contrast_snr_proxy": null,
+              "centroid_pixel_0based": null,
+              "scientific_detection_validated": false,
+              "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+              "reason": "incomplete_masked_aperture_or_background"
+            },
+            "aperture_flags": {
+              "MP_TRANSIENT": 4,
+              "MP_OVERFLOW": 1,
+              "MP_SUR_ERROR": 0,
+              "MP_NONFUNC": 0,
+              "MP_DICHROIC": 0,
+              "MP_MISSING_DATA": 0,
+              "MP_HOT": 0,
+              "MP_COLD": 0,
+              "MP_FULLSAMPLE": 0,
+              "MP_PHANMISS": 0,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_OUTLIER": 0,
+              "MP_CROSSTALK": 0,
+              "MP_SOURCE": 7,
+              "MP_GHOST": 0,
+              "MP_GHOST_FPA": 0,
+              "MP_GHOST_EXT": 0,
+              "MP_STREAK": 0,
+              "MP_BLOOM": 5,
+              "MP_SNOWBALL": 0,
+              "MP_HALO": 0
+            },
+            "unknown_flag_pixels_in_image": 0,
+            "saturation_or_bright_artifact_flags": {
+              "MP_OVERFLOW": 1,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_BLOOM": 5,
+              "MP_HALO": 0
+            },
+            "target_local_wavelength_um": 1.2031997470517841,
+            "target_local_bandwidth_um": 0.029054132759811828,
+            "candidate_centroid_icrs_deg_unvalidated": null,
+            "scientific_motion_arcsec": null,
+            "scientific_brightness_change": null,
+            "limits": [
+              "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+              "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+              "No covariance, aperture correction or PSF/response/photometric matching applied"
+            ]
+          }
+        },
+        {
+          "product_id": "caed37c2f7672ac20d12ae85cec204dab0b1e362f1fb2db5bf78fd3648b91bdd",
+          "raw_artifact_id": "24c26f75-cb1b-4bbc-ab96-700619a71a9c",
+          "sha256": "93ae72ff0808e8dd36e6bb94b883d5e1de6d784cd059b4bbbfab27474b169aea",
+          "source_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W37_2A/l2b-v27-2026-259/2/level2_2026W37_2A_0630_2D2_spx_l2b-v27-2026-259.fits?center=76.956586575487%2C30.401291346097&size=0.184517778089",
+          "local_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/24c26f75-cb1b-4bbc-ab96-700619a71a9c.fits",
+          "diagnostic": {
+            "observed_at_utc": "2026-09-13T13:43:11.351Z",
+            "mid_mjd_utc": "61296.571659152",
+            "start_mjd_utc": "61296.570992963",
+            "end_mjd_utc": "61296.572325341",
+            "prediction": {
+              "ra_deg": 76.95658820477331,
+              "dec_deg": 30.401287394638604,
+              "model": "approximate_tangent_motion_no_parallax_or_radial_velocity",
+              "at_utc": "2026-09-13T13:43:11.351"
+            },
+            "prediction_inside": true,
+            "prediction_pixel_0based": [
+              53.69238340310867,
+              49.89614819759
+            ],
+            "predicted_offset_from_fixed_center_arcsec": 0.015098036303971699,
+            "pixel_scale_arcsec": 6.140378837129601,
+            "header_psf_fwhm_arcsec_unvalidated": 7.46070125580342,
+            "sampling_is_not_angular_resolution": true,
+            "aperture": {
+              "aperture_radius_pixels": 1.5,
+              "aperture_pixels": 7,
+              "usable_pixels": 2,
+              "usable_fraction": 0.2857142857142857,
+              "background_pixels": 252,
+              "edge_truncated": false,
+              "contrast_sum_mjy_sr_pixels": null,
+              "diagonal_error_proxy": null,
+              "contrast_snr_proxy": null,
+              "centroid_pixel_0based": null,
+              "scientific_detection_validated": false,
+              "method": "uncorrected_fixed_aperture_median_annulus_diagonal_variance_proxy",
+              "reason": "incomplete_masked_aperture_or_background"
+            },
+            "aperture_flags": {
+              "MP_TRANSIENT": 4,
+              "MP_OVERFLOW": 1,
+              "MP_SUR_ERROR": 4,
+              "MP_NONFUNC": 0,
+              "MP_DICHROIC": 0,
+              "MP_MISSING_DATA": 0,
+              "MP_HOT": 0,
+              "MP_COLD": 0,
+              "MP_FULLSAMPLE": 0,
+              "MP_PHANMISS": 0,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_OUTLIER": 0,
+              "MP_CROSSTALK": 0,
+              "MP_SOURCE": 7,
+              "MP_GHOST": 0,
+              "MP_GHOST_FPA": 0,
+              "MP_GHOST_EXT": 0,
+              "MP_STREAK": 0,
+              "MP_BLOOM": 5,
+              "MP_SNOWBALL": 0,
+              "MP_HALO": 0
+            },
+            "unknown_flag_pixels_in_image": 0,
+            "saturation_or_bright_artifact_flags": {
+              "MP_OVERFLOW": 1,
+              "MP_NONLINEAR": 0,
+              "MP_PERSIST": 0,
+              "MP_BLOOM": 5,
+              "MP_HALO": 0
+            },
+            "target_local_wavelength_um": 1.6461786585935105,
+            "target_local_bandwidth_um": 0.03923932886454674,
+            "candidate_centroid_icrs_deg_unvalidated": null,
+            "scientific_motion_arcsec": null,
+            "scientific_brightness_change": null,
+            "limits": [
+              "Prediction omits parallax, radial velocity/perspective and observer ephemeris",
+              "Aperture contrast/centroid are diagnostics, not verified source association or calibrated detection",
+              "No covariance, aperture correction or PSF/response/photometric matching applied"
+            ]
+          }
+        }
+      ],
+      "common_delivery": [
+        {
+          "id": "945a9a27-53b4-5e8d-b38b-69cde7f84ee6",
+          "ordinal": 0,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-11T21:03:26.517514Z",
+            "label_utc": "2026-09-11T21:02:28.958784Z",
+            "start_utc": "2026-09-11T21:01:31.399968Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61294.877390249",
+            "gap_seconds": 0,
+            "mid_mjd_utc": "61294.87672406",
+            "start_mjd_utc": "61294.87605787",
+            "elapsed_seconds": 0.0,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.35534897810978106,
+              3.792997995565732
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "cbc171d64217cb0af23bcaac1a482ebcc4c8bcfcc259323878301a67726d9bd8",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/common-0.png"
+        },
+        {
+          "id": "c704168e-b62f-5d3d-939e-3fbd9e51c128",
+          "ordinal": 1,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-12T23:06:11.460528Z",
+            "label_utc": "2026-09-12T23:05:13.901712Z",
+            "start_utc": "2026-09-12T23:04:16.342982Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61295.962632645",
+            "gap_seconds": 93649.82546861283,
+            "mid_mjd_utc": "61295.961966455",
+            "start_mjd_utc": "61295.961300266",
+            "elapsed_seconds": 93764.94292784482,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.35534897810978106,
+              3.792997995565732
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "692c0ee94d2b949d0c7dec7a8d0ed87d9530d77da9956085e8c2b4d8beca39de",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/common-1.png"
+        },
+        {
+          "id": "957db29d-4283-57ed-9026-f8bc698c1047",
+          "ordinal": 2,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-13T13:44:08.909463Z",
+            "label_utc": "2026-09-13T13:43:11.350733Z",
+            "start_utc": "2026-09-13T13:42:13.792003Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61296.572325341",
+            "gap_seconds": 52562.33147531748,
+            "mid_mjd_utc": "61296.571659152",
+            "start_mjd_utc": "61296.570992963",
+            "elapsed_seconds": 146442.391949147,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.35534897810978106,
+              3.792997995565732
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "fadf0b35458f236f7b4d54756cff8855c6db3d94652224a663814ce70ca5d4ad",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/common-2.png"
+        }
+      ],
+      "native_delivery": [
+        {
+          "id": "e8b948c0-28fc-50e1-a957-021348fb9f23",
+          "ordinal": 0,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-11T21:03:26.517514Z",
+            "label_utc": "2026-09-11T21:02:28.958784Z",
+            "start_utc": "2026-09-11T21:01:31.399968Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61294.877390249",
+            "gap_seconds": 0,
+            "mid_mjd_utc": "61294.87672406",
+            "start_mjd_utc": "61294.87605787",
+            "elapsed_seconds": 0.0,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.35534897810978106,
+              3.792997995565732
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "db54fb02adcc04be8e143a257dad90e992c5fece9eb956377280c52c9cca7348",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/native-0.png"
+        },
+        {
+          "id": "e6df4e6b-4a7a-5410-abce-9e99fa4b906a",
+          "ordinal": 1,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-12T23:06:11.460528Z",
+            "label_utc": "2026-09-12T23:05:13.901712Z",
+            "start_utc": "2026-09-12T23:04:16.342982Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61295.962632645",
+            "gap_seconds": 93649.82546861283,
+            "mid_mjd_utc": "61295.961966455",
+            "start_mjd_utc": "61295.961300266",
+            "elapsed_seconds": 93764.94292784482,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.35534897810978106,
+              3.792997995565732
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "a00a61eb322cb833de1e52ca602ae3dbea72ab69c857c5c4bdbbc1e62f6df52c",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/native-1.png"
+        },
+        {
+          "id": "51237979-1d0b-5ea0-a8cc-4aae8e4c9ad7",
+          "ordinal": 2,
+          "time": {
+            "scale": "UTC",
+            "end_utc": "2026-09-13T13:44:08.909463Z",
+            "label_utc": "2026-09-13T13:43:11.350733Z",
+            "start_utc": "2026-09-13T13:42:13.792003Z",
+            "label_kind": "observation_midpoint",
+            "end_mjd_utc": "61296.572325341",
+            "gap_seconds": 52562.33147531748,
+            "mid_mjd_utc": "61296.571659152",
+            "start_mjd_utc": "61296.570992963",
+            "elapsed_seconds": 146442.391949147,
+            "overlap_seconds": 0
+          },
+          "stretch": {
+            "mode": "shared_asinh",
+            "limits_mjy_sr": [
+              0.35534897810978106,
+              3.792997995565732
+            ],
+            "asinh_softening": 10
+          },
+          "preview_sha256": "07cecc5023e47bbd2854b95cc3b9624a3a55623c94f30a5d6409574c97f8d64b",
+          "preview_path": "var/target-validation/b40e46de-ec7b-43ea-83fb-5da354592865/rw-aurigae/archive_band_followup/native-2.png"
+        }
+      ],
+      "comparisons": [
+        {
+          "indices": [
+            0,
+            1
+          ],
+          "baseline_days": 1.085242394998204,
+          "expected_tangent_motion_arcsec": 6.411129125729976e-05,
+          "expected_motion_native_pixels": 1.0439397616924098e-05,
+          "expected_pm_error_scalar_proxy_arcsec": 1.1320392949878596e-05,
+          "complete_uncertainty_available": false,
+          "header_psf_fwhm_arcsec_unvalidated": [
+            7.46070125580342,
+            7.46070125580342
+          ],
+          "registration_residual_proxy_arcsec": null,
+          "registration_target_exclusion_contains_predictions": true,
+          "candidate_centroid_displacement_arcsec_unvalidated": null,
+          "scientific_measured_displacement_arcsec": null,
+          "scientific_brightness_change": null,
+          "display_pair": {
+            "reasons": [
+              "local_wavelength_interval_mismatch"
+            ],
+            "response_method": "WCS-WAVE_FWHM_interval_proxy_not_full_response_equivalence",
+            "quantitative_eligible": false,
+            "common_usable_fraction": 0.8696376509787589,
+            "spectral_display_eligible": false,
+            "quantitative_blocking_reasons": [
+              "pipeline_CWAVE_CBAND_not_applied",
+              "PSF_matching_not_performed",
+              "photometric_background_calibration_not_validated",
+              "resampling_covariance_not_propagated"
+            ],
+            "minimum_interval_overlap_proxy": 0.0
+          },
+          "scientific_claim_blockers": [
+            "Researcher/reviewer scientific sign-off not supplied",
+            "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+            "Spectral/coverage display gate unsupported",
+            "Independent pair registration uncertainty unavailable"
+          ]
+        },
+        {
+          "indices": [
+            0,
+            2
+          ],
+          "baseline_days": 1.694935092004016,
+          "expected_tangent_motion_arcsec": 0.00010012922260180174,
+          "expected_motion_native_pixels": 1.630457635728339e-05,
+          "expected_pm_error_scalar_proxy_arcsec": 1.768022642172567e-05,
+          "complete_uncertainty_available": false,
+          "header_psf_fwhm_arcsec_unvalidated": [
+            7.46070125580342,
+            7.46070125580342
+          ],
+          "registration_residual_proxy_arcsec": null,
+          "registration_target_exclusion_contains_predictions": true,
+          "candidate_centroid_displacement_arcsec_unvalidated": null,
+          "scientific_measured_displacement_arcsec": null,
+          "scientific_brightness_change": null,
+          "display_pair": {
+            "reasons": [
+              "local_wavelength_interval_mismatch"
+            ],
+            "response_method": "WCS-WAVE_FWHM_interval_proxy_not_full_response_equivalence",
+            "quantitative_eligible": false,
+            "common_usable_fraction": 0.8504789670970428,
+            "spectral_display_eligible": false,
+            "quantitative_blocking_reasons": [
+              "pipeline_CWAVE_CBAND_not_applied",
+              "PSF_matching_not_performed",
+              "photometric_background_calibration_not_validated",
+              "resampling_covariance_not_propagated"
+            ],
+            "minimum_interval_overlap_proxy": 0.0
+          },
+          "scientific_claim_blockers": [
+            "Researcher/reviewer scientific sign-off not supplied",
+            "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+            "Spectral/coverage display gate unsupported",
+            "Independent pair registration uncertainty unavailable"
+          ]
+        },
+        {
+          "indices": [
+            1,
+            2
+          ],
+          "baseline_days": 0.6096926970058121,
+          "expected_tangent_motion_arcsec": 3.601793134450199e-05,
+          "expected_motion_native_pixels": 5.865645867584159e-06,
+          "expected_pm_error_scalar_proxy_arcsec": 6.359833471847075e-06,
+          "complete_uncertainty_available": false,
+          "header_psf_fwhm_arcsec_unvalidated": [
+            7.46070125580342,
+            7.46070125580342
+          ],
+          "registration_residual_proxy_arcsec": null,
+          "registration_target_exclusion_contains_predictions": true,
+          "candidate_centroid_displacement_arcsec_unvalidated": null,
+          "scientific_measured_displacement_arcsec": null,
+          "scientific_brightness_change": null,
+          "display_pair": {
+            "reasons": [
+              "local_wavelength_interval_mismatch"
+            ],
+            "response_method": "WCS-WAVE_FWHM_interval_proxy_not_full_response_equivalence",
+            "quantitative_eligible": false,
+            "common_usable_fraction": 0.863390254060808,
+            "spectral_display_eligible": false,
+            "quantitative_blocking_reasons": [
+              "pipeline_CWAVE_CBAND_not_applied",
+              "PSF_matching_not_performed",
+              "photometric_background_calibration_not_validated",
+              "resampling_covariance_not_propagated"
+            ],
+            "minimum_interval_overlap_proxy": 0.0
+          },
+          "scientific_claim_blockers": [
+            "Researcher/reviewer scientific sign-off not supplied",
+            "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+            "Spectral/coverage display gate unsupported",
+            "Independent pair registration uncertainty unavailable"
+          ]
+        }
+      ],
+      "scientific_outcome": "inconclusive_motion_and_photometry_not_validated",
+      "scientific_detection_validated": false,
+      "followup_reason": "Whole-image BAND hint reduces unrelated detector rows before the 40-row SIA cap; local wavelength truth still comes from FITS.",
+      "discovery_evidence": {
+        "contract_version": "discovery-v1",
+        "snapshot_id": "7bc67554-6990-45c8-84ec-4817b153051d",
+        "registry_version": "irsa-2026-10-31",
+        "canonical_query": {
+          "contract_version": "discovery-v1",
+          "registry_version": "irsa-2026-10-31",
+          "region": {
+            "ra_deg": 76.95658657548722,
+            "dec_deg": 30.401291346097146,
+            "frame": "icrs",
+            "width_arcmin": 5.0,
+            "height_arcmin": 5.0,
+            "projection": "TAN_north_up_east_left",
+            "corners_icrs_deg": [
+              [
+                76.90829813017278,
+                30.35961580507814
+              ],
+              [
+                77.00487502080165,
+                30.35961580507814
+              ],
+              [
+                77.00491624578552,
+                30.44294910879043
+              ],
+              [
+                76.90825690518892,
+                30.442949108790422
+              ]
+            ],
+            "search_radius_deg": 0.05892555571129446
+          },
+          "start_at": null,
+          "end_at": null,
+          "collections": [
+            "spherex_qr3"
+          ],
+          "detectors": [
+            "D2"
+          ],
+          "wavelength_min_um": 1.3,
+          "wavelength_max_um": 1.5
+        },
+        "created_at_utc": "2026-11-01T14:49:54.172277Z",
+        "revalidate_after_utc": "2026-11-01T15:04:54.172277Z",
+        "cache_hit": true,
+        "stale": false,
+        "upstream_complete": true,
+        "total": 19,
+        "sampled_count": 19,
+        "offset": 0,
+        "limit": 1,
+        "next_page": "/api/v1/observations/snapshots/7bc67554-6990-45c8-84ec-4817b153051d?offset=1&limit=1",
+        "availability": {
+          "scope": "queried_SIA_collections_at_retrieval",
+          "epoch_intervals": [
+            {
+              "start_at_utc": "2026-09-10T09:05:00.153600+00:00",
+              "end_at_utc": "2026-09-10T09:06:55.238400+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-10T09:07:09.062400+00:00",
+              "end_at_utc": "2026-09-10T09:09:04.147200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-10T09:09:17.971200+00:00",
+              "end_at_utc": "2026-09-10T09:11:13.056000+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-10T09:11:26.880000+00:00",
+              "end_at_utc": "2026-09-10T09:13:22.051200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-11T20:59:22.502400+00:00",
+              "end_at_utc": "2026-09-11T21:01:17.587200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-11T21:01:31.411200+00:00",
+              "end_at_utc": "2026-09-11T21:03:26.496000+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-12T22:59:58.502400+00:00",
+              "end_at_utc": "2026-09-12T23:01:53.587200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-12T23:02:07.411200+00:00",
+              "end_at_utc": "2026-09-12T23:04:02.496000+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-12T23:04:16.320000+00:00",
+              "end_at_utc": "2026-09-12T23:06:11.491200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-12T23:06:25.315200+00:00",
+              "end_at_utc": "2026-09-12T23:08:20.400000+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-13T13:40:04.886400+00:00",
+              "end_at_utc": "2026-09-13T13:41:59.971200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-13T13:42:13.795200+00:00",
+              "end_at_utc": "2026-09-13T13:44:08.880000+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-14T07:35:28.579200+00:00",
+              "end_at_utc": "2026-09-14T07:37:23.750400+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-14T07:37:37.488000+00:00",
+              "end_at_utc": "2026-09-14T07:39:32.659200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-14T07:39:47.952000+00:00",
+              "end_at_utc": "2026-09-14T07:41:43.123200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-14T07:41:56.947200+00:00",
+              "end_at_utc": "2026-09-14T07:43:52.032000+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-15T08:00:28.742400+00:00",
+              "end_at_utc": "2026-09-15T08:02:23.827200+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-15T08:02:37.651200+00:00",
+              "end_at_utc": "2026-09-15T08:04:32.736000+00:00",
+              "detector": "D2"
+            },
+            {
+              "start_at_utc": "2026-09-15T08:04:46.560000+00:00",
+              "end_at_utc": "2026-09-15T08:06:41.731200+00:00",
+              "detector": "D2"
+            }
+          ],
+          "detectors": [
+            "D2"
+          ],
+          "earliest_at_utc": "2026-09-10T09:05:00.153600+00:00",
+          "latest_at_utc": "2026-09-15T08:06:41.731200+00:00",
+          "local_spectral_coverage": "requires_FITS_WCS_WAVE",
+          "outcome": "available",
+          "sample_time_gaps": [
+            {
+              "start_at_utc": "2026-09-10T09:06:55.238400+00:00",
+              "end_at_utc": "2026-09-10T09:07:09.062400+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-10T09:09:04.147200+00:00",
+              "end_at_utc": "2026-09-10T09:09:17.971200+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-10T09:11:13.056000+00:00",
+              "end_at_utc": "2026-09-10T09:11:26.880000+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-10T09:13:22.051200+00:00",
+              "end_at_utc": "2026-09-11T20:59:22.502400+00:00",
+              "seconds": 128760.4512
+            },
+            {
+              "start_at_utc": "2026-09-11T21:01:17.587200+00:00",
+              "end_at_utc": "2026-09-11T21:01:31.411200+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-11T21:03:26.496000+00:00",
+              "end_at_utc": "2026-09-12T22:59:58.502400+00:00",
+              "seconds": 93392.0064
+            },
+            {
+              "start_at_utc": "2026-09-12T23:01:53.587200+00:00",
+              "end_at_utc": "2026-09-12T23:02:07.411200+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-12T23:04:02.496000+00:00",
+              "end_at_utc": "2026-09-12T23:04:16.320000+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-12T23:06:11.491200+00:00",
+              "end_at_utc": "2026-09-12T23:06:25.315200+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-12T23:08:20.400000+00:00",
+              "end_at_utc": "2026-09-13T13:40:04.886400+00:00",
+              "seconds": 52304.4864
+            },
+            {
+              "start_at_utc": "2026-09-13T13:41:59.971200+00:00",
+              "end_at_utc": "2026-09-13T13:42:13.795200+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-13T13:44:08.880000+00:00",
+              "end_at_utc": "2026-09-14T07:35:28.579200+00:00",
+              "seconds": 64279.6992
+            },
+            {
+              "start_at_utc": "2026-09-14T07:37:23.750400+00:00",
+              "end_at_utc": "2026-09-14T07:37:37.488000+00:00",
+              "seconds": 13.7376
+            },
+            {
+              "start_at_utc": "2026-09-14T07:39:32.659200+00:00",
+              "end_at_utc": "2026-09-14T07:39:47.952000+00:00",
+              "seconds": 15.2928
+            },
+            {
+              "start_at_utc": "2026-09-14T07:41:43.123200+00:00",
+              "end_at_utc": "2026-09-14T07:41:56.947200+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-14T07:43:52.032000+00:00",
+              "end_at_utc": "2026-09-15T08:00:28.742400+00:00",
+              "seconds": 87396.7104
+            },
+            {
+              "start_at_utc": "2026-09-15T08:02:23.827200+00:00",
+              "end_at_utc": "2026-09-15T08:02:37.651200+00:00",
+              "seconds": 13.824
+            },
+            {
+              "start_at_utc": "2026-09-15T08:04:32.736000+00:00",
+              "end_at_utc": "2026-09-15T08:04:46.560000+00:00",
+              "seconds": 13.824
+            }
+          ],
+          "image_spectral_ranges_um": [
+            {
+              "detector": "D2",
+              "min": 1.1033000000000002,
+              "max": 1.6499000000000001
+            }
+          ]
+        },
+        "sources": [
+          {
+            "collection": "spherex_qr3",
+            "query_url": "https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+76.956586575487+30.401291346097+0.058925555711&BAND=1.3e-06+1.5e-06&COLLECTION=spherex_qr3&MAXREC=40",
+            "retrieved_at_utc": "2026-11-01T14:49:54.166401+00:00",
+            "sha256": "a59861c5420d7202a915f3013e2eed67f117700806cb2ba305f270abe45ff5e1",
+            "bytes": 66728,
+            "rows": 19,
+            "truncated": false,
+            "status": "OK",
+            "query_status": [
+              "OK"
+            ],
+            "attempts": 2
+          }
+        ],
+        "warnings": [
+          "Image wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch",
+          "Footprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required",
+          "SIA may lag new archive ingestion by about one day; reported gaps are not proof of no observations"
+        ]
+      }
+    }
+  ],
+  "implementation_sha256": {
+    "backend/app/modules/targets/validation.py": "002980fe59f819fa83f4e1b8a12f6116fed72221d2c54bcae95b9f91899d0ece",
+    "backend/app/modules/preprocessing/pipeline.py": "f07e508efe5ba62a22ec9635a587716482cc6664ef7cd8a99d9ad63ee236bed8",
+    "backend/app/modules/registration/residuals.py": "244c1cb59ae742783bf6ffa921deffd679c3fcb88ec76ceaaa8c16a73044ee69"
+  },
+  "pinned_native_comparisons": [
+    {
+      "indices": [
+        0,
+        1
+      ],
+      "baseline_days": 2.579842223000014,
+      "expected_tangent_motion_arcsec": 0.00015240559797418093,
+      "expected_motion_native_pixels": 2.4823710947203418e-05,
+      "expected_pm_error_scalar_proxy_arcsec": 2.6910879862094602e-05,
+      "complete_uncertainty_available": false,
+      "header_psf_fwhm_arcsec_unvalidated": [
+        7.46070125580342,
+        7.46070125580342
+      ],
+      "registration_residual_proxy_arcsec": null,
+      "registration_target_exclusion_contains_predictions": true,
+      "candidate_centroid_displacement_arcsec_unvalidated": null,
+      "scientific_measured_displacement_arcsec": null,
+      "scientific_brightness_change": null,
+      "display_pair": {},
+      "scientific_claim_blockers": [
+        "Researcher/reviewer scientific sign-off not supplied",
+        "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+        "Spectral/coverage display gate unsupported",
+        "Independent pair registration uncertainty unavailable"
+      ]
+    },
+    {
+      "indices": [
+        0,
+        2
+      ],
+      "baseline_days": 3.937829665002937,
+      "expected_tangent_motion_arcsec": 0.0002326294528652801,
+      "expected_motion_native_pixels": 3.7887773976837066e-05,
+      "expected_pm_error_scalar_proxy_arcsec": 4.1076334082576833e-05,
+      "complete_uncertainty_available": false,
+      "header_psf_fwhm_arcsec_unvalidated": [
+        7.46070125580342,
+        7.46070125580342
+      ],
+      "registration_residual_proxy_arcsec": null,
+      "registration_target_exclusion_contains_predictions": true,
+      "candidate_centroid_displacement_arcsec_unvalidated": null,
+      "scientific_measured_displacement_arcsec": null,
+      "scientific_brightness_change": null,
+      "display_pair": {},
+      "scientific_claim_blockers": [
+        "Researcher/reviewer scientific sign-off not supplied",
+        "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+        "Spectral/coverage display gate unsupported",
+        "Independent pair registration uncertainty unavailable"
+      ]
+    },
+    {
+      "indices": [
+        0,
+        3
+      ],
+      "baseline_days": 4.9581767359995865,
+      "expected_tangent_motion_arcsec": 0.0002929070171713697,
+      "expected_motion_native_pixels": 4.771376267720712e-05,
+      "expected_pm_error_scalar_proxy_arcsec": 5.171979018250082e-05,
+      "complete_uncertainty_available": false,
+      "header_psf_fwhm_arcsec_unvalidated": [
+        7.46070125580342,
+        7.46070125580342
+      ],
+      "registration_residual_proxy_arcsec": null,
+      "registration_target_exclusion_contains_predictions": true,
+      "candidate_centroid_displacement_arcsec_unvalidated": null,
+      "scientific_measured_displacement_arcsec": null,
+      "scientific_brightness_change": null,
+      "display_pair": {},
+      "scientific_claim_blockers": [
+        "Researcher/reviewer scientific sign-off not supplied",
+        "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+        "Spectral/coverage display gate unsupported",
+        "Independent pair registration uncertainty unavailable"
+      ]
+    },
+    {
+      "indices": [
+        1,
+        2
+      ],
+      "baseline_days": 1.3579874420029228,
+      "expected_tangent_motion_arcsec": 8.022385489109916e-05,
+      "expected_motion_native_pixels": 1.3064646335582828e-05,
+      "expected_pm_error_scalar_proxy_arcsec": 1.4165454220482233e-05,
+      "complete_uncertainty_available": false,
+      "header_psf_fwhm_arcsec_unvalidated": [
+        7.46070125580342,
+        7.46070125580342
+      ],
+      "registration_residual_proxy_arcsec": null,
+      "registration_target_exclusion_contains_predictions": true,
+      "candidate_centroid_displacement_arcsec_unvalidated": null,
+      "scientific_measured_displacement_arcsec": null,
+      "scientific_brightness_change": null,
+      "display_pair": {},
+      "scientific_claim_blockers": [
+        "Researcher/reviewer scientific sign-off not supplied",
+        "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+        "Spectral/coverage display gate unsupported",
+        "Independent pair registration uncertainty unavailable"
+      ]
+    },
+    {
+      "indices": [
+        1,
+        3
+      ],
+      "baseline_days": 2.3783345129995723,
+      "expected_tangent_motion_arcsec": 0.00014050141919718872,
+      "expected_motion_native_pixels": 2.2885180067266194e-05,
+      "expected_pm_error_scalar_proxy_arcsec": 2.4808910320406217e-05,
+      "complete_uncertainty_available": false,
+      "header_psf_fwhm_arcsec_unvalidated": [
+        7.46070125580342,
+        7.46070125580342
+      ],
+      "registration_residual_proxy_arcsec": null,
+      "registration_target_exclusion_contains_predictions": true,
+      "candidate_centroid_displacement_arcsec_unvalidated": null,
+      "scientific_measured_displacement_arcsec": null,
+      "scientific_brightness_change": null,
+      "display_pair": {},
+      "scientific_claim_blockers": [
+        "Researcher/reviewer scientific sign-off not supplied",
+        "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+        "Spectral/coverage display gate unsupported",
+        "Independent pair registration uncertainty unavailable"
+      ]
+    },
+    {
+      "indices": [
+        2,
+        3
+      ],
+      "baseline_days": 1.0203470709966496,
+      "expected_tangent_motion_arcsec": 6.0277564306089574e-05,
+      "expected_motion_native_pixels": 9.817432448722988e-06,
+      "expected_pm_error_scalar_proxy_arcsec": 1.0643456099923982e-05,
+      "complete_uncertainty_available": false,
+      "header_psf_fwhm_arcsec_unvalidated": [
+        7.46070125580342,
+        7.46070125580342
+      ],
+      "registration_residual_proxy_arcsec": null,
+      "registration_target_exclusion_contains_predictions": true,
+      "candidate_centroid_displacement_arcsec_unvalidated": null,
+      "scientific_measured_displacement_arcsec": null,
+      "scientific_brightness_change": null,
+      "display_pair": {},
+      "scientific_claim_blockers": [
+        "Researcher/reviewer scientific sign-off not supplied",
+        "Full observer-dependent astrometry and calibrated PSF/response/covariance unavailable",
+        "Spectral/coverage display gate unsupported",
+        "Independent pair registration uncertainty unavailable"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "version": "target-validation-v1",
+  "run_id": "b40e46de-ec7b-43ea-83fb-5da354592865",
+  "product": "AegisEarth",
+  "verified_at_utc": "2026-11-01T14:38:46.578927+00:00",
+  "operator": "automated_backend_engineering_validation",
+  "scientific_reviewer": null,
+  "frontend_handoff": {
+    "status": "accepted_in_production_UI",
+    "evidence": "User confirmation, 1 November 2026; not a new independent production-browser audit"
+  },
+  "versions": {
+    "python": "3.12.14",
+    "astropy": "8.0.2",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "fastapi": "0.162.0"
+  },
+  "catalog_sha256": "892d15d7a38a0d7b5b37dca1b0198e1753cc1c4a3aed86c7cf885c7012cf96df",
+  "targets": [
+    {
+      "target": "barnards-star",
+      "receipt": "docs/verification/targets/barnards-star.json",
+      "cases": [
+        {
+          "case": "catalog_prediction",
+          "view_id": "5b624be2-bd3b-46b7-8076-7cfc7845fd19",
+          "status": "succeeded",
+          "movie_outcome": "ready_for_animation",
+          "error_code": null,
+          "manifest_sha256": "e094124c4182b66575596314dc59525db5c531b71b9ab8061e85441a71b97d57"
+        }
+      ],
+      "pinned_native_count": 6,
+      "scientific_motion_validated": false,
+      "scientific_variability_validated": false
+    },
+    {
+      "target": "epsilon-indi-b",
+      "receipt": "docs/verification/targets/epsilon-indi-b.json",
+      "cases": [
+        {
+          "case": "catalog_prediction",
+          "view_id": "ba8d9a25-df46-4480-bad4-a052d7f230e4",
+          "status": "succeeded",
+          "movie_outcome": "no_data",
+          "error_code": null,
+          "manifest_sha256": "1bd94bb9551f58c6693b29e9f7661110c393eb160446e991463d1a032869c4b3"
+        },
+        {
+          "case": "archive_band_followup",
+          "view_id": "fdc5cc2f-2b9f-4395-9a18-b80a4c69ffa3",
+          "status": "succeeded",
+          "movie_outcome": "ready_for_animation",
+          "error_code": null,
+          "manifest_sha256": "7b7813176feeb59b67ca44cb3c05cbf4a950831cd481e6222caeabfa71cf88f0"
+        }
+      ],
+      "pinned_native_count": 5,
+      "scientific_motion_validated": false,
+      "scientific_variability_validated": false
+    },
+    {
+      "target": "wise-0855",
+      "receipt": "docs/verification/targets/wise-0855.json",
+      "cases": [
+        {
+          "case": "catalog_prediction",
+          "view_id": "7f14633a-be0b-4ec0-a310-ced1b60d910f",
+          "status": "succeeded",
+          "movie_outcome": "ready_for_animation",
+          "error_code": null,
+          "manifest_sha256": "2088d076b97d32b843c808d8ec268c0ccc6ecf9da85b87a237b0af0413724d74"
+        },
+        {
+          "case": "supplied_coordinate",
+          "view_id": "840c4f28-32c2-4e20-892a-8d1a7d2931c4",
+          "status": "succeeded",
+          "movie_outcome": "ready_for_animation",
+          "error_code": null,
+          "manifest_sha256": "7594b0204c4bcd397a84c8a14923a28ad1d22c3bc7c48f81b5a690b99fc8baa5"
+        }
+      ],
+      "pinned_native_count": 6,
+      "scientific_motion_validated": false,
+      "scientific_variability_validated": false
+    },
+    {
+      "target": "rw-aurigae",
+      "receipt": "docs/verification/targets/rw-aurigae.json",
+      "cases": [
+        {
+          "case": "catalog_prediction",
+          "view_id": "38fa813b-bdf8-4e80-b4d5-3336b4b6574d",
+          "status": "succeeded",
+          "movie_outcome": "single_epoch",
+          "error_code": null,
+          "manifest_sha256": "b758624f431a09d307c411b0d1af06865992ab43879fc9792389418de87635dc"
+        },
+        {
+          "case": "archive_band_followup",
+          "view_id": "9a785411-2291-4c4c-8dc4-9d4523ecc73e",
+          "status": "succeeded",
+          "movie_outcome": "ready_for_animation",
+          "error_code": null,
+          "manifest_sha256": "3a9d82e3c5e6adbb9ad5d617b55d07d33fe265cca51078d36073e24f61dae70f"
+        }
+      ],
+      "pinned_native_count": 4,
+      "scientific_motion_validated": false,
+      "scientific_variability_validated": false
+    },
+    {
+      "target": "r-draconis",
+      "receipt": "docs/verification/targets/r-draconis.json",
+      "cases": [
+        {
+          "case": "catalog_prediction",
+          "view_id": "87e6c9c9-b9bc-495d-a54f-bf31a35c0aa2",
+          "status": "succeeded",
+          "movie_outcome": "ready_for_animation",
+          "error_code": null,
+          "manifest_sha256": "76e5315c5ffe151cdd0217972e3b742646a29b0ca18bc163f51377888b4970f5"
+        },
+        {
+          "case": "archive_band_followup",
+          "view_id": "ce6c6eff-890c-4185-8a42-6adf32eaf59e",
+          "status": "succeeded",
+          "movie_outcome": "ready_for_animation",
+          "error_code": null,
+          "manifest_sha256": "1dea3f2f2477696f6f1f0243da77f63df8241f5a8eae045f02f4d2dfff2e24c0"
+        }
+      ],
+      "pinned_native_count": 6,
+      "scientific_motion_validated": false,
+      "scientific_variability_validated": false
+    }
+  ],
+  "completed_at_utc": "2026-11-01T14:54:04.669117+00:00",
+  "all_five_executed": true,
+  "all_live_cases_succeeded": true,
+  "implementation_sha256": {
+    "backend/app/modules/targets/validation.py": "002980fe59f819fa83f4e1b8a12f6116fed72221d2c54bcae95b9f91899d0ece",
+    "backend/app/modules/preprocessing/pipeline.py": "f07e508efe5ba62a22ec9635a587716482cc6664ef7cd8a99d9ad63ee236bed8",
+    "backend/app/modules/registration/residuals.py": "244c1cb59ae742783bf6ffa921deffd679c3fcb88ec76ceaaa8c16a73044ee69"
+  }
+}

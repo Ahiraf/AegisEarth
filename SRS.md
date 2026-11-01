@@ -1,9 +1,9 @@
-# AegisEarth AI — Software Requirements Specification
+# AegisEarth — Software Requirements Specification
 
 | Attribute | Baseline |
 | --- | --- |
-| Version / date | 2.4 — movie delivery and React handoff update, 1 November 2026 |
-| Product | AegisEarth AI — public SPHEREx sky time viewer with optional AI-assisted hints |
+| Version / date | 2.5 — five-target validation and AegisEarth naming update, 1 November 2026 |
+| Product | AegisEarth — public SPHEREx sky time viewer with optional AI-assisted hints |
 | Required journey | Enter RA/Dec → choose sky patch/band → inspect chronological frames like a movie |
 | Backend ownership | FastAPI REST, PostgreSQL, Python processing, Docker and Hugging Face API |
 | Frontend ownership | Separate React developer: public viewer, playback, sky map and accessibility |
@@ -14,7 +14,7 @@
 
 ## 1. Purpose, priorities and implementation status
 
-AegisEarth AI helps anyone inspect changes in SPHEREx sky images over time. The brief requires a public coordinate-
+AegisEarth helps anyone inspect changes in SPHEREx sky images over time. The brief requires a public coordinate-
 driven image sequence and testing on Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae and
 R Draconis. Motion and brightness variation are both relevant. Automatic object detection is not
 necessary to deliver that experience. The model is an optional enhancement, never a viewing prerequisite.
@@ -53,9 +53,9 @@ Step 5 implements movie-v1 immutable manifests/pages, explicit no_data/single_ep
 UTC intervals/physical gaps, provenance/WCS/coverage/warnings, conditional caching and primary 2D FITS
 for Aladin. Additive cosmic_0006 preserves earlier views. A separate React/Aladin reference demonstrates
 real coordinate-to-animation without ML, controls/accessibility and widget-failure isolation locally.
-Quality-limited browsing does not assert scientific comparison eligibility. Production frontend-owner
-integration, public cloud deployment and step-6 five-target scientific acceptance remain open.
+Quality-limited browsing does not assert scientific comparison eligibility. Frontend-owner handoff acceptance is user-confirmed on 1 November 2026. Public cloud deployment and five-target scientific claims require separate evidence.
 See [movie delivery contract and evidence](docs/movie_delivery.md).
+Step 6 executes all five target investigations with real API frames, epoch-specific catalog predictions, strict-mask aperture diagnostics, proper-motion/resolution comparisons and retained source/config hashes. WISE 0855 is tested at both its supplied unknown-epoch seed and the separately predicted catalog position. Scientific detection/motion/variability remain unvalidated where masks, calibration or references do not support them. See [executed target receipts](docs/verification/targets/README.md).
 This document describes target behavior. Existing OpenAPI remains the actual runtime contract.
 
 Excluded/deferred: full-sky searches, orbit/automatic track solutions, discovery confirmation, impact

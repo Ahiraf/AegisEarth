@@ -38,7 +38,7 @@ def main():
                     "-f",
                     "{connection_file}",
                 ],
-                "display_name": "Cosmic Motion research",
+                "display_name": "AegisEarth research",
                 "language": "python",
             }
         ),
@@ -47,7 +47,7 @@ def main():
     markdown, code = nbf.v4.new_markdown_cell, nbf.v4.new_code_cell
     notebook = nbf.v4.new_notebook(
         cells=[
-            markdown("""# Cosmic Motion AI: real SPHEREx data-path feasibility
+            markdown("""# AegisEarth: real SPHEREx data-path feasibility
 
 ## tl;dr
 **A real repeat pair is available for backend development.** M101 observations on
@@ -189,7 +189,7 @@ Research helpers do not enable the API endpoints, worker, model or scientific de
         metadata={
             "kernelspec": {
                 "name": "cosmic-research",
-                "display_name": "Cosmic Motion research",
+                "display_name": "AegisEarth research",
                 "language": "python",
             }
         },

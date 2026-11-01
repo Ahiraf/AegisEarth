@@ -1,5 +1,28 @@
 # Backend foundation and data-path verification
 
+## Step 6 executed — 1 November 2026
+
+- **133 backend tests passed** on disposable PostgreSQL 17. New numerical controls preserve intensity
+  scaling, keep masked/edge/no-signal diagnostics explicit, separate predicted from measured motion,
+  and verify exclusion/identity/unknown-epoch handling. Existing Starlette/httpx warning remains.
+- [Five-target execution packet](verification/targets/README.md) records real view-v2 jobs, frozen
+  manifests, byte-verified inputs/previews, actual UTC observing intervals, local wavelengths, masks,
+  registration limitations, expected proper motion versus sampling/header PSF and diagnostic apertures.
+  The 27 pinned native source inputs were also rechecked. WISE's supplied seed is tested separately.
+- Empty/single initial results trigger retained whole-image wavelength follow-ups rather than a false
+  archive nondetection claim. The first Epsilon submission returned 503; that failure receipt is retained.
+- [Local target browser evidence](verification/targets/browser.json) exercises delivered outcomes and
+  real playback where multiple epochs are available. Production UI handoff acceptance is recorded
+  from the user's confirmation, separately from these local tests and actual cloud deployment.
+- User-facing service/package/reference-player names are now AegisEarth. Historical source receipts,
+  database/migration/volume identifiers and CLI compatibility aliases are retained. No production
+  frontend source files or source FITS bytes were changed.
+
+Scientific reviewer approval is unavailable. No scientific motion, calibrated variability, confirmed
+WISE detection/nondetection, binary-component resolution or model performance is claimed. Coadds,
+spectra/photometry, overlays, refresh/embed and deployment remain later plan slices. No commit or push
+is performed by this task.
+
 ## Step 5 backend and local handoff implemented — 1 November 2026
 
 - **128 backend tests passed** against disposable PostgreSQL 17, including additive cosmic_0006
@@ -20,9 +43,9 @@
   are updated. No production frontend files, existing remote history or source bytes were rewritten.
 
 The real sample's comparison_supported=false is retained: this is quality-limited image browsing,
-not scientific detection/photometry or confirmed visible target motion. Step 6 five-target science,
-production frontend-owner integration, actual public HF deployment and external storage acceptance
-remain pending. No ML package was loaded. No commit/push is performed by this task.
+not scientific detection/photometry or confirmed visible target motion. At the step-5 cutoff,
+five-target execution and production frontend acceptance were pending. The step-6 update above
+records their current status; actual public HF deployment and external storage acceptance remain open. No ML package was loaded. No commit/push is performed by this task.
 
 ## Step 4 implemented — 31 October 2026
 
@@ -174,7 +197,7 @@ viewer/science tests. No new backend test run is claimed for this documentation-
 
 ## Existing foundation and research evidence — 26 October 2026
 
-Baseline: 26 October 2026. Verification here covers the Cosmic Motion AI backend foundation,
+Baseline: 26 October 2026. Verification here covers the AegisEarth backend foundation,
 not the future scientific/ML pipeline.
 
 Checks performed so far:

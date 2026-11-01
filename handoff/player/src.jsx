@@ -138,7 +138,7 @@ function Player() {
       else setError('Preview unavailable or expired; reload the view.');
     }}/>;
   return <main>
-    <h1>Cosmic Motion AI</h1><p>Backend handoff reference player · real SPHEREx images · no ML package required.</p>
+    <h1>AegisEarth</h1><p>Backend handoff reference player · real SPHEREx images · no ML package required.</p>
     <label>API URL <input aria-label="API URL" value={api} onChange={e=>setApi(e.target.value)}/></label>
     <form onSubmit={submit}><label>RA (degrees)<input name="ra" type="number" step="any" min="0" max="359.999999" defaultValue="269.45" required/></label>
       <label>Dec (degrees)<input name="dec" type="number" step="any" min="-90" max="90" defaultValue="4.76" required/></label>

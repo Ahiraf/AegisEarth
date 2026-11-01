@@ -3,7 +3,7 @@
 Implemented locally on 1 November 2026 (Asia/Dhaka). The API serves real chronological SPHEREx
 previews without a model, encoder, WebGL or Aladin dependency. The isolated
 [React reference player](../handoff/player/src.jsx) proves the handoff; `frontend/` is untouched.
-Production frontend-owner acceptance and public Hugging Face deployment remain separate gates.
+Frontend-owner handoff acceptance in the production UI was confirmed by the user on 1 November 2026. Public Hugging Face deployment remains a separate gate.
 
 ## Request and delivery
 
@@ -116,4 +116,5 @@ as simulations. The API proof separately executes real single-input and genuinel
 
 The real three-epoch QR3 D5 sample passes browsing delivery, not comparison/scientific-change acceptance.
 No model package, cloud provider, external bucket, public deployment or frontend-owner sign-off is
-implied by these local results. Step 6 remains responsible for all five target validation rows.
+implied by these local results. The user separately confirmed production handoff acceptance;
+[step 6 results](verification/targets/README.md) now record all five target investigations.

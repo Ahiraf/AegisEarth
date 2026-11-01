@@ -42,7 +42,7 @@ def download(url, path, maximum, *, expected=None, transport=None):
                 timeout=httpx.Timeout(20, connect=5),
                 follow_redirects=False,
                 transport=transport,
-                headers={"Accept-Encoding": "identity", "User-Agent": "CosmicMotionAI/0.1"},
+                headers={"Accept-Encoding": "identity", "User-Agent": "AegisEarth/0.1"},
             ) as client,
             client.stream("GET", url) as response,
         ):

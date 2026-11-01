@@ -9,7 +9,7 @@ router = APIRouter(tags=["system"])
 @router.get("/system/capabilities")
 def capabilities():
     return {
-        "service": "Cosmic Motion AI",
+        "service": "AegisEarth",
         "state": "chronological_movie_delivery_implemented",
         "view_submission_available": bool(
             get_settings().public_token_secret

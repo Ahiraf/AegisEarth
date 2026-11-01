@@ -6,5 +6,6 @@ From this directory: `npm ci`, `npm run dev`; open `http://127.0.0.1:15173` with
 on 18000. Enter coordinates or an unexpired view ID. `npm run build` validates the bundle.
 
 [Complete API contract, verification commands and limitations](../../docs/movie_delivery.md).
-The frontend owner can port the controls/metadata contract into the production UI. This reference
-does not establish frontend-owner acceptance, five-target science validation or cloud deployment.
+The frontend owner has accepted the production UI handoff, as confirmed by the user on 1 November 2026.
+The reference proves local integration; scientific claims and public deployment require separate evidence.
+`npm run verify:targets` checks the executed five-target receipt through this player.
