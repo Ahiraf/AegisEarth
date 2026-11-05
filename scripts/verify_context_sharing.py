@@ -18,10 +18,11 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
+from verify_foundation import local_token
+
 from app.core.config import Settings
 from app.core.gateway import GatewayRepository
 from app.modules.views.schemas import PreparedViewRequest
-from verify_foundation import local_token
 
 OUT = ROOT / "docs/verification/context_sharing.json"
 API = "http://127.0.0.1:18000"
