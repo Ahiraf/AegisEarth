@@ -1,0 +1,449 @@
+/* Live features inherit the existing designer's surfaces, fonts and accents. */
+.sky-workspace {
+  padding-bottom: 24px;
+}
+.sky-connection,
+.sky-archive-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  padding-top: 26px;
+}
+.sky-text-button {
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 6px 0;
+}
+.sky-form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px 16px;
+}
+.sky-form .field,
+.sky-options-grid .field {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.sky-form .field-hint {
+  font-weight: 400;
+}
+.sky-details {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 20px;
+  color: var(--muted);
+}
+.sky-details summary {
+  font-family: var(--head);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
+  color: var(--text);
+  font-weight: 600;
+}
+.sky-options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 18px 0;
+}
+.sky-fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-width: 0;
+  padding: 14px;
+}
+.sky-fieldset legend,
+.sky-source-selection legend {
+  font-family: var(--head);
+  color: var(--muted);
+  font-size: 14px;
+}
+.sky-fieldset .check-line {
+  margin-right: 12px;
+}
+.sky-submit {
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+.sky-restored {
+  margin-top: 20px;
+  border-left: 3px solid var(--cyan);
+  padding: 14px 18px;
+  background: var(--surface);
+  font-size: 14px;
+}
+.sky-open-view {
+  margin-top: 20px;
+}
+.sky-open-view .field {
+  flex: 1 1 360px;
+}
+.sky-view-status {
+  margin-top: 32px;
+}
+.sky-view-status .sh {
+  margin-bottom: 10px;
+}
+.sky-view-status .tb {
+  margin: 12px 0 0;
+}
+.sky-break {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.sky-image-card {
+  padding: 20px;
+}
+.sky-image-card > .eyebrow {
+  margin-bottom: 12px;
+}
+.sky-image-card .prev {
+  background: var(--deep);
+}
+.sky-player:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+.sky-canvas {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sky-image-plane {
+  position: relative;
+}
+.sky-image-plane > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.sky-image-plane.is-pickable {
+  cursor: crosshair;
+}
+.sky-context-image {
+  pointer-events: none;
+}
+.sky-marker-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.sky-marker-map g {
+  fill: none;
+  stroke-width: 0.14;
+}
+.sky-marker-map .gaia {
+  stroke: var(--cyan);
+}
+.sky-marker-map .wise {
+  stroke: var(--amber);
+}
+.sky-legend {
+  font-size: 24px;
+}
+.sky-legend.gaia {
+  color: var(--cyan);
+}
+.sky-legend.wise {
+  color: var(--amber);
+}
+.sky-date {
+  font-size: 14px;
+  margin-top: 14px;
+  overflow-wrap: anywhere;
+  color: var(--text);
+}
+.sky-playback {
+  padding: 20px;
+  margin-top: 16px;
+}
+.sky-playback .tb {
+  margin-bottom: 12px;
+}
+.sky-playback .field {
+  min-width: 150px;
+}
+.sky-scrubber {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+.sky-scrubber input {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--cyan);
+}
+.sky-layer-controls {
+  margin-top: 14px;
+}
+.sky-layer-controls .field {
+  min-width: 150px;
+}
+.sky-layer-controls input[type="range"] {
+  accent-color: var(--cyan);
+  min-height: 44px;
+}
+.sky-inspector {
+  margin-top: 22px;
+}
+.sky-inspector h3,
+.sky-job-result h3,
+.sky-science-note h3 {
+  font-family: var(--head);
+  font-size: 18px;
+}
+.sky-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.sky-facts dt {
+  font-size: 12px;
+  color: var(--quiet);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.sky-facts dd {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.sky-position {
+  margin-top: 12px;
+  color: var(--cyan);
+  font-size: 14px;
+}
+.sky-downloads {
+  margin-top: 20px;
+}
+.sky-json {
+  background: var(--deep);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  max-height: 360px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: 12px/1.65 var(--mono);
+  color: var(--muted);
+}
+.sky-source-selection {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 22px 0;
+  padding: 18px 0 0;
+}
+.sky-source-selection .tb {
+  margin: 12px 0;
+}
+.sky-source-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.sky-source-list .check-line {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  align-items: flex-start;
+}
+.sky-source-list .sub {
+  font-size: 11px;
+}
+.sky-science-note {
+  border-left: 3px solid var(--amber);
+  background: rgba(245, 185, 66, 0.06);
+  padding: 16px 18px;
+  margin: 20px 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.pills .pill[aria-pressed="true"] {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: var(--raised);
+}
+.sky-job-results {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+}
+.sky-job-result .sh {
+  margin-bottom: 14px;
+}
+.sky-job-result .chip {
+  text-transform: uppercase;
+}
+.sky-job-result .tb {
+  margin-top: 14px;
+}
+.sky-derived-group {
+  margin-top: 20px;
+}
+.sky-derived-group h4 {
+  font: 600 15px var(--head);
+  color: var(--muted);
+}
+.sky-derived-preview,
+.sky-gif-preview {
+  display: block;
+  max-width: 100%;
+  max-height: 540px;
+  object-fit: contain;
+  margin: 16px auto;
+  background: var(--deep);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.sky-derived-preview {
+  min-width: min(100%, 280px);
+  image-rendering: pixelated;
+}
+.sky-share-links {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: end;
+  margin-top: 22px;
+}
+.sky-share-links > .note {
+  grid-column: 1/-1;
+}
+.sky-share-links textarea {
+  font-family: var(--mono);
+  resize: vertical;
+}
+.sky-spectrum {
+  margin: 20px 0;
+}
+.sky-spectrum svg {
+  display: block;
+  width: 100%;
+  background: var(--deep);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.sky-spectrum svg text {
+  fill: var(--muted);
+  font: 12px var(--mono);
+}
+.sky-axis {
+  stroke: var(--strong);
+  stroke-width: 1;
+}
+.sky-point {
+  stroke-width: 1.5;
+  stroke: var(--chart-1);
+  fill: var(--chart-1);
+}
+.sky-point.epoch-1 {
+  stroke: var(--chart-2);
+  fill: var(--chart-2);
+}
+.sky-point.epoch-2 {
+  stroke: var(--chart-3);
+  fill: var(--chart-3);
+}
+.sky-point.epoch-3 {
+  stroke: var(--chart-4);
+  fill: var(--chart-4);
+}
+.sky-point.epoch-4 {
+  stroke: var(--chart-5);
+  fill: var(--chart-5);
+}
+.sky-point.epoch-5 {
+  stroke: var(--chart-6);
+  fill: var(--chart-6);
+}
+.sky-aladin {
+  margin-top: 30px;
+}
+.sky-aladin .btn {
+  margin: 12px 0;
+}
+.sky-aladin-host.is-active,
+.sky-aladin-host:not(:empty) {
+  height: 480px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.sky-aladin-host {
+  color: var(--text);
+}
+@media (max-width: 1050px) {
+  .sky-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sky-options-grid,
+  .sky-source-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .sky-form-grid,
+  .sky-options-grid,
+  .sky-source-list,
+  .sky-facts {
+    grid-template-columns: 1fr;
+  }
+  .sky-share-links {
+    grid-template-columns: 1fr;
+  }
+  .sky-layer-controls {
+    align-items: stretch;
+  }
+  .sky-layer-controls > .field {
+    flex: 1 1 150px;
+  }
+  .sky-scrubber {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sky-scrubber input {
+    flex-basis: 100%;
+  }
+  .sky-inspector,
+  .sky-playback,
+  .sky-image-card {
+    padding: 16px;
+  }
+  .sky-date {
+    font-size: 12px;
+  }
+  .sky-workspace .sh {
+    gap: 14px;
+  }
+  .sky-workspace .sh .chip {
+    white-space: normal;
+    text-align: center;
+  }
+  .sky-workspace .tb .btn {
+    max-width: 100%;
+  }
+  .sky-aladin-host:not(:empty) {
+    height: 340px;
+  }
+}

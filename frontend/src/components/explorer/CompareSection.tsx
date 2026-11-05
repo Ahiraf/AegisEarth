@@ -36,7 +36,7 @@ function ComparisonPanel({ label, observation, view, onViewChange }: PanelProps)
       <p className="eyebrow">{label}</p>
       <h3 className="mono">{observation ? observationName(observation) : 'No record selected'}</h3>
       {observation && preview ? (
-        <ImageViewer label={label} caption="Preview image from the data service" view={view} onViewChange={onViewChange}>
+        <ImageViewer label={label} caption={observation.display.rendering ?? "Observation preview"} view={view} onViewChange={onViewChange}>
           <img className="viewer-img" src={preview.url} alt={preview.alt} draggable={false} />
         </ImageViewer>
       ) : observation ? (
@@ -46,14 +46,14 @@ function ComparisonPanel({ label, observation, view, onViewChange }: PanelProps)
             The archive stores this image as a FITS file, which browsers cannot display directly. Open the product to
             view it with astronomy software or IRSA&rsquo;s tools.
           </p>
-          {observation.provenance.sourceRecordUrl ? (
-            <p>
-              <SourceLink href={observation.provenance.sourceRecordUrl} label="Open product in IRSA" context={observationName(observation)} />
-            </p>
-          ) : null}
         </div>
       ) : (
         <div className="empty">Select a record in the table above</div>
+      )}
+      {observation && observation.provenance.sourceRecordUrl && (
+        <p className="product-note">
+          <SourceLink href={observation.provenance.sourceRecordUrl} label="Original FITS product in IRSA" context={observationName(observation)} />
+        </p>
       )}
       {observation ? <p className="sr-only">{describeObservation(observation)}</p> : null}
       <dl className="value-list">
@@ -122,6 +122,7 @@ export function CompareSection({ mode, observations, selection, onSwap, onClear 
           <p>
             Differences between observations can reflect changes in the sky as well as wavelength, calibration,
             processing, or noise.
+            The archived previews share a display stretch within each sky field. Masked or missing pixels are transparent.
           </p>
         </Notice>
       </div>

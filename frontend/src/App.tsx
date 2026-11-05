@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Layout, type NavId } from './components/Layout';
 import { scrollToId } from './lib/scroll';
 import { AboutPage } from './pages/AboutPage';
-import { ExplorerPage } from './pages/ExplorerPage';
-import { LearnPage } from './pages/LearnPage';
+import { ExplorerPage } from './pages/Explorerpage';
+import { LearnPage } from './pages/Learnpage';
 
 type PageId = 'explorer' | 'learn' | 'about';
 type Route = { page: PageId; section: string | null };

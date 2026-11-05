@@ -8,13 +8,18 @@ router = APIRouter(tags=["system"])
 
 @router.get("/system/capabilities")
 def capabilities():
+    settings = get_settings()
     return {
         "service": "AegisEarth",
         "state": "chronological_movie_delivery_implemented",
         "view_submission_available": bool(
-            get_settings().public_token_secret
-            and len(get_settings().public_token_secret.get_secret_value()) >= 32
+            settings.public_token_secret
+            and len(settings.public_token_secret.get_secret_value()) >= 32
         ),
+        "view_limits": {
+            "total_bytes": settings.view_total_bytes,
+            "wall_seconds": settings.view_wall_seconds,
+        },
         "view_contract": "view-v2",
         "view_contracts": ["view-v1", "view-v2"],
         "frame_preparation_available": True,

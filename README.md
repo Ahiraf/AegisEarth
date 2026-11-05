@@ -20,8 +20,10 @@ six detector composites, spectra, add/subtract, FOV control, Gaia/WISE, updates,
 
 The product name is **AegisEarth**, as confirmed on 1 November 2026. The SPHEREx viewer scope and current implementation plan continue unchanged. Existing database/volume names, migration revisions and legacy CLI aliases are retained for compatibility. The frontend owner has accepted the production UI handoff.
 
-Your work is **backend-only**: Python/FastAPI, PostgreSQL, scientific processing, Docker and Hugging Face.
-The React teammate owns the public UI/playback/Aladin and frontend Docker/Space. The researcher
+The primary implementation scope is Python/FastAPI, PostgreSQL, scientific processing, Docker and Hugging Face.
+At the user's request, the production React UI is now integrated with implemented backend steps 0–10,
+preserving its designer's colors, fonts and styles. See the [frontend integration guide](docs/frontend_integration.md).
+Public-host/device/scientific acceptance remains separate. The researcher
 owns model development/training/evaluation; backend work integrates/verifies/serves the package.
 The viewer works independently of detection, ranking or a trained model. Repository name remains
 [Ahiraf/AegisEarth](https://github.com/Ahiraf/AegisEarth).
@@ -29,7 +31,9 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 ## Start here
 
 - [Detailed implementation plan](todo_plan.md): ordered feature slices and actual exit evidence.
-- [SRS v2.6](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
+- [SRS v2.8](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
+- [Production frontend integration](docs/frontend_integration.md): live controls, configuration and verification limits.
+- [Step 11 local release report](docs/step11_release.md): performance, recovery, five-target demo and hosted acceptance.
 - [Challenge coverage matrix](docs/challenge_alignment.md): every supplied objective/consideration mapped.
 - [Executed step 6 results](docs/verification/targets/README.md): five-target API/browser receipts and scientific limits.
 - [Five-target validation protocol](docs/target_validation.md): exact investigations and honest outcome states.
@@ -56,7 +60,8 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 | Additive jobs/discovery/view/preparation/movie/refresh tables and restricted transaction RPCs | Science-grade photometry/difference acceptance |
 | Quota-limited view jobs, isolated worker, cancellation and local/S3 storage adapters | Optional researcher inference; scientific motion/variability approval |
 | QR2/QR3 readers, official 102-channel catalog, fixed-grid frames/previews, quality/registration/band gates | Science-grade calibration acceptance and external scheduler operation |
-| Gaia/AllWISE catalogs and W1/W2 context images, coordinate state links, reference embeds, bounded refresh and GIF exports | Production React controls, public embedding and external scheduler acceptance |
+| Gaia/AllWISE catalogs and W1/W2 context images, coordinate state links, reference embeds, bounded refresh and GIF exports | Public embedding and external scheduler acceptance |
+| Production React search/movie, band/detector selectors, coadd/difference/spectrum/export controls, overlays, links/refresh and optional Aladin | Fresh real-pixel frontend rerun after IRSA recovery; public-device/Aladin acceptance |
 | Derived coadd/spectrum jobs, six detector selectors, FITS/CSV exports and independent numerical controls | Real-data science-grade difference/photometry approval |
 | Frozen movie manifests/pages, ETag previews, isolated React/Aladin playback and local real-data proof | Production share/embed and cloud deployment |
 | Hash-locked Docker builds, disposable PostgreSQL and authenticated TLS gateway | Production HF/storage connectivity acceptance |
@@ -68,7 +73,7 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 Legacy view-v1 reports **inputs_ready**. New view-v2 reports **frames_prepared**, with PNG/FITS
 artifacts and comparison diagnostics. Step 5 adds movie-v1 manifests/pages, explicit readiness states,
 physical time metadata and a verified local React/Aladin reference. Playback readiness is independent
-of scientific comparison eligibility; the production frontend and cloud deployment remain separate.
+of scientific comparison eligibility. Production React controls are integrated; cloud deployment remains separate.
 Steps 7–8 add bounded coadd/difference/spectrum jobs and exports. Real spectra are explicitly diagnostic;
 frames-v1 lacks the calibration/PSF/covariance evidence needed to enable science-grade subtraction.
 Current [OpenAPI](docs/openapi.json) describes runtime routes. Discovery returns actual sampled epochs
@@ -84,7 +89,8 @@ docker compose up --build
 ```
 
 Compare an existing `.env` rather than overwriting its credentials. API docs: `http://localhost:8000/docs`.
-Compose starts PostgreSQL, migration, API and the input-acquisition worker. Preserve unrelated DBs/volumes.
+Compose starts PostgreSQL, migration, API, the input-acquisition worker and frontend at `http://localhost:5173`.
+The frontend proxies the API on the same origin. Preserve unrelated DBs/volumes.
 
 Without Docker, provision a PostgreSQL database/user and use the backend environment:
 

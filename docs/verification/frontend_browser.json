@@ -1,0 +1,65 @@
+{
+  "verified_at_utc": "2026-11-05T06:53:31.552492+00:00",
+  "scope": "Controlled UI contracts, explicitly labeled fixture images; not real-pixel or scientific acceptance.",
+  "stats": {
+    "startTime": "2026-11-04T18:39:21.819Z",
+    "duration": 204003.788,
+    "expected": 11,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "checks": [
+    {
+      "name": "preserves the existing theme and delivers a chronological paginated movie",
+      "outcome": "expected"
+    },
+    {
+      "name": "restores all coordinate settings without creating a job and creates frontend-owned share links",
+      "outcome": "expected"
+    },
+    {
+      "name": "isolates overlay outages, maps real API pixel coordinates, and handles source provenance",
+      "outcome": "expected"
+    },
+    {
+      "name": "submits correct preparation refs for coadds, spectra, gated differences and GIF export",
+      "outcome": "expected"
+    },
+    {
+      "name": "supports additional detector views and complete moving-source epoch positions",
+      "outcome": "expected"
+    },
+    {
+      "name": "reuses a submission key after a lost response and keeps capabilities out of URLs and storage",
+      "outcome": "expected"
+    },
+    {
+      "name": "cancels an owned queued view without requiring a trained model",
+      "outcome": "expected"
+    },
+    {
+      "name": "keeps a one-epoch view static and provides an explicit expired-view refresh",
+      "outcome": "expected"
+    },
+    {
+      "name": "shows empty coverage and quota errors without silently switching to saved data",
+      "outcome": "expected"
+    },
+    {
+      "name": "keeps late results from replacing a newly opened view and isolates optional Aladin failure",
+      "outcome": "expected"
+    },
+    {
+      "name": "fits the mobile viewport and preserves the explicitly selected saved-record explorer",
+      "outcome": "expected"
+    }
+  ],
+  "build": "TypeScript + Vite production build passed",
+  "docker": "Linux production image build passed; real proxy checks in frontend_live.json",
+  "design_tokens_unchanged": true,
+  "screenshots": {
+    "desktop": "frontend_controlled_desktop.png",
+    "mobile": "frontend_controlled_mobile.png"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "verified_at_utc": "2026-11-05T13:16:52.570698+00:00",
+  "scope": "disposable PostgreSQL logical backup and local file-store recovery",
+  "postgresql": {
+    "backup_bytes": 91062,
+    "source": {
+      "migration": "cosmic_0008",
+      "jobs": 2,
+      "views": 2,
+      "snapshots": 1,
+      "gateway_functions": 29
+    },
+    "restored": {
+      "migration": "cosmic_0008",
+      "jobs": 2,
+      "views": 2,
+      "snapshots": 1,
+      "gateway_functions": 29
+    }
+  },
+  "object": {
+    "size_bytes": 16,
+    "sha256": "f34afc956b96eec2b12b1c42ce6bec9c3d64a94710393f30f3bb08c0dda071fd",
+    "verified_using_restored_ledger": true,
+    "corruption_rejected": true
+  },
+  "external_s3_restore": "requires a hosted bucket"
+}

@@ -1,12 +1,12 @@
 // The shapes the user interface works with.
-// Real data (saved records now, the backend later) is mapped into these shapes in ONE place:
-// the data provider. Pages and components never read raw API responses.
+// Saved metadata and the live discovery adapter map archive records into these shapes.
+// The live movie/processing contracts are typed separately in features/sky/types.ts.
 //
 // Rule: if a value is unknown, it is `null`. Never use 0, "" or a made-up default.
 
 /**
- * snapshot  records saved from the NASA/IPAC archive (the default today)
- * api       the future backend (reports "not configured" until it is connected)
+ * snapshot  explicitly selected records saved from the NASA/IPAC archive
+ * api       live FastAPI viewer and discovery (the default)
  */
 export type DataMode = 'snapshot' | 'api';
 

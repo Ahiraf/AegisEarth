@@ -1,0 +1,451 @@
+{
+  "verified_at_utc": "2026-11-05T13:01:17.480622+00:00",
+  "scope": "Linux process benchmark with real pinned native crops; first/repeat process calls share the filesystem cache",
+  "limitations": "Larger output grids reuse existing input footprints. Network, queue latency and larger native downloads are outside this measurement.",
+  "python": "3.12.16",
+  "cases": [
+    {
+      "target": "barnards-star",
+      "fov_arcmin": 3.0,
+      "grid_yx": [
+        30,
+        30
+      ],
+      "input_count": 6,
+      "input_bytes": 23794560,
+      "source_sha256": [
+        "60c81d0e09673b54e2a7bb370578d18e3312f4b0c5e2ea0dbdb5be45c9d25660",
+        "03116833f2247b445578757dc1253c1c036199e4f1fe1cfb93f0b56168bd5ece",
+        "5b426ecb21226ac4179f00879c3a2a7a9cecc2ed7ac55e6855626525f7e4443d",
+        "4e075d0fe4e68027ed26eb2e6b6e918d30e519ed83a183e53b0cc7fbed188734",
+        "1a2f12fcb89a3c4ba68270bbbe0a84701971a7409e891375ea4e7c895f2f73a7",
+        "1e13bfbfd2c1bac1aeea16e30964e66b18db5d305d87ed74f62faac874ebe148"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 1.5121,
+          "cpu_seconds": 0.8094,
+          "process_peak_rss_mib": 115.61,
+          "output_bytes": 365525,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.2082,
+          "cpu_seconds": 0.6637,
+          "process_peak_rss_mib": 116.11,
+          "output_bytes": 365525,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 10.0451
+    },
+    {
+      "target": "barnards-star",
+      "fov_arcmin": 30.0,
+      "grid_yx": [
+        293,
+        293
+      ],
+      "input_count": 6,
+      "input_bytes": 23794560,
+      "source_sha256": [
+        "60c81d0e09673b54e2a7bb370578d18e3312f4b0c5e2ea0dbdb5be45c9d25660",
+        "03116833f2247b445578757dc1253c1c036199e4f1fe1cfb93f0b56168bd5ece",
+        "5b426ecb21226ac4179f00879c3a2a7a9cecc2ed7ac55e6855626525f7e4443d",
+        "4e075d0fe4e68027ed26eb2e6b6e918d30e519ed83a183e53b0cc7fbed188734",
+        "1a2f12fcb89a3c4ba68270bbbe0a84701971a7409e891375ea4e7c895f2f73a7",
+        "1e13bfbfd2c1bac1aeea16e30964e66b18db5d305d87ed74f62faac874ebe148"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 2.1928,
+          "cpu_seconds": 1.4079,
+          "process_peak_rss_mib": 142.22,
+          "output_bytes": 9026767,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 2.148,
+          "cpu_seconds": 1.3035,
+          "process_peak_rss_mib": 143.19,
+          "output_bytes": 9026767,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 8.561
+    },
+    {
+      "target": "epsilon-indi-b",
+      "fov_arcmin": 3.0,
+      "grid_yx": [
+        30,
+        30
+      ],
+      "input_count": 5,
+      "input_bytes": 25358400,
+      "source_sha256": [
+        "0937a3b9a38874c7ddeb3da2020e13af3f7afa53baa144f58804edab80c48684",
+        "b5c961580a151d69eff291b659804c76ee48f7b452604e97efd32c99d930b290",
+        "78fe9034175d1b813894641f23ae52026491af97a24886314c389ec1073b24f5",
+        "1570ec660dc8452c1742d1db68f0170a64c7f2c9d4071e621b29a1fcc6781a54",
+        "bc969e895ec034da4a0442e03bd184db766748009b74d022cbad619a8cae14e6"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 1.2293,
+          "cpu_seconds": 0.6284,
+          "process_peak_rss_mib": 116.56,
+          "output_bytes": 297326,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.0805,
+          "cpu_seconds": 0.5883,
+          "process_peak_rss_mib": 116.94,
+          "output_bytes": 297326,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 8.0501
+    },
+    {
+      "target": "epsilon-indi-b",
+      "fov_arcmin": 30.0,
+      "grid_yx": [
+        293,
+        293
+      ],
+      "input_count": 5,
+      "input_bytes": 25358400,
+      "source_sha256": [
+        "0937a3b9a38874c7ddeb3da2020e13af3f7afa53baa144f58804edab80c48684",
+        "b5c961580a151d69eff291b659804c76ee48f7b452604e97efd32c99d930b290",
+        "78fe9034175d1b813894641f23ae52026491af97a24886314c389ec1073b24f5",
+        "1570ec660dc8452c1742d1db68f0170a64c7f2c9d4071e621b29a1fcc6781a54",
+        "bc969e895ec034da4a0442e03bd184db766748009b74d022cbad619a8cae14e6"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 1.806,
+          "cpu_seconds": 1.1702,
+          "process_peak_rss_mib": 140.29,
+          "output_bytes": 7517128,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.827,
+          "cpu_seconds": 1.0961,
+          "process_peak_rss_mib": 140.46,
+          "output_bytes": 7517128,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 8.7633
+    },
+    {
+      "target": "r-draconis",
+      "fov_arcmin": 3.0,
+      "grid_yx": [
+        30,
+        30
+      ],
+      "input_count": 6,
+      "input_bytes": 23794560,
+      "source_sha256": [
+        "8a9e6ed699f282ffbdfcb8ef0a388163de11a02a2601ab5c4e01825fb7ff8baa",
+        "42e786564852e8b76b1468ddb37b89d8edf5e49aab1a19ca796c5abe611828ee",
+        "1b86cfe356a38a3db65702f55bcdb7e721da608f391e1a147e2e2f5fbd26f5e3",
+        "1f3175b39623ef83d4c7fa72f0b2970f6fed6055d4888de29f086052e9939a15",
+        "b3a4a10dc2b12f4d0a1f643957a70a601e74f73f10f891dda7e25da7bd2f260f",
+        "47bd3046602031dba924bfa1a19133e5da7d52273c592606b7eeddf50f356921"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 1.3489,
+          "cpu_seconds": 0.7328,
+          "process_peak_rss_mib": 116.21,
+          "output_bytes": 359957,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.2947,
+          "cpu_seconds": 0.6235,
+          "process_peak_rss_mib": 116.71,
+          "output_bytes": 359957,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 8.526
+    },
+    {
+      "target": "r-draconis",
+      "fov_arcmin": 30.0,
+      "grid_yx": [
+        293,
+        293
+      ],
+      "input_count": 6,
+      "input_bytes": 23794560,
+      "source_sha256": [
+        "8a9e6ed699f282ffbdfcb8ef0a388163de11a02a2601ab5c4e01825fb7ff8baa",
+        "42e786564852e8b76b1468ddb37b89d8edf5e49aab1a19ca796c5abe611828ee",
+        "1b86cfe356a38a3db65702f55bcdb7e721da608f391e1a147e2e2f5fbd26f5e3",
+        "1f3175b39623ef83d4c7fa72f0b2970f6fed6055d4888de29f086052e9939a15",
+        "b3a4a10dc2b12f4d0a1f643957a70a601e74f73f10f891dda7e25da7bd2f260f",
+        "47bd3046602031dba924bfa1a19133e5da7d52273c592606b7eeddf50f356921"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 2.4354,
+          "cpu_seconds": 1.622,
+          "process_peak_rss_mib": 142.74,
+          "output_bytes": 9021579,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.7167,
+          "cpu_seconds": 1.1727,
+          "process_peak_rss_mib": 143.73,
+          "output_bytes": 9021579,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 9.7203
+    },
+    {
+      "target": "rw-aurigae",
+      "fov_arcmin": 3.0,
+      "grid_yx": [
+        30,
+        30
+      ],
+      "input_count": 4,
+      "input_bytes": 15863040,
+      "source_sha256": [
+        "91a2dc14d08475d6cd5ab17c43e1422571b82ea97c2569891690246e790a4efc",
+        "05ed818ab49d1f3857ce506db7e01f086bf7275686252de5c6846b68fcb1e45a",
+        "5668774d5c4e4f223db301d3929218289ba23f9767a60bd771c2b99fa9c3b489",
+        "3dc0a765a1883e286d329342d1087dee016588db5f9333d841874c6a22b22271"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 1.0002,
+          "cpu_seconds": 0.5529,
+          "process_peak_rss_mib": 115.77,
+          "output_bytes": 241388,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.0899,
+          "cpu_seconds": 0.4812,
+          "process_peak_rss_mib": 116.15,
+          "output_bytes": 241388,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 7.1802
+    },
+    {
+      "target": "rw-aurigae",
+      "fov_arcmin": 30.0,
+      "grid_yx": [
+        293,
+        293
+      ],
+      "input_count": 4,
+      "input_bytes": 15863040,
+      "source_sha256": [
+        "91a2dc14d08475d6cd5ab17c43e1422571b82ea97c2569891690246e790a4efc",
+        "05ed818ab49d1f3857ce506db7e01f086bf7275686252de5c6846b68fcb1e45a",
+        "5668774d5c4e4f223db301d3929218289ba23f9767a60bd771c2b99fa9c3b489",
+        "3dc0a765a1883e286d329342d1087dee016588db5f9333d841874c6a22b22271"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 1.4371,
+          "cpu_seconds": 0.9854,
+          "process_peak_rss_mib": 136.9,
+          "output_bytes": 6015183,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.22,
+          "cpu_seconds": 0.819,
+          "process_peak_rss_mib": 137.87,
+          "output_bytes": 6015183,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 7.042
+    },
+    {
+      "target": "wise-0855",
+      "fov_arcmin": 3.0,
+      "grid_yx": [
+        30,
+        30
+      ],
+      "input_count": 6,
+      "input_bytes": 30438720,
+      "source_sha256": [
+        "af62b17f21a8a7f1e51981bc916f96b060e8f71a9ef4317661192a366ab66653",
+        "2ad275766d58260a34cf521c21f79747923b108e765e2a3f50b4bc4eafd82c74",
+        "bed7aee35e4bc19b42d6b7a59393407cad7b462a64d2f91ffc214c1ea513f1f0",
+        "cb493c916ba66baff0839ea2f2c7d6af9adec611621a2d8b72600e1c8cc3ecaf",
+        "68993e79b2a87a912a216b401fad1fa57cf24df9d11334d309333b4080aab5e1",
+        "d48929fecf297799ddeb8ed60c28b7cbdcb9d8f955bb880bfaa08ea88bb4b121"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 1.256,
+          "cpu_seconds": 0.6999,
+          "process_peak_rss_mib": 117.3,
+          "output_bytes": 364134,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.4458,
+          "cpu_seconds": 0.6939,
+          "process_peak_rss_mib": 117.55,
+          "output_bytes": 364134,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 7.9021
+    },
+    {
+      "target": "wise-0855",
+      "fov_arcmin": 30.0,
+      "grid_yx": [
+        293,
+        293
+      ],
+      "input_count": 6,
+      "input_bytes": 30438720,
+      "source_sha256": [
+        "af62b17f21a8a7f1e51981bc916f96b060e8f71a9ef4317661192a366ab66653",
+        "2ad275766d58260a34cf521c21f79747923b108e765e2a3f50b4bc4eafd82c74",
+        "bed7aee35e4bc19b42d6b7a59393407cad7b462a64d2f91ffc214c1ea513f1f0",
+        "cb493c916ba66baff0839ea2f2c7d6af9adec611621a2d8b72600e1c8cc3ecaf",
+        "68993e79b2a87a912a216b401fad1fa57cf24df9d11334d309333b4080aab5e1",
+        "d48929fecf297799ddeb8ed60c28b7cbdcb9d8f955bb880bfaa08ea88bb4b121"
+      ],
+      "runs": [
+        {
+          "pass": "first",
+          "wall_seconds": 2.0269,
+          "cpu_seconds": 1.3979,
+          "process_peak_rss_mib": 143.07,
+          "output_bytes": 9027146,
+          "outcome": "single_epoch"
+        },
+        {
+          "pass": "repeat",
+          "wall_seconds": 1.9419,
+          "cpu_seconds": 1.2466,
+          "process_peak_rss_mib": 143.35,
+          "output_bytes": 9027146,
+          "outcome": "single_epoch"
+        }
+      ],
+      "process_total_seconds": 8.4501
+    }
+  ],
+  "two_processes": {
+    "elapsed_seconds": 7.3541,
+    "cases": [
+      {
+        "target": "barnards-star",
+        "fov_arcmin": 30.0,
+        "grid_yx": [
+          293,
+          293
+        ],
+        "input_count": 6,
+        "input_bytes": 23794560,
+        "source_sha256": [
+          "60c81d0e09673b54e2a7bb370578d18e3312f4b0c5e2ea0dbdb5be45c9d25660",
+          "03116833f2247b445578757dc1253c1c036199e4f1fe1cfb93f0b56168bd5ece",
+          "5b426ecb21226ac4179f00879c3a2a7a9cecc2ed7ac55e6855626525f7e4443d",
+          "4e075d0fe4e68027ed26eb2e6b6e918d30e519ed83a183e53b0cc7fbed188734",
+          "1a2f12fcb89a3c4ba68270bbbe0a84701971a7409e891375ea4e7c895f2f73a7",
+          "1e13bfbfd2c1bac1aeea16e30964e66b18db5d305d87ed74f62faac874ebe148"
+        ],
+        "runs": [
+          {
+            "pass": "first",
+            "wall_seconds": 1.951,
+            "cpu_seconds": 1.4167,
+            "process_peak_rss_mib": 142.94,
+            "output_bytes": 9026767,
+            "outcome": "single_epoch"
+          },
+          {
+            "pass": "repeat",
+            "wall_seconds": 1.5264,
+            "cpu_seconds": 1.0782,
+            "process_peak_rss_mib": 144.14,
+            "output_bytes": 9026767,
+            "outcome": "single_epoch"
+          }
+        ],
+        "process_total_seconds": 6.8933
+      },
+      {
+        "target": "wise-0855",
+        "fov_arcmin": 30.0,
+        "grid_yx": [
+          293,
+          293
+        ],
+        "input_count": 6,
+        "input_bytes": 30438720,
+        "source_sha256": [
+          "af62b17f21a8a7f1e51981bc916f96b060e8f71a9ef4317661192a366ab66653",
+          "2ad275766d58260a34cf521c21f79747923b108e765e2a3f50b4bc4eafd82c74",
+          "bed7aee35e4bc19b42d6b7a59393407cad7b462a64d2f91ffc214c1ea513f1f0",
+          "cb493c916ba66baff0839ea2f2c7d6af9adec611621a2d8b72600e1c8cc3ecaf",
+          "68993e79b2a87a912a216b401fad1fa57cf24df9d11334d309333b4080aab5e1",
+          "d48929fecf297799ddeb8ed60c28b7cbdcb9d8f955bb880bfaa08ea88bb4b121"
+        ],
+        "runs": [
+          {
+            "pass": "first",
+            "wall_seconds": 2.1454,
+            "cpu_seconds": 1.4536,
+            "process_peak_rss_mib": 142.93,
+            "output_bytes": 9027146,
+            "outcome": "single_epoch"
+          },
+          {
+            "pass": "repeat",
+            "wall_seconds": 1.6858,
+            "cpu_seconds": 1.0991,
+            "process_peak_rss_mib": 143.23,
+            "output_bytes": 9027146,
+            "outcome": "single_epoch"
+          }
+        ],
+        "process_total_seconds": 7.3428
+      }
+    ]
+  }
+}

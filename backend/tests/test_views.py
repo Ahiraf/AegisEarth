@@ -282,10 +282,21 @@ def test_api_cookie_idempotency_cancel_and_verified_download(context, monkeypatc
                 == "canceled"
             )
             _view, file, store = publish(svc, settings)
-            response = client.get(f"/api/v1/artifacts/{file['id']}/content")
+            url = f"/api/v1/artifacts/{file['id']}/content"
+            response = client.get(url)
             assert response.content == b"artifact fixture" and response.status_code == 200
-            store.path(file["storage_key"]).write_bytes(b"damaged")
-            assert client.get(f"/api/v1/artifacts/{file['id']}/content").status_code == 503
+            assert response.headers["cache-control"] == "private, max-age=60"
+            assert response.headers["etag"] == f'"{file["sha256"]}"'
+            cached = client.get(url, headers={"If-None-Match": response.headers["etag"]})
+            assert cached.status_code == 304 and not cached.content
+            stored = store.path(file["storage_key"])
+            try:
+                stored.write_bytes(b"damaged")
+                assert client.get(url).status_code == 503
+                stored.unlink()
+                assert client.get(url).status_code == 503
+            finally:
+                stored.write_bytes(response.content)
     finally:
         app.dependency_overrides.clear()
 

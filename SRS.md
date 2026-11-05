@@ -2,11 +2,11 @@
 
 | Attribute | Baseline |
 | --- | --- |
-| Version / date | 2.7 — survey context, refresh/sharing/export implementation, 2 November 2026 |
+| Version / date | 2.8 — production React integration, 5 November 2026 |
 | Product | AegisEarth — public SPHEREx sky time viewer with optional AI-assisted hints |
 | Required journey | Enter RA/Dec → choose sky patch/band → inspect chronological frames like a movie |
 | Backend ownership | FastAPI REST, PostgreSQL, Python processing, Docker and Hugging Face API |
-| Frontend ownership | Separate React developer: public viewer, playback, sky map and accessibility |
+| Frontend ownership | React designer's UI preserved; backend workflows integrated at the user's request |
 | ML ownership | Researcher trains/evaluates/supplies inference package; backend integrates it only |
 | Repository | https://github.com/Ahiraf/AegisEarth — name unchanged |
 | Challenge | https://www.spaceappschallenge.org/2026/challenges/planet-x-and-spherex/ |
@@ -57,7 +57,7 @@ Quality-limited browsing does not assert scientific comparison eligibility. Fron
 See [movie delivery contract and evidence](docs/movie_delivery.md).
 Step 6 executes all five target investigations with real API frames, epoch-specific catalog predictions, strict-mask aperture diagnostics, proper-motion/resolution comparisons and retained source/config hashes. WISE 0855 is tested at both its supplied unknown-epoch seed and the separately predicted catalog position. Scientific detection/motion/variability remain unvalidated where masks, calibration or references do not support them. See [executed target receipts](docs/verification/targets/README.md).
 Steps 7–8 implement shared-quota derived jobs, D1–D6 coadd selection, exact exported coefficients/masks/count/exposure maps, shared-stretch composites, strict signed-difference eligibility, and native point-source aperture spectra in physical uJy with sparse epoch-specific JSON/CSV. Additive cosmic_0007 preserves prior data. Numerical extraction is verified against an independent analytic reference. Real spectra remain diagnostic; frames-v1 does not establish science-grade CWAVE/CBAND, PSF/background/calibration/covariance acceptance, so actual signed differences are refused with reasons. See [derived implementation and remaining science gates](docs/derived_operations.md).
-Steps 9–10 implement bounded Gaia DR3/AllWISE catalog context, W1/W2 images on each selected frame grid, explicit proper-motion limits, versioned coordinate-state restore, finite frozen-ID links, reference iframe playback, PostgreSQL refresh leases/cooldowns and captioned asynchronous GIF/metadata exports. Additive cosmic_0008 preserves old views. New production React controls, an external scheduled runner and public-host embedding acceptance remain deployment/integration work. See [context, sharing and export contracts](docs/context_sharing.md).
+Steps 9–10 implement bounded Gaia DR3/AllWISE catalog context, W1/W2 images on each selected frame grid, explicit proper-motion limits, versioned coordinate-state restore, finite frozen-ID links, reference iframe playback, PostgreSQL refresh leases/cooldowns and captioned asynchronous GIF/metadata exports. Additive cosmic_0008 preserves old views. Production React now exposes these implemented controls alongside movies, detector/channel selection, coadds, gated differences and diagnostic spectra. Coordinate links restore settings without auto-submission; iframe snippets currently use the backend reference player. The existing design tokens/navigation/educational pages are retained. An external scheduled runner, public-host/device/positive Aladin acceptance, and a fresh real-pixel frontend run after IRSA's observed HTTP 503 remain separate. See [frontend integration](docs/frontend_integration.md) and [context contracts](docs/context_sharing.md).
 This document describes target behavior. Existing OpenAPI remains the actual runtime contract.
 
 Excluded/deferred: full-sky searches, orbit/automatic track solutions, discovery confirmation, impact

@@ -6,7 +6,8 @@ The viewer works independently of an ML model. All potential considerations are 
 expanded release at the user's request; checked planning work does not imply implemented features.
 
 Your scope: feature-based FastAPI/Python backend, PostgreSQL, image processing, Docker and Hugging Face.
-The React owner implements playback/UI/Aladin integration. The ML researcher owns training/evaluation;
+The React owner's design is preserved; the user additionally requested production frontend integration
+with completed backend features on 5 November 2026. The ML researcher owns training/evaluation;
 you integrate the supplied inference package later. No commit/push without explicit instruction.
 
 ## Baseline and definition of done
@@ -19,7 +20,10 @@ you integrate the supplied inference package later. No commit/push without expli
 Existing: health/config, strict request scaffolds, initial seven-table migration plus additive processing-job
 migration/RPCs, curated GET /targets, disabled eleven-stage registry, QR2/QR3 inspection and engineering
 compatibility helpers. Live discovery and durable input acquisition/worker are implemented in steps 2–3;
-view-v2 frame preparation is implemented in step 4. Step 5 movie delivery and an isolated React/Aladin handoff are locally verified; frontend handoff is user-accepted; coadd/spectrum job delivery is implemented; science-grade acceptance, overlays and public deployment remain pending. The old 2–6 observation analysis request is not a viewer API.
+view-v2 frame preparation is implemented in step 4. Steps 5–10 movie delivery, target investigations,
+derived diagnostic jobs, overlays, refresh/sharing/export and production React controls are implemented.
+Scientific acceptance and public deployment remain pending; see the dated frontend verification limits below.
+The old 2–6 observation analysis request is not a viewer API.
 The 26 October M101 QR2 proof (36.394305-day repeat, 353/400 usable common pixels) remains a useful
 control. It does not validate the five challenge targets, QR3, photometry or moving-source detection.
 
@@ -269,18 +273,39 @@ Unfinished step-7/8 scientific acceptance is not erased by completing these back
 
 ## 11. Reliability, Hugging Face and expanded release (`health`, deployment)
 
-- [ ] Measure cold/warm latency, memory, bytes and concurrency for all targets and larger FOVs; expose cost/limit
-      feedback before heavy work. Proposed SRS limits are configurable budgets, not benchmark guarantees.
-- [ ] Test selected DB transport's transaction/lease semantics, migrations, backups and object-store restore.
-- [ ] Build API Docker image on 7860/UID 1000, validate TLS/CORS/artifact caching and dependency versions.
+Production frontend follow-up requested by the user — 5 November 2026:
+
+- [x] Preserve the designer's palette/fonts/styles, hero, navigation and educational sections.
+- [x] Connect live coordinate/FOV/date/release searches, all five presets and 102-channel/detector controls.
+- [x] Connect frozen chronological playback, native/common modes, blink/side comparison and quality/source downloads.
+- [x] Connect Gaia/WISE context, optional Aladin, coadds, gated subtraction, diagnostic spectra and GIF jobs.
+- [x] Connect canonical coordinate restore, frozen links, reference iframe snippets, metadata export and explicit refresh.
+- [x] Verify controlled API workflows on desktop/390px, keyboard/reduced motion, retries/cancellation,
+      expired/empty/single-epoch results and optional-provider failure isolation; build production/Docker bundles.
+- [x] Verify real API reference/session requests and full coordinate-state restore through local frontend proxy.
+- [ ] Verify a fresh real-pixel frontend movie and successful Aladin load when the local API can reach IRSA SIA.
+
+See [frontend setup and exact verification boundaries](docs/frontend_integration.md). This completes
+the integration code; it does not mark the remaining expanded-release acceptance below complete.
+
+- [x] Measure first/repeat local preparation, memory and bytes for all five targets at 3′ and 30′ with pinned inputs.
+      Exercise two concurrent preparation processes and show the estimated grid and runtime limits before submission.
+- [x] Verify local PostgreSQL and HTTPS gateway transactions, leases, migrations, database restart and logical backup.
+      Restore the local file store and verify an object with its restored ledger record.
+- [x] Build and run the API Docker image on 7860/UID 1000. Verify local TLS gateway, CORS, artifact caching and dependencies.
+- [ ] Measure live and hosted archive download, queue latency, transfer size and throughput at representative and larger FOVs.
 - [ ] Provision external PostgreSQL/object storage and durable CPU worker; prove Space sleep/restart recovery.
       A sleeping Space is not the scheduler/worker for continuous refresh. Keep all private credentials server-side.
-- [ ] Test provider/queue/storage failures, cancellation and corruption; publish dated cached target fallbacks.
-- [ ] Complete frontend/device/keyboard/reduced-motion/embedding acceptance and all coverage-matrix rows.
-- [ ] Assemble reproducible five-target demo, credits and final organizer submission/rule checks.
+- [ ] Restore hosted object storage and PostgreSQL together from provider backups and verify a published artifact.
+- [x] Test provider/queue/storage failures, cancellation and corruption locally. Bundle five dated target contact sheets in the frontend.
+- [x] Verify controlled desktop and narrow browser interaction, keyboard and reduced motion. Retain the local second-origin embed receipt.
+- [x] Assemble a reproducible five-target demo, source credits and the published 2026 organizer submission window.
+- [ ] Complete public-host, real-device and public embedding acceptance and close the remaining coverage-matrix science rows.
+- [ ] Confirm the registered Local Event and its pitch/Project Tab requirements before organizer submission.
 - [ ] Commit/push/deploy only when explicitly authorized; main/anindya357, no force-push or frontend overwrite.
 
-Exit: expanded release includes the working public viewer, all considerations and actual five-target tests.
+The [Step 11 local report](docs/step11_release.md) contains the reproduction commands and evidence.
+Expanded release exit requires the working public viewer, hosted recovery and the remaining acceptance above.
 
 ## 12. Optional researcher model integration (`detection`, `association`, `ranking`, `candidates`)
 

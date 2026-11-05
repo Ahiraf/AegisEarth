@@ -5,3 +5,4 @@ docs/research/target_feasibility/metadata/*.xml -text
 docs/research/target_feasibility/catalog/*.txt -text -whitespace
 docs/research/target_feasibility/*.txt -text -whitespace
 docs/research/target_feasibility/simbad_response.json -text
+frontend/start-nginx.sh text eol=lf

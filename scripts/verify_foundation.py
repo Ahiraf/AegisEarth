@@ -50,6 +50,9 @@ def main():
         action="store_true",
         help="Also restart only the disposable DB and verify recovery",
     )
+    parser.add_argument(
+        "--output", type=Path, default=ROOT / "docs/verification/foundation_report.json"
+    )
     args = parser.parse_args()
     ca = ROOT / "var/foundation/root.crt"
     settings = Settings(
@@ -182,7 +185,7 @@ def main():
             "Local TLS CA; cloud must use its trusted public certificate",
         ],
     }
-    output = ROOT / "docs/verification/foundation_report.json"
+    output = args.output
     output.parent.mkdir(exist_ok=True)
     output.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))

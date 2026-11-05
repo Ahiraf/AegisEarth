@@ -9,7 +9,7 @@ for the full React handoff, limits, cache semantics and [working request](exampl
 
 | Route | Actual state |
 | --- | --- |
-| GET `/health/live`, `/health/ready`, `/system/capabilities` | Implemented health/capability reporting |
+| GET `/health/live`, `/health/ready`, `/system/capabilities` | Health and capabilities, including `view_limits.total_bytes` and `view_limits.wall_seconds` for pre-submission feedback |
 | GET `/targets` | Implemented five-target curated catalog snapshot with source epochs/provenance; not live discovery |
 | POST `/targets/resolve`, GET `/releases` | Coordinate normalization and versioned enabled collections |
 | POST `/observations/search` | discovery-v1 implemented; old radius contract explicitly retired with 410 |

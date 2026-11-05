@@ -1,4 +1,6 @@
 import type { Observation, SkyPosition, SourceLink } from '../types/observation';
+import products from '../archive/products.json';
+import archivePreviews from '../archive/previews.json';
 
 // SPHEREx spectral-image records saved from the NASA/IPAC Infrared Science Archive (IRSA).
 //
@@ -63,6 +65,7 @@ function toObservation(listing: Listing): Observation {
   const productUrl =
     `https://irsa.ipac.caltech.edu/ibe/data/spherex/qr2/level2/${planningPeriod}/` +
     `l2b-v${version}-${processedYear}-${processedDay}/${detector}/${listing.file}`;
+  const rendered = archivePreviews.previews.find((item) => item.product === listing.file && item.source_url === productUrl);
   const links: SourceLink[] = [
     { label: 'Product file in the IRSA archive (FITS)', url: productUrl },
     { label: listing.tutorialName, url: listing.tutorialUrl },
@@ -84,8 +87,12 @@ function toObservation(listing: Listing): Observation {
     wavelengthMinMicron: band ? band.minMicron : null,
     wavelengthMaxMicron: band ? band.maxMicron : null,
     coveredPosition: listing.coveredPosition,
-    preview: null,
-    display: { rendering: null, stretch: null, colorMap: null },
+    preview: rendered ? {
+      kind: 'url',
+      url: `${import.meta.env.BASE_URL}archive-previews/${rendered.png}`,
+      alt: `SPHEREx detector ${detector} preview of ${planningPeriod}_${largeSlew}_${smallSlew}`,
+    } : null,
+    display: rendered ? { rendering: `${rendered.field_arcmin}′ sky-aligned cutout`, stretch: 'Shared within this field', colorMap: 'Grayscale' } : { rendering: null, stretch: null, colorMap: null },
     provenance: {
       sourceName: 'NASA/IPAC Infrared Science Archive (IRSA)',
       sourceRecordUrl: productUrl,
@@ -102,15 +109,11 @@ const INTRO = { tutorialUrl: INTRO_TUTORIAL_URL, tutorialName: 'IRSA tutorial th
 
 // Six products that cover the Pinwheel Galaxy (M101) in detector 2, listed by the IRSA cutout tutorial,
 // and the first product returned by the intro tutorial for its example position.
-const LISTINGS: Listing[] = [
-  { file: 'level2_2025W22_1B_0129_1D2_spx_l2b-v20-2025-250.fits', coveredPosition: M101, ...CUTOUTS },
-  { file: 'level2_2025W50_2A_0072_2D2_spx_l2b-v20-2025-349.fits', coveredPosition: M101, ...CUTOUTS },
-  { file: 'level2_2025W50_2A_0129_1D2_spx_l2b-v20-2025-349.fits', coveredPosition: M101, ...CUTOUTS },
-  { file: 'level2_2026W20_2A_0464_2D2_spx_l2b-v25-2026-140.fits', coveredPosition: M101, ...CUTOUTS },
-  { file: 'level2_2026W21_2A_0081_3D2_spx_l2b-v25-2026-147.fits', coveredPosition: M101, ...CUTOUTS },
-  { file: 'level2_2026W21_2A_0361_4D2_spx_l2b-v25-2026-147.fits', coveredPosition: M101, ...CUTOUTS },
-  { file: 'level2_2025W43_1A_0516_1D5_spx_l2b-v20-2025-299.fits', coveredPosition: TUTORIAL_FIELD, ...INTRO },
-];
+const LISTINGS: Listing[] = products.map(({ file, field }) =>
+  field === 'm101'
+    ? { file, coveredPosition: M101, ...CUTOUTS }
+    : { file, coveredPosition: TUTORIAL_FIELD, ...INTRO },
+);
 
 /** Oldest planning period first. */
 export const SNAPSHOT_RECORDS: Observation[] = LISTINGS.map(toObservation).sort((a, b) =>

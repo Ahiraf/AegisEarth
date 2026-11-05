@@ -1,0 +1,89 @@
+{
+  "verified_at_utc": "2026-11-04T17:57:03.703Z",
+  "mode": "actual local FastAPI/PostgreSQL/worker and IRSA sources",
+  "calls": [
+    {
+      "method": "GET",
+      "path": "/api/v1/bands",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/system/capabilities",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/releases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/share/resolve",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/targets",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/releases/refresh-status",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/views/session",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/views",
+      "status": 503
+    }
+  ],
+  "errors": [],
+  "failure": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByTestId('view-id')\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"to.be.visible\" with timeout 30000ms\n  - waiting for getByTestId('view-id')\n",
+  "production_container_checks": {
+    "html": {
+      "status": 200
+    },
+    "targets": {
+      "status": 200,
+      "names": [
+        "Barnard's Star",
+        "Epsilon Indi B",
+        "WISE 0855",
+        "RW Aurigae",
+        "R Draconis"
+      ]
+    },
+    "bands": {
+      "status": 200,
+      "channel_count": 102
+    },
+    "session": {
+      "status": 200,
+      "http_only_cookie_present": true
+    },
+    "cors_preflight": {
+      "status": 200,
+      "allow_origin": "http://127.0.0.1:5173"
+    }
+  },
+  "receipt_written_at_utc": "2026-11-05T06:53:31.512194+00:00",
+  "fresh_pixels_verified": false,
+  "provider_probe": {
+    "location": "local API container",
+    "source": "official IRSA SIA",
+    "status": 503,
+    "reason": "Service Unavailable"
+  },
+  "provider_recheck": {
+    "local_date": "2026-11-05",
+    "location": "local API container",
+    "source": "official IRSA SIA",
+    "outcome": "TLS handshake timed out after 12 seconds"
+  }
+}

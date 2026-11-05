@@ -24,8 +24,8 @@ import { useCardGlow } from '../hooks/useCardGlow';
 
 const WORKFLOW = [
   { title: 'Select a sky position and date range', text: 'Enter coordinates and the period you are interested in.' },
-  { title: 'Find matching observation records', text: 'See which records cover that region and when they were processed.' },
-  { title: 'Compare selected observations', text: 'Place two records side by side and see how their bands and versions differ.' },
+  { title: 'Prepare chronological images', text: 'Choose a release and wavelength selection, then load real images with UTC observing times.' },
+  { title: 'Explore changes over time', text: 'Play, blink or compare frames. Add optional Gaia/WISE context, composites or diagnostic spectra.' },
   { title: 'Inspect metadata and sources', text: 'Check identifiers, wavelength, processing and follow the links to the archive.' },
 ];
 
@@ -33,7 +33,7 @@ const LIMITS = [
   'A visible difference does not by itself prove movement.',
   'Wavelength, calibration, processing, noise and image settings can all change how an image looks.',
   'An empty result does not prove that nothing exists at a location.',
-  'AegisEarth reports archive records. It does not claim to have discovered Planet X or any new object.',
+  'AegisEarth displays archive images and diagnostic evidence. It does not claim to have discovered Planet X or any new object.',
 ];
 
 const EDUCATION_SOURCES = [
@@ -104,9 +104,9 @@ export function AboutPage() {
             <article className="panel">
               <h3>NASA/IPAC Infrared Science Archive (IRSA)</h3>
               <p className="prose-sm">
-                IRSA hosts the SPHEREx data. The Explorer lists spectral images from SPHEREx Quick Release 2, which IRSA
-                documents under DOI 10.26131/IRSA652. The product names come from IRSA&rsquo;s own tutorials, and each record
-                links to its file in the archive.
+                IRSA hosts the SPHEREx data. The live viewer queries the backend&rsquo;s registered QR2/QR3 collections,
+                including their wide and deep products. Each frame retains its source release, observing time,
+                preparation details and archive links. Dataset credits travel with the view and exports.
               </p>
               <ul className="srclinks">
                 <li><SourceLink href={IRSA_SPHEREX_URL} label="SPHEREx at IRSA" /></li>
@@ -115,8 +115,9 @@ export function AboutPage() {
                 <li><SourceLink href={IRSA_DATA_PRODUCTS_URL} label="SPHEREx data products guide" /></li>
               </ul>
               <p className="note">
-                The Explorer currently lists a saved selection of records, retrieved from IRSA on {longDate(SNAPSHOT_RETRIEVED_ON)}. A
-                live connection to the full archive is planned.
+                Live queries are bounded archive samples and can be incomplete or temporarily unavailable. The separately
+                selected saved-record explorer retains its IRSA metadata snapshot from {longDate(SNAPSHOT_RETRIEVED_ON)};
+                it is not a replacement for missing live movie frames.
               </p>
             </article>
             <article className="panel">

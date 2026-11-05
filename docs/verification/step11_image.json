@@ -1,0 +1,22 @@
+{
+  "verified_at_utc": "2026-11-05T13:11:41.605261+00:00",
+  "scope": "local_HF_image_not_cloud_deployment",
+  "port": 7860,
+  "runtime_uid": 1000,
+  "database_readiness": 200,
+  "curated_targets": 5,
+  "python": "Python 3.12.16",
+  "image_id": "sha256:97a940745a20a8916482a13acd078dae8155ae1b11498936bd39536eb25a0289",
+  "cors_preflight": 200,
+  "pip_check": "passed",
+  "view_limits": {
+    "total_bytes": 268435456,
+    "wall_seconds": 180
+  },
+  "dependency_lock_sha256": {
+    "requirements.lock": "a1ad843720b101d776f1f26a1406a85fcbe566216b45221e49054aaa552d6edd",
+    "requirements-build.lock": "0fc577df81487673e01800778171d7762f69f51a6eb9450ba3604352023005f1",
+    "requirements-test.lock": "532367e6aab479505ac5b28f94ae8301a3e2c799d7edb7aeeacaf1428b075d38",
+    "requirements-dev.lock": "2475e12f125b7fb53b590fd99baac841460319fb2c5012d46ad44407852fbb20"
+  }
+}

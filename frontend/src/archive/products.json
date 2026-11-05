@@ -1,0 +1,9 @@
+[
+  { "file": "level2_2025W22_1B_0129_1D2_spx_l2b-v20-2025-250.fits", "field": "m101" },
+  { "file": "level2_2025W50_2A_0072_2D2_spx_l2b-v20-2025-349.fits", "field": "m101" },
+  { "file": "level2_2025W50_2A_0129_1D2_spx_l2b-v20-2025-349.fits", "field": "m101" },
+  { "file": "level2_2026W20_2A_0464_2D2_spx_l2b-v25-2026-140.fits", "field": "m101" },
+  { "file": "level2_2026W21_2A_0081_3D2_spx_l2b-v25-2026-147.fits", "field": "m101" },
+  { "file": "level2_2026W21_2A_0361_4D2_spx_l2b-v25-2026-147.fits", "field": "m101" },
+  { "file": "level2_2025W43_1A_0516_1D5_spx_l2b-v20-2025-299.fits", "field": "tutorial" }
+]

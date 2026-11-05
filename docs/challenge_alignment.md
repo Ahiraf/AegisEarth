@@ -51,3 +51,8 @@ Optional GIF/MP4 exports are a convenience; chronological browser playback is th
 Keep useful modules/schema/research. This planning revision does not delete history, reset DBs, enable
 unimplemented endpoints or alter the frontend. [SRS](../SRS.md) defines the revised requirements and
 [todo plan](../todo_plan.md) assigns implementation order and exit checks.
+
+5 November implementation follow-up: the user requested the production React integration. The
+[frontend now exposes the completed backend workflows](frontend_integration.md) while preserving
+the designer's theme. Local controlled browser/container verification is distinct from public-host,
+fresh real-pixel/Aladin and scientific acceptance; the coverage matrix's release gates still apply.

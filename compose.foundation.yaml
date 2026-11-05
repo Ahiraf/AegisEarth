@@ -61,7 +61,7 @@ services:
       PUBLIC_COOKIE_SECURE: "false"
       EMBED_ANCESTORS: '["''self''","http://127.0.0.1:15174"]'
       FRONTEND_VIEWER_URL: http://127.0.0.1:15173/
-      CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:15173","http://localhost:15173"]'
+      CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173","http://127.0.0.1:15173","http://localhost:15173","http://127.0.0.1:15175"]'
     volumes: ["foundation_artifacts:/app/var/artifacts"]
     ports: ["127.0.0.1:18000:8000"]
     depends_on:

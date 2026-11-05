@@ -49,6 +49,12 @@ services:
     restart: unless-stopped
     depends_on:
       migrate: {condition: service_completed_successfully}
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports: ["127.0.0.1:5173:7860"]
+    depends_on: [api]
 volumes:
   cosmic_postgres_data:
   cosmic_artifact_cache:

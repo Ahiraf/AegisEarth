@@ -1,5 +1,6 @@
 """Run the HF image locally on its real port/UID, using only the disposable foundation DB."""
 
+import argparse
 import hashlib
 import json
 import subprocess
@@ -20,6 +21,10 @@ def docker(*args):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--image", default="cosmic-motion-hf-local")
+    parser.add_argument("--output", type=Path, default=ROOT / "docs/verification/image_smoke.json")
+    args = parser.parse_args()
     container = docker(
         "run",
         "--rm",
@@ -32,7 +37,9 @@ def main():
         "127.0.0.1:17860:7860",
         "-e",
         "DATABASE_URL=postgresql+psycopg://cosmic:local-foundation-only@db:5432/cosmic_foundation",
-        "cosmic-motion-hf-local",
+        "-e",
+        'CORS_ORIGINS=["http://127.0.0.1:5173"]',
+        args.image,
     )
     try:
         deadline = time.monotonic() + 30
@@ -47,6 +54,20 @@ def main():
                 raise RuntimeError("HF-image local readiness timed out")
             time.sleep(1)
         targets = httpx.get("http://127.0.0.1:17860/api/v1/targets").json()
+        cors = httpx.options(
+            "http://127.0.0.1:17860/api/v1/views",
+            headers={
+                "Origin": "http://127.0.0.1:5173",
+                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Headers": "content-type,idempotency-key",
+            },
+        )
+        assert cors.status_code == 200
+        assert cors.headers["access-control-allow-origin"] == "http://127.0.0.1:5173"
+        limits = httpx.get("http://127.0.0.1:17860/api/v1/system/capabilities").json()[
+            "view_limits"
+        ]
+        docker("exec", container, "python", "-m", "pip", "check")
         uid = int(docker("exec", container, "id", "-u"))
         assert uid == 1000 and targets["total"] == 5
         report = {
@@ -57,7 +78,10 @@ def main():
             "database_readiness": response.status_code,
             "curated_targets": targets["total"],
             "python": docker("exec", container, "python", "--version"),
-            "image_id": docker("image", "inspect", "cosmic-motion-hf-local", "--format", "{{.Id}}"),
+            "image_id": docker("image", "inspect", args.image, "--format", "{{.Id}}"),
+            "cors_preflight": cors.status_code,
+            "pip_check": "passed",
+            "view_limits": limits,
             "dependency_lock_sha256": {
                 name: hashlib.sha256((ROOT / "backend" / name).read_bytes()).hexdigest()
                 for name in (
@@ -68,9 +92,7 @@ def main():
                 )
             },
         }
-        (ROOT / "docs/verification/image_smoke.json").write_text(
-            json.dumps(report, indent=2) + "\n"
-        )
+        args.output.write_text(json.dumps(report, indent=2) + "\n")
         print(json.dumps(report, indent=2))
     finally:
         docker("stop", container)

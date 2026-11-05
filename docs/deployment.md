@@ -35,7 +35,7 @@ or put database/service-role credentials into the public React application.
 
 With Docker Desktop's Linux engine available, compare `.env.example` to existing private environment
 files and run `docker compose up --build`. Current Compose starts a fresh project PostgreSQL,
-migration, API and a resource-bounded input-acquisition worker; frontend is separate. Retain existing volumes and unrelated DBs.
+migration, API, a resource-bounded input-acquisition worker and the frontend container. Retain existing volumes and unrelated DBs.
 `cosmic_0001` is the initial schema; subsequent feature changes use new migrations.
 
 API docs: `http://localhost:8000/docs`. Check liveness, database/schema readiness and actual disabled
@@ -119,3 +119,46 @@ delivery, explicit metadata refresh and durable GIF exports. `cosmic_0008` adds 
 for fenced per-query metadata checks; export jobs reuse the existing job/upload/retention protocol.
 Optional context uses a bounded process-local cache; it never mutates a published SPHEREx movie.
 New production React controls, external scheduler operation and public-host acceptance remain separate.
+
+## Production React integration — 5 November 2026
+
+The [production React UI](frontend_integration.md) now exposes completed backend workflows through
+step 10 while retaining the designer's theme. The normal Compose file includes frontend Nginx on
+localhost:5173, proxying `/api/` to `api:8000`; the production bundle and container build locally.
+Environment files are excluded from the image build context. Vite development supports a local API
+proxy; separate-host builds accept a public API origin. No server secrets are bundled.
+The Step 11 frontend image serves on port 7860 as UID 1000. Local Compose maps it to port 5173.
+Fresh movie and Aladin verification remain open while the local API cannot reach IRSA.
+
+## Step 11 hosted release sequence
+
+The [local Step 11 receipt](step11_release.md) records what ran with disposable resources. The
+following sequence starts once the team has the intended hosting accounts and external services.
+
+1. Provision PostgreSQL, a restricted HTTPS PostgREST gateway and a separate CPU worker host with
+   native PostgreSQL access. Apply Alembic and the gateway role/function policy from the DB network.
+   Use a trusted public CA for the gateway and verify anonymous calls fail. Keep the worker and refresh
+   scheduler on infrastructure that remains active when a Space sleeps.
+2. Provision a private S3-compatible bucket and set the API and worker to the same bucket, region and
+   HTTPS endpoint. Store service credentials in the hosting secrets manager. Rehearse coordinated
+   database and object recovery before routing public traffic.
+3. Use the repository-root `Dockerfile` and existing Docker Space README metadata for the API Space.
+   Set `DATABASE_TRANSPORT=postgrest`, the gateway URL/token, the object-store settings, stable
+   `PUBLIC_TOKEN_SECRET`, `PUBLIC_COOKIE_SECURE=true`, the exact frontend origin in `CORS_ORIGINS`,
+   the public viewer URL and intended `EMBED_ANCESTORS`. Confirm readiness from the Space itself.
+4. In a separate frontend Space use `frontend/Dockerfile` as its repository-root `Dockerfile`, keep
+   `frontend/` at that same build-context path, and set `sdk: docker` and `app_port: 7860` in its README.
+   Leave `VITE_API_BASE_URL` empty for same-origin sessions. Set the runtime Space variable
+   `AEGISEARTH_API_UPSTREAM` to the API Space’s public HTTPS origin without a trailing slash. Nginx
+   verifies the upstream certificate and proxies `/api/` to that origin.
+5. In a fresh browser submit a permitted view, reload and cancel a second view, inspect the cookie,
+   verify artifact ETags and embed the result from the intended second origin. Check quota behavior
+   behind the reverse proxy and test keyboard/reduced motion on the intended devices. Check a fresh
+   IRSA movie and a successful Aladin FITS load. Record live transfer and queue measurements.
+6. Pause and restart the API Space during a queued or running job. Verify worker progress and the
+   immutable artifact IDs after the API returns. Then restore the database and bucket into separate
+   test destinations and verify a published object against its recorded checksum. Review the deployed
+   service and submission checklist before sharing it publicly.
+
+See the [Hugging Face Docker Space guide](https://huggingface.co/docs/hub/spaces-sdks-docker) and
+[Space networking and lifecycle reference](https://huggingface.co/docs/hub/spaces-overview).

@@ -1,0 +1,23 @@
+{
+  "verified_at_utc": "2026-11-05T13:02:13.392890+00:00",
+  "scope": "local_disposable_stack_only",
+  "real_hugging_face_connectivity": "not_tested_no_cloud_resources_configured",
+  "checks": {
+    "native_api_ready": true,
+    "authenticated_verified_tls_rpc": true,
+    "anonymous_denied": true,
+    "idempotent_acceptance": true,
+    "conflicting_key_rollback": true,
+    "single_atomic_claim": true,
+    "canceled_worker_fenced": true,
+    "expired_lease_recovered": true,
+    "atomic_completion": true,
+    "database_restart_preserves_completed_job": true,
+    "gateway_recovers_after_database_restart": true
+  },
+  "execution_available": false,
+  "limitations": [
+    "Persistence primitives tested, not a processing worker or viewer",
+    "Local TLS CA; cloud must use its trusted public certificate"
+  ]
+}

@@ -1,5 +1,44 @@
 # Backend foundation and data-path verification
 
+## Step 11 local release verification — 5 November 2026
+
+The API image ran on 7860 as UID 1000. The local HTTPS gateway passed transaction, lease and
+PostgreSQL restart checks. A disposable logical restore recovered the artifact ledger, and the copied
+object matched its recorded SHA-256. A damaged copy was rejected. All 169 backend tests passed,
+including the artifact test rerun with additional conditional-cache and missing-content checks.
+
+All 12 controlled browser tests passed, including the five dated contact sheets with the API blocked.
+The 27 pinned target cutouts produced measurements for 3′ and 30′ grids and a separate two-process run.
+The new IRSA probe failed during TLS setup. Fresh real-pixel, hosted recovery and public acceptance
+remain open. See the [Step 11 report and evidence](step11_release.md).
+
+## Production React integration — 5 November 2026
+
+- The designer's existing color/font tokens, navigation, decorative hero, educational sections and
+  card styling are retained. New feature modules consume the implemented API through step 10;
+  the saved metadata explorer remains an explicit option. API failures never select example images.
+- TypeScript/Vite production build and the frontend Docker build pass on Windows and Linux
+  respectively. The Linux build also verifies corrected case-sensitive page imports. The large
+  Three/Aladin chunks remain separate dynamic imports; Vite reports a chunk-size advisory.
+- **11 controlled browser workflows pass**, including desktop/mobile, keyboard/reduced motion,
+  paginated chronology, all processing operations, preparation-index mapping, additional source
+  views, moving-source epoch positions, overlays, sharing, idempotent retry, cancellation,
+  expiry/refresh, no coverage/single epoch, stale requests and isolated optional-map failure.
+  These tests use explicitly labeled fixtures, not live discoveries or scientific validation.
+- The local Nginx container serves the production HTML and proxies actual FastAPI reference/session
+  routes: five target presets, 102 channels and cookie initialization return HTTP 200. Full coordinate
+  state restores through the live service without auto-submitting a view.
+- Fresh real-image admission returned `503 all_sources_unavailable`; a direct official IRSA SIA
+  request from the API container also returned HTTP 503. A follow-up connection timed out during the
+  TLS handshake. The UI kept the requested coordinates and
+  exposed retry. No successful new real-pixel movie/positive production Aladin run is claimed.
+  The existing historical backend/reference-player proofs remain separately dated.
+
+See [integration/setup](frontend_integration.md), [controlled browser results](verification/frontend_browser.json)
+and [actual-service outage receipt](verification/frontend_live.json). Production React integration is
+implemented; successful fresh live acceptance, public hosting/device/iframe acceptance, external
+services/scheduler and outstanding science-grade gates remain open. No commit or push was performed.
+
 ## Steps 9–10 backend and local reference delivery — 2 November 2026
 
 - **169 backend tests passed** on disposable PostgreSQL 17, including cosmic_0008 upgrade/drift/
