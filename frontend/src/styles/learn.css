@@ -74,3 +74,25 @@
 }
 
 .diagram-wide { margin: 22px 0; max-width: 46rem; }
+
+.guide [id] { scroll-margin-top: 96px; }
+.guide .defs + .prose { margin-top: 18px; }
+.guide-example, .guide-detail {
+  max-width: 62rem;
+  margin: 16px 0 0;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.guide-example { border-inline-start: 3px solid var(--cyan); }
+.guide-example h3, .guide-detail summary { font-family: var(--head); font-weight: 600; }
+.guide-detail summary { cursor: pointer; }
+.guide-detail summary::marker { color: var(--cyan); }
+.guide-example p, .guide-detail p {
+  max-width: 50rem;
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.guide-example code { color: var(--cyan); }
