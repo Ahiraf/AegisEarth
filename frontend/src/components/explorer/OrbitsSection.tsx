@@ -1,93 +1,103 @@
-import { useEffect, useRef, useState } from 'react';
-import { ORBIT_OBJECTS } from '../../content/orbits';
-import { FactList } from '../FactList';
-import { Reveal } from '../Reveal';
-import { SectionHeader } from '../SectionHeader';
+import { useState, type CSSProperties } from "react";
+import { ORBIT_OBJECTS } from "../../content/orbits";
+import { FactList } from "../FactList";
+import { OrbitsCanvas } from "../OrbitsCanvas";
+import { Reveal } from "../Reveal";
+import { SectionHeader } from "../SectionHeader";
+import { SourceLink } from "../SourceLink";
 
-type OrbitsSectionProps = { paused: boolean };
-
-// Ring radius uses a logarithmic scale so that low orbits and geostationary orbit fit together.
-const ringRadius = (km: number) => 36 + (210 * Math.log(km / 300)) / Math.log(120);
-
-export function OrbitsSection({ paused }: OrbitsSectionProps) {
+export function OrbitsSection({ paused }: { paused: boolean }) {
   const [selected, setSelected] = useState(0);
-  const svgRef = useRef<SVGSVGElement>(null);
   const object = ORBIT_OBJECTS[selected];
-
-  // SVG animations can be paused as a group.
-  useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return;
-    if (paused) svg.pauseAnimations?.();
-    else svg.unpauseAnimations?.();
-  }, [paused]);
-
   return (
     <Reveal id="orbits">
       <SectionHeader
         eyebrow="05 / Around Earth"
         title="Satellites & space stations"
-        lead="Choose an object to see how it orbits. Every fact has a source link beside it, so you can check it yourself."
-        chip={<span className="chip chip-plain">SOURCES LINKED</span>}
+        lead="Turn the Earth, follow an orbit and discover what each spacecraft does. Choose a mission to bring its path into focus."
+        chip={<span className="chip chip-plain">EXPLORE IN 3D</span>}
       />
-      <div className="two">
+      <div className="two orbit-layout">
         <div>
-          <svg
-            ref={svgRef}
-            className="osvg"
-            viewBox="0 0 520 520"
-            role="img"
-            aria-label="Diagram of orbits around Earth. Use the buttons beside it to choose an object."
-          >
-            <circle cx="260" cy="260" r="26" fill="#0e3a66" stroke="#4CC3F0" strokeOpacity="0.6" />
-            <text x="260" y="264" fill="#B8CADD" fontSize="11" textAnchor="middle">Earth</text>
-            {ORBIT_OBJECTS.map((o, i) => {
-              const r = ringRadius(o.placementKm);
-              const on = i === selected;
-              return (
-                <g key={o.id}>
-                  <circle cx="260" cy="260" r={r} fill="none" stroke={o.color} strokeOpacity={on ? 0.95 : 0.3} strokeWidth={on ? 2 : 1} />
-                  {/* Each dot starts at its own angle so they do not pile up when paused. */}
-                  <g transform={`rotate(${(i * 71) % 360} 260 260)`}>
-                    <g>
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from="0 260 260"
-                        to="360 260 260"
-                        dur={`${(5 * Math.sqrt(o.periodHours)).toFixed(1)}s`}
-                        repeatCount="indefinite"
-                      />
-                      <circle cx={260 + r} cy="260" r={on ? 6 : 4} fill={o.color} />
-                    </g>
-                  </g>
-                </g>
-              );
-            })}
-          </svg>
-          <p className="note">
-            Rings are spaced on a logarithmic scale and the dots move at compressed speeds, so the diagram shows the
-            order of the orbits rather than their true spacing.
+          <OrbitsCanvas
+            selected={selected}
+            paused={paused}
+            onSelect={setSelected}
+          />
+          <p id="orbit-scale-note" className="note orbit-scale-note">
+            Educational model, not live tracking. Heights are compressed
+            logarithmically; Earth and spacecraft sizes are exaggerated. Paths
+            are simplified circles with illustrative positions and orientations;
+            animation is sped up. SPHEREx is shown with a simplified polar tilt.
+            Reference altitudes can change.
           </p>
+          <div className="orbit-reading-key">
+            <h3>Read the orbit</h3>
+            <dl>
+              <div>
+                <dt>Height</dt>
+                <dd>Distance above Earth’s surface, not from its centre.</dd>
+              </div>
+              <div>
+                <dt>Orbit time</dt>
+                <dd>How long one complete trip around Earth takes.</dd>
+              </div>
+              <div>
+                <dt>Orbit tilt</dt>
+                <dd>
+                  The angle of the path to Earth’s equator. A near-polar path
+                  passes close to both poles.
+                </dd>
+              </div>
+            </dl>
+          </div>
         </div>
-        <div>
-          <div className="pills" role="group" aria-label="Choose an orbiting object">
-            {ORBIT_OBJECTS.map((o, i) => (
+        <div className="orbit-details">
+          <div
+            className="pills orbit-pills"
+            role="group"
+            aria-label="Choose an orbiting object"
+          >
+            {ORBIT_OBJECTS.map((item, index) => (
               <button
-                key={o.id}
+                key={item.id}
                 type="button"
-                className={`pill${i === selected ? ' on' : ''}`}
-                aria-pressed={i === selected}
-                onClick={() => setSelected(i)}
+                className={"pill" + (index === selected ? " on" : "")}
+                style={{ "--orbit-color": item.color } as CSSProperties}
+                aria-pressed={index === selected}
+                aria-controls="orbit-facts"
+                onClick={() => setSelected(index)}
               >
-                {o.name}
+                <span className="orbit-pill-dot" aria-hidden="true" />
+                {item.name}
               </button>
             ))}
           </div>
-          <article className="panel" aria-live="polite">
+          <article
+            id="orbit-facts"
+            className="panel orbit-facts"
+            aria-live="polite"
+            aria-atomic="true"
+            style={{ "--orbit-color": object.color } as CSSProperties}
+          >
+            <span className="orbit-category">{object.category}</span>
             <h3>{object.fullName}</h3>
+            <p className="orbit-summary">{object.summary}</p>
+            <SourceLink
+              href={object.summarySource.url}
+              label={object.summarySource.name + " mission guide"}
+              context={object.name}
+            />
             <FactList rows={object.facts} />
+            <div className="orbit-explanation">
+              <h4>Why this orbit?</h4>
+              <p>{object.orbitExplanation}</p>
+            </div>
           </article>
+          <p className="note orbit-reference">
+            Agency references checked 8 November 2026. Galileo and GOES
+            represent satellite families; the model shows one example of each.
+          </p>
         </div>
       </div>
     </Reveal>

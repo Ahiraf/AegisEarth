@@ -25,6 +25,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
 imaging = ["numpy>=2,<3", "scipy>=1.14,<2", "photutils>=2,<4", "reproject>=0.14,<1", "pillow>=11,<13"]
+ranking = ["astroquery>=0.4.11,<0.5", "pandas>=2.2,<4"]
 research = ["matplotlib>=3.9,<4", "nbformat>=5.10,<6", "nbclient>=0.10,<1", "nbconvert>=7,<8", "ipykernel>=6,<8", "psutil>=6,<8"]
 
 [project.scripts]
@@ -32,10 +33,11 @@ cosmic-pipeline = "app.pipeline.cli:main"
 cosmic-worker = "app.modules.views.worker:main"
 
 [tool.setuptools.packages.find]
-include = ["app*"]
+include = ["app*", "model_packages*"]
 
 [tool.setuptools.package-data]
-app = ["modules/analyses/*.sql", "modules/observations/*.sql", "modules/views/*.sql", "modules/preprocessing/*.sql", "modules/bands/*.json", "modules/targets/*.json", "modules/releases/*.sql", "modules/views/embed/*"]
+app = ["modules/analyses/*.sql", "modules/observations/*.sql", "modules/views/*.sql", "modules/preprocessing/*.sql", "modules/bands/*.json", "modules/targets/*.json", "modules/releases/*.sql", "modules/ranking/*.sql", "modules/views/embed/*"]
+"model_packages.aegis_ranker_v2" = ["*.json", "*.md", "requirements.txt", "golden/*.py", "golden/*.json", "golden/fits/*.fits"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

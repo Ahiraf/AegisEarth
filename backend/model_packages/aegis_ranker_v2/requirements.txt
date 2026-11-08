@@ -1,0 +1,4 @@
+numpy==2.4.6
+astropy==7.2.3
+# astroquery is needed only for candidates.py
+# python 3.13.18

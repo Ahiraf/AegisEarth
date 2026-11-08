@@ -72,9 +72,12 @@ def process_job(repository, job, settings):
     receipts = {}
     prepared = None
     derived = []
+    ranker_report = None
     started = time.monotonic()
     heartbeat_at = 0
     try:
+        if job["config"].get("ranker") and not settings.metadata_ranker_enabled:
+            raise WorkerLimit("metadata_ranker_disabled")
         environment = {**os.environ, "OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1"}
         process = subprocess.Popen(
             [sys.executable, "-m", "app.modules.views.executor", str(root)],
@@ -155,6 +158,11 @@ def process_job(repository, job, settings):
                 ack = root / "preparation.upload.part"
                 ack.write_text(json.dumps(derived), encoding="utf-8")
                 ack.replace(root / "preparation.upload.json")
+            ranking = root / "ranker.json"
+            if ranking.exists() and ranker_report is None:
+                if ranking.stat().st_size > 256000:
+                    raise WorkerLimit("ranker_result_limit")
+                ranker_report = json.loads(ranking.read_text(encoding="utf-8"))
             if process.poll() is not None:
                 break
             time.sleep(0.2)
@@ -169,7 +177,14 @@ def process_job(repository, job, settings):
         if time.monotonic() - started > limits["wall_seconds"]:
             raise WorkerLimit("wall_time_exceeded")
         repository.rpc("view_heartbeat", parameters)
-        if job["config"].get("preparation") or job["config"].get("derived"):
+        if job["config"].get("ranker"):
+            if ranker_report is None:
+                raise WorkerLimit("missing_ranker_result")
+            repository.rpc(
+                "ranker_complete",
+                {**parameters, "p_files": files, "p_report": ranker_report},
+            )
+        elif job["config"].get("preparation") or job["config"].get("derived"):
             if prepared is None:
                 raise WorkerLimit("missing_preparation_result")
             repository.rpc(
@@ -228,6 +243,7 @@ def main():
         try:
             with SessionLocal() as session:
                 repository = NativeViewRepository(session)
+                # Viewer processing continues when optional model dependencies are absent.
                 job = repository.rpc(
                     "claim_view_job",
                     {"p_worker": worker_id, "p_capacity": settings.view_max_workers},

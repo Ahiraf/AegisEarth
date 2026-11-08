@@ -11,6 +11,7 @@ tmp/
 var/
 data/
 *.fits
+!backend/model_packages/aegis_ranker_v2/golden/fits/*.fits
 *.fits.gz
 *.pt
 *.pth

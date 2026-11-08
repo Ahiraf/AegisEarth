@@ -168,6 +168,7 @@ def test_s3_sdk_contract_hash_verification_and_delete(tmp_path):
             {"Bucket": "cosmic-fixture", "Key": file["storage_key"]},
         )
         with store.open_verified(file) as stream:
+            assert stream.mode == "rb"
             assert stream.read() == body
         corrupt = b"x" * len(body)
         stub.add_response(

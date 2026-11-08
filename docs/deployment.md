@@ -1,5 +1,27 @@
 # Backend deployment plan
 
+## Existing Vercel deployment
+
+The user's active target is Anindya Majumder's Vercel team (`anindya-majumders-projects`):
+
+| Project | Production URL | Repository root |
+| --- | --- | --- |
+| `aegisearth` | https://aegisearth.vercel.app | `frontend/` |
+| `aegisearth-api` | https://aegisearth-api.vercel.app | repository root |
+
+`frontend/vercel.json` builds Vite and proxies `/api/` to the API without browser credentials.
+Root `vercel.json` preserves the existing container API/movie-worker arrangement (one worker in
+`iad1`, 1 GiB requested memory). The container startup shim uses the configured Neon/S3 credentials
+instead of platform AWS credentials, for both API and worker. Hosting secrets stay in Vercel.
+Push `main` as `anindya357`, deploy the exact commit to these existing projects and verify production
+aliases, API readiness, artifact access and the browser flow. The optional metadata ranker stays
+disabled until explicitly enabled with its dependencies/settings; it never gates the viewer.
+
+Apply `cosmic_0009` using the checked-in Alembic migration after testing on an isolated branch of
+the existing Neon database. Release the API that accepts both revisions 8/9 before upgrading the
+production schema, then verify schema revision, candidate columns/functions and preserved data.
+The following Hugging Face plan remains an alternative, not the current release destination.
+
 Revised 29 October 2026. FastAPI remains the Python REST API in a Hugging Face Docker Space.
 PostgreSQL and durable files remain external. The React owner owns its separate frontend container/
 Space, public playback and embed route. Root/backend Dockerfiles package the API and standalone input-acquisition worker; the isolated local foundation now includes a verified HTTPS database gateway. No cloud viewer,
@@ -39,8 +61,10 @@ migration, API, a resource-bounded input-acquisition worker and the frontend con
 `cosmic_0001` is the initial schema; subsequent feature changes use new migrations.
 
 API docs: `http://localhost:8000/docs`. Check liveness, database/schema readiness and actual disabled
-capabilities. discovery-v1 is now implemented; legacy radius search returns 410 and analysis remains
-503. Apply cosmic_0004 and the documented discovery/view grants. Public submissions need a stable
+capabilities. discovery-v1 is now implemented; legacy radius search returns 410 and legacy analysis
+returns 503. The optional [metadata-ranker-v1 contract](metadata_ranker.md) requires cosmic_0009,
+the ranker build argument/dependencies and API/worker enablement. Apply migrations through head and
+the documented discovery/view grants. Public submissions need a stable
 PUBLIC_TOKEN_SECRET; [view input guide](views.md) covers TLS cookies, quotas and storage. Migration tests target only
 the disposable TEST_DATABASE_URL or temporary local SQLite; SQLite is not a PostgreSQL deployment proof.
 

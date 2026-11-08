@@ -1,5 +1,11 @@
 # ML researcher to backend: model handoff and acceptance
 
+Current delivery, 8 November 2026: researcher package v2 (`ranker_AB_v3`) is supplied and integrated,
+with unmodified native-pixel features and SkyBoT discovery. All 58 manifest entries and all 13
+local/Docker golden cases passed. [Integration and live acceptance evidence](metadata_ranker.md)
+describe what is implemented, enablement and limitations. The requirements below remain the general
+handoff checklist; redistribution permission and scientific acceptance are separate from parity.
+
 Scope update, 29 October 2026: inference is an optional enhancement after the coordinate-driven
 SPHEREx time viewer. Core/expanded challenge releases do not depend on model delivery, classical
 ranking or automatic tracks. Keep existing interfaces disabled until integration evidence exists;
@@ -73,14 +79,14 @@ replace an unavailable model with another method. A demo baseline may remain an 
 
 ## 4. Acceptance checklist
 
-- [ ] Input/output boundary and stage ownership agreed with researcher.
+- [x] Input/output boundary and stage ownership agreed with researcher.
 - [ ] Versioned artifact, inference code/export, dependency specification and permitted use received.
-- [ ] Exact transforms and class/score/coordinate semantics received.
-- [ ] Golden inputs/outputs/tolerances and model card/evaluation summary received.
-- [ ] Reference inference reproduced locally and in the deployment image.
+- [x] Exact transforms and class/score/coordinate semantics received.
+- [x] Golden inputs/outputs/tolerances and model card/evaluation summary received.
+- [x] Reference inference reproduced locally and in the Docker image.
 - [ ] Adapter parity, batching, failures and CPU/GPU resource limits tested.
-- [ ] Calibration labels match supplied evidence; uncalibrated outputs remain candidate scores.
-- [ ] Model/config/checksums and limitations are recorded in result provenance.
+- [x] Calibration labels match supplied evidence; uncalibrated outputs remain candidate scores.
+- [x] Model/config/checksums and limitations are recorded in result provenance.
 
-Status: ownership confirmed by the user; the model package and its exact interface have not yet been supplied.
-No model framework, architecture, accuracy or delivery date is assumed by this contract.
+Status: package v2 and exact interface supplied; serving is optional and off by default.
+Live external and hosted operational acceptance are tracked separately; no new accuracy is claimed.

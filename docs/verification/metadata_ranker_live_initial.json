@@ -1,0 +1,99 @@
+{
+  "verified_at_utc": "2026-11-08T10:38:48.956380+00:00",
+  "fixture_fallback": false,
+  "search": {
+    "ra_deg": 179.88,
+    "dec_deg": -0.64,
+    "start_at": "2025-12-22T00:00:00Z",
+    "end_at": "2025-12-24T00:00:00Z"
+  },
+  "discovery": {
+    "snapshot_id": "637acf1b-d11d-4dce-87bd-7836348d6518",
+    "count": 28,
+    "sources": [
+      {
+        "collection": "spherex_qr2",
+        "query_url": "https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+179.880000000000+-0.640000000000+0.176776415833&TIME=61031.0+61033.0&COLLECTION=spherex_qr2&MAXREC=40",
+        "retrieved_at_utc": "2026-11-08T10:38:55.457275+00:00",
+        "sha256": "7414f72a64fc1e547df5309986e40fc40314814b00e586cf977ba07e024a876e",
+        "bytes": 85615,
+        "rows": 28,
+        "truncated": false,
+        "status": "OK",
+        "query_status": [
+          "OK"
+        ],
+        "attempts": 1
+      },
+      {
+        "collection": "spherex_qr2_deep",
+        "query_url": "https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+179.880000000000+-0.640000000000+0.176776415833&TIME=61031.0+61033.0&COLLECTION=spherex_qr2_deep&MAXREC=40",
+        "retrieved_at_utc": "2026-11-08T10:38:54.867689+00:00",
+        "sha256": "d2cce5b4542afdde6fa4e4d770e6352b3b9e65476a6f8c2ba7387beb88301414",
+        "bytes": 27193,
+        "rows": 0,
+        "truncated": false,
+        "status": "OK",
+        "query_status": [
+          "OK"
+        ],
+        "attempts": 1
+      },
+      {
+        "collection": "spherex_qr3",
+        "status": "unavailable",
+        "error": "provider_unavailable",
+        "truncated": true
+      },
+      {
+        "collection": "spherex_qr3_deep",
+        "query_url": "https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+179.880000000000+-0.640000000000+0.176776415833&TIME=61031.0+61033.0&COLLECTION=spherex_qr3_deep&MAXREC=40",
+        "retrieved_at_utc": "2026-11-08T10:38:58.944213+00:00",
+        "sha256": "d2cce5b4542afdde6fa4e4d770e6352b3b9e65476a6f8c2ba7387beb88301414",
+        "bytes": 27193,
+        "rows": 0,
+        "truncated": false,
+        "status": "OK",
+        "query_status": [
+          "OK"
+        ],
+        "attempts": 1
+      }
+    ],
+    "warnings": [
+      "Image wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch",
+      "Footprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required",
+      "SIA may lag new archive ingestion by about one day; reported gaps are not proof of no observations",
+      "Incomplete archive sample: narrow dates/FOV or select collections; pagination cannot recover upstream omitted rows"
+    ]
+  },
+  "selected_product_ids": [
+    "6026f4783f5dba22f551f1ca49edde8de066b7351338bd6f7102797fb38abd21",
+    "8f5d61e0f245ba74a27de88d228cd29f0059bb5f4fee6ff906483ecc14e4144a",
+    "462a0d3d258f4126c18a7edb2c310367a749190e885ea5174d98af39c63c7b0c",
+    "b1be7c7caf93b3d5a4e315a4cb181e089ce0efd95c7d7ba5899f5915eaf57432",
+    "cc71db0a7afcf5dcca80eb62073301c3f07e3075bc4508bca52e44a8f87bdc9e",
+    "c3dacdd9fc8e448d508ee381ea5036503fa6b9d7d081475eec38276ee5b2e2f1",
+    "dec4469e7790abfa1fed71e0073a5083f0003e87721dd9eb0869f271aa899b66",
+    "138fce8acada91fb4c7b0d373275b763427200f2ae923827c8de88ef1c826bde",
+    "432cf67c5965ddc8ea7e9f5624503fae52bc16cea1e31a534c4e7ac6e01a9bac",
+    "4d91332659e3e6088c9f1cd22b424894c456bf5f7694b5ca714d3889003a2a55",
+    "0b9f97dc6a1f8ffdf065c699ca6807edb51c731e6123cdfc26733a10d45baad7",
+    "1960cd7ef48131ed030837875f647d2c2ced17a9909f0185c011c54d11dc8171"
+  ],
+  "worker_outcome": "failed",
+  "analysis": {
+    "id": "5b71c3a7-8a5c-44e8-9e66-3fd5c7107a90",
+    "method": "metadata_ranker",
+    "result": null,
+    "status": "failed",
+    "expired": false,
+    "error_code": "metadata_ranker_unavailable",
+    "expires_at_utc": null
+  },
+  "persisted_candidates": [],
+  "accepted": false,
+  "worker_attempts": [
+    "failed"
+  ]
+}

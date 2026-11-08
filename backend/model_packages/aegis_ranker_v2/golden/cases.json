@@ -1,0 +1,1306 @@
+{
+ "tolerance": {
+  "abs": 1e-06
+ },
+ "cases": [
+  {
+   "name": "real_mover_V(8.0, 11.5]",
+   "note": "known asteroid track, 4-6 spread frames",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2025W51_2A_0573_1D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74779005337638,
+     "dec": -0.5786303928025757,
+     "mjd": 61030.247628
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_4D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.7490651298407,
+     "dec": -0.5791890093839959,
+     "mjd": 61030.2521045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_1D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88264843752967,
+     "dec": -0.6377136896555057,
+     "mjd": 61030.7228045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_4D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.8839141857109,
+     "dec": -0.6382682405386921,
+     "mjd": 61030.727281
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_1D5_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07378438419445,
+     "dec": -0.7214552777440483,
+     "mjd": 61031.4023665
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_4D2_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07503681467733,
+     "dec": -0.722004006635187,
+     "mjd": 61031.40684349999
+    }
+   ],
+   "expected": {
+    "score": 0.9999999809182591,
+    "uncertainty": 5.853263876456963e-08,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "possible_motion",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES",
+     "PIPELINE_OUTLIER_FLAG_AT_POSITION"
+    ],
+    "warnings": [],
+    "evidence": {
+     "n": 6,
+     "track_snr": 759.3179158399796,
+     "snr_wo_top": 619.3631108306554,
+     "med_snr": 353.54097906033354,
+     "frac_gt3": 1.0,
+     "top_share": 0.24305680397391566,
+     "outlier_ap": 1.0,
+     "outlier_frames": 1.0,
+     "m_bad_frac": 0.03875356125968459,
+     "m_noise_mad": 0.0274326514005661,
+     "m_persist_frac": 0.003324094328770869,
+     "m_cr_frac": 0.005114124234802825,
+     "m_outlier_frac": 0.021410411818156557,
+     "m_badpix_frac": 0.0030071509116937974,
+     "src_frac_ap": 0.0,
+     "track_snr_l": 6.633736656128771,
+     "snr_wo_top_l": 6.4303049692358,
+     "med_snr_l": 5.870823936076532
+    },
+    "n_frames_used": 6,
+    "frames_used": [
+     "level2_2025W51_2A_0573_1D1_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0573_4D1_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0679_1D2_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0679_4D2_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W52_1A_0081_1D5_spx_l2b-v21-2025-363_ast20.fits",
+     "level2_2025W52_1A_0081_4D2_spx_l2b-v21-2025-363_ast20.fits"
+    ],
+    "displacement_arcsec": 1286.1253030294465,
+    "span_hours": 27.821171999908984,
+    "meets_5pct_threshold": true,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "displaced_control_V(8.0, 11.5]",
+   "note": "same frames, path displaced by 15-40 px (shift is only for building controls)",
+   "kwargs": {
+    "shift": [
+     -13.757074809730646,
+     17.45538337937174
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2025W51_2A_0573_1D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74779005337638,
+     "dec": -0.5786303928025757,
+     "mjd": 61030.247628
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_4D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.7490651298407,
+     "dec": -0.5791890093839959,
+     "mjd": 61030.2521045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_1D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88264843752967,
+     "dec": -0.6377136896555057,
+     "mjd": 61030.7228045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_4D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.8839141857109,
+     "dec": -0.6382682405386921,
+     "mjd": 61030.727281
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_1D5_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07378438419445,
+     "dec": -0.7214552777440483,
+     "mjd": 61031.4023665
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_4D2_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07503681467733,
+     "dec": -0.722004006635187,
+     "mjd": 61031.40684349999
+    }
+   ],
+   "expected": {
+    "score": 0.0006898145210619335,
+    "uncertainty": 0.0004859469106672769,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "uncertain",
+    "explanation_codes": [
+     "LOW_TRACK_SNR"
+    ],
+    "warnings": [],
+    "evidence": {
+     "n": 6,
+     "track_snr": -0.5541756523119521,
+     "snr_wo_top": -1.2107464863670065,
+     "med_snr": -0.28171606908962304,
+     "frac_gt3": 0.0,
+     "top_share": 0.8999363294768128,
+     "outlier_ap": 0.025641025641025644,
+     "outlier_frames": 0.3333333333333333,
+     "m_bad_frac": 0.03875356125968459,
+     "m_noise_mad": 0.0274326514005661,
+     "m_persist_frac": 0.003324094328770869,
+     "m_cr_frac": 0.005114124234802825,
+     "m_outlier_frac": 0.021410411818156557,
+     "m_badpix_frac": 0.0030071509116937974,
+     "src_frac_ap": 0.6666666666666666,
+     "track_snr_l": -0.4409452779335516,
+     "snr_wo_top_l": -0.7933302351326306,
+     "med_snr_l": -0.24819985900018274
+    },
+    "n_frames_used": 6,
+    "frames_used": [
+     "level2_2025W51_2A_0573_1D1_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0573_4D1_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0679_1D2_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0679_4D2_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W52_1A_0081_1D5_spx_l2b-v21-2025-363_ast20.fits",
+     "level2_2025W52_1A_0081_4D2_spx_l2b-v21-2025-363_ast20.fits"
+    ],
+    "displacement_arcsec": 1286.1253030294465,
+    "span_hours": 27.821171999908984,
+    "meets_5pct_threshold": false,
+    "meets_10pct_threshold": false
+   }
+  },
+  {
+   "name": "real_mover_V(14.5, 16.0]",
+   "note": "known asteroid track, 4-6 spread frames",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3291554130212,
+     "dec": -18.397549521159647,
+     "mjd": 61186.600693
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    }
+   ],
+   "expected": {
+    "score": 0.9409446944431633,
+    "uncertainty": 0.03597807958450253,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "possible_motion",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES"
+    ],
+    "warnings": [
+     "APERTURE_ON_CATALOG_SOURCE",
+     "LOW_MOTION"
+    ],
+    "evidence": {
+     "n": 6,
+     "track_snr": 73.78583861878946,
+     "snr_wo_top": 63.188781494047525,
+     "med_snr": 30.421176539190014,
+     "frac_gt3": 1.0,
+     "top_share": 0.22504999757677271,
+     "outlier_ap": 0.0,
+     "outlier_frames": 0.0,
+     "m_bad_frac": 0.028784073434555666,
+     "m_noise_mad": 0.026762207786738875,
+     "m_persist_frac": 0.0004961651720105793,
+     "m_cr_frac": 0.00521444826855783,
+     "m_outlier_frac": 0.015634677815921653,
+     "m_badpix_frac": 0.003546128545376295,
+     "src_frac_ap": 1.0,
+     "track_snr_l": 4.314628543778301,
+     "snr_wo_top_l": 4.161828452343192,
+     "med_snr_l": 3.447482077676695
+    },
+    "n_frames_used": 6,
+    "frames_used": [
+     "level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits"
+    ],
+    "displacement_arcsec": 2.4081841567053384,
+    "span_hours": 0.10744800005340949,
+    "meets_5pct_threshold": true,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "displaced_control_V(14.5, 16.0]",
+   "note": "same frames, path displaced by 15-40 px (shift is only for building controls)",
+   "kwargs": {
+    "shift": [
+     24.661209145869122,
+     29.58456891348402
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3291554130212,
+     "dec": -18.397549521159647,
+     "mjd": 61186.600693
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    }
+   ],
+   "expected": {
+    "score": 0.0013466167530086061,
+    "uncertainty": 0.0013500207033770243,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "uncertain",
+    "explanation_codes": [
+     "LOW_TRACK_SNR"
+    ],
+    "warnings": [
+     "LOW_MOTION"
+    ],
+    "evidence": {
+     "n": 6,
+     "track_snr": -1.5435178560724934,
+     "snr_wo_top": -2.0907867716735127,
+     "med_snr": -0.848530513594943,
+     "frac_gt3": 0.0,
+     "top_share": 0.9999999986950358,
+     "outlier_ap": 0.024725274725274724,
+     "outlier_frames": 0.3333333333333333,
+     "m_bad_frac": 0.028784073434555666,
+     "m_noise_mad": 0.026762207786738875,
+     "m_persist_frac": 0.0004961651720105793,
+     "m_cr_frac": 0.00521444826855783,
+     "m_outlier_frac": 0.015634677815921653,
+     "m_badpix_frac": 0.003546128545376295,
+     "src_frac_ap": 0.0,
+     "track_snr_l": -0.9335481055322322,
+     "snr_wo_top_l": -1.1284256771643904,
+     "med_snr_l": -0.6143910064776431
+    },
+    "n_frames_used": 6,
+    "frames_used": [
+     "level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits"
+    ],
+    "displacement_arcsec": 2.4081841567053384,
+    "span_hours": 0.10744800005340949,
+    "meets_5pct_threshold": false,
+    "meets_10pct_threshold": false
+   }
+  },
+  {
+   "name": "real_mover_V(17.0, 18.5]",
+   "note": "known asteroid track, 4-6 spread frames | KNOWN MISS: a real mover scoring below the 5% threshold (faintest bin); not an error",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W18_1A_0199_1D2_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.06899163253684,
+     "dec": -14.127309933265582,
+     "mjd": 61157.8841305
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0199_2D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.0694309336994,
+     "dec": -14.127148799950096,
+     "mjd": 61157.885623
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0199_3D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.0698700787724,
+     "dec": -14.126987720468415,
+     "mjd": 61157.887115
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0199_4D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.0703145127665,
+     "dec": -14.12682469751704,
+     "mjd": 61157.888625
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0265_1D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.1687744163977,
+     "dec": -14.090621933593532,
+     "mjd": 61158.22392049999
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0340_1D4_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.28733864081784,
+     "dec": -14.046794976127792,
+     "mjd": 61158.629743
+    }
+   ],
+   "expected": {
+    "score": 0.15247880289827814,
+    "uncertainty": 0.1294665075964279,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "uncertain",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES"
+    ],
+    "warnings": [
+     "APERTURE_ON_CATALOG_SOURCE"
+    ],
+    "evidence": {
+     "n": 6,
+     "track_snr": 9.270319974459174,
+     "snr_wo_top": 3.831290457163904,
+     "med_snr": 2.235453818560772,
+     "frac_gt3": 0.16666666666666666,
+     "top_share": 0.6557917191565298,
+     "outlier_ap": 0.0,
+     "outlier_frames": 0.0,
+     "m_bad_frac": 0.027408395043180434,
+     "m_noise_mad": 0.03577070724666118,
+     "m_persist_frac": 0.0006221687547582284,
+     "m_cr_frac": 0.006644020272758775,
+     "m_outlier_frac": 0.009603540148394499,
+     "m_badpix_frac": 0.004918456656749973,
+     "src_frac_ap": 1.0,
+     "track_snr_l": 2.3292581796828893,
+     "snr_wo_top_l": 1.5751136073757446,
+     "med_snr_l": 1.1741692020585888
+    },
+    "n_frames_used": 6,
+    "frames_used": [
+     "level2_2026W18_1A_0199_1D2_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0199_2D5_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0199_3D5_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0199_4D5_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0265_1D5_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0340_1D4_spx_l2b-v24-2026-124_ast836.fits"
+    ],
+    "displacement_arcsec": 815.6498765315591,
+    "span_hours": 17.894699999887962,
+    "meets_5pct_threshold": false,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "displaced_control_V(17.0, 18.5]",
+   "note": "same frames, path displaced by 15-40 px (shift is only for building controls) | KNOWN FALSE ALERT: a displaced control above the threshold; not an error",
+   "kwargs": {
+    "shift": [
+     -33.218023563595814,
+     -4.785639310912326
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W18_1A_0199_1D2_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.06899163253684,
+     "dec": -14.127309933265582,
+     "mjd": 61157.8841305
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0199_2D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.0694309336994,
+     "dec": -14.127148799950096,
+     "mjd": 61157.885623
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0199_3D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.0698700787724,
+     "dec": -14.126987720468415,
+     "mjd": 61157.887115
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0199_4D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.0703145127665,
+     "dec": -14.12682469751704,
+     "mjd": 61157.888625
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0265_1D5_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.1687744163977,
+     "dec": -14.090621933593532,
+     "mjd": 61158.22392049999
+    },
+    {
+     "file": "fits/level2_2026W18_1A_0340_1D4_spx_l2b-v24-2026-124_ast836.fits",
+     "ra": 304.28733864081784,
+     "dec": -14.046794976127792,
+     "mjd": 61158.629743
+    }
+   ],
+   "expected": {
+    "score": 0.523911291722082,
+    "uncertainty": 0.20954109818807018,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "possible_motion",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES"
+    ],
+    "warnings": [
+     "APERTURE_ON_CATALOG_SOURCE",
+     "APERTURE_UNMEASURABLE"
+    ],
+    "evidence": {
+     "n": 5,
+     "track_snr": 11.767334993889898,
+     "snr_wo_top": 9.86736992330397,
+     "med_snr": 5.933716468141545,
+     "frac_gt3": 0.8,
+     "top_share": 0.3764870211348219,
+     "outlier_ap": 0.0,
+     "outlier_frames": 0.0,
+     "m_bad_frac": 0.026496837145403462,
+     "m_noise_mad": 0.03394489932417869,
+     "m_persist_frac": 0.0005220466639556968,
+     "m_cr_frac": 0.006691535112595519,
+     "m_outlier_frac": 0.009648546441067916,
+     "m_badpix_frac": 0.004211374591362632,
+     "src_frac_ap": 1.0,
+     "track_snr_l": 2.5468899555391626,
+     "snr_wo_top_l": 2.3857647144789698,
+     "med_snr_l": 1.936395956340502
+    },
+    "n_frames_used": 5,
+    "frames_used": [
+     "level2_2026W18_1A_0199_1D2_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0199_2D5_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0199_3D5_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0199_4D5_spx_l2b-v24-2026-124_ast836.fits",
+     "level2_2026W18_1A_0340_1D4_spx_l2b-v24-2026-124_ast836.fits"
+    ],
+    "displacement_arcsec": 815.6498765315591,
+    "span_hours": 17.894699999887962,
+    "meets_5pct_threshold": true,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "spread_selection_from_many_frames",
+   "note": "more than 6 usable frames: 6 frames spread across the visit are chosen",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": true,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2025W51_2A_0573_1D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74779005337638,
+     "dec": -0.5786303928025757,
+     "mjd": 61030.247628
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_1D4_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74779005337638,
+     "dec": -0.5786303928025757,
+     "mjd": 61030.247628
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_2D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74821504112128,
+     "dec": -0.5788165817638551,
+     "mjd": 61030.24912
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_2D4_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74821504112128,
+     "dec": -0.5788165817638551,
+     "mjd": 61030.24912
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_3D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74864016155473,
+     "dec": -0.5790028288869863,
+     "mjd": 61030.2506125
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_3D4_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.74864016155473,
+     "dec": -0.5790028288869863,
+     "mjd": 61030.2506125
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_4D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.7490651298407,
+     "dec": -0.5791890093839959,
+     "mjd": 61030.2521045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0573_4D4_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.7490651298407,
+     "dec": -0.5791890093839959,
+     "mjd": 61030.2521045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0586_3D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.76662998709168,
+     "dec": -0.5868842774203493,
+     "mjd": 61030.313802
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0586_4D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.76705468545688,
+     "dec": -0.5870703409018356,
+     "mjd": 61030.3152945
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0586_4D4_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.76705468545688,
+     "dec": -0.5870703409018356,
+     "mjd": 61030.3152945
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0648_1D1_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.84302690625762,
+     "dec": -0.6203547345279049,
+     "mjd": 61030.582834500005
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0648_1D4_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.84302690625762,
+     "dec": -0.6203547345279049,
+     "mjd": 61030.582834500005
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_1D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88264843752967,
+     "dec": -0.6377136896555057,
+     "mjd": 61030.7228045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_1D5_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88264843752967,
+     "dec": -0.6377136896555057,
+     "mjd": 61030.7228045
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_2D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88307045764256,
+     "dec": -0.6378985855235882,
+     "mjd": 61030.724297
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_2D5_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88307045764256,
+     "dec": -0.6378985855235882,
+     "mjd": 61030.724297
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_3D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88349232657606,
+     "dec": -0.6380834151707157,
+     "mjd": 61030.725789
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_3D5_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.88349232657606,
+     "dec": -0.6380834151707157,
+     "mjd": 61030.725789
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_4D2_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.8839141857109,
+     "dec": -0.6382682405386921,
+     "mjd": 61030.727281
+    },
+    {
+     "file": "fits/level2_2025W51_2A_0679_4D5_spx_l2b-v21-2025-357_ast20.fits",
+     "ra": 179.8839141857109,
+     "dec": -0.6382682405386921,
+     "mjd": 61030.727281
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0014_1D4_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 179.97755987438498,
+     "dec": -0.6792966360350574,
+     "mjd": 61031.059343500005
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0014_1D1_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 179.97755987438498,
+     "dec": -0.6792966360350574,
+     "mjd": 61031.059343500005
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0014_2D4_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 179.97797953794222,
+     "dec": -0.6794805013291688,
+     "mjd": 61031.0608355
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0014_2D1_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 179.97797953794222,
+     "dec": -0.6794805013291688,
+     "mjd": 61031.0608355
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_1D2_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07378438419445,
+     "dec": -0.7214552777440483,
+     "mjd": 61031.4023665
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_1D5_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07378438419445,
+     "dec": -0.7214552777440483,
+     "mjd": 61031.4023665
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_2D2_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.0742019175539,
+     "dec": -0.7216382121278166,
+     "mjd": 61031.403859
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_2D5_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.0742019175539,
+     "dec": -0.7216382121278166,
+     "mjd": 61031.403859
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_3D2_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.0746193011337,
+     "dec": -0.721821080903398,
+     "mjd": 61031.405351
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_3D5_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.0746193011337,
+     "dec": -0.721821080903398,
+     "mjd": 61031.405351
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_4D5_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07503667480944,
+     "dec": -0.7220039453546839,
+     "mjd": 61031.406843
+    },
+    {
+     "file": "fits/level2_2025W52_1A_0081_4D2_spx_l2b-v21-2025-363_ast20.fits",
+     "ra": 180.07503681467733,
+     "dec": -0.722004006635187,
+     "mjd": 61031.40684349999
+    }
+   ],
+   "expected": {
+    "score": 0.9999999809182591,
+    "uncertainty": 5.853263876456963e-08,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "possible_motion",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES",
+     "PIPELINE_OUTLIER_FLAG_AT_POSITION"
+    ],
+    "warnings": [],
+    "evidence": {
+     "n": 6,
+     "track_snr": 759.3179158399796,
+     "snr_wo_top": 619.3631108306554,
+     "med_snr": 353.54097906033354,
+     "frac_gt3": 1.0,
+     "top_share": 0.24305680397391566,
+     "outlier_ap": 1.0,
+     "outlier_frames": 1.0,
+     "m_bad_frac": 0.03875356125968459,
+     "m_noise_mad": 0.0274326514005661,
+     "m_persist_frac": 0.003324094328770869,
+     "m_cr_frac": 0.005114124234802825,
+     "m_outlier_frac": 0.021410411818156557,
+     "m_badpix_frac": 0.0030071509116937974,
+     "src_frac_ap": 0.0,
+     "track_snr_l": 6.633736656128771,
+     "snr_wo_top_l": 6.4303049692358,
+     "med_snr_l": 5.870823936076532
+    },
+    "n_frames_used": 33,
+    "frames_used": [
+     "level2_2025W51_2A_0573_1D1_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0573_4D1_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0679_1D2_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W51_2A_0679_4D2_spx_l2b-v21-2025-357_ast20.fits",
+     "level2_2025W52_1A_0081_1D5_spx_l2b-v21-2025-363_ast20.fits",
+     "level2_2025W52_1A_0081_4D2_spx_l2b-v21-2025-363_ast20.fits"
+    ],
+    "displacement_arcsec": 1286.1253030294465,
+    "span_hours": 27.821171999908984,
+    "meets_5pct_threshold": true,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "warn_low_motion_closely_spaced",
+   "note": "four consecutive exposures: little motion",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": true,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    }
+   ],
+   "expected": {
+    "score": 0.5600190274999972,
+    "uncertainty": 0.2766460704159778,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "possible_motion",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES"
+    ],
+    "warnings": [
+     "APERTURE_ON_CATALOG_SOURCE",
+     "LOW_MOTION"
+    ],
+    "evidence": {
+     "n": 4,
+     "track_snr": 62.73628630929621,
+     "snr_wo_top": 49.042183903898035,
+     "med_snr": 33.208984242245975,
+     "frac_gt3": 1.0,
+     "top_share": 0.325001721620673,
+     "outlier_ap": 0.0,
+     "outlier_frames": 0.0,
+     "m_bad_frac": 0.02807112967263133,
+     "m_noise_mad": 0.026727515257894994,
+     "m_persist_frac": 0.0005091263977401602,
+     "m_cr_frac": 0.004771445434011831,
+     "m_outlier_frac": 0.015645038184876035,
+     "m_badpix_frac": 0.004121744681471508,
+     "src_frac_ap": 1.0,
+     "track_snr_l": 4.154754044180693,
+     "snr_wo_top_l": 3.9128663278098053,
+     "med_snr_l": 3.5324883067114023
+    },
+    "n_frames_used": 4,
+    "frames_used": [
+     "level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_2D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits"
+    ],
+    "displacement_arcsec": 0.8028561843341291,
+    "span_hours": 0.035819999990053475,
+    "meets_5pct_threshold": true,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "warn_faint_prediction",
+   "note": "predicted V above the trained range: hint capped at uncertain",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": 19.5,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3291554130212,
+     "dec": -18.397549521159647,
+     "mjd": 61186.600693
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    }
+   ],
+   "expected": {
+    "score": 0.9409446944431633,
+    "uncertainty": 0.03597807958450253,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "uncertain",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES"
+    ],
+    "warnings": [
+     "APERTURE_ON_CATALOG_SOURCE",
+     "LOW_MOTION",
+     "PREDICTED_FAINTER_THAN_TRAINING_RANGE"
+    ],
+    "evidence": {
+     "n": 6,
+     "track_snr": 73.78583861878946,
+     "snr_wo_top": 63.188781494047525,
+     "med_snr": 30.421176539190014,
+     "frac_gt3": 1.0,
+     "top_share": 0.22504999757677271,
+     "outlier_ap": 0.0,
+     "outlier_frames": 0.0,
+     "m_bad_frac": 0.028784073434555666,
+     "m_noise_mad": 0.026762207786738875,
+     "m_persist_frac": 0.0004961651720105793,
+     "m_cr_frac": 0.00521444826855783,
+     "m_outlier_frac": 0.015634677815921653,
+     "m_badpix_frac": 0.003546128545376295,
+     "src_frac_ap": 1.0,
+     "track_snr_l": 4.314628543778301,
+     "snr_wo_top_l": 4.161828452343192,
+     "med_snr_l": 3.447482077676695
+    },
+    "n_frames_used": 6,
+    "frames_used": [
+     "level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits"
+    ],
+    "displacement_arcsec": 2.4081841567053384,
+    "span_hours": 0.10744800005340949,
+    "meets_5pct_threshold": true,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "warn_limited_version",
+   "note": "processing version with little validation",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": "l2b-v27"
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3291554130212,
+     "dec": -18.397549521159647,
+     "mjd": 61186.600693
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    }
+   ],
+   "expected": {
+    "score": 0.9409446944431633,
+    "uncertainty": 0.03597807958450253,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "possible_motion",
+    "explanation_codes": [
+     "CONSISTENT_ACROSS_FRAMES"
+    ],
+    "warnings": [
+     "APERTURE_ON_CATALOG_SOURCE",
+     "LIMITED_VALIDATION_FOR_PROCESSING_VERSION",
+     "LOW_MOTION"
+    ],
+    "evidence": {
+     "n": 6,
+     "track_snr": 73.78583861878946,
+     "snr_wo_top": 63.188781494047525,
+     "med_snr": 30.421176539190014,
+     "frac_gt3": 1.0,
+     "top_share": 0.22504999757677271,
+     "outlier_ap": 0.0,
+     "outlier_frames": 0.0,
+     "m_bad_frac": 0.028784073434555666,
+     "m_noise_mad": 0.026762207786738875,
+     "m_persist_frac": 0.0004961651720105793,
+     "m_cr_frac": 0.00521444826855783,
+     "m_outlier_frac": 0.015634677815921653,
+     "m_badpix_frac": 0.003546128545376295,
+     "src_frac_ap": 1.0,
+     "track_snr_l": 4.314628543778301,
+     "snr_wo_top_l": 4.161828452343192,
+     "med_snr_l": 3.447482077676695
+    },
+    "n_frames_used": 6,
+    "frames_used": [
+     "level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits"
+    ],
+    "displacement_arcsec": 2.4081841567053384,
+    "span_hours": 0.10744800005340949,
+    "meets_5pct_threshold": true,
+    "meets_10pct_threshold": true
+   }
+  },
+  {
+   "name": "edge_too_few_frames",
+   "note": "3 frames: no score expected",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    }
+   ],
+   "expected": {
+    "score": null,
+    "uncertainty": null,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "uncertain",
+    "explanation_codes": [],
+    "warnings": [
+     "TOO_FEW_USABLE_FRAMES"
+    ],
+    "evidence": null,
+    "n_frames_used": 3,
+    "frames_used": [],
+    "displacement_arcsec": null,
+    "span_hours": null,
+    "meets_5pct_threshold": false,
+    "meets_10pct_threshold": false
+   }
+  },
+  {
+   "name": "edge_position_outside",
+   "note": "position 1 degree away",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 325.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 325.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 325.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 325.3291554130212,
+     "dec": -18.397549521159647,
+     "mjd": 61186.600693
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 325.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 325.3293903064368,
+     "dec": -18.39754576659837,
+     "mjd": 61186.602185
+    }
+   ],
+   "expected": {
+    "score": null,
+    "uncertainty": null,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "uncertain",
+    "explanation_codes": [],
+    "warnings": [
+     "POSITION_NEAR_EDGE_OR_OUTSIDE",
+     "TOO_FEW_USABLE_FRAMES"
+    ],
+    "evidence": null,
+    "n_frames_used": 0,
+    "frames_used": [],
+    "displacement_arcsec": null,
+    "span_hours": null,
+    "meets_5pct_threshold": false,
+    "meets_10pct_threshold": false
+   }
+  },
+  {
+   "name": "edge_qc_failed_frame",
+   "note": "one frame fails QC and is dropped, leaving too few frames",
+   "kwargs": {
+    "shift": [
+     0.0,
+     0.0
+    ],
+    "select": false,
+    "v_mag": null,
+    "version": null
+   },
+   "frames": [
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3286854351682,
+     "dec": -18.39755704579369,
+     "mjd": 61186.597708
+    },
+    {
+     "file": "fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits",
+     "ra": 324.3289204296931,
+     "dec": -18.39755328131068,
+     "mjd": 61186.5992005
+    },
+    {
+     "file": "fits/level2_2026W15_2A_0624_1D1_spx_l2b-v24-2026-105_ast8.fits",
+     "ra": 289.64211240148904,
+     "dec": -19.157948222025915,
+     "mjd": 61142.135783
+    }
+   ],
+   "expected": {
+    "score": null,
+    "uncertainty": null,
+    "score_kind": "candidate_score",
+    "model_version_id": "ranker_AB_v3",
+    "classification_hint": "uncertain",
+    "explanation_codes": [],
+    "warnings": [
+     "FRAME_FAILED_QC",
+     "TOO_FEW_USABLE_FRAMES"
+    ],
+    "evidence": null,
+    "n_frames_used": 3,
+    "frames_used": [],
+    "displacement_arcsec": null,
+    "span_hours": null,
+    "meets_5pct_threshold": false,
+    "meets_10pct_threshold": false
+   }
+  }
+ ]
+}

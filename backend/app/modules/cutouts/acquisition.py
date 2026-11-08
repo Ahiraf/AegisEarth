@@ -30,7 +30,9 @@ def cutout_url(product, region, padding_arcmin=1):
     )
 
 
-def download(url, path, maximum, *, expected=None, transport=None):
+def download(
+    url, path, maximum, *, expected=None, transport=None, read_timeout=20, connect_timeout=5
+):
     path = Path(path)
     temporary = path.with_suffix(".part")
     started = time.monotonic()
@@ -39,7 +41,7 @@ def download(url, path, maximum, *, expected=None, transport=None):
     try:
         with (
             httpx.Client(
-                timeout=httpx.Timeout(20, connect=5),
+                timeout=httpx.Timeout(read_timeout, connect=connect_timeout),
                 follow_redirects=False,
                 transport=transport,
                 headers={"Accept-Encoding": "identity", "User-Agent": "AegisEarth/0.1"},

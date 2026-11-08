@@ -13,6 +13,7 @@ tmp
 data
 **/*.fits
 **/*.fits.gz
+!backend/model_packages/aegis_ranker_v2/golden/fits/*.fits
 **/*.pt
 **/*.pth
 **/*.safetensors

@@ -26,11 +26,16 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+      args:
+        INSTALL_METADATA_RANKER: ${INSTALL_METADATA_RANKER:-false}
     environment:
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-cosmic}:${POSTGRES_PASSWORD:-local-development-only}@db:5432/${POSTGRES_DB:-cosmic_motion}
       CORS_ORIGINS: '["http://localhost:5173"]'
       PUBLIC_TOKEN_SECRET: ${PUBLIC_TOKEN_SECRET:-local-development-view-token-secret-change-before-hosting-2026}
       PUBLIC_COOKIE_SECURE: "false"
+      METADATA_RANKER_ENABLED: ${METADATA_RANKER_ENABLED:-false}
+      METADATA_RANKER_WALL_SECONDS: ${METADATA_RANKER_WALL_SECONDS:-600}
+      METADATA_RANKER_MAX_CANDIDATES: ${METADATA_RANKER_MAX_CANDIDATES:-24}
     ports: ["127.0.0.1:8000:8000"]
     volumes: ["cosmic_artifact_cache:/app/var/artifacts"]
     depends_on:
@@ -39,9 +44,12 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+      args:
+        INSTALL_METADATA_RANKER: ${INSTALL_METADATA_RANKER:-false}
     command: ["python", "-m", "app.modules.views.worker"]
     environment:
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-cosmic}:${POSTGRES_PASSWORD:-local-development-only}@db:5432/${POSTGRES_DB:-cosmic_motion}
+      METADATA_RANKER_ENABLED: ${METADATA_RANKER_ENABLED:-false}
     volumes: ["cosmic_artifact_cache:/app/var/artifacts"]
     mem_limit: 768m
     cpus: 1.0

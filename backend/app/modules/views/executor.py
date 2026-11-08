@@ -1,4 +1,4 @@
-"""Isolated acquisition child; no database access; uploads run under the same resource guard."""
+"""Isolated acquisition child; optional ranker cache reads share the resource guard."""
 
 import json
 import sys
@@ -12,6 +12,10 @@ from app.modules.observations.provider import ProviderError
 
 
 def execute(job, root):
+    if job["config"].get("ranker"):
+        from app.modules.ranking.pipeline import execute as execute_ranker
+
+        return execute_ranker(job, root)
     if job["config"].get("derived"):
         from app.modules.analyses.derived_executor import execute as execute_derived
 
@@ -89,7 +93,7 @@ def main():
         execute(job, root)
     except (AcquisitionError, ProviderError, StorageError) as exc:
         result = {"ok": False, "error_code": str(exc)}
-    except (OSError, ValueError, KeyError, MemoryError):
+    except (OSError, ValueError, KeyError, MemoryError, ImportError):
         result = {"ok": False, "error_code": "acquisition_failed"}
     (root / "result.json").write_text(json.dumps(result))
 

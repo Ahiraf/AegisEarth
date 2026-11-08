@@ -31,7 +31,8 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 ## Start here
 
 - [Detailed implementation plan](todo_plan.md): ordered feature slices and actual exit evidence.
-- [SRS v2.8](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
+- [SRS v2.9](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
+- [Optional ranker v2](docs/metadata_ranker.md): native cutouts, SkyBoT jobs, candidate API and score meaning.
 - [Production frontend integration](docs/frontend_integration.md): live controls, configuration and verification limits.
 - [Step 11 local release report](docs/step11_release.md): performance, recovery, five-target demo and hosted acceptance.
 - [Challenge coverage matrix](docs/challenge_alignment.md): every supplied objective/consideration mapped.
@@ -58,7 +59,8 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 | Health/config/CORS and truthful capability reporting | Public hosting acceptance |
 | discovery-v1 coordinate/FOV/date/band discovery, target presets and release registry | Scientific motion/variability approval |
 | Additive jobs/discovery/view/preparation/movie/refresh tables and restricted transaction RPCs | Science-grade photometry/difference acceptance |
-| Quota-limited view jobs, isolated worker, cancellation and local/S3 storage adapters | Optional researcher inference; scientific motion/variability approval |
+| Quota-limited view jobs, isolated worker, cancellation and local/S3 storage adapters | Scientific motion/variability approval |
+| Optional metadata_ranker package v2, native 15′ cutouts, SkyBoT candidate jobs and stored warnings/uncertainty | Public ranker UI and scientific/redistribution acceptance |
 | QR2/QR3 readers, official 102-channel catalog, fixed-grid frames/previews, quality/registration/band gates | Science-grade calibration acceptance and external scheduler operation |
 | Gaia/AllWISE catalogs and W1/W2 context images, coordinate state links, reference embeds, bounded refresh and GIF exports | Public embedding and external scheduler acceptance |
 | Production React search/movie, band/detector selectors, coadd/difference/spectrum/export controls, overlays, links/refresh and optional Aladin | Fresh real-pixel frontend rerun after IRSA recovery; public-device/Aladin acceptance |
@@ -68,7 +70,9 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 
 `POST /api/v1/observations/search` now implements **discovery-v1**; the old radius-search body receives
 410 with an explicit replacement. See [the working example](docs/examples/discovery_search.json).
-`POST /api/v1/analyses` remains **503 feature_not_ready**. Its legacy analysis limits are not viewer limits.
+The legacy observation-ID `POST /api/v1/analyses` contract remains **503 feature_not_ready**.
+The explicit `metadata-ranker-v1` contract is implemented and disabled by default;
+see [enablement and API](docs/metadata_ranker.md). Its limits are separate from viewer limits.
 `POST /api/v1/views` now durably queues bounded input acquisition without a model.
 Legacy view-v1 reports **inputs_ready**. New view-v2 reports **frames_prepared**, with PNG/FITS
 artifacts and comparison diagnostics. Step 5 adds movie-v1 manifests/pages, explicit readiness states,

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "container",
+  "daemons": {
+    "movie-worker": {
+      "root": ".",
+      "entrypoint": "Dockerfile",
+      "command": ["/bin/sh", "/app/container-start.sh", "python", "-m", "app.modules.views.worker"],
+      "instances": { "iad1": 1 },
+      "resources": { "requests": { "memory": "1Gi" } }
+    }
+  }
+}

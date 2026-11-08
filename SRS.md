@@ -2,7 +2,7 @@
 
 | Attribute | Baseline |
 | --- | --- |
-| Version / date | 2.8 — production React integration, 5 November 2026 |
+| Version / date | 2.9 — optional researcher ranker v2 integration, 8 November 2026 |
 | Product | AegisEarth — public SPHEREx sky time viewer with optional AI-assisted hints |
 | Required journey | Enter RA/Dec → choose sky patch/band → inspect chronological frames like a movie |
 | Backend ownership | FastAPI REST, PostgreSQL, Python processing, Docker and Hugging Face API |
@@ -36,8 +36,9 @@ cosmic_0002 processing-job/RPC persistence, selectable native/HTTPS readiness an
 are implemented and locally verified. Step 2 adds discovery-v1 coordinate/FOV/time/band queries,
 GET /releases, coordinate normalization, immutable product/snapshot persistence (cosmic_0003),
 TTL revalidation and stable pagination over bounded IRSA results, through native SQL or HTTPS.
-All five targets have live discovery evidence and real native-cutout evidence. Analysis remains 503;
-legacy radius search is explicitly retired with 410. No model or measured target motion/variability is implemented; public cloud deployment remains pending. See [discovery](docs/discovery.md), [foundation](docs/foundation.md)
+All five targets have live discovery evidence and real native-cutout evidence. Legacy analysis remains 503;
+legacy radius search is explicitly retired with 410. The optional supplied ranker is integrated as documented
+below; measured target motion/variability and public cloud acceptance remain separate. See [discovery](docs/discovery.md), [foundation](docs/foundation.md)
 and [target evidence](docs/research/target_feasibility/README.md).
 Step 3 implements anonymous view submission, transactional quotas/idempotency, scoped cancellation,
 isolated native acquisition workers, byte/FITS integrity, local/S3 adapters, artifact reads and bounded
@@ -158,6 +159,14 @@ behavior, not an implementation claim. All requirements need the evidence listed
 | JOB-002 | Return 202 only after durable persistence; support idempotency, leases, bounded retries/deadlines/cancel and atomic manifest publication. Do not publish partial scientific output as complete. |
 | ML-001 | AI only: integrate the researcher's versioned package/goldens; backend does not train or duplicate delivered preprocessing. |
 | ML-002 | AI only: retain model/evaluation/calibration evidence and score meaning; uncalibrated scores are not probabilities. Inference failure must not break other viewer features. |
+| ML-003 | Implemented, disabled by default: metadata-ranker-v1 async jobs select 6–12 native exposure/detector products of one visit (gaps greater than 12h split visits), download fixed 15′ IRSA cutouts and call the supplied SkyBoT candidate finder in the worker. Exclude all five preset fields. |
+| ML-004 | Map classification_hint directly to classification, preserve nullable score, optional score_uncertainty/warnings, model SHA/version, predicted positions, times and native spectral context. Use method metadata_ranker. Only the supplied 5% false-alert threshold drives labels; the 10% flag is informational. |
+
+Package v2 (`ranker_AB_v3`) is a supplied 50-model logistic ensemble using native FITS pixel features.
+All 58 manifest entries and all 13 local/Docker golden cases passed verification. The scientific operating
+limits, live external acceptance evidence, serving switch and frontend contract are in
+[ranker integration](docs/metadata_ranker.md). This integration does not provide blind object detection,
+new model training, calibrated probabilities or a prerequisite for ordinary playback.
 
 ## 4. Architecture and data contracts
 

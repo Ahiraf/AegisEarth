@@ -1,5 +1,25 @@
 # Production React integration
 
+Satellite explorer update, 8 November 2026: `#/orbits` now uses a lazily loaded Three.js scene with
+a procedural Earth, five distinct illustrative spacecraft, inclined orbital paths and selected-orbit
+highlighting. Drag, camera buttons and keyboard arrows/+/-/Home control the view; motion can be
+paused and respects page/reduced-motion settings. The scene releases GPU resources on navigation,
+pauses work when offscreen and retains the last rendered frame while paused. WebGL failure leaves
+all mission selections and facts usable. No additional dependency or backend endpoint is required.
+Each mission has a summary, eight agency-linked facts and a plain-language orbit explanation.
+Galileo facts now describe Galileo specifically; Hubble's height is labelled as a changing reference
+value. Geometry, heights, spacecraft sizes and animation timing are explicitly illustrative; this is
+not live satellite tracking. The Learn page covers the updated controls. Browser checks live in
+`frontend/tests/orbits.spec.ts`; desktop/mobile captures are under `var/frontend-integration/`.
+Validation: production build passed, all four orbit browser checks passed, and the existing 14
+workflow browser checks passed. Paused/reset canvas captures also confirm a retained 3D frame.
+
+Backend addition, 8 November 2026: the optional researcher's package v2 is exposed through the
+explicit `metadata-ranker-v1` analysis contract. See [ranker API and presentation rules](metadata_ranker.md).
+These controls are not yet added to production React. Keep movie preparation independent; render ranks
+without probability percentages, classification directly from the supplied hint, null scores and all
+plain-language warnings. Do not offer this model for the five preset targets.
+
 Updated 5 November 2026 at the user's request. The production frontend in `frontend/` now consumes
 the implemented backend through step 10. It retains the designer's existing navy/cyan/amber palette,
 DM Sans/Sora/JetBrains Mono fonts, navigation, decorative Earth, educational sections and card styles.

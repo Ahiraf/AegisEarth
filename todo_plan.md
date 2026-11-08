@@ -309,14 +309,24 @@ Expanded release exit requires the working public viewer, hosted recovery and th
 
 ## 12. Optional researcher model integration (`detection`, `association`, `ranking`, `candidates`)
 
-This is outside core/expanded challenge release gates. Keep existing disabled interfaces; remove mandatory
-backend-built classical ranking and automatic track fitting from the critical path.
+This is outside core/expanded challenge release gates. Package v2 is now integrated as an explicit,
+disabled-by-default [metadata_ranker job](docs/metadata_ranker.md). Keep the legacy generic analysis
+interface disabled and all inference outside the playback path.
 
-- [ ] Receive the package, exact I/O/transforms, weights hash/license, dependencies, goldens/tolerances,
-      model card and evaluation/calibration evidence via [model handoff](docs/model_handoff.md).
-- [ ] Integrate the supplied predictor/stages without rebuilding or training its model; verify parity locally/in Docker.
-- [ ] Run optional suggestion jobs on approved inputs and serve stamps/score meaning/uncertainty/failure modes.
-- [ ] Isolate inference failure; time browsing, movies, spectra and context remain usable without the model.
+- [x] Receive package v2, exact I/O/transforms, weights hash, dependencies, 13 goldens/tolerances,
+      model card and researcher evaluation evidence; verify all 58 manifest entries.
+- [x] Integrate supplied stages without rebuilding/training the model; all 13 goldens pass locally/in Docker.
+- [x] Queue 6–12 native 15′ cutouts of one visit; call the supplied SkyBoT finder inside the worker;
+      preserve classification_hint, null scores, uncertainty/warnings, positions/epochs/spectral context and model SHA.
+- [x] Exclude the five preset fields; label only from the validated 5% operating threshold;
+      keep the 10% flag informational and never present ranks as probabilities.
+- [x] Add candidate-column migration, idempotent admission, fenced atomic publication and cancellation tests;
+      disabling/failing optional inference leaves the viewer queue available.
+- [x] Complete live external acceptance: 12 real native cutouts → SkyBoT → 24 persisted candidates
+      (11 scored, 13 unscored; all classification hints uncertain). See the
+      [live report](docs/verification/metadata_ranker_live.json) and [result JSON](docs/verification/metadata_ranker_result.json).
+- [ ] Frontend owner adds opt-in ranker controls and warning/evidence presentation; no playback dependency.
+- [ ] Confirm permitted redistribution/model licensing and researcher scientific acceptance before public enablement.
 
 Deferred/excluded: automatic orbital/track solutions, confirmed Planet X/discovery claims, full-sky scanning,
 social annotation/accounts, unrestricted uploads, impact-risk/geographic features and mandatory classical ranking.

@@ -8,6 +8,8 @@ from sqlalchemy.exc import DBAPIError
 from app.core.gateway import GatewayConflict, GatewayQuota, GatewayRepository
 
 PUBLIC_METHODS = {
+    "ranker_submit",
+    "ranker_get",
     "release_refresh_claim",
     "release_refresh_finish",
     "release_refresh_status",
@@ -23,6 +25,8 @@ PUBLIC_METHODS = {
     "view_preflight",
 }
 WORKER_METHODS = {
+    "ranker_complete",
+    "ranker_cutout_lookup",
     "prepare_frame_upload",
     "complete_prepared_view",
     "claim_view_job",

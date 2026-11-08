@@ -24,6 +24,8 @@ class GatewayRepository:
     METHODS = frozenset(
         {
             "readiness",
+            "ranker_submit",
+            "ranker_get",
             "release_refresh_claim",
             "release_refresh_finish",
             "release_refresh_status",

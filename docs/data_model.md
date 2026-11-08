@@ -1,5 +1,12 @@
 # Data model: views, observations and derived products
 
+8 November 2026: additive `cosmic_0009` adds nullable `candidates.score_uncertainty` and `warnings`;
+existing rows remain valid. Optional suggestions reuse `processing_jobs`/`sky_views` and the input
+artifact ledger; a successful fenced transaction creates `analysis_runs`, `model_versions` and
+`candidates`. Model ID `ranker_AB_v3` identifies the supplied weights SHA; method is `metadata_ranker`.
+`classification` comes directly from `classification_hint`; scores remain uncalibrated and nullable.
+See [ranker contracts and retention](metadata_ranker.md).
+
 Updated 29 October 2026. The seven-table `cosmic_0001` baseline is preserved. Additive
 `cosmic_0002` now adds `processing_jobs` plus restricted PostgreSQL gateway functions, verified
 locally. Other proposed view/frame/spectrum/overlay relations remain planned. No prior DB was reset.

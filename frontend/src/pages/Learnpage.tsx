@@ -393,8 +393,11 @@ export function LearnPage() {
           </p>
           <p className="prose">
             In <a className="srclink" href="#/orbits">Satellites &amp; space stations</a>, choose a spacecraft to see its facts.
-            The moving dots show the idea of orbiting Earth. Read the fact cards for actual times and distances,
-            because the diagram compresses both.
+            Drag the 3D model to turn your view, or use its arrow and zoom buttons. Selecting a mission highlights
+            its orbit and opens a summary, source-linked facts and an explanation of its path. The same camera
+            controls work with the keyboard: focus the model, then use arrow keys, + / − and Home to reset.
+            Read the cards for reference times and distances: heights and animation speeds are compressed, and
+            spacecraft sizes are exaggerated. These are illustrative orbits, not live satellite positions.
           </p>
           <h3 className="sub-h">How to read the planet and spacecraft facts</h3>
           <dl className="defs">

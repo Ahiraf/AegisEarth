@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     s3_bucket: str | None = None
     s3_endpoint_url: str | None = None
     s3_region: str = "us-east-1"
+    metadata_ranker_enabled: bool = False
+    metadata_ranker_wall_seconds: int = Field(600, ge=120, le=900)
+    metadata_ranker_max_candidates: int = Field(24, ge=1, le=32)
 
 
 @lru_cache

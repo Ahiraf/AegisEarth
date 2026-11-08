@@ -1,5 +1,10 @@
 # Backend pipeline: coordinate-driven SPHEREx time viewing
 
+8 November 2026: the optional [metadata ranker v2](metadata_ranker.md) is implemented as a separate
+suggestions job. It downloads 6–12 native 15′ cutouts of one visit, runs the supplied SkyBoT finder
+and native-pixel ensemble in the isolated worker, and atomically publishes candidate evidence.
+Viewer preprocessing is not reused as model input. It is off by default and excluded from presets.
+
 Target design, 29 October 2026. Runtime now includes health/request validation, curated target catalog,
 native/HTTPS job-persistence primitives and offline QR2/QR3 research inspection. The image pipeline
 preparation stages below remain unimplemented; a separate input-acquisition worker now exists (step 3). The existing eleven-stage detection registry is a retained disabled legacy

@@ -215,15 +215,42 @@
         ],
         "summary": "Submit Analysis",
         "operationId": "submit_analysis_api_v1_analyses_post",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AnalysisRequest"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/MetadataRankerRequest"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AnalysisRequest"
+                  }
+                ],
+                "title": "Query"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -234,8 +261,55 @@
               }
             }
           },
+          "202": {
+            "description": "Optional ranker job durably queued"
+          },
           "503": {
-            "description": "Scientific pipeline not implemented"
+            "description": "Legacy analysis or optional ranker unavailable"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/analyses/{analysis_id}": {
+      "get": {
+        "tags": [
+          "analyses"
+        ],
+        "summary": "Analysis Result",
+        "operationId": "analysis_result_api_v1_analyses__analysis_id__get",
+        "parameters": [
+          {
+            "name": "analysis_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Analysis Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "202": {
+            "description": "Ranker job queued or running"
           },
           "422": {
             "description": "Validation Error",
@@ -2817,6 +2891,46 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "MetadataRankerRequest": {
+        "properties": {
+          "contract_version": {
+            "type": "string",
+            "const": "metadata-ranker-v1",
+            "title": "Contract Version"
+          },
+          "method": {
+            "type": "string",
+            "const": "metadata_ranker",
+            "title": "Method",
+            "default": "metadata_ranker"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Snapshot Id"
+          },
+          "visit_index": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Visit Index",
+            "default": 0
+          },
+          "max_exposures": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 6.0,
+            "title": "Max Exposures",
+            "default": 12
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "contract_version",
+          "snapshot_id"
+        ],
+        "title": "MetadataRankerRequest"
       },
       "MovieArtifact": {
         "properties": {

@@ -1,0 +1,244 @@
+{
+ "model_version": "ranker_AB_v3",
+ "created_utc": "2026-11-08T02:56:35.378763Z",
+ "hardware": "x86_64, 2 CPU cores, Python 3.13.18",
+ "numpy": "2.4.6",
+ "astropy": "7.2.3",
+ "score_kind": "candidate_score",
+ "calibrated": false,
+ "files": {
+  "INTEGRATION.md": {
+   "sha256": "c625fc3ed4e2be67781d7a5d80410f62a1d628e492b92d9fdab21e4bf3a8fcd9",
+   "bytes": 5104
+  },
+  "MODEL_CARD.md": {
+   "sha256": "7be2906ecf671f1b4900b05b1d0344a0493e7e1394d7b3b36951b6cb22ee14dd",
+   "bytes": 7823
+  },
+  "README.md": {
+   "sha256": "9d414609bc944edf2615f2627e62bb08d8df18a73f4dbc6bdc690a0bbf39393d",
+   "bytes": 837
+  },
+  "example_output.json": {
+   "sha256": "71f8532d35094fa425267494a7c57b2e10a09e17d4f299f146ddf43afaaeac8c",
+   "bytes": 1461
+  },
+  "ranker_AB_v3.json": {
+   "sha256": "2171854d7a66868188d0765bb33b53e4396d75259bfe64651e1326efa7b72b37",
+   "bytes": 17339
+  },
+  "requirements.txt": {
+   "sha256": "bfe53c550f6296d599cc060c067bff0baf82e1866ea53cb03e08f058035f7648",
+   "bytes": 91
+  },
+  "aegis_ranker/__init__.py": {
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  "aegis_ranker/candidates.py": {
+   "sha256": "20e6b9428fc2986b10a9e01ec20aea39dd9785365b13c5f6c359e628620e2e18",
+   "bytes": 1971
+  },
+  "aegis_ranker/features.py": {
+   "sha256": "876d04c3b3dbab81ee34f8e8b5a5d652781ed424e4f99d12a6865e4f141331e2",
+   "bytes": 9384
+  },
+  "golden/cases.json": {
+   "sha256": "1c5068859fa6274e8024a7b11f3305c332c18179ece56b794191cd2f0c86b5fa",
+   "bytes": 39121
+  },
+  "golden/check_golden.py": {
+   "sha256": "0856f5f9135f625c6858d90ee3c8a54b1671648130a1b16e690ae17ecec80722",
+   "bytes": 1518
+  },
+  "golden/fits/level2_2025W51_2A_0573_1D1_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "437f347b86a2d2df2d72a71333320cbfde9e2d1ff08f297c2bbc4f50dba0ecf3",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0573_1D4_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "8ba2132727fe95d7131b287cafbefda7db94e0dd3c3978d5e5c5b645e3dcdccf",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0573_2D1_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "9878dc2ddc052c67ce7e50b825006f82bb33b7e22b93c3810b07196c8f38b8db",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0573_2D4_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "ff0e7ee97754c5fe680ac560b9e6e12357871007b0a94b17f919f655fefb6595",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0573_3D1_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "1367b46f8b99ffe3330f4479b4cce6809b6c501dc047ea2582149b10e7f2136d",
+   "bytes": 308160
+  },
+  "golden/fits/level2_2025W51_2A_0573_3D4_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "5f4f022d0ccff8442f16dcae9e0090a875ebab346fe15405925d39c8ffdc3d3d",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0573_4D1_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "dbc79681b7b8b51ddabcce03628ee07574375031b4c13b4c3d60cb072df49359",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0573_4D4_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "571d8debc8ed98eca8e0467ca64b0fe38678d36bc5f3d7765d7d67f78329ba2c",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0586_3D1_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "2b8de8548b9ad5c824b487b6a7a3a049edc57bfbad081a01c5575e32ac2aaeca",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0586_4D1_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "ce3601abc9d9c82dc2cc2c78383e07a89d5666252b8516ceed788a6ffe13ec48",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0586_4D4_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "73a61b1dc936f1928e8dd5efa182a128c07f92160a5b6d32bfc15004336e8e37",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0648_1D1_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "e3b5f23e9aeaa90f97c7e4d90c7a98a6affaa810bdcb19183f6b9772996c10a0",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0648_1D4_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "69a6ae1fa3c095ad23f680def1a961fa342b024b4435bdf1e182185cf49a83ea",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0679_1D2_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "9279ee8b4ba50a37d81d8a80c4fec0e31d53f6a85773eaeb3ba0785c5f1a83fb",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0679_1D5_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "719d9a9204ffcd08b8091ab56c049d4573ad811efd29922a16431341100ef2d6",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0679_2D2_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "9bef45555f3b2de1ce9032ed5a1177fb9493798e0994ec79bbb561cefafe6791",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0679_2D5_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "87bbf3a9da1ce391457ec5b2835ba5220febb0003cc39bef931335d49fdf7840",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0679_3D2_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "e811e28774048101e3c33cabf41f5aa83f85546521f0f790273f0d5cad419435",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2025W51_2A_0679_3D5_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "2d4e80483c009ab8776fb7a0873b131b9525d4840ffc723ac22e4b38c216fed8",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W51_2A_0679_4D2_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "f07a6d34267a22efcf3557ec502c0a58911ccdc1ca80fc87eb2cc78a877dbe99",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2025W51_2A_0679_4D5_spx_l2b-v21-2025-357_ast20.fits": {
+   "sha256": "9fa4a82e56bed9c561da548eb6df589808467f999c1b95111846988213bc2dff",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0014_1D1_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "5d50c20f06f4b2bc4cf494fd48fe2bf8c444d5cddeb99cfc84b31c66007defb1",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0014_1D4_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "20a20f9d75c0c805b723fb9f2fed2fb81d352bcdea8c67da47e681a3e7822fbb",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0014_2D1_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "894dce3991038d07459f0deec9e3a1ae111d1fd7192dfaee0eb79f6cfd19e40f",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0014_2D4_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "19f4c79cf521869028006474f21a58981fd459dbd913971cf7f306ccbfa3a2c8",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0081_1D2_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "44801c0526037f166c08a638bf1f75e270c2548b72204c79b856d22076739f6d",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2025W52_1A_0081_1D5_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "5a784acdc9b0ded8c5376d6f10fac454256183fdcf7d67bb6ba132c35a53e4fa",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0081_2D2_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "23ea46b0c28d8c84ad18b1db7ba4aa8a920e04789e4449c23bc7e09b8f4247be",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0081_2D5_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "df294f787010f5c02a04a4c4c8760f7ba71174490b4d79299fef2c84b607eca6",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0081_3D2_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "0f03c01e67b90b721e14a394d1112df58fdd7df438c12787734cb5f99c4fc143",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0081_3D5_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "ad013de360163a8a2842cc78f729d7aa9925754a9499118ba78028375cdbec2b",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2025W52_1A_0081_4D2_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "c1c9f84f233b91693b610a674047ca482e31fd6a63363e0e8d887d7142807f52",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2025W52_1A_0081_4D5_spx_l2b-v21-2025-363_ast20.fits": {
+   "sha256": "b60f3235f1bbc3f513bc07b46170f34070fa087b86f92a277dcfaec9a4ebd21f",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W15_2A_0624_1D1_spx_l2b-v24-2026-105_ast8.fits": {
+   "sha256": "e6e17a980a8eff40a4f91b4f88c7e10b8e5e065cbf996f51009a5b284e1c991d",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W18_1A_0199_1D2_spx_l2b-v24-2026-124_ast836.fits": {
+   "sha256": "8757276f87ae8009ca85b2f272bf2c82bf7dd1388e05152f9812a6cb12f1d1a5",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W18_1A_0199_2D5_spx_l2b-v24-2026-124_ast836.fits": {
+   "sha256": "3eccf287c45d4f1b0b835820b4e1cd4bbedf9bf83649a7b3e0626d4a263d615b",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2026W18_1A_0199_3D5_spx_l2b-v24-2026-124_ast836.fits": {
+   "sha256": "27dcd449d8fbd8f8b363d963207aa6408e0ace1809040a0028afed0893556411",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W18_1A_0199_4D5_spx_l2b-v24-2026-124_ast836.fits": {
+   "sha256": "2624d471ff31f7423fc2f6a11e63c7864c65251ae5987062075722adede66f88",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W18_1A_0265_1D5_spx_l2b-v24-2026-124_ast836.fits": {
+   "sha256": "486985927aaa2a18f116a1085be5742ba3f5aec6ee5044e370e374fcbb5c3a3c",
+   "bytes": 241920
+  },
+  "golden/fits/level2_2026W18_1A_0340_1D4_spx_l2b-v24-2026-124_ast836.fits": {
+   "sha256": "a0e91b308587ae98bafdb8c6bb8330ee7161a91ed2906958e0ac9f8df8de953c",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W22_1A_0250_1D2_spx_l2b-v25-2026-150_ast752.fits": {
+   "sha256": "b3ff4f48320d640047694c4361f434910c0a6c3bcdd369c0c0f8df637c2b4de8",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2026W22_1A_0250_1D5_spx_l2b-v25-2026-150_ast752.fits": {
+   "sha256": "f5aaa370959f9b9e02072511e67caeb77f9d23b4572d75829702d423659a7c3a",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W22_1A_0250_2D2_spx_l2b-v25-2026-150_ast752.fits": {
+   "sha256": "d0fcaf9e4c004f69acaec374cc0bcc69d24aa1a42f812a012a20d2e03e763ab3",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2026W22_1A_0250_2D5_spx_l2b-v25-2026-150_ast752.fits": {
+   "sha256": "c9cd916e81687020c7434ed99da2c0d1e0cbc5453d7fc30b9ba2026af34a732f",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W22_1A_0250_3D2_spx_l2b-v25-2026-150_ast752.fits": {
+   "sha256": "d9f27140ec662a71948d186bfa8d833b7f192690abba96f4fcea1e93ef531472",
+   "bytes": 311040
+  },
+  "golden/fits/level2_2026W22_1A_0250_4D2_spx_l2b-v25-2026-150_ast752.fits": {
+   "sha256": "a6f60573235c063ffe20fd120be9f5d57c26821771195dc2ac3ab10e078732c4",
+   "bytes": 319680
+  },
+  "golden/fits/level2_2026W22_1A_0250_4D5_spx_l2b-v25-2026-150_ast752.fits": {
+   "sha256": "e3862ca815d0d249daa0a7d1403ae0d00bbd24ab61b256bc8af1a81b79b64799",
+   "bytes": 311040
+  }
+ },
+ "refreshed_utc": "2026-11-08T09:44:07.926670Z"
+}

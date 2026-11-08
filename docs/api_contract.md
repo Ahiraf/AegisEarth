@@ -26,7 +26,8 @@ for the full React handoff, limits, cache semantics and [working request](exampl
 | POST `/views/{id}/refresh`, `/releases/refresh`; GET `/releases/refresh-status` | Implemented bounded, fenced metadata refresh and explicit immutable rebuild |
 | GET `/views/{id}/export-metadata`; POST `/views/{id}/exports`; GET `/exports/{id}` | Implemented JSON/CSV and durable captioned GIF/provenance exports |
 | GET `/bands`, `/bands/{id}` | Official nominal channels and representative curves |
-| POST `/analyses` | Strict legacy pair/sequence schema validated, then 503 feature_not_ready |
+| POST `/analyses` | Legacy pair/sequence schema: 503; explicit metadata-ranker-v1: opt-in queued native-pixel inference, disabled by default |
+| GET `/analyses/{id}` | Optional ranker status/result; 202 while pending, terminal status/result/expiry afterward; [contract](metadata_ranker.md) |
 
 Use [discovery_search.json](examples/discovery_search.json) for active discovery. The previous
 [observation_search.json](examples/observation_search.json) illustrates the retired legacy radius body.

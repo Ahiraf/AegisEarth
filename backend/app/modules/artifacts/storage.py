@@ -151,16 +151,18 @@ class S3Store:
                 or result["ContentLength"] > 134217728
             ):
                 raise StorageError("artifact_corrupt")
-            with tempfile.TemporaryFile() as stream:
-                total = 0
-                while chunk := body.read(65536):
-                    total += len(chunk)
-                    if total > record["size_bytes"]:
-                        raise StorageError("artifact_corrupt")
-                    stream.write(chunk)
-                stream.seek(0)
-                verify_stream(stream, record)
-                yield stream
+            with tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / "artifact"
+                with path.open("wb") as stream:
+                    total = 0
+                    while chunk := body.read(65536):
+                        total += len(chunk)
+                        if total > record["size_bytes"]:
+                            raise StorageError("artifact_corrupt")
+                        stream.write(chunk)
+                with path.open("rb") as stream:
+                    verify_stream(stream, record)
+                    yield stream
         except (BotoCoreError, ClientError, OSError) as exc:
             raise StorageError("object_store_unavailable") from exc
         finally:

@@ -9,8 +9,13 @@ router = APIRouter(tags=["system"])
 @router.get("/system/capabilities")
 def capabilities():
     settings = get_settings()
+    from app.modules.ranking.package import available
+
     return {
         "service": "AegisEarth",
+        "metadata_ranker_available": settings.metadata_ranker_enabled and available(),
+        "metadata_ranker_method": "metadata_ranker",
+        "metadata_ranker_contract": "metadata-ranker-v1",
         "state": "chronological_movie_delivery_implemented",
         "view_submission_available": bool(
             settings.public_token_secret
