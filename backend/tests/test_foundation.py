@@ -10,6 +10,37 @@ from app.modules.observations.feasibility import flag_definitions
 from app.modules.targets.catalog import load_targets
 
 
+@pytest.mark.parametrize("transport", ["postgresql", "postgrest"])
+@pytest.mark.parametrize("revision,expected", [("cosmic_0010", 200), ("cosmic_9999", 503)])
+def test_readiness_accepts_ranker_migration_and_rejects_unknown_schema(
+    monkeypatch, transport, revision, expected
+):
+    from types import SimpleNamespace
+
+    from app.modules.health import router as health
+
+    monkeypatch.setattr(
+        health, "get_settings", lambda: SimpleNamespace(database_transport=transport)
+    )
+
+    class Gateway:
+        def __init__(self, _settings):
+            pass
+
+        def rpc(self, _method):
+            return {"status": "ready", "schema_revision": revision}
+
+        def close(self):
+            pass
+
+    monkeypatch.setattr(health, "GatewayRepository", Gateway)
+    database = SimpleNamespace(
+        execute=lambda _statement: SimpleNamespace(scalar_one=lambda: revision)
+    )
+    response = health.ready(database)
+    assert (200 if isinstance(response, dict) else response.status_code) == expected
+
+
 def test_five_verified_target_presets_and_epoch_aware_search_seed():
     targets = load_targets()
     assert len(targets) == 5

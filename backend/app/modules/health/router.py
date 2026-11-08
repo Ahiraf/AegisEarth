@@ -33,6 +33,7 @@ def ready(db: Annotated[Session, Depends(get_db)]):
             if result.get("status") != "ready" or result.get("schema_revision") not in {
                 "cosmic_0008",
                 "cosmic_0009",
+                "cosmic_0010",
             }:
                 raise GatewayError("schema_not_ready")
         except (GatewayError, ValueError, OSError):
@@ -49,6 +50,7 @@ def ready(db: Annotated[Session, Depends(get_db)]):
         if db.execute(text("SELECT version_num FROM alembic_version")).scalar_one() not in {
             "cosmic_0008",
             "cosmic_0009",
+            "cosmic_0010",
         }:
             raise SQLAlchemyError("schema_not_ready")
     except SQLAlchemyError:
