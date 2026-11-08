@@ -403,7 +403,7 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
         <p id="world-instructions">
           Drag to rotate · Choose an object for details
           <br />
-          <span>Keyboard: arrow keys, + / −, Home · Ctrl + scroll to zoom</span>
+          <span>Mouse wheel to zoom · Keyboard: arrow keys, + / −, Home</span>
         </p>
         <div className="world-toolbar" role="group" aria-label="Scene controls">
           <button

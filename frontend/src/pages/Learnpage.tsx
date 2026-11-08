@@ -415,7 +415,8 @@ export function LearnPage() {
           <p className="prose">
             In <a className="srclink" href="#/solar">The Solar System in 3D</a>, select Earth, then Mars. Compare their
             diameters to see which planet is wider. Compare their orbital periods to see which year is longer.
-            Drag to turn the model and use + or − to zoom. The model makes the planets bigger and brings them
+            Drag to turn the model and roll the mouse wheel up to zoom in or down to zoom out, without holding Ctrl.
+            The + and − buttons also zoom. The model makes the planets bigger and brings them
             closer together so you can see them. Click a planet directly or use the object list to open its description.
             “Take a closer look” brings its textured globe into view. The full-screen button hides the site navigation
             on supported browsers; press Escape or “Exit” to return. The maps use enhanced colours, and the scene does not show current positions.

@@ -562,10 +562,12 @@ export function startWorldScene(
     dirty = true;
   };
   const wheel = (event: WheelEvent) => {
-    if (event.ctrlKey) {
-      event.preventDefault();
-      zoomBy(Math.sign(event.deltaY));
-    }
+    if (!event.deltaY) return;
+    event.preventDefault();
+    const pixels =
+      event.deltaY *
+      (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? height : 1);
+    zoomBy(Math.max(-2, Math.min(2, pixels / 120)));
   };
   const lost = (event: Event) => {
     event.preventDefault();
@@ -579,7 +581,9 @@ export function startWorldScene(
   canvas.addEventListener("pointermove", move);
   canvas.addEventListener("pointerup", up);
   canvas.addEventListener("pointercancel", cancel);
-  canvas.addEventListener("wheel", wheel, { passive: false });
+  // Labels belong to the viewport too; scrolling a detail panel stays independent.
+  const wheelTarget = host.parentElement ?? host;
+  wheelTarget.addEventListener("wheel", wheel, { passive: false });
   canvas.addEventListener("webglcontextlost", lost);
   document.addEventListener("visibilitychange", visible);
   return {
@@ -630,7 +634,7 @@ export function startWorldScene(
       canvas.removeEventListener("pointermove", move);
       canvas.removeEventListener("pointerup", up);
       canvas.removeEventListener("pointercancel", cancel);
-      canvas.removeEventListener("wheel", wheel);
+      wheelTarget.removeEventListener("wheel", wheel);
       canvas.removeEventListener("webglcontextlost", lost);
       document.removeEventListener("visibilitychange", visible);
       const geometries = new Set<any>(),

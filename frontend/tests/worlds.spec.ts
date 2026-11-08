@@ -189,3 +189,61 @@ test("atmosphere works on a phone and survives context loss with facts available
     .selectOption({ label: "Stratosphere" });
   await expect(page.locator("#object-title")).toHaveText("Stratosphere");
 });
+
+for (const [route, objectName] of [
+  ["orbits", "ISS"],
+  ["solar", "Jupiter"],
+  ["atmosphere", "Exosphere"],
+]) {
+  test(`${route} zooms in and out with the mouse wheel without Ctrl`, async ({
+    page,
+  }) => {
+    await page.goto(`/#/${route}`);
+    const viewport = page.locator(".world-viewport");
+    const canvas = viewport.locator("canvas");
+    await expect(viewport).toHaveAttribute("data-scene-status", "ready");
+    const close = page.getByRole("button", { name: "Close object details" });
+    if (await close.count()) await close.click();
+    await expect(canvas).toHaveAttribute("data-selected", "");
+    await expect(canvas).toHaveAttribute("data-settled", "true");
+    const bounds = (await viewport.boundingBox())!;
+    const label = viewport
+      .locator(".world-label")
+      .filter({ hasText: new RegExp(`^${objectName}$`) });
+    const distance = () =>
+      label.evaluate(
+        (el, size) =>
+          Math.hypot(
+            parseFloat(el.style.left) - size.width / 2,
+            parseFloat(el.style.top) - size.height / 2,
+          ),
+        { width: bounds.width, height: bounds.height },
+      );
+    const before = await distance();
+    await page.mouse.move(
+      bounds.x + bounds.width * 0.7,
+      bounds.y + bounds.height * 0.65,
+    );
+    await page.mouse.wheel(0, -240);
+    await expect.poll(distance).toBeGreaterThan(before * 1.05);
+    await expect(canvas).toHaveAttribute("data-settled", "true");
+    const enlarged = await distance();
+    await page.mouse.wheel(0, 240);
+    await expect.poll(distance).toBeLessThan(enlarged * 0.95);
+    await expect(canvas).toHaveAttribute("data-settled", "true");
+    expect(await page.evaluate(() => scrollY)).toBe(0);
+    if (route === "orbits") {
+      await page.getByLabel("Explore an object").selectOption({ label: "ISS" });
+      await expect(canvas).toHaveAttribute("data-selected", "0");
+      await expect(canvas).toHaveAttribute("data-settled", "true");
+      const panel = page.getByTestId("object-details");
+      const still = await distance();
+      await panel.hover();
+      await page.mouse.wheel(0, 360);
+      await expect
+        .poll(() => panel.evaluate((el) => el.scrollTop))
+        .toBeGreaterThan(0);
+      expect(await distance()).toBeCloseTo(still, 2);
+    }
+  });
+}

@@ -17,7 +17,9 @@ Select a mesh, its projected label, or the accessible object chooser to open a
 detail drawer. The drawer appears on the right on desktop and below the scene
 on phones. Its close control and Escape return focus to the chooser. A close-up
 control follows the selected planet or spacecraft; Overview restores the whole
-scene. Drag rotates, Ctrl+wheel zooms; arrow keys, +/− and Home work when the
+scene. Drag rotates; the mouse wheel zooms directly without a modifier key.
+Wheel up zooms in, wheel down zooms out; scrolling detail panels reads their text.
+Arrow keys, +/− and Home work when the
 scene has keyboard focus. Page controls also work by keyboard. Reduced-motion
 preferences start animation paused; explicit Play still allows animation. A
 paused scene redraws only when something changes, including texture completion.
