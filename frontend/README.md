@@ -3,6 +3,12 @@
 React/TypeScript/Vite public SPHEREx sky viewer, integrated with the FastAPI backend through step 10.
 The designer's existing colors, typography, cards, navigation and educational pages are retained.
 
+Explorer, Orbits, Atmosphere, Solar System, Learn and About are independent hash-routed pages.
+The three educational scenes fill the viewport and offer full-screen mode, clickable objects,
+textured planets, illustrative spacecraft and accessible detail drawers. Atmosphere includes a
+height scrubber and interactive layer cutaway. See [interactive worlds](../docs/interactive_worlds.md)
+for controls, asset licensing, scientific boundaries and browser verification.
+
 From the repository root, `docker compose up --build` serves the production frontend at
 http://localhost:5173 with same-origin API proxying.
 For hosted Docker, the frontend listens on port 7860 as UID 1000. Set

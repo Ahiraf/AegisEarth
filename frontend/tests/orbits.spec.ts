@@ -1,26 +1,40 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 import { mockApi } from "./mockApi";
 
-test("3D orbits expose all missions, camera controls and source-backed facts", async ({
+test("orbits has its own full viewport, selectable missions, and source-backed drawers", async ({
   page,
 }) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await mockApi(page);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const api = await mockApi(page);
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/#/orbits");
-  const section = page.locator("#orbits");
-  await section.scrollIntoViewIfNeeded();
-  const model = section.getByRole("group", {
+  expect(
+    await page.evaluate(
+      () => matchMedia("(prefers-reduced-motion: reduce)").matches,
+    ),
+  ).toBe(true);
+  const model = page.getByRole("group", {
     name: "Interactive 3D satellite orbits",
   });
   await expect(model).toHaveAttribute("data-scene-status", "ready");
-  await expect(model.locator("canvas")).toBeVisible();
-  await section
-    .getByRole("button", { name: "Pause orbits", exact: true })
-    .click();
   await expect(
-    section.getByRole("button", { name: "Play orbits", exact: true }),
+    page.getByRole("heading", {
+      name: "Satellites & space stations",
+      exact: true,
+    }),
   ).toBeVisible();
-  await expect(section.locator(".fact-row")).toHaveCount(8);
+  await expect(page.getByTestId("object-details")).toHaveCount(0);
+  await expect(page.locator("#solar, #atmosphere, #hero-title")).toHaveCount(0);
+  await expect(
+    page.getByRole("link", { name: "Orbits", exact: true }).first(),
+  ).toHaveAttribute("aria-current", "page");
+  const bounds = await model.boundingBox();
+  expect(bounds!.height).toBeGreaterThan(800);
+  expect(bounds!.width).toBe(1440);
+  await expect(
+    page.getByRole("button", { name: "Play animation", exact: true }),
+  ).toBeVisible();
   for (const [name, title] of [
     ["Hubble", "Hubble Space Telescope"],
     ["SPHEREx", "SPHEREx infrared observatory"],
@@ -28,110 +42,91 @@ test("3D orbits expose all missions, camera controls and source-backed facts", a
     ["GOES", "GOES-R series weather satellites"],
     ["ISS", "International Space Station"],
   ]) {
-    await section.getByRole("button", { name, exact: true }).click();
+    await page.getByLabel("Explore an object").selectOption({ label: name });
+    await expect(page.locator("#object-title")).toHaveText(title);
     await expect(
-      section.getByRole("button", { name, exact: true }),
-    ).toHaveAttribute("aria-pressed", "true");
-    await expect(section.locator("#orbit-facts h3")).toHaveText(title);
-    await expect(section.locator(".fact-row")).toHaveCount(8);
-    await expect(section.locator(".fact-row a")).toHaveCount(8);
+      page.getByTestId("object-details").locator(".fact-row a"),
+    ).toHaveCount(8);
   }
-  const beforeDrag = await model.screenshot({ path: '../var/frontend-integration/orbits-paused.png' });
-  const bounds = await model.locator("canvas").boundingBox();
-  if (!bounds) throw new Error("The orbit canvas is missing");
-  await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
-  await page.mouse.down();
-  await page.mouse.move(bounds.x + bounds.width / 2 + 80, bounds.y + bounds.height / 2 + 20, { steps: 6 });
-  await page.mouse.up();
-  await expect.poll(async () => (await model.screenshot()).equals(beforeDrag)).toBe(false);
-  const before = await model.screenshot();
-  await model.focus();
-  await model.press("ArrowRight");
-  await expect
-    .poll(async () => (await model.screenshot()).equals(before))
-    .toBe(false);
-  await section
-    .getByRole("button", { name: "Zoom in on satellite orbits" })
-    .click();
-  await section
-    .getByRole("button", { name: "Reset view", exact: true })
-    .click();
-  await model.screenshot({ path: '../var/frontend-integration/orbits-reset.png' });
-  await model.scrollIntoViewIfNeeded();
+  await page.getByRole("button", { name: "Take a closer look" }).click();
   await page.screenshot({
-    path: "../var/frontend-integration/orbits-desktop.png",
+    path: "../var/frontend-integration/world-orbits.png",
   });
+  await page.keyboard.press("Escape");
+  await expect(page.getByTestId("object-details")).toHaveCount(0);
+  await expect(page.getByLabel("Explore an object")).toBeFocused();
+  await model.focus();
+  await model.press("ArrowLeft");
+  await model.press("+");
+  await model.press("Home");
+  await page
+    .getByRole("button", { name: "Play animation", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Pause animation", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Pause animation", exact: true })
+    .click();
+  expect(api.calls).toHaveLength(0);
+  expect(errors).toEqual([]);
 });
 
-test("orbit animation respects a change to reduced motion", async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await mockApi(page);
-  await page.goto("/#/orbits");
-  const section = page.locator("#orbits");
-  await section.scrollIntoViewIfNeeded();
-  await expect(
-    section.getByRole("button", { name: "Pause orbits", exact: true }),
-  ).toBeEnabled();
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(
-    section.getByRole("button", { name: "Motion paused", exact: true }),
-  ).toBeDisabled();
-});
-
-test("satellite facts remain usable when WebGL is unavailable", async ({
-  page,
-}) => {
+test("all mission facts remain accessible without WebGL", async ({ page }) => {
   await page.addInitScript(() => {
     const original = HTMLCanvasElement.prototype.getContext;
     HTMLCanvasElement.prototype.getContext = function (
       type: string,
-      ...args: unknown[]
+      ...args: any[]
     ) {
-      if (type.startsWith("webgl") || type === "experimental-webgl")
-        return null;
-      return Reflect.apply(original, this, [type, ...args]);
+      if (/webgl/i.test(type)) return null;
+      return original.call(this, type, ...args);
     } as typeof original;
   });
-  await mockApi(page);
   await page.goto("/#/orbits");
-  const section = page.locator("#orbits");
-  await section.scrollIntoViewIfNeeded();
   await expect(
-    section.getByText(/3D is unavailable in this browser/),
+    page.getByText("3D is unavailable in this browser", { exact: true }),
   ).toBeVisible();
-  await section.getByRole("button", { name: "Galileo", exact: true }).click();
-  await expect(section.locator("#orbit-facts")).toContainText("23,222 km");
-  await expect(section.locator("#orbit-facts")).toContainText("About 14 hours");
+  await page.getByLabel("Explore an object").selectOption({ label: "SPHEREx" });
+  await expect(page.locator("#object-title")).toHaveText(
+    "SPHEREx infrared observatory",
+  );
   await expect(
-    section.getByRole("button", { name: "Zoom in on satellite orbits" }),
-  ).toBeDisabled();
+    page.getByTestId("object-details").locator(".fact-row"),
+  ).toHaveCount(8);
 });
 
-test("3D orbits fit a narrow phone screen and release the canvas on navigation", async ({
+test("phone orbit page fits the viewport and releases its canvas when changing pages", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await mockApi(page);
   await page.goto("/#/orbits");
-  const section = page.locator("#orbits");
-  await section.scrollIntoViewIfNeeded();
-  await expect(
-    section.getByRole("group", { name: "Interactive 3D satellite orbits" }),
-  ).toHaveAttribute("data-scene-status", "ready");
-  await section.getByRole("button", { name: "SPHEREx", exact: true }).click();
-  await expect(section.locator("#orbit-facts")).toContainText(
-    "102 near-infrared",
+  await expect(page.locator(".world-viewport")).toHaveAttribute(
+    "data-scene-status",
+    "ready",
   );
+  await page.getByLabel("Explore an object").selectOption({ label: "ISS" });
+  await expect(page.getByTestId("object-details")).toBeVisible();
   expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-  ).toBe(true);
-  await section.screenshot({
-    path: "../var/frontend-integration/orbits-mobile.png",
+    await page.evaluate(() => document.documentElement.scrollWidth),
+  ).toBeLessThanOrEqual(390);
+  const panel = await page.getByTestId("object-details").boundingBox();
+  expect(panel!.y).toBeGreaterThan(400);
+  expect(panel!.x + panel!.width).toBeLessThanOrEqual(390);
+  expect((await page.locator(".world-viewport").boundingBox())!.width).toBe(
+    390,
+  );
+  await page.screenshot({
+    path: "../var/frontend-integration/world-orbits-phone.png",
   });
-  await page.goto("/#/learn");
-  await expect(page.locator(".orbit-canvas canvas")).toHaveCount(0);
+  await page.getByRole("link", { name: "Learn", exact: true }).first().click();
+  await expect(page.locator(".world-page, .world-render canvas")).toHaveCount(
+    0,
+  );
+  await page.goBack();
+  await expect(page.locator(".world-viewport")).toHaveAttribute(
+    "data-scene-status",
+    "ready",
+  );
 });

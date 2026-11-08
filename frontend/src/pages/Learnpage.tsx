@@ -392,10 +392,12 @@ export function LearnPage() {
             <SourceLink href="https://science.nasa.gov/learn/basics-of-space-flight/chapter3-4/" label="NASA guide to orbiting" />
           </p>
           <p className="prose">
-            In <a className="srclink" href="#/orbits">Satellites &amp; space stations</a>, choose a spacecraft to see its facts.
+            Each item in the main navigation opens its own page. In <a className="srclink" href="#/orbits">Satellites &amp; space stations</a>, click a spacecraft or its label, or choose one from the list to see its facts in a side panel.
             Drag the 3D model to turn your view, or use its arrow and zoom buttons. Selecting a mission highlights
             its orbit and opens a summary, source-linked facts and an explanation of its path. The same camera
             controls work with the keyboard: focus the model, then use arrow keys, + / − and Home to reset.
+            Choose “Take a closer look” to inspect the spacecraft, then “Overview” to see all the orbits again.
+            Close the detail panel with its × button or Escape. On a phone the panel appears at the bottom.
             Read the cards for reference times and distances: heights and animation speeds are compressed, and
             spacecraft sizes are exaggerated. These are illustrative orbits, not live satellite positions.
           </p>
@@ -414,17 +416,25 @@ export function LearnPage() {
             In <a className="srclink" href="#/solar">The Solar System in 3D</a>, select Earth, then Mars. Compare their
             diameters to see which planet is wider. Compare their orbital periods to see which year is longer.
             Drag to turn the model and use + or − to zoom. The model makes the planets bigger and brings them
-            closer together so you can see them.
+            closer together so you can see them. Click a planet directly or use the object list to open its description.
+            “Take a closer look” brings its textured globe into view. The full-screen button hides the site navigation
+            on supported browsers; press Escape or “Exit” to return. The maps use enhanced colours, and the scene does not show current positions.
           </p>
           <p className="prose">
             Planet X, also called Planet Nine, is a proposed planet far beyond Neptune. Its existence remains
-            unconfirmed. The marker in the model illustrates the idea.{' '}
+            unconfirmed. It is explained in the planet panels rather than drawn as a confirmed ninth planet.{' '}
             <SourceLink href={NASA_PLANET_X.url} label="NASA guide to Planet X" />
           </p>
           <h3 className="sub-h">Where does the atmosphere end?</h3>
           <p className="prose">
             The atmosphere is the layer of gases around Earth. In <a className="srclink" href="#/atmosphere">Layers of Earth’s atmosphere</a>,
-            read the heights from the ground up. Most weather happens in the troposphere, the lowest layer.
+            move the altitude slider or enter a height in kilometres. The bright marker travels through the cutaway
+            and the guide changes when you enter a different layer. You can also choose a layer by name.
+            Try 5 km for the troposphere, 25 km for the ozone-containing stratosphere, 65 km for the mesosphere,
+            420 km for the space station’s thermosphere, and 1,500 km for the exosphere.
+            The slider uses a compressed height scale to make the low layers easier to explore. Layer thicknesses
+            are exaggerated and colours are a key, not a temperature measurement.
+            Most weather happens in the troposphere, the lowest layer.
             Higher up, the air gets thinner. Satellites such as the space station can orbit where traces of the
             atmosphere still remain. Layer heights are approximate.{' '}
             <SourceLink href={NASA_ATMOSPHERE.url} label="NASA atmosphere guide" />

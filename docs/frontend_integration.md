@@ -1,24 +1,26 @@
 # Production React integration
 
-Satellite explorer update, 8 November 2026: `#/orbits` now uses a lazily loaded Three.js scene with
-a procedural Earth, five distinct illustrative spacecraft, inclined orbital paths and selected-orbit
-highlighting. Drag, camera buttons and keyboard arrows/+/-/Home control the view; motion can be
-paused and respects page/reduced-motion settings. The scene releases GPU resources on navigation,
-pauses work when offscreen and retains the last rendered frame while paused. WebGL failure leaves
-all mission selections and facts usable. No additional dependency or backend endpoint is required.
-Each mission has a summary, eight agency-linked facts and a plain-language orbit explanation.
-Galileo facts now describe Galileo specifically; Hubble's height is labelled as a changing reference
-value. Geometry, heights, spacecraft sizes and animation timing are explicitly illustrative; this is
-not live satellite tracking. The Learn page covers the updated controls. Browser checks live in
-`frontend/tests/orbits.spec.ts`; desktop/mobile captures are under `var/frontend-integration/`.
-Validation: production build passed, all four orbit browser checks passed, and the existing 14
-workflow browser checks passed. Paused/reset canvas captures also confirm a retained 3D frame.
+Independent pages update, 8 November 2026: Explorer, Orbits, Atmosphere, Solar System, Learn and
+About now mount separately, rather than sharing sections of Explorer. The three educational
+scenes fill the available viewport and offer native full-screen mode where supported. Selecting a
+mesh, its label or the object list opens a side drawer (bottom drawer on phones). Orbits retain
+eight agency-linked facts per mission, with more detailed spacecraft geometry. Planets and Earth
+use locally hosted, credited CC BY 4.0 maps. Atmosphere adds an interactive limb cutaway, altitude
+slider and numeric height control. All scenes support keyboard controls, reduced-motion defaults,
+WebGL fallback and GPU cleanup on navigation. No backend endpoint or dependency was added.
+See [interactive worlds](interactive_worlds.md) for controls, licensing and scientific boundaries.
+Browser checks are in `frontend/tests/orbits.spec.ts` and `frontend/tests/worlds.spec.ts`, alongside
+the existing backend-connected viewer workflow checks. Local captures are in
+`var/frontend-integration/world-*.png`.
 
 Backend addition, 8 November 2026: the optional researcher's package v2 is exposed through the
 explicit `metadata-ranker-v1` analysis contract. See [ranker API and presentation rules](metadata_ranker.md).
-These controls are not yet added to production React. Keep movie preparation independent; render ranks
-without probability percentages, classification directly from the supplied hint, null scores and all
-plain-language warnings. Do not offer this model for the five preset targets.
+Production React now provides explicit opt-in submission after observation discovery and loading
+an existing analysis UUID. Bright candidates appear first in magnitude order; faint known objects
+are collapsed under “Known objects too faint for this ranker (N)”. The component preserves null
+scores, hint classifications, spread/uncertainty, per-frame evidence and plain warnings. The ranker
+remains off by default, excludes the five presets server-side and never gates movie preparation.
+Older analyses are marked with their legacy cutout policy rather than presented as current runs.
 
 Updated 5 November 2026 at the user's request. The production frontend in `frontend/` now consumes
 the implemented backend through step 10. It retains the designer's existing navy/cyan/amber palette,

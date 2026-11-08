@@ -1,0 +1,515 @@
+{
+  "analysis_id": "8d108b5e-0c63-4186-956c-eb0f05abd516",
+  "real_services": true,
+  "total_wall_seconds": 115.5,
+  "worker_wall_seconds": 113.59400000004098,
+  "cutout_http_attempts_including_retries": 9,
+  "unique_successful_cutouts": 8,
+  "cache_hits": 0,
+  "candidate_count": 39,
+  "faint_count": 38,
+  "original_faint_objects_retained": 23,
+  "faint_objects_no_downloads_and_unscored": true,
+  "package_files_sha256_verified": 58,
+  "model_sha256": "2171854d7a66868188d0765bb33b53e4396d75259bfe64651e1326efa7b72b37",
+  "backend_tests_passed": 194,
+  "bright_candidates": [
+    {
+      "name": "Massalia",
+      "score": 0.9999999563144074,
+      "classification": "possible_motion",
+      "score_uncertainty": 1.0703322865878004e-07,
+      "n_frames_used_package_field": 8,
+      "frames_selected_for_score": 6,
+      "frames": [
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.005160442859823607,
+            "qc_pass": true,
+            "bad_frac": 0.037765059110527306,
+            "coverage": 1.0,
+            "src_frac": 0.170388440607994,
+            "noise_mad": 0.02446952208280563,
+            "badpix_frac": 0.002674047663726778,
+            "outlier_frac": 0.02078251079001689,
+            "persist_frac": 0.0013604803903171326,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.74782916666666,
+          "sha256": "fa47318c4fdf80daee0dd4d4af1215adf4279c137b08e1516c1d2b655d34c843",
+          "dec_deg": -0.578658611111111,
+          "mid_mjd": 61030.247628,
+          "reasons": [],
+          "detector": "D1",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.02514649354643269,
+            "wavelength_range_um": [
+              0.9563317681271776,
+              0.986365983505425
+            ],
+            "center_wavelength_um": 0.9711124587966496,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              11,
+              12
+            ],
+            "usable_wavelength_range_um": [
+              0.9563317681271776,
+              0.986365983505425
+            ]
+          },
+          "product_id": "c7a6d581acb053438ab7b58dc1efbe925b744f583d229e9d425fa1904810b761",
+          "time_scale": "UTC",
+          "exposure_id": "2025W51_2A_0573_1",
+          "cutout_center": {
+            "ra_deg": 179.74782916666666,
+            "dec_deg": -0.578658611111111
+          },
+          "used_for_score": true,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        },
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.013323325201726403,
+            "qc_pass": true,
+            "bad_frac": 0.05549821730155752,
+            "coverage": 1.0,
+            "src_frac": 0.1692156126853068,
+            "noise_mad": 0.024535026231408116,
+            "badpix_frac": 0.0027209607806342653,
+            "outlier_frac": 0.023972602739726026,
+            "persist_frac": 0.0016419590917620566,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.74867916666665,
+          "sha256": "21c5ad56a93ad2bdab31a4b2560a6f5546fbe3e063b12776b3c8c96f9a67f241",
+          "dec_deg": -0.579031111111111,
+          "mid_mjd": 61030.2506125,
+          "reasons": [],
+          "detector": "D1",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.026999815528104508,
+            "wavelength_range_um": [
+              1.0023955041949573,
+              1.0338721399956232
+            ],
+            "center_wavelength_um": 1.0180387218325746,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              13,
+              14
+            ],
+            "usable_wavelength_range_um": [
+              1.0023955041949573,
+              1.0338721399956232
+            ]
+          },
+          "product_id": "978b58874bc3a037a3bfa80e2b3dd103fd79bc8546502cc452a84dc955f89b52",
+          "time_scale": "UTC",
+          "exposure_id": "2025W51_2A_0573_3",
+          "cutout_center": {
+            "ra_deg": 179.74867916666665,
+            "dec_deg": -0.579031111111111
+          },
+          "used_for_score": true,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        },
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.006708575717770689,
+            "qc_pass": true,
+            "bad_frac": 0.043863764308500655,
+            "coverage": 1.0,
+            "src_frac": 0.1689341339838619,
+            "noise_mad": 0.02721789058148861,
+            "badpix_frac": 0.0029086132482642147,
+            "outlier_frac": 0.020641771439294427,
+            "persist_frac": 0.0013135672734096453,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.74910416666663,
+          "sha256": "d9ef265abbed80e5e4e48b19d805ab8debcdc190235939a45b5f739f457a1a7a",
+          "dec_deg": -0.5792172222222222,
+          "mid_mjd": 61030.2521045,
+          "reasons": [
+            "USABLE_NOT_SELECTED_BY_RANKER"
+          ],
+          "detector": "D1",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.02740081544514346,
+            "wavelength_range_um": [
+              1.0267698886274133,
+              1.0583297651944277
+            ],
+            "center_wavelength_um": 1.0423014240308894,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              14,
+              15
+            ],
+            "usable_wavelength_range_um": [
+              1.0267698886274133,
+              1.0583297651944277
+            ]
+          },
+          "product_id": "78983467c17e50ca6f087926c4fc3460e456685dfb61da2a0da3360d0d501648",
+          "time_scale": "UTC",
+          "exposure_id": "2025W51_2A_0573_4",
+          "cutout_center": {
+            "ra_deg": 179.74910416666663,
+            "dec_deg": -0.5792172222222222
+          },
+          "used_for_score": false,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        },
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.004128354287858885,
+            "qc_pass": true,
+            "bad_frac": 0.04423906924376055,
+            "coverage": 1.0,
+            "src_frac": 0.17048226684180898,
+            "noise_mad": 0.02555156666636467,
+            "badpix_frac": 0.00211109026083693,
+            "outlier_frac": 0.023878776505911053,
+            "persist_frac": 0.00896040532933008,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.76666874999995,
+          "sha256": "07870676c853049e18491f7a28b76cc39ad29077cbcb8f94eb568979868dad99",
+          "dec_deg": -0.5869122222222223,
+          "mid_mjd": 61030.313802,
+          "reasons": [],
+          "detector": "D1",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.018132847097058886,
+            "wavelength_range_um": [
+              0.7395091259831057,
+              0.7622566395335727
+            ],
+            "center_wavelength_um": 0.7507613278434443,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              1,
+              2
+            ],
+            "usable_wavelength_range_um": [
+              0.7395091259831057,
+              0.7622566395335727
+            ]
+          },
+          "product_id": "1448f65f05a0a98f5e7daa3052f8827ce838479081f5d4089c9e5129e3a85d70",
+          "time_scale": "UTC",
+          "exposure_id": "2025W51_2A_0586_3",
+          "cutout_center": {
+            "ra_deg": 179.76666874999995,
+            "dec_deg": -0.5869122222222223
+          },
+          "used_for_score": true,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        },
+        {
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.8430658333333,
+          "dec_deg": -0.6203819444444445,
+          "mid_mjd": 61030.5828345,
+          "reasons": [
+            "NOT_REQUESTED_ENOUGH_USABLE_FRAMES"
+          ],
+          "time_scale": "UTC",
+          "used_for_score": false
+        },
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.0037275184046221227,
+            "qc_pass": true,
+            "bad_frac": 0.03522504892367906,
+            "coverage": 0.9999534060199422,
+            "src_frac": 0.25705898797875315,
+            "noise_mad": 0.02469738373160362,
+            "badpix_frac": 0.002329699002888827,
+            "outlier_frac": 0.023809523809523808,
+            "persist_frac": 0.0005591277606933184,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.88268749999997,
+          "sha256": "18ea37fbfc9ab79fc2137f7b8388fbb520af0f53eff2a39d0abd8860b14194b3",
+          "dec_deg": -0.6377408333333333,
+          "mid_mjd": 61030.7228045,
+          "reasons": [],
+          "detector": "D2",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.028657656404938475,
+            "wavelength_range_um": [
+              1.1718094799666163,
+              1.2077970562795637
+            ],
+            "center_wavelength_um": 1.1895361779367222,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              20,
+              21
+            ],
+            "usable_wavelength_range_um": [
+              1.1718094799666163,
+              1.2077970562795637
+            ]
+          },
+          "product_id": "9b3b5107f44e3bdc577c7ca04b35c4c404469f77d73e3eb19de911d48681ae47",
+          "time_scale": "UTC",
+          "exposure_id": "2025W51_2A_0679_1",
+          "cutout_center": {
+            "ra_deg": 179.88268749999997,
+            "dec_deg": -0.6377408333333333
+          },
+          "used_for_score": true,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        },
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.004303762321255033,
+            "qc_pass": true,
+            "bad_frac": 0.03327317321486418,
+            "coverage": 1.0,
+            "src_frac": 0.2567448748206766,
+            "noise_mad": 0.02479715328812599,
+            "badpix_frac": 0.0019899116109028643,
+            "outlier_frac": 0.022536905918830116,
+            "persist_frac": 0.0009718172983479105,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.88353124999998,
+          "sha256": "619a5a4b2d9909be005cb63ed126793ecd6a6b70579c9c7ff6ea07d6dbd8c1b1",
+          "dec_deg": -0.6381105555555555,
+          "mid_mjd": 61030.725789,
+          "reasons": [
+            "USABLE_NOT_SELECTED_BY_RANKER"
+          ],
+          "detector": "D2",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.02992114247464185,
+            "wavelength_range_um": [
+              1.2282958676073927,
+              1.2660750166263455
+            ],
+            "center_wavelength_um": 1.247142896038988,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              22,
+              23
+            ],
+            "usable_wavelength_range_um": [
+              1.2282958676073927,
+              1.2660750166263455
+            ]
+          },
+          "product_id": "cf88b0f093c9e8ed7a19c89b97c525711a7740063ec08f87c758d1c2d543e1b2",
+          "time_scale": "UTC",
+          "exposure_id": "2025W51_2A_0679_3",
+          "cutout_center": {
+            "ra_deg": 179.88353124999998,
+            "dec_deg": -0.6381105555555555
+          },
+          "used_for_score": false,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        },
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.004072377250219816,
+            "qc_pass": true,
+            "bad_frac": 0.03567957795363043,
+            "coverage": 1.0,
+            "src_frac": 0.2554953954370864,
+            "noise_mad": 0.024626489022374153,
+            "badpix_frac": 0.001943634596695821,
+            "outlier_frac": 0.023323615160349854,
+            "persist_frac": 0.0009718172983479105,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.8839533333333,
+          "sha256": "d6d5cf497226a961a96d993a138afa47fd66bcb5c555cc13b35b7f0d1c37a14c",
+          "dec_deg": -0.6382952777777777,
+          "mid_mjd": 61030.727281,
+          "reasons": [],
+          "detector": "D2",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.030557649028557326,
+            "wavelength_range_um": [
+              1.2580659853316691,
+              1.2964173852677716
+            ],
+            "center_wavelength_um": 1.2769998858544243,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              23,
+              24
+            ],
+            "usable_wavelength_range_um": [
+              1.2580659853316691,
+              1.2964173852677716
+            ]
+          },
+          "product_id": "243ce8d3ba458ffc35f640808e93bb62ee8edf464f81ffa127fec6723ef62222",
+          "time_scale": "UTC",
+          "exposure_id": "2025W51_2A_0679_4",
+          "cutout_center": {
+            "ra_deg": 179.8839533333333,
+            "dec_deg": -0.6382952777777777
+          },
+          "used_for_score": true,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        },
+        {
+          "qc": {
+            "dqa": "Pass",
+            "finast": 0,
+            "inside": true,
+            "cr_frac": 0.006755488834678176,
+            "qc_pass": true,
+            "bad_frac": 0.06459936198161007,
+            "coverage": 1.0,
+            "src_frac": 0.1633514730718709,
+            "noise_mad": 0.7410578666210175,
+            "badpix_frac": 0.0026271345468192905,
+            "outlier_frac": 0.03828110339650966,
+            "persist_frac": 0.005770313379620942,
+            "dichroic_frac": 0.0,
+            "aperture_measurable": true
+          },
+          "v_mag": 10.869999885559082,
+          "ra_deg": 179.97801874999996,
+          "sha256": "88bd39789da07b4a9378f7ebe83f877dca752cba26930e28eb02d834d9d0bce2",
+          "dec_deg": -0.6795074999999999,
+          "mid_mjd": 61031.0608355,
+          "reasons": [],
+          "detector": "D1",
+          "spectral": {
+            "method": "WCS-WAVE_visualization_proxy",
+            "warning": "Quantitative spectra require pipeline CWAVE/CBAND and response/calibration validation",
+            "center_inside": true,
+            "center_usable": false,
+            "center_sampling": "nearest_native_pixel_visualization_proxy",
+            "center_reference": "candidate_predicted_position",
+            "center_bandwidth_um": 0.02926015004329297,
+            "wavelength_range_um": [
+              1.076183608908224,
+              1.1087988457599502
+            ],
+            "center_wavelength_um": 1.0924038090675687,
+            "response_availability": "representative_nominal_fiducials_available; per-pixel_response_not_applied",
+            "quantitative_calibration": false,
+            "nominal_window_candidates": [
+              16,
+              17
+            ],
+            "usable_wavelength_range_um": [
+              1.076183608908224,
+              1.1087988457599502
+            ]
+          },
+          "product_id": "5a0b6b0ee65624143c6dd975173eee0732aadab483b49087eafd9ec580584e28",
+          "time_scale": "UTC",
+          "exposure_id": "2025W52_1A_0014_2",
+          "cutout_center": {
+            "ra_deg": 179.97801874999996,
+            "dec_deg": -0.6795074999999999
+          },
+          "used_for_score": true,
+          "selection_origin": "discovery_snapshot",
+          "cutout_size_arcmin": 15
+        }
+      ]
+    }
+  ]
+}

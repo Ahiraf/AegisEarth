@@ -6,6 +6,7 @@ import './styles/explorer.css';
 import './styles/learn.css';
 import './styles/about.css';
 import './styles/sky.css';
+import './styles/worlds.css';
 import { App } from './App';
 
 createRoot(document.getElementById('root')!).render(

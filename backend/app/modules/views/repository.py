@@ -25,6 +25,7 @@ PUBLIC_METHODS = {
     "view_preflight",
 }
 WORKER_METHODS = {
+    "ranker_prepare_cutout",
     "ranker_complete",
     "ranker_cutout_lookup",
     "prepare_frame_upload",

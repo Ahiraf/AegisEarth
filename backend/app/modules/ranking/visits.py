@@ -1,5 +1,6 @@
 """One-visit selection in chronological order, before native-pixel inference."""
 
+import re
 from decimal import Decimal
 from urllib.parse import urlencode
 
@@ -16,10 +17,10 @@ def midpoint(product):
 
 
 def select_visit(products, index, maximum):
-    # One processing choice per exposure/detector, retaining simultaneous detector images.
+    # A detector is not a new exposure. Keep one epoch for SkyBoT; choose its detector later.
     exposures = {}
     for product in products:
-        key = product["exposure_key"]
+        key = exposure_id(product)
         exposures.setdefault(key, product)
     ordered = sorted(exposures.values(), key=lambda p: (midpoint(p), p["id"]))
     visits = []
@@ -33,6 +34,12 @@ def select_visit(products, index, maximum):
     count = min(maximum, len(visit))
     indices = [round(i * (len(visit) - 1) / (count - 1)) for i in range(count)]
     return [visit[i] for i in indices]
+
+
+def exposure_id(product):
+    if identity := product.get("source_metadata", {}).get("obs_id"):
+        return identity
+    return re.sub(r":D[1-6]$", "", product["exposure_key"]).removeprefix("spherex:")
 
 
 def reject_preset_field(region, products):

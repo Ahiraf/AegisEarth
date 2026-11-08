@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AtmosphereSection } from "../components/explorer/AtmosphereSection";
 import { CompareSection } from "../components/explorer/CompareSection";
 import { HeroSection } from "../components/explorer/HeroSection";
 import { ModelSection } from "../components/explorer/ModelSection";
 import { NextLinks } from "../components/explorer/NextLinks";
-import { OrbitsSection } from "../components/explorer/OrbitsSection";
 import { ProvenanceSection } from "../components/explorer/ProvenanceSection";
 import { ResultsSection } from "../components/explorer/ResultsSection";
 import { SearchSection } from "../components/explorer/SearchSection";
-import { SolarSection } from "../components/explorer/SolarSection";
 import { prefersReducedMotion } from "../hooks/useReducedMotion";
 import { useCardGlow } from "../hooks/useCardGlow";
 import { M101 } from "../data/irsaSnapshot";
@@ -135,9 +132,6 @@ export function SavedExplorerPage() {
         />
         <ProvenanceSection observations={observations} selection={selection} />
         <ModelSection state={ML_STATE} />
-        <OrbitsSection paused={paused} />
-        <AtmosphereSection />
-        <SolarSection paused={paused} />
         <NextLinks />
       </div>
     </div>

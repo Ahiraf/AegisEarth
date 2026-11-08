@@ -34,7 +34,34 @@ from app.modules.views.worker import process_job
 
 
 def run_and_record(session, settings, identifier, report):
-    repository = NativeViewRepository(session)
+    started = time.monotonic()
+
+    class VerificationRepository(NativeViewRepository):
+        def rpc(self, method, parameters=None):
+            try:
+                result = super().rpc(method, parameters)
+                if method == "view_heartbeat":
+                    report["heartbeat_count"] = report.get("heartbeat_count", 0) + 1
+                    report["last_heartbeat_wall_seconds"] = time.monotonic() - started
+                return result
+            except Exception as exc:
+                report.setdefault("worker_rpc_errors", []).append(
+                    {
+                        "method": method,
+                        "type": type(exc).__name__,
+                        "database_code": getattr(
+                            getattr(exc.__cause__, "orig", None), "sqlstate", None
+                        ),
+                        "database_reason": getattr(
+                            getattr(getattr(exc.__cause__, "orig", None), "diag", None),
+                            "message_primary",
+                            None,
+                        ),
+                    }
+                )
+                raise
+
+    repository = VerificationRepository(session)
     for _ in range(2):
         result = repository.rpc("ranker_get", {"p_id": identifier})
         if not result or result["status"] != "queued":
@@ -63,6 +90,21 @@ def run_and_record(session, settings, identifier, report):
         for c in rows
     ]
     report["accepted"] = report["analysis"]["status"] == "succeeded"
+    report["worker_wall_seconds"] = time.monotonic() - started
+    result = report["analysis"].get("result")
+    if result:
+        report["cutout_downloads"] = result.get("acquisition", {}).get("cutout_downloads")
+        report["bright_candidates"] = [
+            {
+                "name": c["name"],
+                "v_mag": c["evidence"]["v_mag"],
+                "score": c["score"],
+                "n_frames_used": c["evidence"]["n_frames_used"],
+                "frames": c["evidence"]["frames"],
+            }
+            for c in result["candidates"]
+            if c["evidence"]["v_mag"] is not None and c["evidence"]["v_mag"] <= 18.1
+        ]
 
 
 def main():
@@ -77,6 +119,7 @@ def main():
         "--output", type=Path, default=ROOT / "docs/verification/metadata_ranker_live.json"
     )
     args = parser.parse_args()
+    started = time.monotonic()
     settings = get_settings()
     database = make_url(settings.database_url)
     if (
@@ -167,6 +210,12 @@ def main():
         report["accepted"] = False
         report["error"] = type(exc).__name__ + ": " + str(exc)
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    report["total_wall_seconds"] = time.monotonic() - started
+    result = report.get("analysis", {}).get("result")
+    if result is not None:
+        args.output.with_name(args.output.stem + "_result.json").write_text(
+            json.dumps(result, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+        )
     args.output.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     print("Live ranker accepted:", report["accepted"], "Report:", args.output, flush=True)
     return 0 if report["accepted"] else 1

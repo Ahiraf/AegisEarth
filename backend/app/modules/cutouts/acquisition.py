@@ -31,7 +31,15 @@ def cutout_url(product, region, padding_arcmin=1):
 
 
 def download(
-    url, path, maximum, *, expected=None, transport=None, read_timeout=20, connect_timeout=5
+    url,
+    path,
+    maximum,
+    *,
+    expected=None,
+    transport=None,
+    read_timeout=20,
+    connect_timeout=5,
+    deadline=None,
 ):
     path = Path(path)
     temporary = path.with_suffix(".part")
@@ -39,6 +47,12 @@ def download(
     digest = hashlib.sha256()
     total = 0
     try:
+        if deadline is not None:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise AcquisitionError("ranker_wall_time_reached")
+            read_timeout = min(read_timeout, remaining)
+            connect_timeout = min(connect_timeout, remaining)
         with (
             httpx.Client(
                 timeout=httpx.Timeout(read_timeout, connect=connect_timeout),
@@ -57,6 +71,8 @@ def download(
                 raise AcquisitionError("unsupported_content_encoding")
             with temporary.open("wb") as output:
                 for chunk in response.iter_raw(chunk_size=65536):
+                    if deadline is not None and time.monotonic() >= deadline:
+                        raise AcquisitionError("ranker_wall_time_reached")
                     total += len(chunk)
                     if total > maximum or time.monotonic() - started > 120:
                         raise AcquisitionError("download_budget_exceeded")

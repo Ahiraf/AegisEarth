@@ -1,0 +1,65 @@
+{
+  "verified_at_utc": "2026-11-08T17:03:18.229603+00:00",
+  "fixture_fallback": false,
+  "search": {
+    "ra_deg": 179.88,
+    "dec_deg": -0.64,
+    "start_at": "2025-12-21T00:00:00Z",
+    "end_at": "2025-12-23T00:00:00Z"
+  },
+  "discovery": {
+    "snapshot_id": "1bc8e2d0-45e4-447a-9324-0f2ab68f25e8",
+    "count": 38,
+    "sources": [
+      {
+        "collection": "spherex_qr2",
+        "query_url": "https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+179.880000000000+-0.640000000000+0.176776415833&TIME=61030.0+61032.0&COLLECTION=spherex_qr2&MAXREC=40",
+        "retrieved_at_utc": "2026-11-08T17:03:29.532836+00:00",
+        "sha256": "910fca4447021ed899b7b77725c6c49443ff790bc0c5d482cc969afb5be88ca2",
+        "bytes": 106493,
+        "rows": 38,
+        "truncated": false,
+        "status": "OK",
+        "query_status": [
+          "OK"
+        ],
+        "attempts": 1
+      }
+    ],
+    "warnings": [
+      "Image wavelength bounds are whole-detector bounds, not local wavelength at the requested sky patch",
+      "Footprint intersection does not establish usable-pixel or full-FOV coverage; FITS masks/WCS required",
+      "SIA may lag new archive ingestion by about one day; reported gaps are not proof of no observations"
+    ]
+  },
+  "selected_product_ids": [
+    "c7a6d581acb053438ab7b58dc1efbe925b744f583d229e9d425fa1904810b761",
+    "978b58874bc3a037a3bfa80e2b3dd103fd79bc8546502cc452a84dc955f89b52",
+    "78983467c17e50ca6f087926c4fc3460e456685dfb61da2a0da3360d0d501648",
+    "1448f65f05a0a98f5e7daa3052f8827ce838479081f5d4089c9e5129e3a85d70",
+    "fcfa95b7cb2f46d49891376e92ac874e57a9ae96f08ad89827989a82e54d4b8a",
+    "9b3b5107f44e3bdc577c7ca04b35c4c404469f77d73e3eb19de911d48681ae47",
+    "cf88b0f093c9e8ed7a19c89b97c525711a7740063ec08f87c758d1c2d543e1b2",
+    "243ce8d3ba458ffc35f640808e93bb62ee8edf464f81ffa127fec6723ef62222",
+    "5a0b6b0ee65624143c6dd975173eee0732aadab483b49087eafd9ec580584e28",
+    "dec4469e7790abfa1fed71e0073a5083f0003e87721dd9eb0869f271aa899b66",
+    "138fce8acada91fb4c7b0d373275b763427200f2ae923827c8de88ef1c826bde",
+    "1960cd7ef48131ed030837875f647d2c2ced17a9909f0185c011c54d11dc8171"
+  ],
+  "worker_attempts": [
+    "fenced"
+  ],
+  "analysis": {
+    "id": "d6909ca3-7c75-42f9-93db-b3b79cecd251",
+    "method": "metadata_ranker",
+    "result": null,
+    "status": "failed",
+    "expired": false,
+    "error_code": "lease_or_source_changed",
+    "expires_at_utc": null
+  },
+  "persisted_candidates": [],
+  "accepted": false,
+  "worker_wall_seconds": 120.23400000005495,
+  "total_wall_seconds": 136.125
+}

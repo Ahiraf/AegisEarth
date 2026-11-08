@@ -65,6 +65,8 @@ def process_job(repository, job, settings):
             "s3_region": settings.s3_region,
         },
     }
+    if job["config"].get("ranker"):
+        job["ranker_deadline"] = time.monotonic() + job["config"]["limits"]["wall_seconds"] - 15
     (root / "job.json").write_text(json.dumps(job, default=str))
     parameters = {"p_id": job["id"], "p_token": job["lease_token"]}
     limits = job["config"]["limits"]
@@ -91,6 +93,8 @@ def process_job(repository, job, settings):
                 repository.rpc("view_heartbeat", parameters)
                 heartbeat_at = time.monotonic()
             for index in range(len(job["config"]["products"])):
+                if job["config"].get("ranker"):
+                    break
                 path = root / f"{index}.json"
                 if index not in receipts and path.exists():
                     if path.stat().st_size > 65536:
@@ -122,6 +126,33 @@ def process_job(repository, job, settings):
                     acknowledgment = root / f"{index}.upload.part"
                     acknowledgment.write_text(json.dumps(file))
                     acknowledgment.replace(root / f"{index}.upload.json")
+                    receipts[index] = file
+            if job["config"].get("ranker"):
+                for path in sorted(root.glob("ranker_cutout_[0-9]*.json")):
+                    if path.name.endswith(".upload.json"):
+                        continue
+                    index = int(path.stem.removeprefix("ranker_cutout_"))
+                    if index in receipts:
+                        continue
+                    if path.stat().st_size > 65536 or index >= 384:
+                        raise WorkerLimit("ranker_receipt_limit")
+                    receipt = json.loads(path.read_text(encoding="utf-8"))
+                    product = receipt.pop("product")
+                    file = {
+                        **receipt,
+                        "id": str(uuid4()),
+                        "view_id": job["id"],
+                        "content_type": "application/fits",
+                        "cache_key": receipt["acquisition_key"],
+                        "storage_key": f"objects/{job['id']}/{job['lease_token']}/{receipt['sha256']}.fits",
+                    }
+                    repository.rpc(
+                        "ranker_prepare_cutout",
+                        {**parameters, "p_file": file, "p_product": product},
+                    )
+                    ack = root / f"ranker_cutout_{index}.upload.part"
+                    ack.write_text(json.dumps(file), encoding="utf-8")
+                    ack.replace(root / f"ranker_cutout_{index}.upload.json")
                     receipts[index] = file
             ready = root / "preparation.json"
             if ready.exists() and prepared is None:
@@ -160,7 +191,7 @@ def process_job(repository, job, settings):
                 ack.replace(root / "preparation.upload.json")
             ranking = root / "ranker.json"
             if ranking.exists() and ranker_report is None:
-                if ranking.stat().st_size > 256000:
+                if ranking.stat().st_size > 4000000:
                     raise WorkerLimit("ranker_result_limit")
                 ranker_report = json.loads(ranking.read_text(encoding="utf-8"))
             if process.poll() is not None:
@@ -171,7 +202,7 @@ def process_job(repository, job, settings):
         result = json.loads((root / "result.json").read_text())
         if not result["ok"]:
             raise WorkerLimit(result["error_code"])
-        if len(receipts) != len(job["config"]["products"]):
+        if not job["config"].get("ranker") and len(receipts) != len(job["config"]["products"]):
             raise WorkerLimit("incomplete_acquisition")
         files = [record for _, record in sorted(receipts.items())]
         if time.monotonic() - started > limits["wall_seconds"]:

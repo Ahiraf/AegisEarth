@@ -183,6 +183,15 @@ export function AboutPage() {
           </figure>
         </Reveal>
 
+        <Reveal>
+          <SectionHeader eyebrow="Visual credits" title="The maps behind our 3D worlds" />
+          <p className="prose">Planet and Earth maps are by Solar System Scope, used under Creative Commons Attribution 4.0.
+            They are based on NASA imagery, with adjusted colours and some filled terrain. These maps, our lighting,
+            exaggerated atmosphere cutaway and original spacecraft models are educational illustrations, not live positions or measurements.</p>
+          <p><SourceLink href="https://www.solarsystemscope.com/textures/" label="Solar System Scope textures" />{' '}
+            <SourceLink href="https://creativecommons.org/licenses/by/4.0/" label="CC BY 4.0 license" /></p>
+        </Reveal>
+
         <nav className="links" aria-label="Next steps">
           <a href="#/">Explore observations {'\u2192'}</a>
           <a href="#/learn">Learn how to read observations {'\u2192'}</a>

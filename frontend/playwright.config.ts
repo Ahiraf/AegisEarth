@@ -1,9 +1,10 @@
 import { defineConfig } from "@playwright/test";
 import { existsSync } from "node:fs";
-const systemChrome = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+const systemChrome =
+  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
 export default defineConfig({
   testDir: "./tests",
-  testMatch: ["workflow.spec.ts", "orbits.spec.ts"],
+  testMatch: ["workflow.spec.ts", "orbits.spec.ts", "worlds.spec.ts", "ranker.spec.ts"],
   fullyParallel: false,
   workers: 1,
   timeout: 90000,

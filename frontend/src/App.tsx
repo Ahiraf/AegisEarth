@@ -1,84 +1,60 @@
-import { useEffect, useState } from 'react';
-import { Layout, type NavId } from './components/Layout';
-import { scrollToId } from './lib/scroll';
-import { AboutPage } from './pages/AboutPage';
-import { ExplorerPage } from './pages/Explorerpage';
-import { LearnPage } from './pages/Learnpage';
-
-type PageId = 'explorer' | 'learn' | 'about';
-type Route = { page: PageId; section: string | null };
-
-const TITLES: Record<PageId, string> = {
-  explorer: 'Explorer',
-  learn: 'Learn',
-  about: 'About and Sources',
+﻿import { lazy, Suspense, useEffect, useState } from "react";
+import { Layout, type NavId } from "./components/Layout";
+const ExplorerPage = lazy(() =>
+  import("./pages/Explorerpage").then((m) => ({ default: m.ExplorerPage })),
+);
+const LearnPage = lazy(() =>
+  import("./pages/Learnpage").then((m) => ({ default: m.LearnPage })),
+);
+const AboutPage = lazy(() =>
+  import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })),
+);
+const WorldPage = lazy(() =>
+  import("./pages/WorldPage").then((m) => ({ default: m.WorldPage })),
+);
+const TITLES: Record<NavId, string> = {
+  explorer: "Explorer",
+  orbits: "Satellites & space stations",
+  atmosphere: "Earth’s atmosphere",
+  solar: "Solar System",
+  learn: "Learn",
+  about: "About and Sources",
 };
-
-// Hash routes. #/orbits, #/atmosphere and #/solar are sections of the Explorer page.
-function routeFromHash(hash: string): Route {
-  switch (hash) {
-    case '#/learn':
-      return { page: 'learn', section: null };
-    case '#/about':
-      return { page: 'about', section: null };
-    case '#/orbits':
-      return { page: 'explorer', section: 'orbits' };
-    case '#/atmosphere':
-      return { page: 'explorer', section: 'atmosphere' };
-    case '#/solar':
-      return { page: 'explorer', section: 'solar' };
-    default:
-      return { page: 'explorer', section: null };
-  }
+function routeFromHash(): NavId {
+  const name = window.location.hash.split("?")[0].replace(/^#\//, "");
+  return Object.hasOwn(TITLES, name) ? (name as NavId) : "explorer";
 }
-
-const SPY_SECTIONS: NavId[] = ['orbits', 'atmosphere', 'solar'];
-
 export function App() {
-  const [route, setRoute] = useState<Route>(() => routeFromHash(window.location.hash));
-  const [spy, setSpy] = useState<NavId>('explorer');
-
+  const [page, setPage] = useState(routeFromHash);
   useEffect(() => {
-    const onHashChange = () => setRoute(routeFromHash(window.location.hash));
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const change = () => setPage(routeFromHash());
+    window.addEventListener("hashchange", change);
+    return () => window.removeEventListener("hashchange", change);
   }, []);
-
-  // New page or section: update the title, then scroll to the top or to the requested section.
   useEffect(() => {
-    document.title = `${TITLES[route.page]} | AegisEarth`;
-    const frame = window.requestAnimationFrame(() => {
-      if (route.section) {
-        scrollToId(route.section, true);
-      } else {
-        window.scrollTo(0, 0);
-        document.getElementById('main')?.focus({ preventScroll: true });
-      }
-    });
-    return () => window.cancelAnimationFrame(frame);
-  }, [route]);
-
-  // On the Explorer, highlight the navigation item for the section currently in view.
-  useEffect(() => {
-    if (route.page !== 'explorer') return;
-    const update = () => {
-      let current: NavId = 'explorer';
-      for (const id of SPY_SECTIONS) {
-        const element = document.getElementById(id);
-        if (element && element.getBoundingClientRect().top < window.innerHeight * 0.4) current = id;
-      }
-      setSpy(current);
-    };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
-  }, [route.page]);
-
-  const current: NavId = route.page === 'explorer' ? spy : route.page;
-
+    document.title = `${TITLES[page]} | AegisEarth`;
+    window.scrollTo(0, 0);
+    document.getElementById("main")?.focus({ preventScroll: true });
+  }, [page]);
   return (
-    <Layout current={current}>
-      {route.page === 'learn' ? <LearnPage /> : route.page === 'about' ? <AboutPage /> : <ExplorerPage />}
+    <Layout current={page}>
+      <Suspense
+        fallback={
+          <p className="page-loading" role="status">
+            Opening {TITLES[page]}…
+          </p>
+        }
+      >
+        {page === "learn" ? (
+          <LearnPage />
+        ) : page === "about" ? (
+          <AboutPage />
+        ) : page === "explorer" ? (
+          <ExplorerPage />
+        ) : (
+          <WorldPage key={page} kind={page} />
+        )}
+      </Suspense>
     </Layout>
   );
 }

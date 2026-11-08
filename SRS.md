@@ -61,6 +61,14 @@ Steps 7–8 implement shared-quota derived jobs, D1–D6 coadd selection, exact 
 Steps 9–10 implement bounded Gaia DR3/AllWISE catalog context, W1/W2 images on each selected frame grid, explicit proper-motion limits, versioned coordinate-state restore, finite frozen-ID links, reference iframe playback, PostgreSQL refresh leases/cooldowns and captioned asynchronous GIF/metadata exports. Additive cosmic_0008 preserves old views. Production React now exposes these implemented controls alongside movies, detector/channel selection, coadds, gated differences and diagnostic spectra. Coordinate links restore settings without auto-submission; iframe snippets currently use the backend reference player. The existing design tokens/navigation/educational pages are retained. An external scheduled runner, public-host/device/positive Aladin acceptance, and a fresh real-pixel frontend run after IRSA's observed HTTP 503 remain separate. See [frontend integration](docs/frontend_integration.md) and [context contracts](docs/context_sharing.md).
 This document describes target behavior. Existing OpenAPI remains the actual runtime contract.
 
+Educational frontend update (8 November 2026): Explorer, Orbits, Atmosphere, Solar System, Learn
+and About each mount as independent pages. The educational 3D scenes occupy the available viewport,
+with native full-screen mode where supported, clickable objects, accessible selectors and source-linked
+detail drawers. Planets use locally hosted, credited image maps; spacecraft remain illustrative models.
+Atmosphere includes a layer cutaway and altitude controls with approximate NASA teaching boundaries.
+These educational views are not live ephemerides or atmospheric measurements and do not affect the
+SPHEREx viewer or backend contracts. See [interactive worlds](docs/interactive_worlds.md).
+
 Excluded/deferred: full-sky searches, orbit/automatic track solutions, discovery confirmation, impact
 risk, geography, training APIs, unrestricted uploads, user accounts/social annotation and mandatory
 backend-built classical ranking. Preserve existing disabled interfaces pending deliberate migration.
@@ -159,8 +167,9 @@ behavior, not an implementation claim. All requirements need the evidence listed
 | JOB-002 | Return 202 only after durable persistence; support idempotency, leases, bounded retries/deadlines/cancel and atomic manifest publication. Do not publish partial scientific output as complete. |
 | ML-001 | AI only: integrate the researcher's versioned package/goldens; backend does not train or duplicate delivered preprocessing. |
 | ML-002 | AI only: retain model/evaluation/calibration evidence and score meaning; uncalibrated scores are not probabilities. Inference failure must not break other viewer features. |
-| ML-003 | Implemented, disabled by default: metadata-ranker-v1 async jobs select 6–12 native exposure/detector products of one visit (gaps greater than 12h split visits), download fixed 15′ IRSA cutouts and call the supplied SkyBoT candidate finder in the worker. Exclude all five preset fields. |
+| ML-003 | Implemented, disabled by default: metadata-ranker-v1 async jobs select 6–12 physical exposure epochs of one visit (gaps greater than 12h split visits), call SkyBoT before any download, retain V>18.1 predictions unscored, and process eligible candidates brightest first. Choose one containing detector per candidate/exposure; download native 15′ cutouts at each predicted position. Start with eight spread exposures; expand up to twelve only if fewer than four pass QC and time remains. Exclude all five preset fields. |
 | ML-004 | Map classification_hint directly to classification, preserve nullable score, optional score_uncertainty/warnings, model SHA/version, predicted positions, times and native spectral context. Use method metadata_ranker. Only the supplied 5% false-alert threshold drives labels; the 10% flag is informational. |
+| ML-004a | Retain faint/over-limit/unprocessed known objects unscored; wall-time stops add CANDIDATE_LIMIT_REACHED to the job. Evidence identifies per_candidate_centered_v1, actual downloaded product/centre/hash, used_for_score and per-frame non-use reasons. Cache/hash-pin identity includes product, centre and size. Viewer input ledger semantics remain unchanged. |
 
 Package v2 (`ranker_AB_v3`) is a supplied 50-model logistic ensemble using native FITS pixel features.
 All 58 manifest entries and all 13 local/Docker golden cases passed verification. The scientific operating

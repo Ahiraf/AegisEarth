@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HeroSection } from "../../components/explorer/HeroSection";
-import { ModelSection } from "../../components/explorer/ModelSection";
-import { OrbitsSection } from "../../components/explorer/OrbitsSection";
-import { AtmosphereSection } from "../../components/explorer/AtmosphereSection";
-import { SolarSection } from "../../components/explorer/SolarSection";
+import { MetadataRanker } from "./MetadataRanker";
 import { NextLinks } from "../../components/explorer/NextLinks";
 import { useCardGlow } from "../../hooks/useCardGlow";
 import { prefersReducedMotion } from "../../hooks/useReducedMotion";
@@ -553,10 +550,7 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
             {JSON.stringify(reference?.refreshChecks || [], null, 2)}
           </pre>
         </details>
-        <ModelSection state={{ status: "not-connected" }} />
-        <OrbitsSection paused={paused} />
-        <AtmosphereSection />
-        <SolarSection paused={paused} />
+        <MetadataRanker snapshotId={discovery?.snapshot_id} enabled={reference?.capabilities.metadata_ranker_available === true} />
         <NextLinks />
       </div>
     </div>

@@ -316,16 +316,21 @@ interface disabled and all inference outside the playback path.
 - [x] Receive package v2, exact I/O/transforms, weights hash, dependencies, 13 goldens/tolerances,
       model card and researcher evaluation evidence; verify all 58 manifest entries.
 - [x] Integrate supplied stages without rebuilding/training the model; all 13 goldens pass locally/in Docker.
-- [x] Queue 6–12 native 15′ cutouts of one visit; call the supplied SkyBoT finder inside the worker;
+- [x] Select 6–12 physical exposure epochs of one visit; call SkyBoT before downloads; filter faint objects,
+      then fetch 15′ native cutouts at each bright candidate's per-exposure predicted position (initially eight;
+      expand up to twelve only if fewer than four pass QC). Pick one containing detector per exposure;
       preserve classification_hint, null scores, uncertainty/warnings, positions/epochs/spectral context and model SHA.
 - [x] Exclude the five preset fields; label only from the validated 5% operating threshold;
       keep the 10% flag informational and never present ranks as probabilities.
 - [x] Add candidate-column migration, idempotent admission, fenced atomic publication and cancellation tests;
       disabling/failing optional inference leaves the viewer queue available.
-- [x] Complete live external acceptance: 12 real native cutouts → SkyBoT → 24 persisted candidates
-      (11 scored, 13 unscored; all classification hints uncertain). See the
-      [live report](docs/verification/metadata_ranker_live.json) and [result JSON](docs/verification/metadata_ranker_result.json).
-- [ ] Frontend owner adds opt-in ranker controls and warning/evidence presentation; no playback dependency.
+- [x] Corrected live acceptance: 8 candidate-centred cutouts, 9 HTTP attempts including one retry,
+      115.5 s total; Massalia has 8 QC-usable frames (6 selected for score), plus 38 faint objects retained
+      without downloads/scores, including the original 23. All 39 candidates persisted. See the
+      [per-frame evidence](docs/verification/metadata_ranker_candidate_centered.md) and
+      [new result JSON](docs/verification/metadata_ranker_candidate_centered_live_result.json).
+- [x] Add optional frontend controls and warning/evidence presentation, bright-first ordering and a collapsed
+      faint-object group; no playback dependency. Mark legacy-policy analyses explicitly.
 - [ ] Confirm permitted redistribution/model licensing and researcher scientific acceptance before public enablement.
 
 Deferred/excluded: automatic orbital/track solutions, confirmed Planet X/discovery claims, full-sky scanning,

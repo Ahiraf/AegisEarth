@@ -447,3 +447,12 @@
     height: 340px;
   }
 }
+/* Optional ranker results remain separate from movie preparation/playback. */
+.ranker-candidate { margin: 16px 0; padding: 18px; }
+.ranker-candidate h4 { font-family: var(--head); font-size: 18px; margin: 0 0 10px; }
+.ranker-candidate p, .ranker-candidate li { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.ranker-candidate details { margin-top: 12px; }
+.ranker-frame-list li { margin-bottom: 12px; overflow-wrap: anywhere; }
+.ranker-faint { padding: 16px; border: 1px solid var(--border); border-radius: 10px; margin-top: 18px; }
+#model summary { cursor: pointer; min-height: 44px; align-content: center; }
+#ranker-analysis-id { display: block; background: var(--deep); color: var(--text); border: 1px solid var(--strong); border-radius: 6px; padding: 10px; width: min(100%, 420px); margin: 10px 0; }

@@ -30,12 +30,14 @@ def submit(query, repository, discovery, settings, tokens, scope, ip, key):
         "model_sha256": MODEL_SHA256,
         "region": region,
         "max_candidates": settings.metadata_ranker_max_candidates,
+        "cutout_policy": "per_candidate_centered_v1",
     }
     limits = policy(settings)
     limits["wall_seconds"] = settings.metadata_ranker_wall_seconds
     canonical["limits"] = limits
     config = {
         "products": products,
+        "selection_products": snapshot["items"],
         "region": region,
         "limits": limits,
         "ranker": canonical,

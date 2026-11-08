@@ -34,6 +34,7 @@ The viewer works independently of detection, ranking or a trained model. Reposit
 - [SRS v2.9](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
 - [Optional ranker v2](docs/metadata_ranker.md): native cutouts, SkyBoT jobs, candidate API and score meaning.
 - [Production frontend integration](docs/frontend_integration.md): live controls, configuration and verification limits.
+- [Interactive worlds](docs/interactive_worlds.md): separate pages, full-screen scenes, object details and atmosphere exploration.
 - [Step 11 local release report](docs/step11_release.md): performance, recovery, five-target demo and hosted acceptance.
 - [Challenge coverage matrix](docs/challenge_alignment.md): every supplied objective/consideration mapped.
 - [Executed step 6 results](docs/verification/targets/README.md): five-target API/browser receipts and scientific limits.

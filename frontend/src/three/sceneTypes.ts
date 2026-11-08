@@ -6,10 +6,6 @@ export type SceneInstance = {
   setPaused: (paused: boolean) => void;
 };
 
-export type SolarSceneInstance = SceneInstance & {
-  setSelected: (index: number) => void;
-};
-
 /** three.js, loaded on demand. Typed loosely on purpose (see types/three-shim.d.ts). */
 export type Three = typeof import('three');
 
