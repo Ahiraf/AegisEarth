@@ -17,7 +17,9 @@ Push `main` as `anindya357`, deploy the exact commit to the affected projects an
 aliases, API readiness, artifact access and the browser flow. The root Dockerfile installs the
 optional metadata ranker dependencies for the hosted API and worker. Set
 `METADATA_RANKER_ENABLED=true` in the `aegisearth-api` production environment to enable new ranking
-jobs on the next deployment. Verify `/api/v1/system/capabilities` and run a known-object analysis.
+jobs on the next deployment. After migrating the hosted database through `cosmic_0010`, apply
+[the ranker function grants](../infra/vercel/grant-ranker.sql) for `aegisearth_runtime`.
+Verify `/api/v1/system/capabilities` and run a known-object analysis.
 The ranker never gates the viewer.
 
 Apply `cosmic_0009` using the checked-in Alembic migration after testing on an isolated branch of
