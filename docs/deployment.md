@@ -13,9 +13,12 @@ The user's active target is Anindya Majumder's Vercel team (`anindya-majumders-p
 Root `vercel.json` preserves the existing container API/movie-worker arrangement (one worker in
 `iad1`, 1 GiB requested memory). The container startup shim uses the configured Neon/S3 credentials
 instead of platform AWS credentials, for both API and worker. Hosting secrets stay in Vercel.
-Push `main` as `anindya357`, deploy the exact commit to these existing projects and verify production
-aliases, API readiness, artifact access and the browser flow. The optional metadata ranker stays
-disabled until explicitly enabled with its dependencies/settings; it never gates the viewer.
+Push `main` as `anindya357`, deploy the exact commit to the affected projects and verify production
+aliases, API readiness, artifact access and the browser flow. The root Dockerfile installs the
+optional metadata ranker dependencies for the hosted API and worker. Set
+`METADATA_RANKER_ENABLED=true` in the `aegisearth-api` production environment to enable new ranking
+jobs on the next deployment. Verify `/api/v1/system/capabilities` and run a known-object analysis.
+The ranker never gates the viewer.
 
 Apply `cosmic_0009` using the checked-in Alembic migration after testing on an isolated branch of
 the existing Neon database. Release the API that accepts both revisions 8/9 before upgrading the

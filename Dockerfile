@@ -7,7 +7,8 @@ COPY backend/pyproject.toml ./
 COPY backend/requirements.lock backend/requirements-build.lock ./
 COPY backend/requirements-ranking.txt ./
 RUN pip install --no-cache-dir --require-hashes -r requirements.lock -r requirements-build.lock
-ARG INSTALL_METADATA_RANKER=false
+# The hosted API and movie worker share this image. Runtime enablement is explicit.
+ARG INSTALL_METADATA_RANKER=true
 RUN if [ "$INSTALL_METADATA_RANKER" = "true" ]; then pip install --no-cache-dir -r requirements-ranking.txt; fi
 COPY backend/app ./app
 COPY backend/model_packages ./model_packages

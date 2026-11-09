@@ -8,7 +8,7 @@ Training and scientific evaluation remain the researcher's responsibility.
 
 ## Enable and operate
 
-The ranker is **off by default**. The API and worker need the same package/model and
+The runtime flag is **off by default**. The API and worker need the same package/model and
 `METADATA_RANKER_ENABLED=true`. Install optional candidate-discovery dependencies:
 
 ```powershell
@@ -18,10 +18,10 @@ cd backend
 .\.venv\Scripts\python -m app.modules.views.worker
 ```
 
-Build either Dockerfile from the repository root with
-`--build-arg INSTALL_METADATA_RANKER=true`. In `compose.yaml`, set
-`INSTALL_METADATA_RANKER=true` and `METADATA_RANKER_ENABLED=true` before
-`docker compose up --build`; both API and worker receive the opt-in settings.
+The root Dockerfile installs the ranker dependencies by default for the hosted API and worker.
+On Vercel, set `METADATA_RANKER_ENABLED=true` in the `aegisearth-api` production environment
+and redeploy. For local Compose, set `INSTALL_METADATA_RANKER=true` and
+`METADATA_RANKER_ENABLED=true` before `docker compose up --build`.
 Keep the API and continuous worker on
 hosts supporting their existing PostgreSQL lease/storage protocol. A browser or a
 short HTTP request must never perform these downloads or SkyBoT queries.
