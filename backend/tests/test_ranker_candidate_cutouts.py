@@ -122,6 +122,7 @@ def test_faint_candidate_has_zero_downloads_rank_calls_or_product_ids(monkeypatc
 def test_one_containing_detector_per_exposure_and_midpoint_join(monkeypatch):
     job, candidate, _, _ = setup_tracks(monkeypatch)
     first = job["config"]["products"][0]
+    first["detector"] = "D1"  # Match the synthetic exposure key, independent of the archive fixture.
     second = {
         **first,
         "id": "different",
