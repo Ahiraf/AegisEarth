@@ -22,6 +22,19 @@ jobs on the next deployment. After migrating the hosted database through `cosmic
 Verify `/api/v1/system/capabilities` and run a known-object analysis.
 The ranker never gates the viewer.
 
+### Automatic production releases
+
+The GitHub Actions **Checks** workflow runs the backend, frontend and movie-handoff checks on each
+push. After all checks pass on `main`, **Deploy to Vercel** compares the checked commit with each
+project's production release, deploys the affected projects and checks production readiness.
+An API release deploys the existing movie worker with it.
+
+To activate releases, create a [Vercel access token](https://vercel.com/account/tokens) scoped to
+`anindya-majumders-projects`. A repository admin adds it as the `VERCEL_TOKEN` repository secret in
+[GitHub Actions settings](https://github.com/Ahiraf/AegisEarth/settings/secrets/actions). The next
+push to `main` picks it up. To start a run immediately, use **Actions → Checks → Run workflow** and
+select `main`.
+
 Apply `cosmic_0009` using the checked-in Alembic migration after testing on an isolated branch of
 the existing Neon database. Release the API that accepts both revisions 8/9 before upgrading the
 production schema, then verify schema revision, candidate columns/functions and preserved data.
