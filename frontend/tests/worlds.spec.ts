@@ -238,8 +238,11 @@ for (const [route, objectName] of [
     await expect(canvas).toHaveAttribute("data-settled", "true");
     expect(await page.evaluate(() => scrollY)).toBe(0);
     if (route === "orbits") {
+      const beforeOpeningPanel = await distance();
       await page.getByLabel("Explore an object").selectOption({ label: "ISS" });
       await expect(canvas).toHaveAttribute("data-selected", "0");
+      // The narrower scene fits the camera after the details panel is measured.
+      await expect.poll(distance).toBeGreaterThan(beforeOpeningPanel);
       await expect(canvas).toHaveAttribute("data-settled", "true");
       const panel = page.getByTestId("object-details");
       const still = await distance();
