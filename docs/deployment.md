@@ -13,27 +13,15 @@ The user's active target is Anindya Majumder's Vercel team (`anindya-majumders-p
 Root `vercel.json` preserves the existing container API/movie-worker arrangement (one worker in
 `iad1`, 1 GiB requested memory). The container startup shim uses the configured Neon/S3 credentials
 instead of platform AWS credentials, for both API and worker. Hosting secrets stay in Vercel.
-Push `main` as `anindya357`, deploy the exact commit to the affected projects and verify production
-aliases, API readiness, artifact access and the browser flow. The root Dockerfile installs the
+Push `main` as `anindya357` and wait for GitHub Actions **Checks** to pass. Deploy the exact commit
+manually to the affected Vercel projects and verify production aliases, API readiness, artifact
+access and the browser flow. The root Dockerfile installs the
 optional metadata ranker dependencies for the hosted API and worker. Set
 `METADATA_RANKER_ENABLED=true` in the `aegisearth-api` production environment to enable new ranking
 jobs on the next deployment. After migrating the hosted database through `cosmic_0010`, apply
 [the ranker function grants](../infra/vercel/grant-ranker.sql) for `aegisearth_runtime`.
 Verify `/api/v1/system/capabilities` and run a known-object analysis.
 The ranker never gates the viewer.
-
-### Automatic production releases
-
-The GitHub Actions **Checks** workflow runs the backend, frontend and movie-handoff checks on each
-push. After all checks pass on `main`, **Deploy to Vercel** compares the checked commit with each
-project's production release, deploys the affected projects and checks production readiness.
-An API release deploys the existing movie worker with it.
-
-To activate releases, create a [Vercel access token](https://vercel.com/account/tokens) scoped to
-`anindya-majumders-projects`. A repository admin adds it as the `VERCEL_TOKEN` repository secret in
-[GitHub Actions settings](https://github.com/Ahiraf/AegisEarth/settings/secrets/actions). The next
-push to `main` picks it up. To start a run immediately, use **Actions → Checks → Run workflow** and
-select `main`.
 
 Apply `cosmic_0009` using the checked-in Alembic migration after testing on an isolated branch of
 the existing Neon database. Release the API that accepts both revisions 8/9 before upgrading the
