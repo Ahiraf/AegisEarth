@@ -7,6 +7,8 @@ import type { Links, Manifest, TimelineMode, ViewRequest } from "./types";
 export function frontendLink(query: string) {
   const url = new URL(location.pathname, location.origin);
   url.search = query;
+  // Live view links must remain live when the deployment defaults to saved data.
+  url.searchParams.set("source", "api");
   url.hash = "/";
   return url.href;
 }
@@ -39,6 +41,7 @@ export function SharePanel({
   useEffect(() => {
     setBusy(false);
     setError("");
+    setCopied("");
     return () => pending.current?.abort();
   }, [id, mode]);
   async function create(frozen: boolean) {
@@ -46,6 +49,7 @@ export function SharePanel({
     const controller = new AbortController();
     pending.current = controller;
     setError("");
+    setCopied("");
     setBusy(true);
     try {
       const created =

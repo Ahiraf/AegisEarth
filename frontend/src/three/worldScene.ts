@@ -23,7 +23,7 @@ export type WorldScene = {
   setSelected(index: number | null): void;
   setPaused(paused: boolean): void;
   setAltitude(km: number): void;
-  setInsets(right: number, bottom: number): void;
+  setInsets(left: number, right: number, bottom: number): void;
 };
 
 /** Educational renderings only. No ephemerides, real-time telemetry or physical radiative model. */
@@ -44,7 +44,7 @@ export function startWorldScene(
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
   renderer.outputEncoding = T.sRGBEncoding;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
+  renderer.toneMappingExposure = kind === "orbits" ? 1.2 : 1.15;
   const canvas = renderer.domElement;
   canvas.setAttribute("aria-hidden", "true");
   host.appendChild(canvas);
@@ -58,6 +58,7 @@ export function startWorldScene(
     selected: number | null = null;
   let width = 1,
     height = 1,
+    insetLeft = 0,
     insetRight = 0,
     insetBottom = 0,
     previous = 0,
@@ -95,6 +96,13 @@ export function startWorldScene(
       : new T.DirectionalLight(0xfff6e8, 2.2);
   if (kind !== "solar") light.position.set(-6, 4, 6);
   scene.add(light);
+  if (kind === "orbits") {
+    // Subtle blue fill reveals model silhouettes on Earth's dark side.
+    // This is visual lighting only, not physical illumination telemetry.
+    const fill = new T.DirectionalLight(0x6baee8, 0.48);
+    fill.position.set(5, -2, -6);
+    scene.add(fill);
+  }
   const sphere = (radius: number, map: string, basic = false) =>
     new T.Mesh(
       new T.SphereGeometry(radius, 64, 40),
@@ -106,6 +114,45 @@ export function startWorldScene(
             metalness: 0,
           }),
     );
+  // A low-cost atmospheric rim shader gives the educational shells real depth
+  // without inventing measurements or needing any new asset/dependency.
+  const lightShell = (
+    radius: number,
+    color: string | number,
+    strength: number,
+  ) => {
+    const material = new T.ShaderMaterial({
+      uniforms: {
+        glowColor: { value: new T.Color(color) },
+        glowStrength: { value: strength },
+      },
+      vertexShader: `
+        varying vec3 surfaceNormal;
+        varying vec3 viewDirection;
+        void main() {
+          vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);
+          surfaceNormal = normalize(normalMatrix * normal);
+          viewDirection = normalize(-viewPosition.xyz);
+          gl_Position = projectionMatrix * viewPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 glowColor;
+        uniform float glowStrength;
+        varying vec3 surfaceNormal;
+        varying vec3 viewDirection;
+        void main() {
+          float rim = pow(1.0 - abs(dot(normalize(surfaceNormal), normalize(viewDirection))), 2.5);
+          gl_FragColor = vec4(glowColor, rim * glowStrength);
+        }
+      `,
+      side: T.BackSide,
+      blending: T.AdditiveBlending,
+      transparent: true,
+      depthWrite: false,
+    });
+    return new T.Mesh(new T.SphereGeometry(radius, 48, 32), material);
+  };
   const globe = (radius: number) => {
     const group = new T.Group();
     const surface = sphere(radius, "2k_earth_daymap.jpg");
@@ -124,6 +171,8 @@ export function startWorldScene(
     );
     clouds.rotation.y = 0.8;
     group.add(clouds);
+    // A second outer rim remains visible when the dark hemisphere faces the viewer.
+    group.add(lightShell(radius * 1.065, 0x67bfff, 0.42));
     // Fresnel-like limb glow: a shader on the back of a slightly expanded sphere.
     group.add(
       new T.Mesh(
@@ -208,6 +257,7 @@ export function startWorldScene(
   };
   let earth: any;
   let altitudeMarker: any;
+  const atmosphereShells: any[] = [];
   const atmosphereRadii = [2.35, 2.55, 2.83, 3.15, 3.65, 4.45];
   const altitudeRadius = (km: number) => {
     const index = layerAtAltitude(km);
@@ -233,6 +283,9 @@ export function startWorldScene(
       }),
     );
     scene.add(glow);
+    // Translucent corona is illustrative lighting, not a solar radiation model.
+    scene.add(lightShell(1.33, 0xffbf64, 0.8));
+    scene.add(lightShell(1.56, 0xff7b34, 0.25));
     const radii = [2.4, 3.7, 5.1, 6.7, 9.3, 12.6, 16.1, 19.5];
     const sizes = [0.2, 0.32, 0.34, 0.27, 0.82, 0.72, 0.49, 0.47];
     const maps = [
@@ -291,14 +344,14 @@ export function startWorldScene(
   } else if (kind === "orbits") {
     earth = globe(1.7);
     scene.add(earth);
-    orbitLine(1.72, "#7fb8c8", scene, 0.3);
+    orbitLine(1.72, "#7fb8c8", scene, 0.2);
     ORBIT_OBJECTS.forEach((object, i) => {
       const plane = new T.Group();
       plane.rotation.y = [0, 1, -0.6, 1.8, 0][i];
       plane.rotation.z = (object.inclinationDeg * Math.PI) / 180;
       scene.add(plane);
       const radius = 2.9 + 1.2 * Math.log(object.placementKm / 420);
-      const orbit = orbitLine(radius, object.color, plane, 0.45);
+      const orbit = orbitLine(radius, object.color, plane, 0.5);
       const anchor = new T.Group(),
         mesh = spacecraft(T, object.id);
       mesh.scale.setScalar(i === 0 ? 0.8 : 0.95);
@@ -319,6 +372,13 @@ export function startWorldScene(
     earth = globe(2.35);
     scene.add(earth);
     const colors = ["#7be0a6", "#4cc3f0", "#7b9cff", "#b194fa", "#efb77d"];
+    // Volumetric-looking, faint spherical rims sit behind the cutaway diagram.
+    // Their radii are the same exaggerated teaching distances used by the rings.
+    atmosphereRadii.slice(1).forEach((radius, index) => {
+      const shell = lightShell(radius, colors[index], index < 2 ? 0.22 : 0.15);
+      atmosphereShells.push(shell);
+      scene.add(shell);
+    });
     for (let i = 0; i < 5; i++) {
       // Open limb cutaway: thickness is exaggerated to make the lower layers discoverable.
       const mesh = new T.Mesh(
@@ -333,7 +393,7 @@ export function startWorldScene(
         new T.MeshBasicMaterial({
           color: colors[i],
           transparent: true,
-          opacity: 0.13,
+          opacity: 0.17,
           side: T.DoubleSide,
           depthWrite: false,
         }),
@@ -347,28 +407,35 @@ export function startWorldScene(
           0.02,
         );
       });
-      scene.add(
-        new T.Line(
-          new T.BufferGeometry().setFromPoints(arcPoints),
-          new T.LineBasicMaterial({
-            color: colors[i],
-            transparent: true,
-            opacity: 0.5,
-          }),
-        ),
+      const layerRim = new T.Line(
+        new T.BufferGeometry().setFromPoints(arcPoints),
+        new T.LineBasicMaterial({
+          color: colors[i],
+          transparent: true,
+          opacity: 0.5,
+        }),
       );
+      scene.add(layerRim);
       const anchor = new T.Object3D();
       const angle = -0.95 + i * 0.43,
         r = (atmosphereRadii[i] + atmosphereRadii[i + 1]) / 2;
       anchor.position.set(Math.cos(angle) * r, Math.sin(angle) * r, 0.05);
       scene.add(anchor);
       addPick(mesh, i);
-      entries.push({ anchor, mesh, radius: 0.1, angle: 0, speed: 0 });
+      entries.push({
+        anchor,
+        mesh,
+        orbit: layerRim,
+        radius: 0.1,
+        angle: 0,
+        speed: 0,
+      });
     }
     altitudeMarker = new T.Mesh(
-      new T.SphereGeometry(0.065, 16, 12),
+      new T.SphereGeometry(0.082, 24, 16),
       new T.MeshBasicMaterial({ color: 0xffffff }),
     );
+    altitudeMarker.add(lightShell(0.14, 0x9ceaff, 0.9));
     altitudeMarker.position.set(altitudeRadius(5), 0, 0.12);
     scene.add(altitudeMarker);
     const markerLine = new T.Line(
@@ -389,7 +456,10 @@ export function startWorldScene(
   }
   const fit = () => {
     const extent = kind === "solar" ? 21.5 : kind === "orbits" ? 9.4 : 5.1;
-    const availableWidth = Math.max(width * 0.35, width - insetRight);
+    const availableWidth = Math.max(
+      width * 0.35,
+      width - insetLeft - insetRight,
+    );
     const availableHeight = Math.max(height * 0.35, height - insetBottom);
     return (
       (extent / Math.tan((camera.fov * Math.PI) / 360)) *
@@ -405,7 +475,7 @@ export function startWorldScene(
     camera.setViewOffset(
       width,
       height,
-      insetRight / 2,
+      (insetRight - insetLeft) / 2,
       insetBottom / 2,
       width,
       height,
@@ -443,8 +513,14 @@ export function startWorldScene(
         entry.orbit.material.opacity =
           selected === i ? 0.85 : selected === null ? 0.35 : 0.15;
       if (kind === "atmosphere")
-        entry.mesh.material.opacity = selected === i ? 0.42 : 0.1;
+        entry.mesh.material.opacity = selected === i ? 0.32 : 0.12;
     });
+    if (kind === "atmosphere") {
+      atmosphereShells.forEach((shell, index) => {
+        shell.material.uniforms.glowStrength.value =
+          selected === index ? 0.39 : index < 2 ? 0.18 : 0.12;
+      });
+    }
     if (earth && !paused)
       earth.rotation.y +=
         dt * (kind === "orbits" ? (-Math.PI * 2) / (23.934 * 12) : 0.025);
@@ -618,10 +694,18 @@ export function startWorldScene(
       dirty = true;
     },
     setAltitude(km) {
-      if (altitudeMarker) altitudeMarker.position.x = altitudeRadius(km);
+      if (altitudeMarker) {
+        altitudeMarker.position.x = altitudeRadius(km);
+        altitudeMarker.material.color.set(
+          ["#7be0a6", "#4cc3f0", "#7b9cff", "#b194fa", "#efb77d"][
+            layerAtAltitude(km)
+          ],
+        );
+      }
       dirty = true;
     },
-    setInsets(right, bottom) {
+    setInsets(left, right, bottom) {
+      insetLeft = left;
       insetRight = right;
       insetBottom = bottom;
       resize();

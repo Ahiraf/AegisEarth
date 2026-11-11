@@ -12,7 +12,7 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "aladin-lite": "3.8.1",
+    "aladin-lite": "^3.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "three": "0.128.0"

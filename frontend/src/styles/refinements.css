@@ -1,0 +1,892 @@
+/* AegisEarth refinements. Existing dark surfaces, palette, visualizations and
+   scientific presentation are intentionally retained. */
+:root {
+  --content-width: 1260px;
+  --radius-panel: 14px;
+}
+body {
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p,
+li {
+  overflow-wrap: break-word;
+}
+.wrap {
+  max-width: var(--content-width);
+}
+.hdr {
+  border-bottom-color: rgba(106, 138, 166, 0.28);
+}
+.hdr .wrap {
+  min-height: 72px;
+}
+.brand {
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}
+.brand b {
+  font-weight: 800;
+}
+.nav-list {
+  gap: 4px;
+}
+.nav-link {
+  font-weight: 650;
+  border: 1px solid transparent;
+}
+.nav-link[aria-current="page"] {
+  border-color: rgba(76, 195, 240, 0.18);
+}
+.nav-link:hover {
+  border-color: var(--border);
+}
+.btn {
+  border-radius: 10px;
+  box-shadow: none;
+  letter-spacing: -0.01em;
+}
+.btn:hover:not(:disabled) {
+  box-shadow: 0 5px 18px rgba(5, 11, 20, 0.3);
+  transform: translateY(-1px);
+}
+.card,
+.panel {
+  border-radius: var(--radius-panel);
+}
+.card {
+  padding: clamp(18px, 2.4vw, 28px);
+}
+.panel {
+  padding: clamp(17px, 2vw, 24px);
+}
+.panel:hover {
+  transform: none;
+}
+.card::before,
+.panel::before,
+.layer::before {
+  opacity: 0 !important;
+}
+.sh h2 {
+  letter-spacing: -0.04em;
+  line-height: 1.17;
+}
+.eyebrow {
+  letter-spacing: 0.11em;
+  font-size: 12px;
+}
+.note,
+.field-hint {
+  font-size: 13px;
+  line-height: 1.65;
+}
+.input {
+  border-radius: 9px;
+}
+:where(button, a, select, input, textarea, summary):focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+.chip {
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.fact-row,
+.value-row {
+  min-width: 0;
+}
+.prose,
+.prose-sm {
+  max-width: 68ch;
+}
+
+/* Guided Explorer: quiet navigation is not another set of dashboard cards. */
+.sky-workspace {
+  padding-bottom: 40px;
+}
+/* Only working search results and prepared movies get navigation actions. */
+.sky-available-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.sky-text-action {
+  border: 0;
+  background: transparent;
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  min-height: 44px;
+  padding: 8px 2px;
+}
+.sky-text-action:hover {
+  color: var(--text);
+}
+.sky-workspace-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 24px;
+}
+.sky-workspace-head p {
+  color: var(--muted);
+  max-width: 64ch;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.sky-workspace-head .btn {
+  flex: none;
+}
+.sky-source-alert {
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  border: 1px solid var(--amber);
+  border-radius: 10px;
+  background: rgba(245, 185, 66, 0.05);
+}
+.sky-source-alert .btn {
+  margin-top: 12px;
+}
+.sky-saved-tools {
+  border-bottom: 1px solid var(--border);
+  margin: 14px 0 26px;
+  padding-bottom: 14px;
+}
+.sky-open-view {
+  margin-top: 0;
+  border-top: 0;
+}
+.sky-open-view[open] {
+  border-top: 1px solid var(--border);
+  margin-top: 16px;
+}
+.sky-open-view .tb {
+  margin-top: 14px;
+}
+.sky-provenance-meta {
+  margin-top: 30px;
+}
+.sky-view-status {
+  border-left: 3px solid var(--cyan);
+}
+.sky-view-status .eyebrow {
+  margin-bottom: 8px;
+}
+.sky-details summary {
+  min-height: 40px;
+  padding: 10px 0;
+}
+.sky-form-grid {
+  align-items: start;
+}
+.sky-form .field {
+  line-height: 1.5;
+}
+.sky-form .input,
+.sky-form select {
+  font-variant-numeric: tabular-nums;
+}
+.sky-facts dd,
+.sky-date,
+.value-row dd {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Smooth page rhythm with no additional decorative color blocks. */
+.page-hero {
+  padding-block: clamp(44px, 6vw, 80px) clamp(22px, 3vw, 44px);
+}
+.page-hero h1 {
+  line-height: 1.15;
+  letter-spacing: -0.048em;
+}
+.blk {
+  padding-top: clamp(44px, 5vw, 72px);
+}
+.pipeline {
+  gap: 14px;
+}
+.pipeline li {
+  padding: 20px;
+}
+.site-footer {
+  margin-top: 70px;
+}
+
+@media (max-width: 1050px) {
+  .hdr .wrap {
+    flex-wrap: wrap;
+    padding-block: 12px;
+    gap: 4px 12px;
+  }
+  .hdr nav {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .nav-list {
+    flex-wrap: nowrap;
+    width: max-content;
+  }
+  .nav-link {
+    white-space: nowrap;
+  }
+}
+@media (max-width: 760px) {
+  .wrap {
+    width: calc(100% - 32px);
+  }
+  .hdr .wrap {
+    min-height: 0;
+    gap: 8px;
+  }
+  .brand {
+    font-size: 19px;
+  }
+  .hdr nav {
+    margin: 0;
+  }
+  .nav-link {
+    font-size: 13px;
+    padding: 0 11px;
+  }
+  .btn {
+    flex: initial;
+  }
+  .sky-workspace-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .sky-available-links {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .sky-available-links .btn {
+    width: auto;
+  }
+  .sh {
+    margin-bottom: 18px;
+  }
+  .card {
+    padding: 18px;
+  }
+  .sky-options-grid {
+    grid-template-columns: 1fr;
+  }
+  .sky-source-list {
+    grid-template-columns: 1fr;
+  }
+  .sky-facts {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    flex-direction: column;
+  }
+  .footer-links {
+    gap: 4px 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sky-text-action {
+    transition: none;
+  }
+}
+
+/* Shared 3D world interface. These rules do not change any scene data, camera
+   physics, object meshes, positions, or scientific calculations. */
+.world-page {
+  background: #030912;
+}
+.world-heading {
+  top: clamp(22px, 3vw, 42px);
+  left: clamp(22px, 3vw, 42px);
+  max-width: min(585px, calc(100% - 78px));
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.68);
+}
+.world-heading h1 {
+  font-weight: 760;
+  font-size: clamp(28px, 2.8vw, 44px);
+  letter-spacing: -0.046em;
+  line-height: 1.13;
+  margin-bottom: 13px;
+}
+.world-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.095em;
+}
+.world-lead {
+  max-width: 51ch;
+  font-size: 15px;
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.world-scene-context {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11px;
+  margin: 0 0 23px;
+}
+.world-scene-context strong {
+  color: #e7edf7;
+  font-size: 11px;
+  font-weight: 700;
+}
+.world-scene-context > span:last-child {
+  color: #b8cadd;
+}
+.world-context-indicator {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+.world-chooser {
+  width: 280px;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.world-chooser select {
+  border-color: var(--strong);
+  background: rgba(9, 21, 34, 0.94);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 38px 12px 14px;
+}
+.world-chooser select:hover {
+  border-color: var(--cyan);
+}
+.world-quick-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  max-width: min(100%, 520px);
+  pointer-events: auto;
+}
+.world-quick-picks button {
+  border: 1px solid rgba(106, 138, 166, 0.5);
+  background: rgba(9, 21, 34, 0.78);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 7px 12px;
+  min-height: 36px;
+  font: 650 12px var(--head);
+  cursor: pointer;
+}
+.world-quick-picks button:hover {
+  border-color: var(--cyan);
+  color: var(--text);
+}
+.world-quick-picks button[aria-pressed="true"] {
+  border-color: var(--cyan);
+  background: rgba(76, 195, 240, 0.17);
+  color: var(--cyan);
+}
+.world-label {
+  font-family: var(--head);
+  font-size: 12px;
+  font-weight: 650;
+  background: rgba(9, 21, 34, 0.9);
+  border-color: rgba(106, 138, 166, 0.44);
+  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.42);
+}
+.world-label:hover,
+.world-label.is-selected {
+  border-color: var(--cyan);
+  box-shadow:
+    0 0 0 2px rgba(76, 195, 240, 0.13),
+    0 5px 24px rgba(0, 0, 0, 0.42);
+}
+.world-detail {
+  width: 372px;
+  border-radius: 16px;
+  border: 1px solid rgba(106, 138, 166, 0.5);
+  background: linear-gradient(
+    155deg,
+    rgba(20, 43, 64, 0.98),
+    rgba(9, 21, 34, 0.98)
+  );
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.6);
+  padding: 28px 26px;
+}
+.world-detail h2 {
+  font: 760 26px/1.22 var(--head);
+  margin: 13px 28px 15px 0;
+}
+.world-detail h3 {
+  font: 750 16px/1.4 var(--head);
+  margin: 25px 0 10px;
+}
+.world-detail p {
+  line-height: 1.7;
+}
+.world-detail .fact-row {
+  line-height: 1.5;
+}
+.world-detail .fact-row dd {
+  overflow-wrap: anywhere;
+}
+.world-detail .world-section-label {
+  letter-spacing: 0.09em;
+}
+.world-detail .world-note {
+  line-height: 1.6;
+}
+.world-action {
+  border-radius: 9px;
+}
+.world-bottom {
+  left: clamp(22px, 3vw, 42px);
+  bottom: 20px;
+}
+.world-bottom > p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.world-bottom > p span {
+  color: var(--quiet);
+  font-size: 11px;
+}
+.world-toolbar {
+  border-color: rgba(106, 138, 166, 0.42);
+  padding: 5px;
+  gap: 3px;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.22);
+}
+.world-toolbar button {
+  border-radius: 8px;
+  min-width: 44px;
+  min-height: 44px;
+}
+.world-bottom .world-credit {
+  font-size: 10px;
+}
+.world-credit a {
+  text-underline-offset: 3px;
+}
+.world-atmosphere .altitude-lab {
+  top: 286px;
+  width: 276px;
+  background: rgba(9, 21, 34, 0.93);
+  border-color: rgba(106, 138, 166, 0.55);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+.altitude-lab-intro h2 {
+  font: 750 15px/1.35 var(--head);
+  color: var(--text);
+  margin-bottom: 5px;
+}
+.altitude-lab-intro p {
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+.altitude-readout label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+.altitude-readout output {
+  font-weight: 600;
+}
+.altitude-current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 750;
+  color: var(--text);
+  margin-top: 6px;
+}
+.altitude-current > span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.altitude-entry input {
+  min-height: 42px;
+  border-color: var(--strong);
+}
+.layer-steps button {
+  min-height: 42px;
+  font-weight: 650;
+}
+.layer-steps button:hover {
+  color: var(--text);
+}
+
+@media (min-width: 761px) and (max-width: 1100px) {
+  .world-heading {
+    left: 20px;
+    top: 20px;
+    max-width: 450px;
+  }
+  .world-heading h1 {
+    font-size: clamp(24px, 2.8vw, 34px);
+  }
+  .world-lead {
+    font-size: 13px;
+  }
+  .world-detail {
+    right: 16px;
+    padding: 22px;
+    width: 310px;
+  }
+  .world-page.has-detail .world-heading {
+    max-width: calc(100% - 355px);
+  }
+  .world-atmosphere .altitude-lab {
+    top: 272px;
+    left: 20px;
+    width: 230px;
+    padding: 14px;
+  }
+  .world-quick-picks {
+    max-width: 380px;
+  }
+}
+@media (max-width: 760px) {
+  .world-heading {
+    top: 14px;
+    left: 16px;
+    max-width: calc(100% - 32px);
+  }
+  .world-heading h1 {
+    font-size: clamp(22px, 6vw, 27px);
+    margin-bottom: 7px;
+  }
+  .world-scene-context {
+    margin: 5px 0 10px;
+    font-size: 10px;
+    gap: 5px;
+  }
+  .world-scene-context strong {
+    font-size: 10px;
+  }
+  .world-chooser {
+    width: min(260px, 100%);
+    font-size: 11px;
+  }
+  .world-chooser select {
+    font-size: 13px;
+    min-height: 44px;
+    padding: 8px 32px 8px 11px;
+  }
+  .world-quick-picks {
+    display: none;
+  }
+  .world-detail {
+    inset: auto 8px 8px;
+    width: auto;
+    max-width: none;
+    max-height: 43%;
+    padding: 20px 18px;
+  }
+  .world-detail h2 {
+    font-size: 22px;
+  }
+  .world-bottom {
+    left: 12px;
+    bottom: 12px;
+    max-width: calc(100% - 24px);
+  }
+  .world-toolbar {
+    max-width: 100%;
+    gap: 1px;
+  }
+  .world-toolbar button {
+    min-width: 39px;
+    min-height: 42px;
+  }
+  .world-bottom .world-credit {
+    font-size: 9px;
+  }
+  .world-atmosphere .altitude-lab {
+    top: auto;
+    bottom: 94px;
+    left: 12px;
+    width: calc(100% - 24px);
+    padding: 10px 12px;
+  }
+  .world-atmosphere.has-detail .altitude-lab {
+    bottom: calc(30% + 94px);
+  }
+  .altitude-lab-intro {
+    grid-column: 1 / -1;
+  }
+  .altitude-lab-intro h2 {
+    font-size: 12px;
+  }
+  .altitude-lab-intro p {
+    margin: 2px 0 3px;
+    font-size: 10px;
+  }
+  .altitude-current {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 10px;
+  }
+  .altitude-readout {
+    grid-column: 1 / -1;
+  }
+  .altitude-readout output {
+    font-size: 22px;
+  }
+  .altitude-entry input {
+    min-height: 38px;
+  }
+}
+@media (max-height: 700px) and (min-width: 761px) {
+  .world-atmosphere .altitude-lab {
+    max-height: calc(100% - 315px);
+    overflow-y: auto;
+    top: 280px;
+  }
+}
+
+/* Learn: the chapter index is a navigation aid, not decorative cards. */
+.guide-navigation {
+  margin: 28px 0 0;
+  max-width: 1110px;
+}
+.guide-navigation-label {
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  color: var(--quiet);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.guide-navigation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--border);
+}
+.guide-navigation-grid button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  background: #112336;
+  border: none;
+  color: var(--text);
+  min-height: 58px;
+  padding: 12px 14px;
+  font: 650 13px/1.4 var(--head);
+  cursor: pointer;
+}
+.guide-navigation-grid button:hover {
+  background: var(--raised);
+  color: var(--cyan);
+}
+.guide-navigation-grid button span {
+  color: var(--cyan);
+  font: 600 11px var(--mono);
+  flex: none;
+}
+.guide .blk:first-child {
+  padding-top: 28px;
+}
+.guide .sh h2 {
+  max-width: 31ch;
+}
+.guide .defs > div {
+  padding-block: 20px;
+}
+.guide .defs dt {
+  color: var(--text);
+}
+.guide .defs dd {
+  max-width: 75ch;
+}
+.guide-detail {
+  border-color: var(--border);
+}
+.guide-detail[open] {
+  border-color: var(--strong);
+}
+.guide-example {
+  background: rgba(17, 35, 54, 0.88);
+}
+.guide .prose + .prose {
+  margin-top: 12px;
+}
+
+/* About / source directory: distinguish project explanation from citations. */
+.about-navigation {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 30px 0 2px;
+}
+.about-navigation button {
+  color: var(--text);
+  background: rgba(17, 35, 54, 0.72);
+  border: 1px solid var(--strong);
+  border-radius: 999px;
+  font: 700 13px var(--head);
+  padding: 10px 17px;
+  min-height: 44px;
+  cursor: pointer;
+}
+.about-navigation button:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: var(--raised);
+}
+.about-content > .blk:first-child {
+  padding-top: 24px;
+}
+.sources-grid {
+  gap: 18px;
+  align-items: start;
+}
+.source-panel {
+  min-width: 0;
+}
+.source-panel h3 {
+  font-size: clamp(17px, 1.8vw, 21px);
+  line-height: 1.35;
+}
+.source-panel .srclinks {
+  gap: 10px;
+  padding-block: 4px;
+}
+.source-panel .srclinks li {
+  line-height: 1.5;
+}
+.source-panel .srclinks-title {
+  font: 750 13px/1.5 var(--head);
+  color: var(--text);
+  margin-top: 22px;
+  margin-bottom: 7px;
+}
+.source-panel .srclinks-title:first-of-type {
+  margin-top: 18px;
+}
+.about-method-detail {
+  max-width: 70ch;
+}
+.about-content .pipeline h3 {
+  font-weight: 760;
+}
+.about-content .limits {
+  border-width: 1px;
+  border-left-width: 4px;
+  padding: clamp(20px, 3vw, 32px);
+}
+.about-content .limits li {
+  font-size: 15px;
+}
+
+@media (max-width: 1000px) {
+  .guide-navigation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .guide-navigation {
+    margin-top: 22px;
+  }
+  .guide-navigation-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .guide-navigation-grid button {
+    min-height: 60px;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .guide-navigation-grid button span {
+    font-size: 10px;
+  }
+  .about-navigation {
+    gap: 6px;
+    margin-top: 22px;
+  }
+  .about-navigation button {
+    flex: 1 1 auto;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .source-panel {
+    padding: 18px;
+  }
+}
+@media (max-width: 410px) {
+  .guide-navigation-grid {
+    grid-template-columns: 1fr;
+  }
+  .guide-navigation-grid button {
+    min-height: 45px;
+  }
+}
+
+/* Explorer hero remains the original dark 3D Earth experience, with less dead travel. */
+@media (min-width: 761px) {
+  .hero {
+    min-height: min(700px, calc(100svh - 84px));
+  }
+  .hero-in {
+    padding-block: 76px;
+  }
+  .hero .lead {
+    margin-top: 19px;
+    max-width: 54ch;
+  }
+}
+.world-quick-picks {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
+
+/* Disabled 3D tools never imply a working action when WebGL is unavailable. */
+.world-toolbar button:disabled,
+.world-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.world-toolbar button:disabled:hover,
+.world-action:disabled:hover {
+  transform: none;
+}
+/* Keep archive data tables navigable on narrow screens. */
+.sky-workspace .tw {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+@media (max-width: 760px) {
+  .sky-available-links {
+    gap: 6px 14px;
+  }
+  .sky-workspace-head {
+    margin-top: 22px;
+  }
+}

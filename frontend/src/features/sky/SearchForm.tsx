@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { Reveal } from "../../components/Reveal";
 import { SectionHeader } from "../../components/SectionHeader";
 import type { References, Target, ViewRequest } from "./types";
@@ -34,6 +34,8 @@ interface Props {
   onChange: (value: ViewRequest) => void;
   references?: References;
   busy: boolean;
+  discovering: boolean;
+  sharing: boolean;
   onPrepare: (value: ViewRequest) => void;
   onDiscover: (value: ViewRequest) => void;
   onShare: (value: ViewRequest) => void;
@@ -43,12 +45,20 @@ export function SearchForm({
   onChange,
   references,
   busy,
+  discovering,
+  sharing,
   onPrepare,
   onDiscover,
   onShare,
 }: Props) {
   const [error, setError] = useState("");
   const [preset, setPreset] = useState<Target | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  // Keep the error message with the form, and clear stale validation on edits.
+  const update = (next: ViewRequest) => {
+    setError("");
+    onChange(next);
+  };
   const limits = references?.capabilities.view_limits as
     | { total_bytes?: number; wall_seconds?: number }
     | undefined;
@@ -57,16 +67,57 @@ export function SearchForm({
   const setRegion = (
     field: keyof ViewRequest["region"],
     next: string | number,
-  ) => onChange({ ...value, region: { ...value.region, [field]: next } });
+  ) => {
+    setPreset(null);
+    update({ ...value, region: { ...value.region, [field]: next } });
+  };
   const setPrep = (next: Partial<ViewRequest["preparation"]>) =>
-    onChange({
+    update({
       ...value,
       detectors: [],
       preparation: { ...value.preparation, ...next },
     });
   function validate(): boolean {
-    if (!String(value.region.ra).trim() || !String(value.region.dec).trim()) {
+    const form = formRef.current;
+    const invalid = form?.querySelector<HTMLInputElement | HTMLSelectElement>(
+      ":invalid",
+    );
+    if (invalid) {
+      // Reveal a collapsed advanced field before browser validation targets it.
+      const details = invalid.closest("details");
+      if (details) details.open = true;
+      invalid.reportValidity();
+      return false;
+    }
+    const ra = String(value.region.ra).trim();
+    const dec = String(value.region.dec).trim();
+    // Match the existing backend's accepted coordinate notation without
+    // duplicating its Astropy coordinate conversion in JavaScript.
+    const isCoordinate = (text: string) =>
+      text.length <= 64 &&
+      /\d/.test(text) &&
+      /^[0-9+.:\- dhmsDHMS]+$/.test(text);
+    if (!ra || !dec) {
       setError("Enter right ascension and declination.");
+      return false;
+    }
+    if (!isCoordinate(ra) || !isCoordinate(dec)) {
+      setError(
+        "Use decimal degrees or sexagesimal coordinates, such as 08:55:10.831 or 08h55m10.831s.",
+      );
+      return false;
+    }
+    // The backend intentionally wraps numeric right ascension modulo 360.
+    // Reject only values beyond its safety limit, not valid wrapped angles.
+    if (Number.isFinite(Number(ra)) && Math.abs(Number(ra)) > 1e6) {
+      setError("Right ascension is outside the supported range.");
+      return false;
+    }
+    if (
+      Number.isFinite(Number(dec)) &&
+      (Number(dec) < -90 || Number(dec) > 90)
+    ) {
+      setError("Declination must be between −90 and 90 degrees.");
       return false;
     }
     if (Boolean(value.start_at) !== Boolean(value.end_at)) {
@@ -80,6 +131,27 @@ export function SearchForm({
         Date.parse(value.end_at) - Date.parse(value.start_at) > 730 * 86400000)
     ) {
       setError("Choose an ordered observation window of at most 730 days.");
+      return false;
+    }
+    if (
+      !Number.isFinite(value.region.width_arcmin) ||
+      !Number.isFinite(value.region.height_arcmin) ||
+      value.region.width_arcmin < 1 ||
+      value.region.width_arcmin > 30 ||
+      value.region.height_arcmin < 1 ||
+      value.region.height_arcmin > 30
+    ) {
+      setError(
+        "Field width and height must each be between 1 and 30 arcminutes.",
+      );
+      return false;
+    }
+    if (
+      !Number.isFinite(value.preparation.temporal_bin_seconds ?? 0) ||
+      (value.preparation.temporal_bin_seconds ?? 0) < 0 ||
+      (value.preparation.temporal_bin_seconds ?? 0) > 300
+    ) {
+      setError("Averaging time must be from 0 to 300 seconds.");
       return false;
     }
     if (!value.collections.length) {
@@ -99,16 +171,16 @@ export function SearchForm({
     setError("");
     return true;
   }
-  function prepare(event: FormEvent) {
+  function search(event: FormEvent) {
     event.preventDefault();
-    if (validate()) onPrepare(value);
+    if (validate()) onDiscover(value);
   }
   function target(target: Target) {
     setPreset(target);
     const mover =
       Math.abs(target.pm_ra_cosdec_mas_yr || 0) > 1000 ||
       Math.abs(target.pm_dec_mas_yr || 0) > 1000;
-    onChange({
+    update({
       ...value,
       region: {
         ra: target.ra_deg,
@@ -122,18 +194,64 @@ export function SearchForm({
   return (
     <Reveal id="find">
       <SectionHeader
-        eyebrow="01 / Select a region"
-        title="Find observations"
-        chip={<span className="chip chip-info">LIVE SPHEREx DATA</span>}
-        lead="Choose a patch of sky, then prepare its chronological images. Observation dates are in UTC."
+        eyebrow="01 / CHOOSE A SKY POSITION"
+        title="Find your place in the sky"
+        lead="Select a suggested target or enter coordinates. Search for existing observations, or prepare a movie directly from matching images."
       />
-      <div className="card">
+      <div className="card explorer-search-card">
         <form
           className="sky-form"
-          onSubmit={prepare}
-          aria-label="Prepare sky view"
+          ref={formRef}
+          onSubmit={search}
+          aria-label="Explore sky observations"
         >
-          <div className="sky-form-grid">
+          <div className="explorer-form-heading">
+            <div>
+              <p className="explorer-form-kicker">COORDINATES & FIELD SIZE</p>
+              <h3>Set the field to explore</h3>
+              <p>
+                A right ascension and declination point to a sky position; the
+                field size determines how much sky to inspect.
+              </p>
+            </div>
+          </div>
+          <div className="examples explorer-preset-bar">
+            <span className="explorer-preset-label">QUICK TARGETS</span>
+            <div className="pills">
+              {references?.targets.map((t) => (
+                <button
+                  key={t.slug}
+                  type="button"
+                  className="pill"
+                  onClick={() => target(t)}
+                  aria-pressed={preset?.slug === t.slug}
+                >
+                  {t.name}
+                </button>
+              ))}
+              <button
+                type="button"
+                className="pill"
+                onClick={() => {
+                  setPreset(null);
+                  update({ ...value, region: { ...DEFAULT_REQUEST.region } });
+                }}
+              >
+                Pinwheel Galaxy (M101)
+              </button>
+            </div>
+            {preset ? (
+              <p className="note explorer-preset-note" role="status">
+                {preset.name}: catalog position at epoch{" "}
+                {preset.reference_epoch_jyear ?? "unknown"}.{" "}
+                {Math.abs(preset.pm_ra_cosdec_mas_yr || 0) > 1000
+                  ? "A wider field is selected to allow for motion. "
+                  : ""}
+                {preset.caveats?.join(" ")}
+              </p>
+            ) : null}
+          </div>
+          <div className="sky-form-grid explorer-form-grid">
             <label className="field" htmlFor="search-ra">
               Right ascension{" "}
               <input
@@ -146,7 +264,7 @@ export function SearchForm({
                 spellCheck={false}
               />
               <span className="field-hint">
-                Decimal degrees or 08:55:10.831
+                Degrees, or hours:minutes:seconds (08:55:10.831)
               </span>
             </label>
             <label className="field" htmlFor="search-dec">
@@ -160,7 +278,9 @@ export function SearchForm({
                 autoComplete="off"
                 spellCheck={false}
               />
-              <span className="field-hint">Degrees, −90 to +90</span>
+              <span className="field-hint">
+                Degrees or −07:14:42.53 (−90 to +90)
+              </span>
             </label>
             <label className="field">
               Field width (arcmin)
@@ -170,11 +290,18 @@ export function SearchForm({
                 type="number"
                 min="1"
                 max="30"
-                step="0.1"
+                step="any"
                 required
-                value={value.region.width_arcmin}
+                value={
+                  Number.isFinite(value.region.width_arcmin)
+                    ? value.region.width_arcmin
+                    : ""
+                }
                 onChange={(e) =>
-                  setRegion("width_arcmin", e.target.valueAsNumber)
+                  setRegion(
+                    "width_arcmin",
+                    e.target.value === "" ? Number.NaN : e.target.valueAsNumber,
+                  )
                 }
               />
               <span className="field-hint">
@@ -188,14 +315,29 @@ export function SearchForm({
                 type="number"
                 min="1"
                 max="30"
-                step="0.1"
+                step="any"
                 required
-                value={value.region.height_arcmin}
+                value={
+                  Number.isFinite(value.region.height_arcmin)
+                    ? value.region.height_arcmin
+                    : ""
+                }
                 onChange={(e) =>
-                  setRegion("height_arcmin", e.target.valueAsNumber)
+                  setRegion(
+                    "height_arcmin",
+                    e.target.value === "" ? Number.NaN : e.target.valueAsNumber,
+                  )
                 }
               />
             </label>
+            <div className="explorer-grid-subheading">
+              <p className="explorer-form-kicker">OBSERVATION SETTINGS</p>
+              <h3>Refine your search</h3>
+              <p>
+                Dates are optional and use UTC. Choose the image sampling and
+                wavelengths you need.
+              </p>
+            </div>
             <label className="field">
               Observation start
               <input
@@ -203,7 +345,7 @@ export function SearchForm({
                 type="date"
                 value={value.start_at?.slice(0, 10) || ""}
                 onChange={(e) =>
-                  onChange({
+                  update({
                     ...value,
                     start_at: e.target.value
                       ? e.target.value + "T00:00:00Z"
@@ -222,7 +364,7 @@ export function SearchForm({
                 type="date"
                 value={value.end_at?.slice(0, 10) || ""}
                 onChange={(e) =>
-                  onChange({
+                  update({
                     ...value,
                     end_at: e.target.value
                       ? e.target.value + "T23:59:59Z"
@@ -258,7 +400,7 @@ export function SearchForm({
                 className="input"
                 value={value.max_frames}
                 onChange={(e) =>
-                  onChange({ ...value, max_frames: Number(e.target.value) })
+                  update({ ...value, max_frames: Number(e.target.value) })
                 }
               >
                 {[1, 2, 3, 6, 9, 12].map((n) => (
@@ -317,8 +459,10 @@ export function SearchForm({
               </label>
             ) : null}
           </div>
-          <details className="sky-details">
-            <summary>Release, display and averaging options</summary>
+          <details className="sky-details explorer-advanced-options">
+            <summary>
+              Advanced settings · releases, display and averaging
+            </summary>
             <div className="sky-options-grid">
               <fieldset className="sky-fieldset">
                 <legend>Data releases</legend>
@@ -328,7 +472,7 @@ export function SearchForm({
                       type="checkbox"
                       checked={value.collections.includes(key)}
                       onChange={(e) =>
-                        onChange({
+                        update({
                           ...value,
                           collections: e.target.checked
                             ? [...value.collections, key]
@@ -366,9 +510,18 @@ export function SearchForm({
                   type="number"
                   min="0"
                   max="300"
-                  value={value.preparation.temporal_bin_seconds || 0}
+                  value={
+                    Number.isFinite(value.preparation.temporal_bin_seconds ?? 0)
+                      ? (value.preparation.temporal_bin_seconds ?? 0)
+                      : ""
+                  }
                   onChange={(e) =>
-                    setPrep({ temporal_bin_seconds: e.target.valueAsNumber })
+                    setPrep({
+                      temporal_bin_seconds:
+                        e.target.value === ""
+                          ? Number.NaN
+                          : e.target.valueAsNumber,
+                    })
                   }
                 />
                 <span className="field-hint">
@@ -401,10 +554,10 @@ export function SearchForm({
                   type="number"
                   min="0.7"
                   max="5.5"
-                  step="0.001"
+                  step="any"
                   value={value.wavelength_min_um ?? ""}
                   onChange={(e) =>
-                    onChange({
+                    update({
                       ...value,
                       wavelength_min_um: e.target.value
                         ? e.target.valueAsNumber
@@ -420,10 +573,10 @@ export function SearchForm({
                   type="number"
                   min="0.7"
                   max="5.5"
-                  step="0.001"
+                  step="any"
                   value={value.wavelength_max_um ?? ""}
                   onChange={(e) =>
-                    onChange({
+                    update({
                       ...value,
                       wavelength_max_um: e.target.value
                         ? e.target.valueAsNumber
@@ -439,77 +592,63 @@ export function SearchForm({
               {error}
             </p>
           ) : null}
-          {gridWidth > 0 && gridHeight > 0 && (
-            <p className="note">
-              Processing estimate for up to {value.max_frames} inputs with a{" "}
-              {gridWidth} × {gridHeight} pixel comparison grid per input. Larger
-              fields can take longer and require more data. Actual transfer
-              depends on archive coverage.
-              {limits?.total_bytes && limits.wall_seconds
-                ? ` This service caps each job at ${Math.floor(limits.total_bytes / 1048576)} MiB of input data and ${limits.wall_seconds} seconds of processing.`
-                : ""}
-            </p>
-          )}
-          <div className="tb sky-submit">
-            <button className="btn btn-p" type="submit" disabled={busy}>
-              {busy ? "Submitting…" : "Prepare sky movie"}
+          <details className="sky-details explorer-processing-estimate">
+            <summary>Processing estimate and limits</summary>
+            {Number.isFinite(gridWidth) &&
+              Number.isFinite(gridHeight) &&
+              gridWidth > 0 &&
+              gridHeight > 0 && (
+                <p className="note">
+                  Processing estimate for up to {value.max_frames} inputs with a{" "}
+                  {gridWidth} × {gridHeight} pixel comparison grid per input.
+                  Larger fields can take longer and require more data. Actual
+                  transfer depends on archive coverage.
+                  {limits?.total_bytes && limits.wall_seconds
+                    ? ` This service caps each job at ${Math.floor(limits.total_bytes / 1048576)} MiB of input data and ${limits.wall_seconds} seconds of processing.`
+                    : ""}
+                </p>
+              )}
+          </details>
+          <div className="explorer-action-heading">
+            <div>
+              <p className="explorer-form-kicker">START EXPLORING</p>
+              <h3>Find observations or build a movie</h3>
+              <p>
+                Review matching archive records first, or go directly to
+                preparing a movie for this field.
+              </p>
+            </div>
+          </div>
+          <div className="tb sky-submit explorer-actions">
+            <button
+              className="btn btn-p"
+              type="submit"
+              disabled={busy || discovering}
+            >
+              {discovering ? "Finding records…" : "Find observation records"}
             </button>
             <button
               className="btn btn-s"
               type="button"
               disabled={busy}
               onClick={() => {
-                if (validate()) onDiscover(value);
+                if (validate()) onPrepare(value);
               }}
             >
-              Find observation records
+              {busy ? "Submitting…" : "Prepare sky movie"}
             </button>
             <button
               className="btn btn-s"
               type="button"
+              disabled={sharing}
               onClick={() => {
                 if (validate()) onShare(value);
               }}
             >
-              Share these coordinates
+              {sharing ? "Creating share link…" : "Share these coordinates"}
             </button>
           </div>
         </form>
-        <div className="examples">
-          <span>Challenge targets:</span>
-          <div className="pills">
-            {references?.targets.map((t) => (
-              <button
-                key={t.slug}
-                type="button"
-                className="pill"
-                onClick={() => target(t)}
-              >
-                {t.name}
-              </button>
-            ))}
-            <button
-              type="button"
-              className="pill"
-              onClick={() => {
-                setPreset(null);
-                onChange({ ...value, region: { ...DEFAULT_REQUEST.region } });
-              }}
-            >
-              Pinwheel Galaxy (M101)
-            </button>
-          </div>
-        </div>
-        {preset ? (
-          <p className="note" role="status">
-            {preset.name}: catalog position at epoch{" "}
-            {preset.reference_epoch_jyear ?? "unknown"}.{" "}
-            {Math.abs(preset.pm_ra_cosdec_mas_yr || 0) > 1000
-              ? "A wider field is selected to allow for motion. "
-              : ""}
-            {preset.caveats?.join(" ")}
-          </p>
-        ) : null}
       </div>
     </Reveal>
   );

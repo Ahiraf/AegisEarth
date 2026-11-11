@@ -1,0 +1,98 @@
+/* Orbits-specific accents on top of the shared World Experience layout.
+   Spacecraft facts and reference paths are unchanged. */
+.world-orbits {
+  --world-accent: #4cc3f0;
+}
+.world-orbits .orbit-index-item {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+  border: 1px solid transparent;
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  padding: 10px 11px;
+  min-height: 61px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  width: 100%;
+  font-family: var(--head);
+}
+.world-orbits .orbit-index-item:hover,
+.world-orbits .orbit-index-item:focus-visible {
+  background: rgba(44, 79, 105, 0.44);
+  border-color: rgba(106, 138, 166, 0.45);
+}
+.world-orbits .orbit-index-item[aria-pressed="true"] {
+  border-left-color: var(--mission-accent);
+  background: rgba(42, 77, 105, 0.5);
+  border-top-color: rgba(106, 138, 166, 0.24);
+  border-right-color: rgba(106, 138, 166, 0.24);
+  border-bottom-color: rgba(106, 138, 166, 0.24);
+}
+.orbit-index-item + .orbit-index-item {
+  margin-top: 3px;
+}
+.orbit-index-number {
+  font: 700 12px/1.4 var(--mono);
+  color: var(--mission-accent);
+}
+.orbit-index-title strong {
+  font: 760 14px/1.4 var(--head);
+  display: block;
+  letter-spacing: -0.015em;
+}
+.orbit-index-title small {
+  display: block;
+  color: var(--muted);
+  font: 550 11px/1.4 var(--head);
+  margin-top: 3px;
+}
+.orbit-index-arrow {
+  color: var(--quiet);
+  font-size: 18px;
+}
+.orbit-index-item[aria-pressed="true"] .orbit-index-arrow {
+  color: var(--mission-accent);
+}
+.world-orbits .orbit-detail-category {
+  margin-top: -5px;
+  margin-bottom: 14px;
+  font: 700 12px/1.5 var(--head);
+  color: var(--profile-accent, var(--cyan));
+}
+.orbit-explanation {
+  border-left: 2px solid var(--profile-accent, var(--cyan));
+  padding: 2px 0 2px 15px;
+  margin: 22px 0;
+}
+.orbit-explanation h3 {
+  margin: 0 0 6px !important;
+}
+.orbit-explanation p {
+  margin: 0;
+}
+@media (max-width: 760px) {
+  .world-orbits .orbit-index-item,
+  .world-orbits .orbit-index-item + .orbit-index-item {
+    flex: 0 0 132px;
+    grid-template-columns: 19px minmax(0, 1fr);
+    min-height: 56px;
+    margin: 0;
+    padding: 8px;
+  }
+  .world-orbits .orbit-index-title strong {
+    font-size: 12px;
+  }
+  .world-orbits .orbit-index-title small {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .orbit-index-arrow {
+    display: none;
+  }
+}

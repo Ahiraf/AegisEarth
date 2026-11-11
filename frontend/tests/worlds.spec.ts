@@ -15,7 +15,9 @@ test("solar model supports mesh picking, close-up texture maps, and independent 
     "data-scene-status",
     "ready",
   );
-  await expect(page.getByTestId("object-details")).toHaveCount(0);
+  await expect(page.getByTestId("object-details")).toBeVisible();
+  await expect(page.locator("#object-title")).toHaveText("Earth");
+  await expect(page.locator(".planet-highlight-moons strong")).toHaveText("1");
   const label = page.getByRole("button", {
     name: "Inspect Jupiter",
     exact: true,
@@ -28,6 +30,9 @@ test("solar model supports mesh picking, close-up texture maps, and independent 
   const stage = await page.locator(".world-viewport").boundingBox();
   await page.mouse.click(stage!.x + point.x, stage!.y + point.y);
   await expect(page.locator("#object-title")).toHaveText("Jupiter");
+  await expect(page.locator(".planet-highlight-moons strong")).toHaveText(
+    "115",
+  );
   await page.getByRole("button", { name: "Take a closer look" }).click();
   await expect(page.locator(".world-render canvas")).toHaveAttribute(
     "data-focused",
@@ -66,6 +71,9 @@ test("solar model supports mesh picking, close-up texture maps, and independent 
     ).toHaveCount(4);
   }
   await page.getByLabel("Explore an object").selectOption({ label: "Saturn" });
+  await expect(page.locator(".planet-highlight-moons strong")).toHaveText(
+    "293",
+  );
   await expect(page.locator(".world-render canvas")).toHaveAttribute(
     "data-selected",
     "5",

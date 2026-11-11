@@ -1,6 +1,7 @@
 import type { MouseEvent, ReactNode } from "react";
 import { prefersReducedMotion } from "../hooks/useReducedMotion";
 import { ScrollProgress } from "./ScrollProgress";
+import "../styles/brand-polish.css";
 
 export type NavId =
   | "explorer"
@@ -21,41 +22,6 @@ const NAV: NavItem[] = [
   { id: "learn", label: "Learn", href: "#/learn" },
   { id: "about", label: "About & Sources", href: "#/about" },
 ];
-
-function LogoMark() {
-  return (
-    <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-      <circle
-        cx="32"
-        cy="32"
-        r="27"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3"
-      />
-      <g transform="rotate(-30 32 32)">
-        <ellipse
-          cx="32"
-          cy="32"
-          rx="21"
-          ry="9"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="3"
-        />
-        <circle cx="13.8" cy="36.5" r="4.5" fill="currentColor" />
-        <circle
-          className="logo-hollow"
-          cx="50.2"
-          cy="27.5"
-          r="4.5"
-          stroke="currentColor"
-          strokeWidth="3"
-        />
-      </g>
-    </svg>
-  );
-}
 
 type LayoutProps = {
   current: NavId;
@@ -96,8 +62,14 @@ export function Layout({ current, children }: LayoutProps) {
             aria-label="AegisEarth home"
             onClick={goHome}
           >
-            <LogoMark />
-            <span>
+            <img
+              className="brand-symbol"
+              src="/favicon.svg"
+              alt=""
+              width="40"
+              height="40"
+            />
+            <span className="brand-wordmark">
               Aegis<b>Earth</b>
             </span>
           </a>

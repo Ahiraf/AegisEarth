@@ -1,14 +1,14 @@
-import { formatWavelengthRange, observationName } from '../../lib/format';
-import type { DataMode, Observation } from '../../types/observation';
-import type { SearchUi, Selection, Slot } from '../../types/ui';
-import { Badge } from '../Badge';
-import { ModeChip } from '../ModeChip';
-import { Notice } from '../Notice';
-import { Reveal } from '../Reveal';
-import { SectionHeader } from '../SectionHeader';
-import { SourceLink } from '../SourceLink';
-import { StateMessage } from '../StateMessage';
-import { Unavailable } from '../Value';
+import { formatWavelengthRange, observationName } from "../../lib/format";
+import type { DataMode, Observation } from "../../types/observation";
+import type { SearchUi, Selection, Slot } from "../../types/ui";
+import { Badge } from "../Badge";
+import { ModeChip } from "../ModeChip";
+import { Notice } from "../Notice";
+import { Reveal } from "../Reveal";
+import { SectionHeader } from "../SectionHeader";
+import { SourceLink } from "../SourceLink";
+import { StateMessage } from "../StateMessage";
+import { Unavailable } from "../Value";
 
 type ResultsSectionProps = {
   ui: SearchUi;
@@ -20,7 +20,7 @@ type ResultsSectionProps = {
 };
 
 function SourceBadge({ observation }: { observation: Observation }) {
-  return observation.origin === 'saved-snapshot' ? (
+  return observation.origin === "saved-snapshot" ? (
     <Badge variant="snapshot">IRSA archive</Badge>
   ) : (
     <Badge variant="status">Live record</Badge>
@@ -28,41 +28,53 @@ function SourceBadge({ observation }: { observation: Observation }) {
 }
 
 function announcement(ui: SearchUi): string {
-  if (ui.phase === 'loading') return 'Searching for observations.';
-  if (ui.phase === 'idle') return '';
+  if (ui.phase === "loading") return "Searching for observations.";
+  if (ui.phase === "idle") return "";
   const result = ui.result;
-  if (result.status === 'ok') {
+  if (result.status === "ok") {
     const n = result.observations.length;
-    return n === 0 ? 'No observations match this search.' : `${n} observation${n === 1 ? '' : 's'} found.`;
+    return n === 0
+      ? "No observations match this search."
+      : `${n} observation${n === 1 ? "" : "s"} found.`;
   }
-  if (result.status === 'not-configured') return 'The data source is not set up.';
-  return 'The search failed.';
+  if (result.status === "not-configured")
+    return "The data source is not set up.";
+  return "The search failed.";
 }
 
-export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseExample }: ResultsSectionProps) {
-  const result = ui.phase === 'done' ? ui.result : null;
-  const observations = result?.status === 'ok' ? result.observations : [];
+export function ResultsSection({
+  ui,
+  mode,
+  selection,
+  onAssign,
+  onRetry,
+  onUseExample,
+}: ResultsSectionProps) {
+  const result = ui.phase === "done" ? ui.result : null;
+  const observations = result?.status === "ok" ? result.observations : [];
 
   let body;
-  if (ui.phase === 'idle') {
+  if (ui.phase === "idle") {
     body = (
       <StateMessage kind="empty" title="Ready to search">
-        <p>Enter a sky position and a date range, then choose Find observations.</p>
+        <p>
+          Enter a sky position and a date range, then choose Find observations.
+        </p>
       </StateMessage>
     );
-  } else if (ui.phase === 'loading') {
+  } else if (ui.phase === "loading") {
     body = (
       <StateMessage kind="loading" title="Searching">
         <p>Looking for matching observations.</p>
       </StateMessage>
     );
-  } else if (result?.status === 'not-configured') {
+  } else if (result?.status === "not-configured") {
     body = (
       <Notice tone="info" title="Data source not set up">
         <p>{result.message}</p>
       </Notice>
     );
-  } else if (result?.status === 'error') {
+  } else if (result?.status === "error") {
     body = (
       <StateMessage kind="error" title="The search could not be completed">
         <p>{result.message}</p>
@@ -75,10 +87,15 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
     body = (
       <StateMessage kind="empty" title="No saved records match">
         <p>
-          No saved SPHEREx records cover this position in this date range. Try the Pinwheel Galaxy (M101) or widen the
-          dates, or search the full archive at IRSA.
+          No saved SPHEREx records cover this position in this date range. Try
+          the Pinwheel Galaxy (M101) or widen the dates, or search the full
+          archive at IRSA.
         </p>
-        <button type="button" className="btn btn-s btn-sm" onClick={onUseExample}>
+        <button
+          type="button"
+          className="btn btn-s btn-sm"
+          onClick={onUseExample}
+        >
           Search the Pinwheel Galaxy (M101)
         </button>
       </StateMessage>
@@ -86,10 +103,16 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
   } else {
     body = (
       <>
-        <div className="tw" role="region" aria-label="Observation records (scrolls sideways on small screens)" tabIndex={0}>
+        <div
+          className="tw"
+          role="region"
+          aria-label="Observation records (scrolls sideways on small screens)"
+          tabIndex={0}
+        >
           <table>
             <caption className="sr-only">
-              Observation records. Choose one record as A and one as B to compare them below.
+              Observation records. Choose one record as A and one as B to
+              compare them below.
             </caption>
             <thead>
               <tr>
@@ -108,7 +131,10 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
                 return (
                   <tr
                     key={o.id}
-                    className={`${selection.a === o.id ? 'sel-a' : ''} ${selection.b === o.id ? 'sel-b' : ''}`.trim() || undefined}
+                    className={
+                      `${selection.a === o.id ? "sel-a" : ""} ${selection.b === o.id ? "sel-b" : ""}`.trim() ||
+                      undefined
+                    }
                   >
                     <td>
                       <div className="pick">
@@ -117,7 +143,7 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
                             type="radio"
                             name="slot-a"
                             checked={selection.a === o.id}
-                            onChange={() => onAssign('a', o.id)}
+                            onChange={() => onAssign("a", o.id)}
                             aria-label={`Use ${name} as observation A`}
                           />
                           <span aria-hidden="true">A</span>
@@ -127,7 +153,7 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
                             type="radio"
                             name="slot-b"
                             checked={selection.b === o.id}
-                            onChange={() => onAssign('b', o.id)}
+                            onChange={() => onAssign("b", o.id)}
                             aria-label={`Use ${name} as observation B`}
                           />
                           <span aria-hidden="true">B</span>
@@ -136,22 +162,37 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
                     </td>
                     <td className="nowrap">
                       <strong className="mono">{name}</strong>
-                      <span className="sub">{o.detector !== null ? `Detector ${o.detector}` : 'Detector not available'}</span>
+                      <span className="sub">
+                        {o.detector !== null
+                          ? `Detector ${o.detector}`
+                          : "Detector not available"}
+                      </span>
                     </td>
-                    <td className="nowrap">{o.planningPeriod ?? <Unavailable />}</td>
+                    <td className="nowrap">
+                      {o.planningPeriod ?? <Unavailable />}
+                    </td>
                     <td className="nowrap">
                       {o.bandLabel ?? <Unavailable />}
-                      <span className="sub">{range ?? 'Range not available'}</span>
+                      <span className="sub">
+                        {range ?? "Range not available"}
+                      </span>
                     </td>
                     <td className="nowrap">
                       {o.processedOn ?? <Unavailable />}
-                      <span className="sub">{o.provenance.processingRelease ?? 'Version not available'}</span>
+                      <span className="sub">
+                        {o.provenance.processingRelease ??
+                          "Version not available"}
+                      </span>
                     </td>
                     <td>
                       <SourceBadge observation={o} />
                       {o.provenance.sourceRecordUrl ? (
                         <span className="sub">
-                          <SourceLink href={o.provenance.sourceRecordUrl} label="Open product" context={name} />
+                          <SourceLink
+                            href={o.provenance.sourceRecordUrl}
+                            label="Open product"
+                            context={name}
+                          />
                         </span>
                       ) : null}
                     </td>
@@ -161,13 +202,16 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
             </tbody>
           </table>
         </div>
-        {result?.status === 'ok' && result.note ? (
+        {result?.status === "ok" && result.note ? (
           <p className="note">
             {result.note}
             {result.noteLink ? (
               <>
-                {' '}
-                <SourceLink href={result.noteLink.url} label={result.noteLink.label} />
+                {" "}
+                <SourceLink
+                  href={result.noteLink.url}
+                  label={result.noteLink.label}
+                />
               </>
             ) : null}
           </p>
@@ -179,11 +223,18 @@ export function ResultsSection({ ui, mode, selection, onAssign, onRetry, onUseEx
   return (
     <Reveal id="results">
       <SectionHeader
-        eyebrow="02 / Available records"
+        eyebrow="Available records"
         title="Observation results"
-        chip={<ModeChip mode={mode} count={result?.status === 'ok' ? observations.length : undefined} />}
+        chip={
+          <ModeChip
+            mode={mode}
+            count={result?.status === "ok" ? observations.length : undefined}
+          />
+        }
       />
-      <p className="sr-only" role="status">{announcement(ui)}</p>
+      <p className="sr-only" role="status">
+        {announcement(ui)}
+      </p>
       {body}
     </Reveal>
   );

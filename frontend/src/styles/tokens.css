@@ -25,8 +25,8 @@
   --focus: #ffffff;
 
   /* Fonts: Google Fonts are loaded in index.html; the fallbacks keep the page readable offline. */
-  --font: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --head: "Sora", "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --head: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 
   /* Chart and map categories (always pair with a shape or label) */

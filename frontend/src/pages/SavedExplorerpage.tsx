@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CompareSection } from "../components/explorer/CompareSection";
 import { HeroSection } from "../components/explorer/HeroSection";
-import { ModelSection } from "../components/explorer/ModelSection";
 import { NextLinks } from "../components/explorer/NextLinks";
 import { ProvenanceSection } from "../components/explorer/ProvenanceSection";
 import { ResultsSection } from "../components/explorer/ResultsSection";
@@ -12,7 +11,6 @@ import { M101 } from "../data/irsaSnapshot";
 import { validateSearch, type SearchFormValues } from "../lib/validation";
 import { snapshotProvider as provider } from "../services/snapshotProvider";
 import type { SearchParams } from "../services/provider";
-import type { MlPanelState } from "../types/ml";
 import type { SearchUi, Selection, Slot } from "../types/ui";
 
 // Starting values: the Pinwheel Galaxy (M101) and the full date range of the saved records.
@@ -23,7 +21,6 @@ const DEFAULT_VALUES: SearchFormValues = {
   endDate: "2026-12-31",
 };
 const NO_SELECTION: Selection = { a: null, b: null };
-const ML_STATE: MlPanelState = { status: "not-connected" };
 
 export function SavedExplorerPage() {
   const mode = "snapshot" as const;
@@ -115,23 +112,33 @@ export function SavedExplorerPage() {
           busy={ui.phase === "loading"}
           mode={mode}
         />
-        <ResultsSection
-          ui={ui}
-          mode={mode}
-          selection={selection}
-          onAssign={assign}
-          onRetry={retry}
-          onUseExample={useExample}
-        />
-        <CompareSection
-          mode={mode}
-          observations={observations}
-          selection={selection}
-          onSwap={() => setSelection((prev) => ({ a: prev.b, b: prev.a }))}
-          onClear={() => setSelection(NO_SELECTION)}
-        />
-        <ProvenanceSection observations={observations} selection={selection} />
-        <ModelSection state={ML_STATE} />
+        {ui.phase !== "idle" ? (
+          <ResultsSection
+            ui={ui}
+            mode={mode}
+            selection={selection}
+            onAssign={assign}
+            onRetry={retry}
+            onUseExample={useExample}
+          />
+        ) : null}
+        {observations.length > 0 && (selection.a || selection.b) ? (
+          <>
+            <CompareSection
+              mode={mode}
+              observations={observations}
+              selection={selection}
+              onSwap={() => setSelection((prev) => ({ a: prev.b, b: prev.a }))}
+              onClear={() => setSelection(NO_SELECTION)}
+            />
+            {selection.a || selection.b ? (
+              <ProvenanceSection
+                observations={observations}
+                selection={selection}
+              />
+            ) : null}
+          </>
+        ) : null}
         <NextLinks />
       </div>
     </div>

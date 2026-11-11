@@ -268,8 +268,8 @@ export function MoviePlayer({
   return (
     <Reveal id="movie">
       <SectionHeader
-        eyebrow="03 / Across time"
-        title="Sky time viewer"
+        eyebrow="03 / PLAY A SKY MOVIE"
+        title="Explore images across time"
         chip={
           <span className={`chip ${canAnimate ? "chip-info" : "chip-plain"}`}>
             {loading
@@ -453,6 +453,33 @@ export function MoviePlayer({
                   }}
                 />
               </label>
+              {display !== "side" && frames.length > 1 ? (
+                <div
+                  className="explorer-filmstrip"
+                  aria-label="Available movie frames"
+                >
+                  <p className="explorer-mini-kicker">
+                    JUMP TO AN OBSERVED FRAME
+                  </p>
+                  <div className="explorer-filmstrip-track">
+                    {frames.map((item, i) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className="explorer-filmstrip-frame"
+                        aria-pressed={ordinal === i}
+                        onClick={() => {
+                          setPlaying(false);
+                          setIndex(i);
+                        }}
+                      >
+                        <span>{String(i + 1).padStart(2, "0")}</span>
+                        <small>{item.time.label_utc}</small>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
               <p className="note">
                 UTC observing times are shown above. Playback speed is for
                 display; actual time since the previous frame:{" "}

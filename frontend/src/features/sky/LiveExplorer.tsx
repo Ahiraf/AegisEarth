@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HeroSection } from "../../components/explorer/HeroSection";
+import { ExplorerJourney } from "../../components/explorer/ExplorerJourney";
+import "../../styles/explorer-workspace.css";
 import { MetadataRanker } from "./MetadataRanker";
 import { NextLinks } from "../../components/explorer/NextLinks";
 import { useCardGlow } from "../../hooks/useCardGlow";
@@ -74,6 +76,7 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
   const [referenceRetry, setReferenceRetry] = useState(0);
   const [id, setId] = useState<string | null>(() => initialId(initialQuery));
   const [openId, setOpenId] = useState("");
+  const [openIdError, setOpenIdError] = useState("");
   const [mode, setMode] = useState<TimelineMode>(
     initialQuery.get("mode") === "native" ? "native" : "common",
   );
@@ -86,10 +89,17 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
   const [activeFrame, setActiveFrame] = useState<Frame | undefined>();
   const [restore, setRestore] = useState("");
   const [discovery, setDiscovery] = useState<Discovery | null>(null);
+  const [recordHistory, setRecordHistory] = useState<Discovery[]>([]);
+  const [pendingRecordPage, setPendingRecordPage] = useState<string | null>(
+    null,
+  );
   const [discovering, setDiscovering] = useState(false);
+  const [sharing, setSharing] = useState(false);
+  const [shareError, setShareError] = useState("");
   const [discoveryError, setDiscoveryError] = useState("");
   const requestController = useRef<AbortController | null>(null);
   const searchController = useRef<AbortController | null>(null);
+  const shareController = useRef<AbortController | null>(null);
   const lastSubmission = useRef<Submission | null>(null);
   const lastDiscovery = useRef<ViewRequest | null>(null);
   const view = useSkyView(id, mode, reload);
@@ -100,6 +110,7 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
     () => () => {
       requestController.current?.abort();
       searchController.current?.abort();
+      shareController.current?.abort();
     },
     [],
   );
@@ -212,6 +223,8 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
     setDiscovering(true);
     setDiscoveryError("");
     setDiscovery(null);
+    setRecordHistory([]);
+    setPendingRecordPage(null);
     try {
       const result = await post<Discovery>(
         "/api/v1/observations/search",
@@ -226,35 +239,56 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
     }
   }
   async function share(value: ViewRequest) {
-    setSubmissionError("");
+    if (sharing) return;
+    shareController.current?.abort();
+    const controller = new AbortController();
+    shareController.current = controller;
+    setSharing(true);
+    setShareError("");
+    setLinks(null);
     try {
-      const created = await post<Links>("/api/v1/share/links", {
-        version: "share-v1",
-        request: value,
-        mode,
-      });
+      const created = await post<Links>(
+        "/api/v1/share/links",
+        { version: "share-v1", request: value, mode },
+        controller.signal,
+      );
+      if (controller.signal.aborted) return;
       setLinks(created);
-      document.getElementById("share")?.scrollIntoView({
-        behavior: prefersReducedMotion() ? "auto" : "smooth",
+      window.requestAnimationFrame(() => {
+        if (!controller.signal.aborted) scrollToId("share", true);
       });
     } catch (error) {
-      setSubmissionError(errorMessage(error));
+      if (!controller.signal.aborted) setShareError(errorMessage(error));
+    } finally {
+      if (!controller.signal.aborted) setSharing(false);
     }
   }
   async function nextRecords(path: string) {
     searchController.current?.abort();
     const controller = new AbortController();
     searchController.current = controller;
+    const currentPage = discovery;
     setDiscovering(true);
     setDiscoveryError("");
+    setPendingRecordPage(path);
     try {
       const next = await get<Discovery>(path, controller.signal);
-      if (!controller.signal.aborted) setDiscovery(next);
+      if (controller.signal.aborted) return;
+      if (currentPage) setRecordHistory((history) => [...history, currentPage]);
+      setDiscovery(next);
+      setPendingRecordPage(null);
     } catch (error) {
       if (!controller.signal.aborted) setDiscoveryError(errorMessage(error));
     } finally {
       if (!controller.signal.aborted) setDiscovering(false);
     }
+  }
+  function previousRecords() {
+    if (!recordHistory.length || discovering) return;
+    setDiscovery(recordHistory[recordHistory.length - 1]);
+    setRecordHistory((history) => history.slice(0, -1));
+    setPendingRecordPage(null);
+    setDiscoveryError("");
   }
   async function stop() {
     if (!receipt?.cancel_token) return;
@@ -267,9 +301,10 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
   }
   function open() {
     if (!UUID.test(openId.trim())) {
-      setSubmissionError("Enter a valid saved view UUID.");
+      setOpenIdError("Enter a valid saved view UUID.");
       return;
     }
+    setOpenIdError("");
     requestController.current?.abort();
     setSubmission(false);
     setSubmissionError("");
@@ -308,37 +343,16 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
         onTogglePaused={() => setPaused((p) => !p)}
       />
       <div className="wrap sky-workspace">
-        <div className="sky-connection">
-          <span className="chip chip-plain">
-            {reference?.registry
-              ? "API CONNECTED"
-              : "CONNECTING TO DATA SERVICE"}
-          </span>
-          <span className="note">
-            {reference?.registry
-              ? `Source registry ${reference.registry}`
-              : "Live requests use the configured API."}
-          </span>
-          <button
-            className="srclink sky-text-button"
-            onClick={() => setReferenceRetry((n) => n + 1)}
-          >
-            Recheck connection
-          </button>
-          <button className="srclink sky-text-button" onClick={onArchive}>
-            Browse saved archive records
-          </button>
-        </div>
-        {reference?.errors.length ? (
-          <details className="sky-details">
-            <summary>Some supporting data is unavailable</summary>
-            <ul className="note">
-              {reference.errors.map((e) => (
-                <li key={e}>{e}</li>
-              ))}
-            </ul>
-          </details>
-        ) : null}
+        <ExplorerJourney
+          hasObservations={Boolean(discovery) && !discovering}
+          hasMovie={Boolean(
+            id && view.manifest && view.frames.length > 0 && !view.loading,
+          )}
+          onArchive={onArchive}
+          onChoose={() => scrollToId("find", true)}
+          onObservations={() => scrollToId("records-stage", true)}
+          onMovie={() => scrollToId("movie-stage", true)}
+        />
         {restore ? (
           <p className="sky-restored" role="status">
             {restore}
@@ -352,188 +366,343 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
           }}
           references={reference}
           busy={submission}
+          discovering={discovering}
+          sharing={sharing}
           onPrepare={prepare}
           onDiscover={(value) => void discover(value)}
           onShare={(value) => void share(value)}
         />
-        <ArchivedTargetPreviews />
-        <details className="sky-details sky-open-view">
-          <summary>Open a saved view</summary>
-          <form
-            className="tb"
-            onSubmit={(e) => {
-              e.preventDefault();
-              open();
-            }}
-          >
-            <label className="field">
-              Saved view ID
-              <input
-                className="input mono"
-                value={openId}
-                onChange={(e) => setOpenId(e.target.value)}
-                placeholder="View UUID"
-                autoComplete="off"
-              />
-            </label>
-            <button className="btn btn-s" type="submit">
-              Open saved view
-            </button>
-          </form>
-        </details>
-        <DiscoveryResults
-          result={discovery}
-          loading={discovering}
-          error={discoveryError}
-          onNext={(path) => void nextRecords(path)}
-          onRetry={() => {
-            if (lastDiscovery.current) void discover(lastDiscovery.current);
-          }}
-        />
-        {id || submission || submissionError ? (
-          <section
-            id="movie-progress"
-            className="sky-view-status card"
-            aria-labelledby="movie-progress-title"
-            tabIndex={-1}
-          >
-            <div className="sh">
-              <div>
-                <h2 id="movie-progress-title" className="eyebrow">
-                  Sky movie progress
-                </h2>
-                {id && !submission ? (
-                  <p className="mono sky-break" data-testid="view-id">
-                    {id}
-                  </p>
-                ) : null}
-              </div>
-              <span className="chip chip-info">
-                {submission
-                  ? "submitting"
-                  : view.job?.status ||
-                    (submissionError ? "request error" : "loading")}
-              </span>
-            </div>
-            <div role="status">{progressMessage}</div>
-            {submissionError ? (
-              <div className="state state-error">
-                <p role="alert">{submissionError}</p>
-                {lastSubmission.current ? (
-                  <button
-                    className="btn btn-s btn-sm"
-                    onClick={() => void runSubmission(lastSubmission.current!)}
-                  >
-                    Retry submission
-                  </button>
-                ) : null}
-              </div>
-            ) : null}
-            {view.error && !submission ? (
-              <p className="field-error" role="alert">
-                {view.error}
+        {shareError ? (
+          <p className="state state-error" role="alert">
+            Could not create a share link: {shareError}
+          </p>
+        ) : null}
+        <div className="sky-saved-tools">
+          <ArchivedTargetPreviews />
+          <details className="sky-details sky-open-view">
+            <summary>Open a saved view</summary>
+            <form
+              className="tb"
+              onSubmit={(e) => {
+                e.preventDefault();
+                open();
+              }}
+            >
+              <label className="field">
+                Saved view ID
+                <input
+                  className="input mono"
+                  value={openId}
+                  onChange={(e) => {
+                    setOpenId(e.target.value);
+                    if (openIdError) setOpenIdError("");
+                  }}
+                  aria-invalid={Boolean(openIdError)}
+                  aria-describedby={
+                    openIdError ? "saved-view-id-error" : undefined
+                  }
+                  placeholder="View UUID"
+                  autoComplete="off"
+                />
+              </label>
+              <button className="btn btn-s" type="submit">
+                Open saved view
+              </button>
+            </form>
+            {openIdError ? (
+              <p id="saved-view-id-error" className="field-error" role="alert">
+                {openIdError}
               </p>
             ) : null}
-            {id && !submission ? (
-              <div className="tb">
-                {view.error &&
-                terminal &&
-                failedRequest?.contract_version === "view-v2" ? (
-                  <button
-                    className="btn btn-s btn-sm"
-                    onClick={() => editFailedRequest(failedRequest)}
-                  >
-                    Edit request and retry
-                  </button>
-                ) : null}
-                {view.error && !terminal ? (
-                  <button
-                    className="btn btn-s btn-sm"
-                    onClick={() => setReload((n) => n + 1)}
-                  >
-                    Reload saved view
-                  </button>
-                ) : null}
-                {view.loading && receipt?.id === id && receipt.cancel_token ? (
-                  <button
-                    className="btn btn-s btn-sm"
-                    onClick={() => void stop()}
-                  >
-                    Cancel view processing
-                  </button>
-                ) : null}
-                <a
-                  className="srclink"
-                  href={apiUrl(`/api/v1/views/${id}`)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Status and source request ↗
-                </a>
+          </details>
+        </div>
+        <section
+          className="explorer-phase"
+          id="records-stage"
+          aria-label="02 / Review observations"
+        >
+          {!discovery && !discovering && !discoveryError ? (
+            <div className="explorer-phase-empty">
+              <span className="explorer-phase-number">
+                02 / REVIEW OBSERVATIONS
+              </span>
+              <h2>Review observations</h2>
+              <p>
+                Search the archive from your chosen position above. Matching
+                observations, times and wavelengths will appear here.
+              </p>
+              <button
+                type="button"
+                className="btn btn-s btn-sm"
+                onClick={() => scrollToId("find", true)}
+              >
+                Choose a sky position ↗
+              </button>
+            </div>
+          ) : null}
+          <DiscoveryResults
+            result={discovery}
+            loading={discovering}
+            error={discoveryError}
+            onNext={(path) => void nextRecords(path)}
+            hasPrevious={recordHistory.length > 0}
+            onPrevious={previousRecords}
+            onRetry={() => {
+              if (pendingRecordPage) void nextRecords(pendingRecordPage);
+              else if (lastDiscovery.current)
+                void discover(lastDiscovery.current);
+            }}
+          />
+        </section>
+        <section
+          className="explorer-phase"
+          id="movie-stage"
+          aria-label="03 / Play a sky movie"
+        >
+          {!(id && view.manifest) ? (
+            <div className="explorer-phase-heading">
+              <span className="explorer-phase-number">
+                03 / PLAY A SKY MOVIE
+              </span>
+              <h2>Play a sky movie</h2>
+              <p>
+                The movie player displays actual archived images once they are
+                prepared. You can start directly from your chosen sky position.
+              </p>
+              <button
+                type="button"
+                className="btn btn-s btn-sm"
+                onClick={() => scrollToId("find", true)}
+              >
+                Choose a field and prepare images ↗
+              </button>
+            </div>
+          ) : null}
+          {id || submission || submissionError ? (
+            <section
+              id="movie-progress"
+              className="sky-view-status card"
+              aria-labelledby="movie-progress-title"
+              tabIndex={-1}
+            >
+              <div className="sh">
+                <div>
+                  <h2 id="movie-progress-title" className="eyebrow">
+                    Sky movie progress
+                  </h2>
+                  {id && !submission ? (
+                    <p className="mono sky-break" data-testid="view-id">
+                      {id}
+                    </p>
+                  ) : null}
+                </div>
+                <span className="chip chip-info">
+                  {submission
+                    ? "submitting"
+                    : submissionError
+                      ? "request error"
+                      : view.job?.status ||
+                        (view.loading ? "loading" : "saved view")}
+                </span>
               </div>
-            ) : null}
-            {!submission &&
-              view.detailErrors.map((e) => (
-                <p className="note" key={e}>
-                  Supporting source detail: {e}
+              {progressMessage ? (
+                <div role="status">{progressMessage}</div>
+              ) : null}
+              {submissionError ? (
+                <div className="state state-error">
+                  <p role="alert">{submissionError}</p>
+                  {lastSubmission.current ? (
+                    <button
+                      className="btn btn-s btn-sm"
+                      onClick={() =>
+                        void runSubmission(lastSubmission.current!)
+                      }
+                    >
+                      Retry submission
+                    </button>
+                  ) : null}
+                </div>
+              ) : null}
+              {view.error && !submission ? (
+                <p className="field-error" role="alert">
+                  {view.error}
                 </p>
-              ))}
-          </section>
-        ) : null}
-        {id && view.manifest ? (
-          <>
-            <MoviePlayer
-              key={`${id}:${mode}`}
+              ) : null}
+              {id && !submission ? (
+                <div className="tb">
+                  {view.error &&
+                  terminal &&
+                  failedRequest?.contract_version === "view-v2" ? (
+                    <button
+                      className="btn btn-s btn-sm"
+                      onClick={() => editFailedRequest(failedRequest)}
+                    >
+                      Edit request and retry
+                    </button>
+                  ) : null}
+                  {view.error && !terminal ? (
+                    <button
+                      className="btn btn-s btn-sm"
+                      onClick={() => setReload((n) => n + 1)}
+                    >
+                      Reload saved view
+                    </button>
+                  ) : null}
+                  {view.loading &&
+                  receipt?.id === id &&
+                  receipt.cancel_token ? (
+                    <button
+                      className="btn btn-s btn-sm"
+                      onClick={() => void stop()}
+                    >
+                      Cancel view processing
+                    </button>
+                  ) : null}
+                  <a
+                    className="srclink"
+                    href={apiUrl(`/api/v1/views/${id}`)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Status and source request ↗
+                  </a>
+                </div>
+              ) : null}
+              {!submission &&
+                view.detailErrors.map((e) => (
+                  <p className="note" key={e}>
+                    Supporting source detail: {e}
+                  </p>
+                ))}
+            </section>
+          ) : null}
+          {id && view.manifest ? (
+            <>
+              <div
+                className="explorer-prepared-overview"
+                aria-label="Prepared movie summary"
+              >
+                <div>
+                  <span className="explorer-mini-kicker">
+                    YOUR PREPARED SKY VIEW
+                  </span>
+                  <h3>Real observations, ready to explore.</h3>
+                  <p>
+                    Navigate through the available frames and inspect the source
+                    data. Display playback does not represent physical elapsed
+                    time.
+                  </p>
+                </div>
+                <div className="explorer-prepared-metrics">
+                  <div>
+                    <strong>{view.manifest.timelines[mode].frame_count}</strong>
+                    <span>Frames in this timeline</span>
+                  </div>
+                  <div>
+                    <strong>
+                      {view.manifest.timelines[mode].distinct_epoch_count}
+                    </strong>
+                    <span>Observing epochs</span>
+                  </div>
+                  <div>
+                    <strong>
+                      {mode === "common" ? "Sky-fixed" : "Native"}
+                    </strong>
+                    <span>Inspection mode</span>
+                  </div>
+                </div>
+              </div>
+              <MoviePlayer
+                key={`${id}:${mode}`}
+                id={id}
+                manifest={view.manifest}
+                frames={view.frames}
+                loading={view.loading}
+                mode={mode}
+                onMode={setMode}
+                position={position}
+                onPosition={setPosition}
+                onFrame={setActiveFrame}
+              />
+              <div className="explorer-evidence-intro" id="evidence-stage">
+                <div>
+                  <p className="explorer-mini-kicker">
+                    PREPARED IMAGE EVIDENCE
+                  </p>
+                  <h2>Go deeper than the moving image.</h2>
+                  <p>
+                    Inspect the current sky frame, check processing eligibility,
+                    or examine derived image and spectral products. Tools only
+                    use observations available in this prepared view.
+                  </p>
+                </div>
+                <button
+                  className="btn btn-s btn-sm"
+                  type="button"
+                  onClick={() => scrollToId("processing", true)}
+                >
+                  Explore scientific tools ↗
+                </button>
+              </div>
+              <AladinPanel
+                key={id}
+                manifest={view.manifest}
+                frame={
+                  view.frames.find((frame) => frame.id === activeFrame?.id) ||
+                  view.frames[0]
+                }
+              />
+              <ProcessingTools
+                key={id}
+                id={id}
+                preparation={view.preparation}
+                options={view.options}
+                position={position}
+                center={center}
+                onPosition={setPosition}
+              />
+            </>
+          ) : null}
+          {id || links ? (
+            <SharePanel
               id={id}
-              manifest={view.manifest}
-              frames={view.frames}
-              loading={view.loading}
               mode={mode}
-              onMode={setMode}
-              position={position}
-              onPosition={setPosition}
-              onFrame={setActiveFrame}
-            />
-            <AladinPanel
-              key={id}
               manifest={view.manifest}
-              frame={
-                view.frames.find((frame) => frame.id === activeFrame?.id) ||
-                view.frames[0]
-              }
+              request={form}
+              links={links}
+              setLinks={setLinks}
+              onRefresh={refresh}
+              refreshing={submission || view.loading}
+              expires={view.job?.expires_at_utc}
             />
-            <ProcessingTools
-              key={id}
-              id={id}
-              preparation={view.preparation}
-              options={view.options}
-              position={position}
-              center={center}
-              onPosition={setPosition}
-            />
-          </>
-        ) : !id ? (
-          <div className="state">
-            <p className="state-title">Ready to explore</p>
-            <p>
-              Prepare a sky movie or inspect observation records. The viewer
-              works without an AI model.
-            </p>
-          </div>
-        ) : null}
-        <SharePanel
-          id={id}
-          mode={mode}
-          manifest={view.manifest}
-          request={form}
-          links={links}
-          setLinks={setLinks}
-          onRefresh={refresh}
-          refreshing={submission || view.loading}
-          expires={view.job?.expires_at_utc}
-        />
-        <details className="sky-details">
-          <summary>Data releases and last metadata checks</summary>
+          ) : null}
+        </section>
+        <details className="sky-details sky-provenance-meta">
+          <summary>Data releases, source registry and metadata checks</summary>
+          {reference?.errors.length ? (
+            <div className="explorer-reference-diagnostics">
+              <p>
+                Some optional archive reference information could not be loaded.
+                You can still try a search; individual requests report their own
+                errors.
+              </p>
+              <ul className="note">
+                {reference.errors.map((error) => (
+                  <li key={error}>{error}</li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                className="btn btn-s btn-sm"
+                onClick={() => setReferenceRetry((count) => count + 1)}
+              >
+                Retry reference information
+              </button>
+            </div>
+          ) : null}
+          {reference?.registry ? (
+            <p className="note">Source registry: {reference.registry}</p>
+          ) : null}
           <p className="note">
             The archive can lag ingestion and return capped samples. A refreshed
             metadata query is not scientific calibration approval.
@@ -546,11 +715,29 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
               </li>
             ))}
           </ul>
-          <pre className="sky-json">
-            {JSON.stringify(reference?.refreshChecks || [], null, 2)}
-          </pre>
+          {reference?.refreshChecks?.length ? (
+            <pre className="sky-json">
+              {JSON.stringify(reference.refreshChecks, null, 2)}
+            </pre>
+          ) : null}
         </details>
-        <MetadataRanker snapshotId={discovery?.snapshot_id} enabled={reference?.capabilities.metadata_ranker_available === true} />
+        <div className="explorer-ranker-wrap" id="ai-stage">
+          <div className="explorer-ranker-intro">
+            <p className="explorer-mini-kicker">
+              05 / OPTIONAL MOTION EVIDENCE
+            </p>
+            <h2>See what the known-object ranker can tell you.</h2>
+            <p>
+              An optional analysis of predicted known moving objects—not
+              asteroid discovery or impact prediction. The movie works even when
+              ranking is unavailable.
+            </p>
+          </div>
+          <MetadataRanker
+            snapshotId={discovery?.snapshot_id}
+            enabled={reference?.capabilities.metadata_ranker_available === true}
+          />
+        </div>
         <NextLinks />
       </div>
     </div>

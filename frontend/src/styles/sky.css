@@ -22,6 +22,102 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px 16px;
 }
+.sky-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+.sky-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+}
+.sky-steps li > span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border: 1px solid var(--strong);
+  border-radius: 50%;
+  color: var(--quiet);
+  font: 600 13px var(--mono);
+}
+.sky-steps li.is-current {
+  border-color: var(--cyan);
+  background: rgba(76, 195, 240, 0.07);
+}
+.sky-steps li.is-current > span {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  color: var(--deep);
+}
+.sky-steps li.is-complete > span {
+  border-color: var(--success);
+  color: var(--success);
+}
+.sky-steps strong,
+.sky-steps small {
+  display: block;
+}
+.sky-steps strong {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.sky-steps small {
+  margin-top: 3px;
+  color: var(--quiet);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.sky-form-intro {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--cyan);
+  background: var(--deep);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.sky-form-intro strong,
+.sky-action-help strong {
+  color: var(--text);
+}
+.sky-action-help {
+  max-width: 80ch;
+  margin: 10px 0 0;
+  color: var(--quiet);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.sky-advanced-options > summary span,
+.sky-saved-tools > summary span {
+  margin-left: 8px;
+  color: var(--quiet);
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 400;
+}
+.sky-advanced-options[open] > summary,
+.sky-saved-tools[open] > summary {
+  margin-bottom: 10px;
+}
+.sky-saved-tools {
+  margin-top: 20px;
+}
+.sky-saved-tools > .sky-open-view {
+  margin-top: 16px;
+}
 .sky-form .field,
 .sky-options-grid .field {
   font-size: 14px;
@@ -411,6 +507,19 @@
   }
   .sky-share-links {
     grid-template-columns: 1fr;
+  }
+  .sky-steps {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .sky-steps li {
+    padding: 11px 13px;
+  }
+  .sky-advanced-options > summary span,
+  .sky-saved-tools > summary span {
+    display: block;
+    margin: 4px 0 0;
   }
   .sky-layer-controls {
     align-items: stretch;

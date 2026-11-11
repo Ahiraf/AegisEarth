@@ -24,7 +24,10 @@ test("orbits has its own full viewport, selectable missions, and source-backed d
       exact: true,
     }),
   ).toBeVisible();
-  await expect(page.getByTestId("object-details")).toHaveCount(0);
+  await expect(page.getByTestId("object-details")).toBeVisible();
+  await expect(page.locator("#object-title")).toHaveText(
+    "International Space Station",
+  );
   await expect(page.locator("#solar, #atmosphere, #hero-title")).toHaveCount(0);
   await expect(
     page.getByRole("link", { name: "Orbits", exact: true }).first(),

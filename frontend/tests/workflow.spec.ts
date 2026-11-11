@@ -142,12 +142,12 @@ test("preserves the existing theme and delivers a chronological paginated movie"
     await page
       .locator("body")
       .evaluate((el) => getComputedStyle(el).fontFamily),
-  ).toContain("DM Sans");
+  ).toContain("Manrope");
   expect(
     await page
       .locator("#hero-title")
       .evaluate((el) => getComputedStyle(el).fontFamily),
-  ).toContain("Sora");
+  ).toContain("Manrope");
   await prepare(page);
   await expect(page.locator("#movie .sky-date").first()).toContainText(
     "2026-04-21",
@@ -580,4 +580,56 @@ test("fits the mobile viewport and preserves the explicitly selected saved-recor
   await expect(
     page.getByRole("button", { name: "Prepare sky movie", exact: true }),
   ).toBeVisible();
+});
+
+test("Explorer presents real archive observations with a usable timeline and the original request contract", async ({
+  page,
+}) => {
+  const api = await mockApi(page);
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Find observation records", exact: true })
+    .click();
+
+  const desk = page.locator(".explorer-observation-desk");
+  await expect(desk).toBeVisible();
+  await expect(desk.locator(".explorer-timeline-point")).toHaveCount(3);
+  await desk
+    .getByRole("button", { name: /Inspect D6 observation on 22 Apr 2026/ })
+    .click();
+  await expect(
+    desk.getByRole("complementary", { name: "Selected observation details" }),
+  ).toContainText("2026-04-22T10:00:00Z");
+  await desk
+    .getByRole("button", { name: /View complete record table/ })
+    .click();
+  await expect(desk.getByRole("table")).toBeVisible();
+
+  const search = api.calls.find(
+    (call) =>
+      call.method === "POST" && call.path === "/api/v1/observations/search",
+  );
+  expect(search?.body.contract_version).toBe("discovery-v1");
+  expect(search?.body.region).toBeDefined();
+  expect(search?.body.limit).toBe(20);
+});
+
+test("Explorer filmstrip navigates actual prepared frames without replacing the movie player", async ({
+  page,
+}) => {
+  await mockApi(page);
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Prepare sky movie", exact: true })
+    .click();
+  const rail = page.getByLabel("Available movie frames");
+  await expect(rail).toBeVisible();
+  await expect(rail.locator(".explorer-filmstrip-frame")).toHaveCount(3);
+  await rail.locator(".explorer-filmstrip-frame").nth(1).click();
+  await expect(page.locator("#movie .sky-date").first()).toContainText(
+    "2026-04-22",
+  );
+  await expect(
+    page.getByRole("button", { name: "Play", exact: true }),
+  ).toBeEnabled();
 });

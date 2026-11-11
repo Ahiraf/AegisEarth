@@ -16,7 +16,8 @@ type Props = {
   altitude: number;
   onSelect: (index: number) => void;
   controls: RefObject<WorldScene | null>;
-  insets: { right: number; bottom: number };
+  insets: { left: number; right: number; bottom: number };
+  onSceneStatusChange?: (status: "loading" | "ready" | "unavailable") => void;
 };
 export function WorldCanvas({
   kind,
@@ -27,6 +28,7 @@ export function WorldCanvas({
   onSelect,
   controls,
   insets,
+  onSceneStatusChange,
 }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const labels = useRef<(HTMLButtonElement | null)[]>([]);
@@ -42,6 +44,7 @@ export function WorldCanvas({
     const unavailable = () => {
       if (cancelled) return;
       setStatus("unavailable");
+      onSceneStatusChange?.("unavailable");
       scene?.dispose();
       scene = null;
       controls.current = null;
@@ -77,10 +80,12 @@ export function WorldCanvas({
         scene.setPaused(latest.current.paused);
         scene.setAltitude(latest.current.altitude);
         scene.setInsets(
+          latest.current.insets.left,
           latest.current.insets.right,
           latest.current.insets.bottom,
         );
         setStatus("ready");
+        onSceneStatusChange?.("ready");
       })
       .catch(unavailable);
     return () => {
@@ -88,7 +93,7 @@ export function WorldCanvas({
       scene?.dispose();
       controls.current = null;
     };
-  }, [kind, controls]);
+  }, [kind, controls, onSceneStatusChange]);
   useEffect(
     () => controls.current?.setSelected(selected),
     [selected, controls],
@@ -99,12 +104,14 @@ export function WorldCanvas({
     [altitude, controls],
   );
   useEffect(
-    () => controls.current?.setInsets(insets.right, insets.bottom),
+    () => controls.current?.setInsets(insets.left, insets.right, insets.bottom),
     [insets, controls],
   );
   const keyboard = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.target !== event.currentTarget) return;
     const api = controls.current;
+    // Do not intercept navigation keys when the WebGL scene is unavailable.
+    if (!api || status !== "ready") return;
     switch (event.key) {
       case "ArrowLeft":
         api?.rotateBy(-0.15, 0);
