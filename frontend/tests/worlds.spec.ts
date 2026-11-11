@@ -215,29 +215,26 @@ for (const [route, objectName] of [
     await expect(canvas).toHaveAttribute("data-selected", "");
     await expect(canvas).toHaveAttribute("data-settled", "true");
     const bounds = (await viewport.boundingBox())!;
-    const label = viewport
-      .locator(".world-label")
-      .filter({ hasText: new RegExp(`^${objectName}$`) });
+    // The directory offsets the camera's optical centre, so a label's distance
+    // from the *browser viewport centre* can decrease even when zooming in.
+    // Measure the actual camera distance instead of that incorrect proxy.
     const distance = () =>
-      label.evaluate(
-        (el, size) =>
-          Math.hypot(
-            parseFloat(el.style.left) - size.width / 2,
-            parseFloat(el.style.top) - size.height / 2,
-          ),
-        { width: bounds.width, height: bounds.height },
-      );
+      canvas.evaluate((element) => Number(element.dataset.cameraDistance));
     const before = await distance();
+    expect(
+      before,
+      `${objectName} camera distance must be positive`,
+    ).toBeGreaterThan(0);
     await page.mouse.move(
       bounds.x + bounds.width * 0.7,
       bounds.y + bounds.height * 0.65,
     );
     await page.mouse.wheel(0, -240);
-    await expect.poll(distance).toBeGreaterThan(before * 1.05);
+    await expect.poll(distance).toBeLessThan(before * 0.95);
     await expect(canvas).toHaveAttribute("data-settled", "true");
-    const enlarged = await distance();
+    const zoomedIn = await distance();
     await page.mouse.wheel(0, 240);
-    await expect.poll(distance).toBeLessThan(enlarged * 0.95);
+    await expect.poll(distance).toBeGreaterThan(zoomedIn * 1.05);
     await expect(canvas).toHaveAttribute("data-settled", "true");
     expect(await page.evaluate(() => scrollY)).toBe(0);
     if (route === "orbits") {

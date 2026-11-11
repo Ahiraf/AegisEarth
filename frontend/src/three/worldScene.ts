@@ -541,6 +541,10 @@ export function startWorldScene(
     renderer.render(scene, camera);
     canvas.dataset.selected = selected === null ? "" : String(selected);
     canvas.dataset.focused = String(focused);
+    // Observe real camera zoom independently of the layout's off-centre viewport.
+    // A screen-space label's distance from the browser centre is not a zoom metric
+    // when the directory shifts the camera's optical centre.
+    canvas.dataset.cameraDistance = distance.toFixed(4);
     const labels = entries.map((entry, index) => {
       entry.anchor.getWorldPosition(worldPosition);
       projected.copy(worldPosition).project(camera);

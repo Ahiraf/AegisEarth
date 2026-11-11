@@ -38,7 +38,7 @@ export function ExplorerJourney({
             ALREADY HAVE AN ARCHIVED FIELD?
           </span>
           <button type="button" className="btn btn-s" onClick={onArchive}>
-            Browse saved archive
+            Browse saved archive records
           </button>
         </div>
       </div>

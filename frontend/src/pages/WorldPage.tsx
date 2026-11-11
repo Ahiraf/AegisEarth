@@ -684,9 +684,9 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
                 </p>
               </div>
               <p className="world-note">
-                The Kármán line at 100 km is a conventional boundary of space,
-                not the end of Earth's atmosphere. Layer boundaries are
-                approximate and variable.
+                The conventional Kármán line at 100 km marks a commonly used
+                boundary of space, not the end of Earth's atmosphere. Layer
+                boundaries are approximate and variable.
               </p>
               <div className="world-profile-source">
                 <SourceLink
