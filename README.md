@@ -86,16 +86,23 @@ and whole-image band bounds; it does not claim a complete survey, local waveleng
 
 ## Local setup
 
-With Docker Desktop's Linux engine running, from repository root:
+Start Docker Desktop (or Docker Engine with Compose v2). From the repository root, run:
 
-```powershell
-Copy-Item .env.example .env
-docker compose up --build
+```sh
+docker compose up --build --wait
 ```
 
-Compare an existing `.env` rather than overwriting its credentials. API docs: `http://localhost:8000/docs`.
-Compose starts PostgreSQL, migration, API, the input-acquisition worker and frontend at `http://localhost:5173`.
-The frontend proxies the API on the same origin. Preserve unrelated DBs/volumes.
+Compose reads an existing `.env` automatically and supplies local development defaults on a fresh
+checkout. The first build requires internet access to download images and packages. Compose starts
+PostgreSQL, applies migrations, starts the API and background worker, and waits for the frontend
+and its API proxy to respond.
+
+Open the [viewer](http://localhost:5173) or [API docs](http://localhost:8000/docs). The
+[target catalog](http://localhost:5173/api/v1/targets) is available locally. Searches for new
+SPHEREx observations and downloads of uncached frames require access to the remote archive.
+
+Use `docker compose logs -f api worker` to follow a job. Use `docker compose down` to stop the
+stack and keep the local database and cached frames for next time.
 
 Without Docker, provision a PostgreSQL database/user and use the backend environment:
 
