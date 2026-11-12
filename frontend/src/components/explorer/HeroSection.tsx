@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { scrollToId } from "../../lib/scroll";
+import { prefersReducedMotion } from "../../hooks/useReducedMotion";
 import { EarthCanvas, type SceneHandle } from "../EarthCanvas";
-
-type HeroSectionProps = {
-  paused: boolean;
-  onTogglePaused: () => void;
-};
 
 const WORDS = ["across time.", "in infrared.", "with context."];
 
@@ -36,29 +31,21 @@ function RotatingWord({ paused }: { paused: boolean }) {
   return <span className={`rot${fading ? " out" : ""}`}>{WORDS[index]}</span>;
 }
 
-export function HeroSection({ paused, onTogglePaused }: HeroSectionProps) {
+export default function LandingPage() {
+  const [paused, setPaused] = useState(prefersReducedMotion);
   const earthRef = useRef<SceneHandle | null>(null);
   const [sceneReady, setSceneReady] = useState(false);
 
-  const startSearch = () => {
-    scrollToId("find");
-    window.setTimeout(
-      () =>
-        document.getElementById("search-ra")?.focus({ preventScroll: true }),
-      450,
-    );
-  };
-
   return (
-    <section className="hero" id="top" aria-labelledby="hero-title">
+    <section className={paused ? "hero motion-paused" : "hero"} id="top" aria-labelledby="hero-title">
       <EarthCanvas
         paused={paused}
         controlRef={earthRef}
         onSceneReady={setSceneReady}
       />
       <p className="sr-only">
-        Decorative Earth illustration; observation images and measurements
-        appear in the Explorer below.
+        A decorative comet flies past Earth. Observation images and measurements
+        are available in the SPHEREx Viewer.
       </p>
       {sceneReady ? (
         <div
@@ -80,7 +67,7 @@ export function HeroSection({ paused, onTogglePaused }: HeroSectionProps) {
           >
             {"\u2212"}
           </button>
-          <button type="button" aria-pressed={paused} onClick={onTogglePaused}>
+          <button type="button" aria-pressed={paused} onClick={() => setPaused(p => !p)}>
             {paused ? "Resume animation" : "Pause animation"}
           </button>
           <button type="button" onClick={() => earthRef.current?.reset()}>
@@ -103,15 +90,7 @@ export function HeroSection({ paused, onTogglePaused }: HeroSectionProps) {
             trace each result to the NASA/IPAC archive.
           </p>
           <div className="actions">
-            <button type="button" className="btn btn-p" onClick={startSearch}>
-              Explore observations{" "}
-              <span className="bob" aria-hidden="true">
-                {"\u2193"}
-              </span>
-            </button>
-            <a className="btn btn-s" href="#/learn">
-              Learn how it works
-            </a>
+            <a className="btn btn-p" href="#/explorer">Start exploring</a>
           </div>
           <p className="student">
             Independent student-built exploration project by Team Infraq

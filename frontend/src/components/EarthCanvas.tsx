@@ -75,7 +75,15 @@ export function EarthCanvas({
 
   return (
     <>
-      <div ref={hostRef} className="space" aria-hidden="true" />
+      <div className="space" aria-hidden="true">
+        <div ref={hostRef} className="earth-renderer" />
+        {!unavailable && (
+          <div className="comet-flight" style={{ animationPlayState: paused ? "paused" : "running" }}>
+            <span className="comet-nucleus" />
+            <span className="comet-label">Comet flyby</span>
+          </div>
+        )}
+      </div>
       {unavailable ? (
         <div className="nogl" role="status">
           The 3D Earth could not start in this browser (WebGL is unavailable).

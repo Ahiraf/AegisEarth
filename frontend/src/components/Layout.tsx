@@ -1,10 +1,11 @@
 import type { MouseEvent, ReactNode } from "react";
-import { prefersReducedMotion } from "../hooks/useReducedMotion";
 import { ScrollProgress } from "./ScrollProgress";
 import "../styles/brand-polish.css";
 
 export type NavId =
+  | "home"
   | "explorer"
+  | "planet-x"
   | "orbits"
   | "atmosphere"
   | "solar"
@@ -15,7 +16,8 @@ type NavItem = { id: NavId; label: string; href: string };
 
 // Each hash URL mounts its own page; Back, Forward and shared links work.
 const NAV: NavItem[] = [
-  { id: "explorer", label: "Explorer", href: "#/" },
+  { id: "explorer", label: "SPHEREx Viewer", href: "#/explorer" },
+  { id: "planet-x", label: "Planet X", href: "#/planet-x" },
   { id: "orbits", label: "Orbits", href: "#/orbits" },
   { id: "atmosphere", label: "Atmosphere", href: "#/atmosphere" },
   { id: "solar", label: "Solar System", href: "#/solar" },
@@ -35,32 +37,19 @@ export function Layout({ current, children }: LayoutProps) {
     document.getElementById("main")?.focus();
   };
 
-  // Clicking the logo while already on the Explorer has no hash change, so scroll up by hand.
-  const goHome = (event: MouseEvent<HTMLAnchorElement>) => {
-    const hash = window.location.hash;
-    if (hash === "" || hash === "#/") {
-      event.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: prefersReducedMotion() ? "auto" : "smooth",
-      });
-    }
-  };
-
   return (
-    <div className={immersive ? "app-shell app-shell-immersive" : "app-shell"}>
+    <div className={current === "home" ? "app-shell landing-shell" : immersive ? "app-shell app-shell-immersive" : "app-shell"}>
       <a className="skip-link" href="#main" onClick={skipToMain}>
         Skip to main content
       </a>
-      {!immersive && <ScrollProgress />}
+      {!immersive && current !== "home" && <ScrollProgress />}
 
       <header className="hdr">
         <div className="wrap">
           <a
             className="brand"
-            href="#/"
+            href="#/home"
             aria-label="AegisEarth home"
-            onClick={goHome}
           >
             <img
               className="brand-symbol"
@@ -95,7 +84,7 @@ export function Layout({ current, children }: LayoutProps) {
         {children}
       </main>
 
-      {!immersive && (
+      {!immersive && current !== "home" && (
         <footer className="site-footer">
           <div className="wrap footer-grid">
             <div>
@@ -108,7 +97,7 @@ export function Layout({ current, children }: LayoutProps) {
             <nav aria-label="Footer">
               <ul className="footer-links">
                 <li>
-                  <a href="#/">Explorer</a>
+                  <a href="#/explorer">SPHEREx Viewer</a>
                 </li>
                 <li>
                   <a href="#/learn">Learn</a>

@@ -1,8 +1,10 @@
 ﻿import { lazy, Suspense, useEffect, useState } from "react";
 import { Layout, type NavId } from "./components/Layout";
+const LandingPage = lazy(() => import("./components/explorer/HeroSection"));
 const ExplorerPage = lazy(() =>
   import("./pages/Explorerpage").then((m) => ({ default: m.ExplorerPage })),
 );
+const PlanetXPage = lazy(() => import("./pages/PlanetXPage"));
 const LearnPage = lazy(() =>
   import("./pages/Learnpage").then((m) => ({ default: m.LearnPage })),
 );
@@ -13,7 +15,9 @@ const WorldPage = lazy(() =>
   import("./pages/WorldPage").then((m) => ({ default: m.WorldPage })),
 );
 const TITLES: Record<NavId, string> = {
-  explorer: "Explorer",
+  home: "Home",
+  explorer: "SPHEREx Viewer",
+  "planet-x": "Planet X",
   orbits: "Satellites & space stations",
   atmosphere: "Earth’s atmosphere",
   solar: "Solar System",
@@ -22,7 +26,11 @@ const TITLES: Record<NavId, string> = {
 };
 function routeFromHash(): NavId {
   const name = window.location.hash.split("?")[0].replace(/^#\//, "");
-  return Object.hasOwn(TITLES, name) ? (name as NavId) : "explorer";
+  if (!name) {
+    const query = new URLSearchParams(location.search);
+    if (["view", "v", "source"].some(key => query.has(key))) return "explorer";
+  }
+  return Object.hasOwn(TITLES, name) ? (name as NavId) : "home";
 }
 export function App() {
   const [page, setPage] = useState(routeFromHash);
@@ -45,7 +53,11 @@ export function App() {
           </p>
         }
       >
-        {page === "learn" ? (
+        {page === "home" ? (
+          <LandingPage />
+        ) : page === "planet-x" ? (
+          <PlanetXPage />
+        ) : page === "learn" ? (
           <LearnPage />
         ) : page === "about" ? (
           <AboutPage />

@@ -24,7 +24,8 @@ li {
   border-bottom-color: rgba(106, 138, 166, 0.28);
 }
 .hdr .wrap {
-  min-height: 72px;
+  min-height: 66px;
+  gap: 14px;
 }
 .brand {
   font-weight: 800;
@@ -34,10 +35,15 @@ li {
   font-weight: 800;
 }
 .nav-list {
-  gap: 4px;
+  gap: 1px;
 }
 .nav-link {
-  font-weight: 650;
+  font-family: "Barlow Semi Condensed", var(--head);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  padding-inline: 10px;
+  min-height: 38px;
   border: 1px solid transparent;
 }
 .nav-link[aria-current="page"] {
@@ -258,8 +264,8 @@ li {
     margin: 0;
   }
   .nav-link {
-    font-size: 13px;
-    padding: 0 11px;
+    font-size: 11px;
+    padding: 0 9px;
   }
   .btn {
     flex: initial;
