@@ -147,6 +147,10 @@
   .world-orbits.world-experience .world-side-rail,
   .world-orbits.world-experience .world-detail { transition: none; }
 }
+@media (max-width: 760px) {
+  .world-orbits.world-experience .world-side-rail,
+  .world-orbits.world-experience .world-detail { transition: none; }
+}
 
 .world-orbits .orbit-survey-intro {
   margin-bottom: 14px;

@@ -235,6 +235,7 @@ export function SearchForm({
                   key={t.slug}
                   type="button"
                   className="pill"
+                  aria-label={t.name}
                   onClick={() => target(t)}
                   aria-pressed={preset?.slug === t.slug}
                 >

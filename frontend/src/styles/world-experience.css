@@ -332,6 +332,7 @@
 }
 /* One considered sidebar language for all three worlds. */
 .world-experience .world-detail {
+  box-sizing: border-box;
   top: 18px;
   right: 18px;
   bottom: 18px;
