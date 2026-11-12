@@ -204,7 +204,7 @@ export function LearnPage() {
             essentials first, then open the deeper reference topics.
           </p>
           <div className="actions">
-            <a className="btn btn-p" href="#/">
+            <a className="btn btn-p" href="#/explorer">
               Open the sky viewer
             </a>
           </div>
@@ -890,7 +890,7 @@ export function LearnPage() {
           </Reveal>
 
           <nav className="links" aria-label="Next steps">
-            <a href="#/">Explore observations {"\u2192"}</a>
+            <a href="#/explorer">Explore observations {"\u2192"}</a>
             <a href="#/about">About &amp; Sources {"\u2192"}</a>
           </nav>
         </div>

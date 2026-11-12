@@ -9,7 +9,7 @@ export function frontendLink(query: string) {
   url.search = query;
   // Live view links must remain live when the deployment defaults to saved data.
   url.searchParams.set("source", "api");
-  url.hash = "/";
+  url.hash = "/explorer";
   return url.href;
 }
 interface Props {

@@ -54,7 +54,7 @@ test("optional results show bright objects first and collapse all faint known ob
       },
     }),
   );
-  await page.goto("/");
+  await page.goto("/#/explorer");
   const section = page.locator("#model");
   await section
     .getByText("Open an existing optional analysis", { exact: true })
@@ -99,7 +99,7 @@ test("an optional analysis outage leaves the live viewer usable", async ({
       },
     }),
   );
-  await page.goto("/");
+  await page.goto("/#/explorer");
   const section = page.locator("#model");
   await section
     .getByText("Open an existing optional analysis", { exact: true })

@@ -1,11 +1,10 @@
+import { ArchivedExample } from "./ArchivedExample";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { HeroSection } from "../../components/explorer/HeroSection";
 import { ExplorerJourney } from "../../components/explorer/ExplorerJourney";
 import "../../styles/explorer-workspace.css";
 import { MetadataRanker } from "./MetadataRanker";
 import { NextLinks } from "../../components/explorer/NextLinks";
 import { useCardGlow } from "../../hooks/useCardGlow";
-import { prefersReducedMotion } from "../../hooks/useReducedMotion";
 import { scrollToId } from "../../lib/scroll";
 import { AladinPanel } from "./AladinPanel";
 import {
@@ -67,10 +66,15 @@ interface Submission {
   key: string;
   refresh: boolean;
 }
-export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
+export function LiveExplorer({
+  onArchive,
+}: {
+  onArchive: () => void;
+}) {
+  const example = useRef<HTMLDialogElement>(null);
+  const onExample = () => example.current?.showModal();
   useCardGlow();
   const [initialQuery] = useState(() => new URLSearchParams(location.search));
-  const [paused, setPaused] = useState(prefersReducedMotion);
   const [form, setForm] = useState<ViewRequest>(DEFAULT_REQUEST);
   const [reference, setReference] = useState<References>();
   const [referenceRetry, setReferenceRetry] = useState(0);
@@ -337,13 +341,16 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
     progressMessage = "Your sky movie frames are ready below.";
   }
   return (
-    <div className={paused ? "motion-paused" : undefined}>
-      <HeroSection
-        paused={paused}
-        onTogglePaused={() => setPaused((p) => !p)}
-      />
+    <div>
+      <ArchivedExample dialog={example} onExplore={() => {
+        setForm(DEFAULT_REQUEST);
+        setLinks(null);
+        scrollToId("find", true);
+      }} />
+      <h1 className="sr-only">SPHEREx Viewer</h1>
       <div className="wrap sky-workspace">
         <ExplorerJourney
+          onExample={onExample}
           hasObservations={Boolean(discovery) && !discovering}
           hasMovie={Boolean(
             id && view.manifest && view.frames.length > 0 && !view.loading,
@@ -368,6 +375,7 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
           busy={submission}
           discovering={discovering}
           sharing={sharing}
+          onExample={onExample}
           onPrepare={prepare}
           onDiscover={(value) => void discover(value)}
           onShare={(value) => void share(value)}
@@ -440,6 +448,27 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
               </button>
             </div>
           ) : null}
+          {(discovering ||
+            discoveryError ||
+            discovery?.sampled_count === 0) && (
+            <button
+              className="btn btn-s btn-sm"
+              onClick={onExample}
+              aria-haspopup="dialog"
+            >
+              View an archived example
+            </button>
+          )}
+          {discovery && !discovering && !discoveryError && lastDiscovery.current && (
+            <button type="button" className="btn btn-p" disabled={submission} onClick={() => {
+              const searched = lastDiscovery.current!;
+              const request = discovery.sampled_count ? searched : { ...DEFAULT_REQUEST, region: searched.region };
+              setForm(request);
+              prepare(request);
+            }}>
+              {discovery.sampled_count ? "Load images for this search" : "Try this field with automatic settings"}
+            </button>
+          )}
           <DiscoveryResults
             result={discovery}
             loading={discovering}
@@ -508,6 +537,18 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
               {progressMessage ? (
                 <div role="status">{progressMessage}</div>
               ) : null}
+              {(submission ||
+                submissionError ||
+                view.error ||
+                view.loading) && (
+                <button
+                  className="btn btn-s btn-sm"
+                  onClick={onExample}
+                  aria-haspopup="dialog"
+                >
+                  View an archived example
+                </button>
+              )}
               {submissionError ? (
                 <div className="state state-error">
                   <p role="alert">{submissionError}</p>
@@ -586,13 +627,18 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
                   <span className="explorer-mini-kicker">
                     YOUR PREPARED SKY VIEW
                   </span>
-                  <h3>Real observations, ready to explore.</h3>
+                  <h3>{view.manifest.timelines[mode].frame_count ? "Real observations, ready to explore." : "No images in this timeline"}</h3>
                   <p>
-                    Navigate through the available frames and inspect the source
-                    data. Display playback does not represent physical elapsed
-                    time.
+                    {view.manifest.timelines[mode].frame_count
+                      ? "Step through the frames to compare observation dates."
+                      : "Try a different field or compare two saved observations of the Pinwheel Galaxy."}
                   </p>
                 </div>
+                {view.manifest.timelines[mode].frame_count === 0 && (
+                  <button type="button" className="btn btn-s" onClick={onExample} aria-haspopup="dialog">
+                    Compare saved galaxy images
+                  </button>
+                )}
                 <div className="explorer-prepared-metrics">
                   <div>
                     <strong>{view.manifest.timelines[mode].frame_count}</strong>
@@ -645,7 +691,7 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
                 </button>
               </div>
               <AladinPanel
-                key={id}
+                key={`map-${id}`}
                 manifest={view.manifest}
                 frame={
                   view.frames.find((frame) => frame.id === activeFrame?.id) ||
@@ -653,7 +699,7 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
                 }
               />
               <ProcessingTools
-                key={id}
+                key={`processing-${id}`}
                 id={id}
                 preparation={view.preparation}
                 options={view.options}
@@ -697,6 +743,13 @@ export function LiveExplorer({ onArchive }: { onArchive: () => void }) {
                 onClick={() => setReferenceRetry((count) => count + 1)}
               >
                 Retry reference information
+              </button>
+              <button
+                className="btn btn-s btn-sm"
+                onClick={onExample}
+                aria-haspopup="dialog"
+              >
+                View an archived example
               </button>
             </div>
           ) : null}

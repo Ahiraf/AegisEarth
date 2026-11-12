@@ -321,6 +321,18 @@ export function MoviePlayer({
             : "Browsing available · scientific comparison unvalidated"}
         </span>
       </div>
+      {!loading && timeline.frame_count === 1 && frames.length === 1 && (
+        <p className="note">
+          One image is available in this timeline. Try a wider observation
+          window to compare dates.
+        </p>
+      )}
+      {frames.length > 1 && (
+        <p className="note">
+          Choose Blink A / B to switch between observations, or Side by side to
+          inspect both images together.
+        </p>
+      )}
       {!frames.length ? (
         <div className="state">
           <p className="state-title">
@@ -519,6 +531,22 @@ export function MoviePlayer({
                     </label>
                   ))}
                   <span className="note">
+                    {frames[a] && frames[b] && (
+                      <>
+                        {frames[a].time.label_utc} and{" "}
+                        {frames[b].time.label_utc}
+                        {" · "}
+                        {Number(
+                          (
+                            Math.abs(
+                              Number(frames[a].time.mid_mjd_utc) -
+                                Number(frames[b].time.mid_mjd_utc),
+                            ) * 24
+                          ).toPrecision(3),
+                        )}{" "}
+                        hours apart.{" "}
+                      </>
+                    )}
                     Both panels share zoom and pan. Native images can have
                     different orientation and field coverage. In side-by-side
                     mode the inspector follows observation A.

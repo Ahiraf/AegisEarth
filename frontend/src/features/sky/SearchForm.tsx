@@ -22,6 +22,13 @@ export const DEFAULT_REQUEST: ViewRequest = {
     target_exclusion_radius_arcsec: 30,
   },
 };
+const targetHints: Record<string, string> = {
+  "barnards-star": "Follow a nearby star known for its motion.",
+  "epsilon-indi-b": "Explore a nearby brown dwarf system.",
+  "wise-0855": "Look for a very cold brown dwarf in infrared.",
+  "rw-aurigae": "Explore the surroundings of a young star.",
+  "r-draconis": "Visit a star whose brightness varies.",
+};
 const RELEASE_NAMES: Record<string, string> = {
   spherex_qr3: "QR3 · wide",
   spherex_qr3_deep: "QR3 · deep",
@@ -37,6 +44,7 @@ interface Props {
   discovering: boolean;
   sharing: boolean;
   onPrepare: (value: ViewRequest) => void;
+  onExample: () => void;
   onDiscover: (value: ViewRequest) => void;
   onShare: (value: ViewRequest) => void;
 }
@@ -48,6 +56,7 @@ export function SearchForm({
   discovering,
   sharing,
   onPrepare,
+  onExample,
   onDiscover,
   onShare,
 }: Props) {
@@ -173,7 +182,7 @@ export function SearchForm({
   }
   function search(event: FormEvent) {
     event.preventDefault();
-    if (validate()) onDiscover(value);
+    if (!busy && validate()) onPrepare(value);
   }
   function target(target: Target) {
     setPreset(target);
@@ -196,7 +205,7 @@ export function SearchForm({
       <SectionHeader
         eyebrow="01 / CHOOSE A SKY POSITION"
         title="Find your place in the sky"
-        lead="Select a suggested target or enter coordinates. Search for existing observations, or prepare a movie directly from matching images."
+        lead="Choose a target or enter sky coordinates. Leave the dates and wavelength settings at their defaults, then select Prepare sky movie."
       />
       <div className="card explorer-search-card">
         <form
@@ -215,6 +224,9 @@ export function SearchForm({
               </p>
             </div>
           </div>
+          <button type="button" className="btn btn-s btn-sm" onClick={onExample} aria-haspopup="dialog">
+            Compare two saved Pinwheel Galaxy images
+          </button>
           <div className="examples explorer-preset-bar">
             <span className="explorer-preset-label">QUICK TARGETS</span>
             <div className="pills">
@@ -226,7 +238,27 @@ export function SearchForm({
                   onClick={() => target(t)}
                   aria-pressed={preset?.slug === t.slug}
                 >
-                  {t.name}
+                  {targetHints[t.slug] && (
+                    <img
+                      className="target-thumb"
+                      src={
+                        import.meta.env.BASE_URL +
+                        "archived-targets/2026-11-01/" +
+                        t.slug +
+                        ".png"
+                      }
+                      alt=""
+                      loading="lazy"
+                    />
+                  )}
+                  <span>
+                    {t.name}
+                    {targetHints[t.slug] && (
+                      <small className="target-hint">
+                        {targetHints[t.slug]}
+                      </small>
+                    )}
+                  </span>
                 </button>
               ))}
               <button
@@ -354,7 +386,7 @@ export function SearchForm({
                 }
               />
               <span className="field-hint">
-                Optional · leave both dates empty for available epochs
+                Leave both dates empty to search across available observation dates.
               </span>
             </label>
             <label className="field">
@@ -614,8 +646,7 @@ export function SearchForm({
               <p className="explorer-form-kicker">START EXPLORING</p>
               <h3>Find observations or build a movie</h3>
               <p>
-                Review matching archive records first, or go directly to
-                preparing a movie for this field.
+                Prepare sky movie loads images for this field. Find observation records lists the dates and detectors that covered it.
               </p>
             </div>
           </div>
@@ -623,19 +654,19 @@ export function SearchForm({
             <button
               className="btn btn-p"
               type="submit"
-              disabled={busy || discovering}
+              disabled={busy}
             >
-              {discovering ? "Finding records…" : "Find observation records"}
+              {busy ? "Submitting…" : "Prepare sky movie"}
             </button>
             <button
               className="btn btn-s"
               type="button"
-              disabled={busy}
+              disabled={busy || discovering}
               onClick={() => {
-                if (validate()) onPrepare(value);
+                if (validate()) onDiscover(value);
               }}
             >
-              {busy ? "Submitting…" : "Prepare sky movie"}
+              {discovering ? "Finding records…" : "Find observation records"}
             </button>
             <button
               className="btn btn-s"

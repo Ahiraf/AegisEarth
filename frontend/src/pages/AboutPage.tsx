@@ -365,7 +365,7 @@ export function AboutPage() {
         </Reveal>
 
         <nav className="links" aria-label="Next steps">
-          <a href="#/">Explore observations {"\u2192"}</a>
+          <a href="#/explorer">Explore observations {"\u2192"}</a>
           <a href="#/learn">Learn how to read observations {"\u2192"}</a>
         </nav>
       </div>

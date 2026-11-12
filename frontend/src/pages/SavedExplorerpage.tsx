@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CompareSection } from "../components/explorer/CompareSection";
-import { HeroSection } from "../components/explorer/HeroSection";
 import { NextLinks } from "../components/explorer/NextLinks";
 import { ProvenanceSection } from "../components/explorer/ProvenanceSection";
 import { ResultsSection } from "../components/explorer/ResultsSection";
 import { SearchSection } from "../components/explorer/SearchSection";
-import { prefersReducedMotion } from "../hooks/useReducedMotion";
 import { useCardGlow } from "../hooks/useCardGlow";
 import { M101 } from "../data/irsaSnapshot";
 import { validateSearch, type SearchFormValues } from "../lib/validation";
@@ -26,7 +24,6 @@ export function SavedExplorerPage() {
   const mode = "snapshot" as const;
   useCardGlow();
 
-  const [paused, setPaused] = useState(prefersReducedMotion);
   const [values, setValues] = useState<SearchFormValues>(DEFAULT_VALUES);
   const [ui, setUi] = useState<SearchUi>({ phase: "idle" });
   const [selection, setSelection] = useState<Selection>(NO_SELECTION);
@@ -99,11 +96,8 @@ export function SavedExplorerPage() {
       : [];
 
   return (
-    <div className={paused ? "motion-paused" : undefined}>
-      <HeroSection
-        paused={paused}
-        onTogglePaused={() => setPaused((p) => !p)}
-      />
+    <div>
+      <h1 className="sr-only">SPHEREx Viewer</h1>
       <div className="wrap">
         <SearchSection
           values={values}

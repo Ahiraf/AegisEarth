@@ -3,6 +3,7 @@ import { LiveExplorer } from "../features/sky/LiveExplorer";
 import { getDataMode } from "../services/config";
 import { SavedExplorerPage } from "./SavedExplorerpage";
 
+
 function sourceFromUrl(): "api" | "snapshot" {
   const source = new URLSearchParams(location.search).get("source");
   return source === "snapshot" || source === "api" ? source : getDataMode();
@@ -22,20 +23,26 @@ export function ExplorerPage() {
     window.addEventListener("popstate", restoreMode);
     return () => window.removeEventListener("popstate", restoreMode);
   }, []);
-  if (mode === "snapshot")
-    return (
-      <>
-        <div className="wrap sky-archive-switch">
-          <span className="chip chip-info">SAVED ARCHIVE RECORDS</span>
-          <button
-            className="btn btn-s btn-sm"
-            onClick={() => switchMode("api")}
-          >
-            Open live sky viewer
-          </button>
-        </div>
-        <SavedExplorerPage />
-      </>
-    );
-  return <LiveExplorer onArchive={() => switchMode("snapshot")} />;
+  return (
+    <>
+      {mode === "snapshot" ? (
+        <>
+          <div className="wrap sky-archive-switch">
+            <span className="chip chip-info">SAVED ARCHIVE RECORDS</span>
+            <button
+              className="btn btn-s btn-sm"
+              onClick={() => switchMode("api")}
+            >
+              Open live sky viewer
+            </button>
+          </div>
+          <SavedExplorerPage />
+        </>
+      ) : (
+        <LiveExplorer
+          onArchive={() => switchMode("snapshot")}
+        />
+      )}
+    </>
+  );
 }

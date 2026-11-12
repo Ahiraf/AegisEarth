@@ -30,7 +30,7 @@ test("moves to movie progress before a new request is accepted", async ({
     await pending;
     await route.fallback();
   });
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await page
     .getByRole("button", { name: "Prepare sky movie", exact: true })
     .click();
@@ -42,6 +42,17 @@ test("moves to movie progress before a new request is accepted", async ({
       "Finding observations",
     );
     await expect(progress.getByTestId("view-id")).toHaveCount(0);
+    await progress.getByRole("button", { name: "View an archived example" }).click();
+    const example = page.getByRole("dialog", { name: "The Pinwheel Galaxy" });
+    await expect(example).toBeVisible();
+    const img = example.getByRole("img");
+    const first = await img.getAttribute("src");
+    await example.getByRole("button", { name: "23 May 2026" }).click();
+    await expect(img).not.toHaveAttribute("src", first!);
+    await expect.poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+    await page.keyboard.press("Escape");
+    await expect(example).toBeHidden();
+    await expect(progress.getByRole("status")).toContainText("Finding observations");
   } finally {
     acceptRequest();
   }
@@ -97,7 +108,7 @@ test("shows request limits and serves all five dated previews independently of t
   page,
 }) => {
   await mockApi(page);
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await expect(page.getByText(/49 × 49 pixel comparison grid/)).toContainText(
     "256 MiB",
   );
@@ -129,7 +140,7 @@ test("preserves the existing theme and delivers a chronological paginated movie"
   const api = await mockApi(page);
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await expect(
     page.getByRole("button", { name: "WISE 0855", exact: true }),
   ).toBeVisible();
@@ -145,7 +156,7 @@ test("preserves the existing theme and delivers a chronological paginated movie"
   ).toContain("Manrope");
   expect(
     await page
-      .locator("#hero-title")
+      .locator("#find h2")
       .evaluate((el) => getComputedStyle(el).fontFamily),
   ).toContain("Manrope");
   await prepare(page);
@@ -228,7 +239,7 @@ test("isolates overlay outages, maps real API pixel coordinates, and handles sou
   page,
 }) => {
   const api = await mockApi(page, { overlayFailure: true });
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await prepare(page);
   await page
     .getByText("Survey context · Gaia and WISE", { exact: true })
@@ -273,7 +284,7 @@ test("submits correct preparation refs for coadds, spectra, gated differences an
   page,
 }) => {
   const api = await mockApi(page);
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await prepare(page);
   await sources(page);
   await page
@@ -349,7 +360,7 @@ test("supports additional detector views and complete moving-source epoch positi
   page,
 }) => {
   const api = await mockApi(page);
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await prepare(page);
   await sources(page);
   await page
@@ -418,7 +429,7 @@ test("reuses a submission key after a lost response and keeps capabilities out o
   page,
 }) => {
   const api = await mockApi(page, { loseFirstSubmission: true });
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await page
     .getByRole("button", { name: "Prepare sky movie", exact: true })
     .click();
@@ -446,7 +457,7 @@ test("cancels an owned queued view without requiring a trained model", async ({
   page,
 }) => {
   const api = await mockApi(page, { hold: true });
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await page
     .getByRole("button", { name: "Prepare sky movie", exact: true })
     .click();
@@ -489,7 +500,7 @@ test("shows empty coverage and quota errors without silently switching to saved 
   page,
 }) => {
   await mockApi(page, { count: 0 });
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await page
     .getByRole("button", { name: "Prepare sky movie", exact: true })
     .click();
@@ -501,7 +512,7 @@ test("shows empty coverage and quota errors without silently switching to saved 
   ).toHaveCount(0);
   await page.unroute("**/api/v1/**");
   await mockApi(page, { quota: true });
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await page
     .getByRole("button", { name: "Prepare sky movie", exact: true })
     .click();
@@ -545,7 +556,7 @@ test("fits the mobile viewport and preserves the explicitly selected saved-recor
 }) => {
   await mockApi(page);
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await prepare(page);
   await page.locator("#movie").scrollIntoViewIfNeeded();
   expect(
@@ -586,7 +597,7 @@ test("Explorer presents real archive observations with a usable timeline and the
   page,
 }) => {
   const api = await mockApi(page);
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await page
     .getByRole("button", { name: "Find observation records", exact: true })
     .click();
@@ -618,7 +629,7 @@ test("Explorer filmstrip navigates actual prepared frames without replacing the 
   page,
 }) => {
   await mockApi(page);
-  await page.goto("/");
+  await page.goto("/#/explorer");
   await page
     .getByRole("button", { name: "Prepare sky movie", exact: true })
     .click();

@@ -351,6 +351,12 @@ export function DiscoveryResults({
       ) : null}
       {result ? (
         <>
+          {result.sampled_count === 1 && (
+            <p className="note">
+              This search found one observation. Prepare its image to inspect
+              it, or try a wider date range to compare observations.
+            </p>
+          )}
           <ObservationDesk
             key={
               result.snapshot_id + ":" + result.items.map((p) => p.id).join("|")
