@@ -14,7 +14,7 @@ import {
   type SourceRef,
 } from "./sources";
 
-export type Fact = { label: string; value: string; source: SourceRef };
+export type Fact = { label: string; value: string; source: SourceRef; timescale?: boolean };
 export type OrbitObject = {
   id: string;
   name: string;
@@ -149,7 +149,7 @@ export const ORBIT_OBJECTS: OrbitObject[] = [
     fullName: "SPHEREx infrared observatory",
     category: "Sky survey · Polar orbit",
     summary:
-      "The mission behind AegisEarth’s sky images. SPHEREx splits near-infrared light into many wavelength channels, helping researchers investigate galaxies and the ingredients for water and other molecules in space.",
+      "The telescope behind these sky images. SPHEREx splits near-infrared light into many wavelength channels, helping researchers investigate galaxies and the ingredients for water and other molecules in space.",
     summarySource: JPL_SPHEREX,
     orbitExplanation:
       "Its path passes near the poles and follows Earth’s day–night boundary. This Sun-synchronous geometry helps protect the cold telescope from sunlight while it looks out into space.",
@@ -164,8 +164,9 @@ export const ORBIT_OBJECTS: OrbitObject[] = [
         source: JPL_SPHEREX_KIT,
       },
       {
-        label: "Orbit time",
-        value: "Approximately 98 minutes per lap",
+        label: "One Earth orbit",
+        timescale: true,
+        value: "≈ 98 minutes",
         source: JPL_SPHEREX_KIT,
       },
       {
@@ -180,8 +181,9 @@ export const ORBIT_OBJECTS: OrbitObject[] = [
         source: JPL_SPHEREX_FACTS,
       },
       {
-        label: "Survey design",
-        value: "One complete sky map about every six months",
+        label: "One full sky survey",
+        timescale: true,
+        value: "≈ 6 months",
         source: JPL_SPHEREX_FACTS,
       },
       {

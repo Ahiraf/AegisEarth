@@ -26,8 +26,23 @@ test("orbits has its own full viewport, selectable missions, and source-backed d
   ).toBeVisible();
   await expect(page.getByTestId("object-details")).toBeVisible();
   await expect(page.locator("#object-title")).toHaveText(
-    "International Space Station",
+    "SPHEREx infrared observatory",
   );
+  await expect(page.getByText("≈ 98 minutes")).toBeVisible();
+  await expect(page.getByText("≈ 6 months")).toBeVisible();
+  await page.getByRole("button", { name: "Compare galaxy images across two dates" }).click();
+  const comparison = page.getByRole("dialog");
+  const firstImage = await comparison.getByRole("img").getAttribute("src");
+  await comparison.getByRole("button", { name: "23 May 2026" }).click();
+  await expect(comparison.getByRole("img")).not.toHaveAttribute("src", firstImage!);
+  await page.keyboard.press("Escape");
+  await expect(comparison).toBeHidden();
+  await page.getByRole("button", { name: "Hide mission directory" }).click();
+  await page.getByRole("button", { name: "Hide spacecraft profile" }).click();
+  await expect(page.getByTestId("object-details")).toBeHidden();
+  await page.getByRole("button", { name: "Show spacecraft profile" }).click();
+  await expect(page.locator("#object-title")).toHaveText("SPHEREx infrared observatory");
+  await page.getByRole("button", { name: "Show mission directory" }).click();
   await expect(page.locator("#solar, #atmosphere, #hero-title")).toHaveCount(0);
   await expect(
     page.getByRole("link", { name: "Orbits", exact: true }).first(),
@@ -49,9 +64,14 @@ test("orbits has its own full viewport, selectable missions, and source-backed d
     await expect(page.locator("#object-title")).toHaveText(title);
     await expect(
       page.getByTestId("object-details").locator(".fact-row a"),
-    ).toHaveCount(8);
+    ).toHaveCount(0);
+    const credits = page.getByTestId("object-details").locator("details").filter({ hasText: "Sources & credits" });
+    await credits.locator("summary").click();
+    const hrefs = await credits.locator("a").evaluateAll(links => links.map(a => a.href));
+    expect(hrefs.length).toBeGreaterThan(0);
+    expect(new Set(hrefs).size).toBe(hrefs.length);
   }
-  await page.getByRole("button", { name: "Take a closer look" }).click();
+  await page.getByRole("button", { name: "Zoom to spacecraft in 3D" }).click();
   await page.screenshot({
     path: "../var/frontend-integration/world-orbits.png",
   });

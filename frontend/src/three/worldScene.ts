@@ -21,6 +21,7 @@ export type WorldScene = {
   reset(): void;
   focus(): void;
   setSelected(index: number | null): void;
+  seekOrbitMinutes(minutes: number): void;
   setPaused(paused: boolean): void;
   setAltitude(km: number): void;
   setInsets(left: number, right: number, bottom: number): void;
@@ -96,6 +97,7 @@ export function startWorldScene(
       : new T.DirectionalLight(0xfff6e8, 2.2);
   if (kind !== "solar") light.position.set(-6, 4, 6);
   scene.add(light);
+  const orbitPhases = [1.2, 3.6, 4.7, 2.5, 0.2];
   if (kind === "orbits") {
     // Subtle blue fill reveals model silhouettes on Earth's dark side.
     // This is visual lighting only, not physical illumination telemetry.
@@ -364,7 +366,7 @@ export function startWorldScene(
         radius: 0.6,
         orbit,
         orbitRadius: radius,
-        angle: [1.2, 3.6, 4.7, 2.5, 0.2][i],
+        angle: orbitPhases[i],
         speed: (Math.PI * 2) / (object.periodHours * 12),
       });
     });
@@ -690,6 +692,14 @@ export function startWorldScene(
         desiredDistance = fit();
       } else if (focused)
         desiredDistance = Math.max(2.8, entries[index].radius * 6.5);
+      dirty = true;
+    },
+    seekOrbitMinutes(minutes) {
+      if (kind !== "orbits") return;
+      entries.forEach((entry, i) => {
+        entry.angle = orbitPhases[i] + 2 * Math.PI * minutes / (60 * ORBIT_OBJECTS[i].periodHours);
+      });
+      if (earth) earth.rotation.y = -2 * Math.PI * minutes / (60 * 23.934);
       dirty = true;
     },
     setPaused(value) {

@@ -7,7 +7,7 @@ export type FactRowData = {
 };
 
 // A list of facts where each value can carry its own source link right beside it.
-export function FactList({ rows }: { rows: FactRowData[] }) {
+export function FactList({ rows, showSources = true }: { rows: FactRowData[]; showSources?: boolean }) {
   return (
     <dl className="fact-list">
       {rows.map((row) => (
@@ -15,7 +15,7 @@ export function FactList({ rows }: { rows: FactRowData[] }) {
           <dt>{row.label}</dt>
           <dd>
             <span>{row.value}</span>
-            {row.source ? <SourceLink href={row.source.url} label={`${row.source.name} source`} context={row.label} /> : null}
+            {showSources && row.source ? <SourceLink href={row.source.url} label={`${row.source.name} source`} context={row.label} /> : null}
           </dd>
         </div>
       ))}

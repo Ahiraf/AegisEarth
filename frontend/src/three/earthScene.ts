@@ -2,7 +2,7 @@ import { ATMOSPHERE_FRAGMENT, CLOUD_FRAGMENT, EARTH_FRAGMENT, NOISE_GLSL, PLANET
 import { disposeScene, listen, type SceneInstance, type Three } from './sceneTypes';
 
 /**
- * The decorative procedural Earth in the hero. Ported from the approved design mock-up.
+ * The decorative Earth in the hero. Ported from the approved design mock-up.
  * It is artwork, not data. Throws if WebGL is not available (the caller shows a message).
  */
 export function startEarthScene(T: Three, host: HTMLElement, startPaused: boolean): SceneInstance {
@@ -32,34 +32,44 @@ export function startEarthScene(T: Three, host: HTMLElement, startPaused: boolea
   scene.add(group);
   const earth = new T.Mesh(new T.SphereGeometry(1, seg, seg / 2), makeMaterial(EARTH_FRAGMENT, true));
   const clouds = new T.Mesh(
-    new T.SphereGeometry(1.012, seg, seg / 2),
+    new T.SphereGeometry(1.005, seg, seg / 2),
     makeMaterial(CLOUD_FRAGMENT, true, { transparent: true, depthWrite: false }),
   );
   const atmosphere = new T.Mesh(
-    new T.SphereGeometry(1.085, 64, 32),
+    new T.SphereGeometry(1.022, 64, 32),
     makeMaterial(ATMOSPHERE_FRAGMENT, false, {
       transparent: true,
       depthWrite: false,
       blending: T.AdditiveBlending,
     }),
   );
+  // Keep the procedural layers visible until their local images are ready.
+  const loader = new T.TextureLoader();
+  let disposed = false;
+  const surfaceMap = loader.load('/textures/2k_earth_daymap.jpg', () => {
+    if (disposed) return;
+    earth.material.dispose();
+    earth.material = new T.MeshLambertMaterial({ map: surfaceMap });
+    earth.material.onBeforeCompile = (shader: { fragmentShader: string }) => {
+      shader.fragmentShader = shader.fragmentShader.replace(
+        '#include <encodings_fragment>', 'gl_FragColor = LinearTosRGB(gl_FragColor);',
+      );
+    };
+  });
+  surfaceMap.encoding = T.sRGBEncoding;
+  const cloudMap = loader.load('/textures/2k_earth_clouds.jpg', () => {
+    if (disposed) return;
+    clouds.material.dispose();
+    clouds.material = new T.MeshLambertMaterial({
+      alphaMap: cloudMap, transparent: true, opacity: 0.88, depthWrite: false,
+    });
+  });
+  const sunlight = new T.DirectionalLight(0xfffaf3, 2.1);
+  sunlight.position.copy(sun);
+  scene.add(sunlight, new T.AmbientLight(0xaac7ef, 0.14));
+  clouds.rotation.y = -Math.PI / 2;
   group.add(earth, clouds, atmosphere);
   group.rotation.z = -0.41;
-
-  // A thin orbit ring with one moving dot
-  const ringPoints = [];
-  for (let i = 0; i < 128; i += 1) {
-    const a = (i / 128) * Math.PI * 2;
-    ringPoints.push(new T.Vector3(Math.cos(a) * 1.45, 0, Math.sin(a) * 1.45));
-  }
-  const ring = new T.LineLoop(
-    new T.BufferGeometry().setFromPoints(ringPoints),
-    new T.LineBasicMaterial({ color: 0x4cc3f0, transparent: true, opacity: 0.22 }),
-  );
-  ring.rotation.set(0.35, 0, 0.5);
-  scene.add(ring);
-  const dot = new T.Mesh(new T.SphereGeometry(0.018, 10, 10), new T.MeshBasicMaterial({ color: 0x4cc3f0 }));
-  ring.add(dot);
 
   // Decorative background points (random, not real stars)
   const count = mobile ? 900 : 2200;
@@ -107,8 +117,7 @@ export function startEarthScene(T: Three, host: HTMLElement, startPaused: boolea
   let paused = startPaused;
   let visible = true;
   let lastFrame = 0;
-  let spin = 0;
-  let orbit = 0;
+  let spin = -Math.PI / 2;
 
   const resize = () => {
     const w = host.clientWidth;
@@ -121,7 +130,6 @@ export function startEarthScene(T: Three, host: HTMLElement, startPaused: boolea
     const halfWidth = Math.tan((19 * Math.PI) / 180) * DEFAULT_Z * cam.aspect;
     const x = w > 900 ? halfWidth * 0.42 : w > 760 ? halfWidth * 0.3 : 0;
     group.position.x = x;
-    ring.position.x = x;
   };
   resize();
 
@@ -190,10 +198,8 @@ export function startEarthScene(T: Three, host: HTMLElement, startPaused: boolea
     lastFrame = t;
     if (!paused) {
       spin += 0.0009;
-      orbit += 0.006;
-      clouds.rotation.y += 0.00035;
+      clouds.rotation.y += 0.00096;
       stars.rotation.y += 0.00002;
-      dot.position.set(Math.cos(orbit) * 1.45, 0, Math.sin(orbit) * 1.45);
     }
     earth.rotation.y = spin;
     pitch += (targetPitch - pitch) * 0.08;
@@ -224,7 +230,10 @@ export function startEarthScene(T: Three, host: HTMLElement, startPaused: boolea
       targetZ = DEFAULT_Z;
     },
     dispose: () => {
+      disposed = true;
       cancelAnimationFrame(frame);
+      surfaceMap.dispose();
+      cloudMap.dispose();
       cleanups.forEach((cleanup) => cleanup());
       disposeScene(scene);
       renderer.dispose();

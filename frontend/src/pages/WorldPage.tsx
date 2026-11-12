@@ -7,6 +7,7 @@ import {
   useState,
   type CSSProperties,
 } from "react";
+import { ArchivedExample } from "../features/sky/ArchivedExample";
 import { WorldCanvas } from "../components/WorldCanvas";
 import { FactList } from "../components/FactList";
 import { SourceLink } from "../components/SourceLink";
@@ -50,7 +51,7 @@ const LEADS: Record<WorldKind, string> = {
     "Eight planets, one star. Explore the worlds of our Solar System through an interactive model.",
 };
 const DEFAULT_SELECTION: Record<WorldKind, number> = {
-  orbits: 0, // The International Space Station introduces the mission directory.
+  orbits: ORBIT_OBJECTS.findIndex((object) => object.id === "spherex"),
   atmosphere: 0, // Troposphere is the natural starting point for an ascent.
   solar: 2, // Start at Earth; retain the full-system overview camera.
 };
@@ -64,12 +65,20 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
   // Desktop profiles open as an introduction; on phones the scene remains unobstructed
   // until the visitor explicitly chooses a mission, planet, or atmospheric layer.
   const [selected, setSelected] = useState<number | null>(() =>
+    kind !== "orbits" &&
     typeof window !== "undefined" &&
     window.matchMedia("(max-width: 760px)").matches
       ? null
       : DEFAULT_SELECTION[kind],
   );
+  const [directoryHidden, setDirectoryHidden] = useState(false);
+  const [profileHidden, setProfileHidden] = useState(
+    () => kind === "orbits" && window.matchMedia("(max-width: 760px)").matches,
+  );
+  const example = useRef<HTMLDialogElement>(null);
+  const profileToggle = useRef<HTMLButtonElement>(null);
   const [altitude, setAltitude] = useState(5);
+  const [orbitMinutes, setOrbitMinutes] = useState<number | null>(null);
   const [paused, setPaused] = useState(prefersReducedMotion);
   const [fullscreen, setFullscreen] = useState(false);
   const [fullscreenError, setFullscreenError] = useState("");
@@ -83,6 +92,9 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
   const rail = useRef<HTMLDivElement>(null);
   const chooser = useRef<HTMLSelectElement>(null);
   const controls = useRef<WorldScene | null>(null);
+  useEffect(() => {
+    if (orbitMinutes !== null && sceneStatus === "ready") controls.current?.seekOrbitMinutes(orbitMinutes);
+  }, [orbitMinutes, sceneStatus]);
   const names =
     kind === "solar"
       ? PLANETS.map((object) => object.name)
@@ -93,14 +105,22 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
   const select = useCallback(
     (index: number) => {
       setSelected(index);
+      if (kind === "orbits") setProfileHidden(false);
       if (kind === "atmosphere") setAltitude(LAYER_ALTITUDES[index]);
     },
     [kind],
   );
   const close = useCallback(() => {
     setSelected(null);
-    chooser.current?.focus({ preventScroll: true });
-  }, []);
+    if (kind === "orbits") {
+      setProfileHidden(true);
+      (directoryHidden ? profileToggle.current : chooser.current)?.focus({
+        preventScroll: true,
+      });
+    } else {
+      chooser.current?.focus({ preventScroll: true });
+    }
+  }, [kind, directoryHidden]);
 
   useEffect(() => {
     if (reduced) setPaused(true);
@@ -110,16 +130,17 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
     // visualization when the browser is resized into a phone-sized viewport.
     const phone = window.matchMedia("(max-width: 760px)");
     const handleViewportChange = (event: MediaQueryListEvent) => {
-      if (event.matches) setSelected(null);
+      if (event.matches && kind === "orbits") setProfileHidden(true);
+      else if (event.matches) setSelected(null);
     };
     phone.addEventListener("change", handleViewportChange);
     return () => phone.removeEventListener("change", handleViewportChange);
-  }, []);
+  }, [kind]);
   useEffect(() => {
     const change = () =>
       setFullscreen(document.fullscreenElement === root.current);
     const escape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") close();
+      if (event.key === "Escape" && !example.current?.open) close();
     };
     document.addEventListener("fullscreenchange", change);
     document.addEventListener("keydown", escape);
@@ -136,10 +157,12 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
       if (!root.current) return;
       const mobile = window.matchMedia("(max-width: 760px)").matches;
       const railWidth = rail.current?.getBoundingClientRect().width ?? 0;
-      const detailBounds = panel.current?.getBoundingClientRect();
+      const detailBounds = profileHidden
+        ? undefined
+        : panel.current?.getBoundingClientRect();
       setInsets((previous) => {
         const next = {
-          left: mobile ? 0 : railWidth + 46,
+          left: mobile || directoryHidden ? 0 : railWidth + 46,
           right: mobile || !detailBounds ? 0 : detailBounds.width + 32,
           bottom: mobile && detailBounds ? detailBounds.height + 18 : 0,
         };
@@ -159,7 +182,7 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [kind, selected]);
+  }, [kind, selected, directoryHidden, profileHidden]);
 
   const toggleFullscreen = async () => {
     try {
@@ -176,6 +199,11 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
   };
   const mission =
     kind === "orbits" && selected !== null ? ORBIT_OBJECTS[selected] : null;
+  const isSpherex = mission?.id === "spherex";
+  const timescales = isSpherex
+    ? mission.facts.filter((fact) => fact.timescale)
+    : [];
+  const missionFacts = mission?.facts.filter((fact) => !fact.timescale) ?? [];
   const planet =
     kind === "solar" && selected !== null ? PLANETS[selected] : null;
   const layer =
@@ -189,7 +217,7 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
 
   return (
     <div
-      className={`world-page world-${kind} world-experience${selected !== null ? " has-detail" : ""}`}
+      className={`world-page world-${kind} world-experience${selected !== null && !profileHidden ? " has-detail" : ""}`}
       ref={root}
       id={kind}
     >
@@ -205,7 +233,55 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
         onSceneStatusChange={setSceneStatus}
       />
 
-      <div className="world-side-rail" ref={rail}>
+      {kind === "orbits" && <ArchivedExample dialog={example} />}
+      {kind === "orbits" && (
+        <>
+          <div className="orbit-sidebar-switches">
+            <button
+              type="button"
+              aria-controls="orbit-directory"
+              aria-expanded={!directoryHidden}
+              aria-label={
+                directoryHidden
+                  ? "Show mission directory"
+                  : "Hide mission directory"
+              }
+              onClick={() => setDirectoryHidden((value) => !value)}
+            >
+              <span aria-hidden="true">{directoryHidden ? "›" : "‹"}</span>{" "}
+              Missions
+            </button>
+            <button
+              type="button"
+              ref={profileToggle}
+              aria-controls="orbit-profile"
+              aria-expanded={!profileHidden}
+              aria-label={
+                profileHidden
+                  ? "Show spacecraft profile"
+                  : "Hide spacecraft profile"
+              }
+              onClick={() => {
+                if (selected === null) select(DEFAULT_SELECTION.orbits);
+                else setProfileHidden((value) => !value);
+              }}
+            >
+              Profile{" "}
+              <span aria-hidden="true">{profileHidden ? "‹" : "›"}</span>
+            </button>
+          </div>
+        </>
+      )}
+      <div
+        className="world-side-rail"
+        ref={rail}
+        id={kind === "orbits" ? "orbit-directory" : undefined}
+        tabIndex={kind === "orbits" ? 0 : undefined}
+        role={kind === "orbits" ? "region" : undefined}
+        aria-label={kind === "orbits" ? "Mission directory" : undefined}
+        inert={directoryHidden}
+        data-collapsed={directoryHidden}
+      >
         <header className="world-heading">
           <p className="world-eyebrow">
             AEGISEARTH /{" "}
@@ -338,6 +414,7 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
                   <small>{String(index + 1).padStart(2, "0")}</small>
                 </button>
               ))}
+              <a className="btn btn-s" href="#/planet-x">Explore Planet X</a>
             </div>
           </nav>
         )}
@@ -451,6 +528,10 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
         <aside
           className="world-detail"
           ref={panel}
+          id={kind === "orbits" ? "orbit-profile" : undefined}
+          tabIndex={kind === "orbits" ? 0 : undefined}
+          inert={profileHidden}
+          data-collapsed={profileHidden}
           aria-labelledby="object-title"
           data-testid="object-details"
           style={
@@ -495,6 +576,19 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
                 (planet ? PLANET_STORIES[selected] : lesson?.role)}
             </p>
           </div>
+          {isSpherex && (
+            <div className="orbit-survey-intro">
+              <FactList showSources={false} rows={timescales} />
+              <button
+                type="button"
+                className="orbit-image-link"
+                aria-haspopup="dialog"
+                onClick={() => example.current?.showModal()}
+              >
+                Compare galaxy images across two dates
+              </button>
+            </div>
+          )}
           {kind !== "atmosphere" && (
             <button
               type="button"
@@ -503,10 +597,9 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
               title={
                 sceneStatus === "ready" ? undefined : "Requires the 3D scene"
               }
-              aria-label="Take a closer look"
               onClick={() => controls.current?.focus()}
             >
-              {mission ? "Focus on spacecraft" : "Take a closer look"}
+              {mission ? "Zoom to spacecraft in 3D" : "Take a closer look"}
               <span aria-hidden="true">↗</span>
             </button>
           )}
@@ -542,36 +635,42 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
           {mission && (
             <>
               <p className="world-section-label">Mission at a glance</p>
-              <FactList
-                rows={mission.facts.slice(0, 4).map((fact) => ({
-                  label: fact.label,
-                  value: fact.value,
-                  source: fact.source,
-                }))}
-              />
+              <FactList rows={missionFacts.slice(0, 4)} showSources={false} />
+              {mission.id === "iss" && (
+                <section className="orbit-explanation">
+                  <h3>A day aboard the ISS</h3>
+                  <p>Drag through one simulated day. Watch the station complete a lap every {Math.round(mission.periodHours * 60)} minutes.</p>
+                  <label>Elapsed minutes
+                    <input type="range" min={0} max={1440} step={1}
+                      style={{width: "100%"}} value={orbitMinutes ?? 0}
+                      onChange={event => {
+                        const minutes = event.currentTarget.valueAsNumber;
+                        setPaused(true);
+                        setOrbitMinutes(minutes);
+                      }} />
+                  </label>
+                  <output>{orbitMinutes === null ? "Choose a time to pause the scene." : `${Math.floor(orbitMinutes / 60)} h ${orbitMinutes % 60} min · ${Math.floor(orbitMinutes / (60 * mission.periodHours))} completed laps`}</output>
+                </section>
+              )}
               <div className="orbit-explanation">
                 <h3>Why this orbit matters</h3>
                 <p>{mission.orbitExplanation}</p>
               </div>
-              {mission.facts.length > 4 && (
+              {missionFacts.length > 4 && (
                 <details className="world-more-facts" open>
                   <summary>More mission facts</summary>
-                  <FactList
-                    rows={mission.facts.slice(4).map((fact) => ({
-                      label: fact.label,
-                      value: fact.value,
-                      source: fact.source,
-                    }))}
-                  />
+                  <FactList rows={missionFacts.slice(4)} showSources={false} />
                 </details>
               )}
-              <div className="world-profile-source">
-                <SourceLink
-                  href={mission.summarySource.url}
-                  label="Official mission overview"
-                  context={mission.name}
-                />
-              </div>
+              <details key={mission.id} className="world-more-facts">
+                <summary>Sources &amp; credits</summary>
+                {Array.from(new Set([mission.summarySource.url, ...mission.facts.map(f => f.source.url)])).map(url => {
+                  const facts = mission.facts.filter(f => f.source.url === url);
+                  const labels = facts.map(f => f.label);
+                  if (url === mission.summarySource.url) labels.unshift("Mission overview");
+                  return <p key={url}><SourceLink href={url} label={(facts[0]?.source ?? mission.summarySource).name} /> · {labels.join(", ")}</p>;
+                })}
+              </details>
             </>
           )}
 
@@ -724,7 +823,7 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
             <button
               type="button"
               disabled={sceneStatus !== "ready"}
-              onClick={() => setPaused((value) => !value)}
+              onClick={() => { setOrbitMinutes(null); setPaused((value) => !value); }}
               aria-label={paused ? "Play animation" : "Pause animation"}
             >
               {paused ? "▶" : "Ⅱ"}

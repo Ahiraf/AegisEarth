@@ -116,10 +116,10 @@ test("solar model supports mesh picking, close-up texture maps, and independent 
     ).toBeVisible();
   }
   await page
-    .getByRole("link", { name: "Explorer", exact: true })
+    .getByRole("link", { name: "SPHEREx Viewer", exact: true })
     .first()
     .click();
-  await expect(page.locator("#hero-title")).toBeVisible();
+  await expect(page.locator("#find h2")).toBeVisible();
   await expect(page.locator("#solar, #orbits, #atmosphere")).toHaveCount(0);
   expect(errors).toEqual([]);
 });

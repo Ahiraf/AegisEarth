@@ -96,3 +96,108 @@
     display: none;
   }
 }
+
+.world-orbits .orbit-sidebar-switches {
+  position: absolute;
+  inset: 8px 16px auto;
+  z-index: 9;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.orbit-sidebar-switches button {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 44px;
+  padding: 0 .85rem;
+  border: 1px solid var(--world-border);
+  border-radius: .6rem;
+  color: var(--text);
+  background: var(--world-glass);
+  font: 650 .84rem var(--head);
+  cursor: pointer;
+}
+.orbit-sidebar-switches button span { color: var(--cyan); font-size: 1.4rem; }
+.world-orbits.world-experience .world-side-rail,
+.world-orbits.world-experience .world-detail {
+  transition: transform .2s ease, visibility .2s;
+}
+.world-orbits.world-experience .world-side-rail { top: 60px; }
+@media (min-width: 761px) {
+  .world-orbits.world-experience .world-detail { top: 60px; }
+}
+.world-orbits .world-side-rail[data-collapsed="true"] {
+  transform: translateX(calc(-100% - 48px));
+  visibility: hidden;
+}
+.world-orbits .world-detail[data-collapsed="true"] {
+  transform: translateX(calc(100% + 48px));
+  visibility: hidden;
+}
+.world-orbits .orbit-survey-intro .fact-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+.world-orbits .orbit-survey-intro .fact-row { display: block; }
+.world-orbits .orbit-survey-intro .fact-row dd { text-align: left; }
+@media (prefers-reduced-motion: reduce) {
+  .world-orbits.world-experience .world-side-rail,
+  .world-orbits.world-experience .world-detail { transition: none; }
+}
+
+.world-orbits .orbit-survey-intro {
+  margin-bottom: 14px;
+}
+.world-orbits .orbit-image-link {
+  display: inline-block;
+  padding: 8px 0;
+  min-height: 44px;
+  background: transparent;
+  color: var(--cyan);
+  border: 0;
+  text-align: left;
+  font: 650 14px/1.5 var(--head);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+/* Each rail owns its scroll position, including the compact mission directory. */
+.world-orbits :is(#orbit-directory, #orbit-profile) {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto;
+}
+.world-orbits #orbit-directory .world-directory {
+  flex: 0 0 auto;
+  max-height: none;
+}
+.world-orbits #orbit-directory .world-directory-list {
+  display: block;
+  overflow: visible;
+}
+.world-orbits :is(#orbit-directory, #orbit-profile)::-webkit-scrollbar {
+  width: 12px;
+}
+.world-orbits :is(#orbit-directory, #orbit-profile)::-webkit-scrollbar-track {
+  background: #0b1825;
+  border-radius: 8px;
+}
+.world-orbits :is(#orbit-directory, #orbit-profile)::-webkit-scrollbar-thumb {
+  background: #637b90;
+  border: 2px solid #0b1825;
+  border-radius: 8px;
+}
+.world-orbits :is(#orbit-directory, #orbit-profile)::-webkit-scrollbar-thumb:hover {
+  background: #9cb2c5;
+}
+@supports not selector(::-webkit-scrollbar) {
+  .world-orbits :is(#orbit-directory, #orbit-profile) {
+    scrollbar-color: #637b90 #0b1825;
+  }
+}
