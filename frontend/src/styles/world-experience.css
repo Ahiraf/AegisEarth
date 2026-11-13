@@ -1099,3 +1099,38 @@
   .world-experience .world-detail { overflow: visible; box-shadow: none; }
   .world-experience .world-detail[data-collapsed="true"] { display: none; }
 }
+
+.atmosphere-mobile-key { display: none; }
+
+@media (max-width: 760px) {
+  .atmosphere-mobile-key {
+    display: block;
+    margin-inline: .75rem;
+  }
+  .atmosphere-mobile-key > p {
+    color: var(--muted);
+    font-size: .85rem;
+    margin: 0 0 .4rem;
+  }
+  .atmosphere-mobile-key .layer-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    gap: .4rem;
+    margin: 0;
+    border: 0;
+  }
+  .atmosphere-mobile-key .layer-steps button {
+    min-width: 0;
+    min-height: 44px;
+    padding: .5rem .65rem;
+    overflow-wrap: anywhere;
+    border: 1px solid var(--world-border);
+    border-radius: 7px;
+    background: #0c1c2b;
+    font-size: .875rem;
+  }
+  .atmosphere-mobile-key .layer-steps button span { flex: none; }
+  .atmosphere-mobile-key .layer-steps button[aria-pressed="true"] {
+    border-color: var(--layer-color);
+  }
+}

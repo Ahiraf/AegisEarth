@@ -172,7 +172,7 @@ export function spacecraft(T: Three, id: string) {
     box(0.26, 0.18, 0.28, gold, 0, -0.16);
     for (let i = 0; i < 3; i += 1) {
       part(
-        new T.ConeGeometry(0.3 - i * 0.045, 0.28, 48, 1, true),
+        new T.CylinderGeometry(0.3 - i * 0.045, 0.105, 0.24, 48, 1, true),
         silver,
         0,
         i * 0.07,
@@ -184,9 +184,9 @@ export function spacecraft(T: Three, id: string) {
     silver.side = T.DoubleSide;
     panel(0.42, 0.4, 0.34);
     // Nested sunshields and a compact service bus distinguish the telescope.
-    part(new T.TorusGeometry(0.29, 0.012, 8, 48), gold, 0, 0.13).rotation.x =
+    part(new T.TorusGeometry(0.3, 0.008, 8, 48), gold, 0, 0.12).rotation.x =
       Math.PI / 2;
-    part(new T.TorusGeometry(0.23, 0.009, 8, 48), white, 0, 0.21).rotation.x =
+    part(new T.TorusGeometry(0.21, 0.006, 8, 48), white, 0, 0.26).rotation.x =
       Math.PI / 2;
     strut([0, -0.18, 0], [0.45, 0, 0], 0.013, silver);
     box(0.11, 0.08, 0.18, dark, -0.16, -0.2, 0);

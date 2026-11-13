@@ -175,6 +175,25 @@ test("atmosphere works on a phone and survives context loss with facts available
   expect((await page.locator(".world-viewport").boundingBox())!.width).toBe(
     390,
   );
+  const key = page.locator(".atmosphere-mobile-key");
+  const labels = key.getByRole("button");
+  await expect(labels).toHaveText([
+    "Troposphere", "Stratosphere", "Mesosphere", "Thermosphere", "Exosphere",
+  ]);
+  for (const width of [320, 390, 760]) {
+    await page.setViewportSize({ width, height: 844 });
+    const separated = await labels.evaluateAll(buttons => {
+      const boxes = buttons.map(button => button.getBoundingClientRect());
+      return boxes.every((box, i) => box.height >= 44 && box.width > 0 &&
+        box.left >= 0 && box.right <= innerWidth &&
+        boxes.slice(i + 1).every(other => box.right <= other.left ||
+          other.right <= box.left || box.bottom <= other.top || other.bottom <= box.top));
+    });
+    expect(separated).toBe(true);
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await key.getByRole("button", { name: "Exosphere" }).click();
+  await expect(page.locator("#object-title")).toHaveText("Exosphere");
   await page.getByLabel("Go to altitude (km)").fill("65");
   await expect(page.locator("#object-title")).toHaveText("Mesosphere");
   await page.screenshot({

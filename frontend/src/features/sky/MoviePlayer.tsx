@@ -388,43 +388,86 @@ export function MoviePlayer({
                 ))}
               </div>
             ) : (
-              <FrameFigure
-                key={frame.id}
-                frame={frame}
-                label={`Frame ${ordinal + 1} of ${frames.length}`}
-                view={view}
-                onView={setView}
-                onDecoded={setDecoded}
-                layers={layers}
-                opacity={layersChoice.opacity}
-                onPixel={(x, y) => void pick(x, y)}
-              />
+              <div className="movie-workbench">
+                <div
+                  className="movie-transport"
+                  role="group"
+                  aria-label="Frame playback"
+                >
+                  <button
+                    className="btn btn-s btn-sm"
+                    disabled={ordinal === 0}
+                    onClick={() => step(-1)}
+                    aria-label="Previous frame"
+                  >
+                    ← Previous
+                  </button>
+                  <button
+                    className="btn btn-p btn-sm"
+                    disabled={!canAnimate}
+                    onClick={togglePlayback}
+                  >
+                    {playing ? "Pause" : "Play"}
+                  </button>
+                  <button
+                    className="btn btn-s btn-sm"
+                    disabled={ordinal >= frames.length - 1}
+                    onClick={() => step(1)}
+                    aria-label="Next frame"
+                  >
+                    Next →
+                  </button>
+                </div>
+                <FrameFigure
+                  key={frame.id}
+                  frame={frame}
+                  label={`Frame ${ordinal + 1} of ${frames.length}`}
+                  view={view}
+                  onView={setView}
+                  onDecoded={setDecoded}
+                  layers={layers}
+                  opacity={layersChoice.opacity}
+                  onPixel={(x, y) => void pick(x, y)}
+                />
+                <aside className="movie-reading">
+                  <h3>What am I seeing?</h3>
+                  <p>
+                    Each square is one of the {frame.spatial.shape[1]} ×{" "}
+                    {frame.spatial.shape[0]} pixels in this infrared view. A
+                    small source can spread its light across several squares.
+                    Zoom in to inspect those pixels.
+                  </p>
+                  <ul className="movie-pixel-key">
+                    <li>
+                      <i className="signal-high" />
+                      White or light gray — stronger signal
+                    </li>
+                    <li>
+                      <i className="signal-low" />
+                      Dark gray or black — weaker signal
+                    </li>
+                    <li>
+                      <i className="signal-missing" />
+                      Striped area — no usable value
+                    </li>
+                  </ul>
+                  {frames.length > 1 && (
+                    <p>
+                      {mode === "common"
+                        ? "Pick a bright patch and step through the dates. Does it stay in the same place relative to nearby patches?"
+                        : "Use nearby bright patches to recognize the same area across dates. The camera angle and coverage can change."}
+                    </p>
+                  )}
+                  <p className="note">
+                    {frame.stretch.mode === "shared_asinh"
+                      ? "These frames use the same brightness scale. Compare visits at similar wavelengths when looking for a change."
+                      : "Each frame uses its own brightness scale. A patch can appear brighter simply because the display scale changed."}
+                  </p>
+                </aside>
+              </div>
             )}
             <div className="sky-playback card">
               <div className="tb">
-                <button
-                  className="btn btn-s btn-sm"
-                  disabled={ordinal === 0 || display === "side"}
-                  onClick={() => step(-1)}
-                  aria-label="Previous frame"
-                >
-                  ← Previous
-                </button>
-                <button
-                  className="btn btn-p btn-sm"
-                  disabled={!canAnimate || display === "side"}
-                  onClick={togglePlayback}
-                >
-                  {playing ? "Pause" : "Play"}
-                </button>
-                <button
-                  className="btn btn-s btn-sm"
-                  disabled={ordinal >= frames.length - 1 || display === "side"}
-                  onClick={() => step(1)}
-                  aria-label="Next frame"
-                >
-                  Next →
-                </button>
                 <label className="check-line">
                   <input
                     type="checkbox"

@@ -215,6 +215,22 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
   }).format(altitude);
   const profileCount = names.length;
 
+  const layerButtons = kind === "atmosphere" && (
+    <div className="layer-steps" role="group" aria-label="Atmospheric layers, from the surface outward">
+      {LAYERS.map((item, index) => (
+        <button
+          key={item.name}
+          type="button"
+          aria-pressed={selected === index}
+          onClick={() => select(index)}
+          style={{ "--layer-color": COLORS[index] } as CSSProperties}
+        >
+          <span aria-hidden="true" />
+          {item.name}
+        </button>
+      ))}
+    </div>
+  );
   return (
     <div
       className={`world-page world-${kind} world-experience${selected !== null && !profileHidden ? " has-detail" : ""}`}
@@ -493,20 +509,7 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
                   ))}
                 </select>
               </label>
-              <div className="layer-steps" aria-label="Atmospheric layers">
-                {LAYERS.map((item, index) => (
-                  <button
-                    key={item.name}
-                    type="button"
-                    aria-pressed={selected === index}
-                    onClick={() => select(index)}
-                    style={{ "--layer-color": COLORS[index] } as CSSProperties}
-                  >
-                    <span aria-hidden="true" />
-                    {item.name}
-                  </button>
-                ))}
-              </div>
+              {layerButtons}
             </div>
           </section>
         )}
@@ -524,6 +527,12 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
         onSceneStatusChange={setSceneStatus}
       />
 
+      {kind === "atmosphere" && (
+        <div className="atmosphere-mobile-key">
+          <p>Layers from the surface outward</p>
+          {layerButtons}
+        </div>
+      )}
       <div className="world-bottom">
         <p id="world-instructions" className="world-instruction-note">
           {kind === "atmosphere"

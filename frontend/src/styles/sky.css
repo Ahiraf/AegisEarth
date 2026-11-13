@@ -602,3 +602,52 @@
 .planet-x-page p, .planet-x-page figcaption { margin-block: .8rem; line-height: 1.6; color: var(--muted); }
 .planet-x-page .planet-x-guide { padding: clamp(1rem, 3vw, 2rem); }
 .planet-x-guide .planet-x-field svg { height: clamp(10rem, 32vh, 20rem); }
+
+/* Keep frame navigation stationary while the dated observation changes. */
+.movie-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(16rem, 1fr);
+  grid-template-areas: "image transport" "image reading";
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  gap: 1rem;
+}
+.movie-workbench .sky-image-card { grid-area: image; min-width: 0; }
+.movie-workbench .prev { width: min(100%, 80svh); margin-inline: auto; }
+.movie-transport {
+  grid-area: transport;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.movie-transport .btn { min-height: 44px; }
+.movie-reading { grid-area: reading; color: var(--muted); max-width: 56ch; }
+.movie-reading h3 { color: var(--text); }
+.movie-reading p { margin-top: .65rem; }
+.movie-pixel-key { padding: 0; list-style: none; margin: .9rem 0; }
+.movie-pixel-key li { display: flex; align-items: center; gap: .6rem; margin-block: .35rem; }
+.movie-pixel-key i { flex: none; width: 1rem; height: 1rem; border: 1px solid #708498; border-radius: 2px; }
+.signal-high { background: #ededed; }
+.signal-low { background: #161616; }
+.sky-image-plane, .signal-missing {
+  background: repeating-linear-gradient(135deg, #162432 0 3px, #334450 3px 4px);
+}
+.sky-image-plane > img:first-child { image-rendering: pixelated; }
+@media (max-width: 800px) {
+  .movie-workbench {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "transport" "image" "reading";
+    grid-template-rows: auto;
+    gap: .65rem;
+  }
+  .movie-transport .btn { flex: 1; }
+}
+
+.sky-empty-spectrum {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-block: 1rem;
+}
+.sky-empty-spectrum p { max-width: 72ch; margin-block: .5rem; }
+.sky-empty-spectrum .tb { flex-wrap: wrap; }

@@ -1,3 +1,4 @@
+import { scrollToId } from "../../lib/scroll";
 import { apiUrl } from "./api";
 import type { DerivedTask } from "./useDerivedJobs";
 import type { Artifact, Sample } from "./types";
@@ -19,10 +20,20 @@ function SpectrumPlot({ samples }: { samples: Sample[] }) {
   );
   if (!points.length)
     return (
-      <p className="state">
-        No usable spectrum samples were returned. Inspect each sample’s reason
-        below.
-      </p>
+      <div className="sky-empty-spectrum">
+        <h4>No brightness measurement to plot</h4>
+        {samples.some(s => s.reason === "masked_aperture_or_insufficient_clean_background") && (
+          <p>The telescope recorded a wavelength, but the source area had too few usable pixels or the surrounding sky had too few clean pixels to estimate the background.</p>
+        )}
+        {samples.some(s => s.reason === "background_annulus_outside_cutout" || s.reason === "position_outside_input") && (
+          <p>The selected position or the ring of sky needed to measure the background extends outside an observation.</p>
+        )}
+        <p>{samples.length ? "Check the reason for each observation below." : "This extraction returned no samples."} To measure the same target, select another observation covering it and run the extraction again. To inspect a different source, choose its position in the movie at Fit zoom.</p>
+        <div className="tb">
+          <button type="button" className="btn btn-s btn-sm" onClick={() => scrollToId("processing", true)}>Review extraction settings</button>
+          <button type="button" className="btn btn-s btn-sm" onClick={() => scrollToId("movie", true)}>Choose a sky position</button>
+        </div>
+      </div>
     );
   const lo = Math.min(
     ...points.map(
@@ -272,7 +283,7 @@ export function DerivedResults({
           {publicArtifacts.map((a) => (
             <a key={a.id} className="btn btn-s btn-sm" href={artifactURL(a)}>
               Download {(a.kind || a.content_type).replaceAll("_", " ")} ·{" "}
-              {(a.size_bytes / 1024).toFixed(0)} KB
+              {a.size_bytes < 1024 ? a.size_bytes + " B" : (a.size_bytes / 1024).toFixed(1) + " KB"}
             </a>
           ))}
         </div>

@@ -348,7 +348,7 @@ test("submits correct preparation refs for coadds, spectra, gated differences an
     .click();
   const movie = page.getByRole("article", { name: "Movie export job" });
   await expect(
-    movie.getByRole("link", { name: "Download export provenance · 1 KB" }),
+    movie.getByRole("link", { name: "Download export provenance · 1000 B" }),
   ).toBeVisible();
   await expect(
     movie.getByRole("link", { name: "Full result and provenance JSON" }),

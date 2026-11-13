@@ -52,6 +52,31 @@ li {
 .nav-link:hover {
   border-color: var(--border);
 }
+@media (min-width: 761px) {
+  .hdr .wrap {
+    column-gap: 0;
+  }
+  .hdr nav {
+    flex: 1 1 auto;
+  }
+  .hdr .nav-list {
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+  }
+  .hdr .nav-link {
+    font-family: var(--head);
+    font-size: clamp(.875rem, 1.12vw, 1rem);
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    min-height: 44px;
+    padding-inline: .45em;
+  }
+  .hdr .nav-link[aria-current="page"] {
+    color: var(--cyan);
+  }
+}
 .btn {
   border-radius: 10px;
   box-shadow: none;

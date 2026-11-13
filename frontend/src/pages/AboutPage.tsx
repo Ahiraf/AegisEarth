@@ -24,6 +24,14 @@ import {
 import { useCardGlow } from "../hooks/useCardGlow";
 import { scrollToId } from "../lib/scroll";
 
+const TEAM = [
+  { name: "Fariha Rayhan Mim", role: "Team owner & pitch lead", photo: "/team/fariha-rayhan-mim.jpg" },
+  { name: "Ananta Debnath", role: "Researcher", photo: "/team/ananta-debnath.jpg" },
+  { name: "Anindya Majumder", role: "Software developer", photo: "/team/anindya-majumder.jpg" },
+  { name: "Ummay Habiba", role: "AI–ML specialist", photo: "/team/ummay-habiba.jpg" },
+  { name: "Sharifatun Nur", role: "UI/UX designer", photo: "/team/sharifatun-nur.jpg" },
+];
+
 const WORKFLOW = [
   {
     title: "Select a sky position and date range",
@@ -297,13 +305,21 @@ export function AboutPage() {
         </Reveal>
 
         <Reveal id="about-team">
-          <SectionHeader eyebrow="Who made it" title="Team and repository" />
+          <SectionHeader eyebrow="Who made it" title="Team Infraq Stargazers" />
+          <ul className="about-team-portraits">
+            {TEAM.map(member => (
+              <li key={member.name}>
+                <img src={member.photo} alt="" width="264" height="288" loading="lazy" />
+                <h3>{member.name}</h3>
+                <p>{member.role}</p>
+              </li>
+            ))}
+          </ul>
           <div className="cg">
             <article className="panel">
-              <h3>Team Infraq Stargazers</h3>
+              <h3>NASA Space Apps team page</h3>
               <p className="prose-sm">
-                CUET, Chattogram, Bangladesh. Team members are listed on the
-                team&rsquo;s NASA Space Apps page.
+                CUET, Chattogram, Bangladesh.
               </p>
               <p>
                 <SourceLink
