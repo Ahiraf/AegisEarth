@@ -1,11 +1,4 @@
----
-title: AegisEarth API
-emoji: 🔭
-colorFrom: blue
-colorTo: purple
-sdk: docker
-app_port: 7860
----
+
 
 <h1 align="center">AegisEarth</h1>
 
