@@ -7,13 +7,35 @@ sdk: docker
 app_port: 7860
 ---
 
-# AegisEarth
+<h1 align="center">AegisEarth</h1>
 
-### Explore the infrared sky across time.
+<h2 align="center">See how the infrared sky changes between visits.</h2>
 
-AegisEarth is a student-built web app for exploring **SPHEREx observations of a chosen patch of sky**. Enter right ascension, declination, and a field of view; find available observations; then step through dated images or play them as a movie. Compare what stays put, what appears to move, and what changes in brightness, with links back to the source products.
+<p align="center">
+  When SPHEREx revisits a patch of sky, what looks different?
+  Choose sky coordinates and a field of view to play the archived images in date order.
+  Compare a star’s position against its neighbors, inspect a change in brightness,
+  and follow each frame back to its original observation.
+</p>
 
-[**Open the live app**](https://aegisearth.vercel.app) · [Explore the SPHEREx viewer](https://aegisearth.vercel.app/#/explorer) · [Read the science and source notes](docs/sources_and_challenge.md)
+<p align="center">
+  <img alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&amp;logo=react" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&amp;logo=typescript&amp;logoColor=white" />
+  <img alt="Three.js" src="https://img.shields.io/badge/Three.js-222222?style=for-the-badge&amp;logo=threedotjs" />
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-007F73?style=for-the-badge&amp;logo=fastapi&amp;logoColor=white" />
+  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169A1?style=for-the-badge&amp;logo=postgresql&amp;logoColor=white" />
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-1769AA?style=for-the-badge&amp;logo=docker&amp;logoColor=white" />
+</p>
+
+<p align="center"><strong><a href="https://aegisearth.vercel.app/#/explorer">Open the SPHEREx viewer ↗</a></strong></p>
+
+<p align="center">
+  <a href="#what-you-can-explore">Explore</a> ·
+  <a href="#tech-stack">Tech stack</a> ·
+  <a href="#run-locally">Run locally</a> ·
+  <a href="#how-the-viewer-works">How it works</a> ·
+  <a href="#evidence-and-limitations">Evidence and limitations</a>
+</p>
 
 > AegisEarth is an independent project by Team Infraq Stargazers. It is not affiliated with or endorsed by NASA. Its images support exploration; an apparent change is not, by itself, a validated astronomical detection.
 
