@@ -547,6 +547,7 @@ export function startWorldScene(
     // A screen-space label's distance from the browser centre is not a zoom metric
     // when the directory shifts the camera's optical centre.
     canvas.dataset.cameraDistance = distance.toFixed(4);
+    canvas.dataset.cameraInsetRight = String(insetRight);
     const labels = entries.map((entry, index) => {
       entry.anchor.getWorldPosition(worldPosition);
       projected.copy(worldPosition).project(camera);

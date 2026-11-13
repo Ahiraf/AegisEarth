@@ -232,6 +232,9 @@ for (const [route, objectName] of [
     const close = page.getByRole("button", { name: "Close object details" });
     if (await close.count()) await close.click();
     await expect(canvas).toHaveAttribute("data-selected", "");
+    // Closing the panel also changes the camera fit after the layout is measured.
+    // Use a frame rendered with the new fit as the wheel gesture's baseline.
+    await expect(canvas).toHaveAttribute("data-camera-inset-right", "0");
     await expect(canvas).toHaveAttribute("data-settled", "true");
     const bounds = (await viewport.boundingBox())!;
     // The directory offsets the camera's optical centre, so a label's distance
