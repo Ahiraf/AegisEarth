@@ -9,143 +9,73 @@ app_port: 7860
 
 # AegisEarth
 
-FastAPI backend for a public **SPHEREx sky time viewer**: enter Right Ascension/declination and
-field of view, then inspect real images of that patch in chronological playback. Motion and brightness
-changes are both relevant. Optional AI hints use the ML researcher's completed inference package.
+### Explore the infrared sky across time.
 
-The 29 October 2026 plan follows the full challenge description supplied by the user. Core delivery
-is the coordinate-driven movie and tests on **Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae
-and R Draconis**. The expanded release includes every potential consideration: 102-band exploration,
-six detector composites, spectra, add/subtract, FOV control, Gaia/WISE, updates, links/embedding and flags.
+AegisEarth is a student-built web app for exploring **SPHEREx observations of a chosen patch of sky**. Enter right ascension, declination, and a field of view; find available observations; then step through dated images or play them as a movie. Compare what stays put, what appears to move, and what changes in brightness, with links back to the source products.
 
-The product name is **AegisEarth**, as confirmed on 1 November 2026. The SPHEREx viewer scope and current implementation plan continue unchanged. Existing database/volume names, migration revisions and legacy CLI aliases are retained for compatibility. The frontend owner has accepted the production UI handoff.
+[**Open the live app**](https://aegisearth.vercel.app) · [Explore the SPHEREx viewer](https://aegisearth.vercel.app/#/explorer) · [Read the science and source notes](docs/sources_and_challenge.md)
 
-The primary implementation scope is Python/FastAPI, PostgreSQL, scientific processing, Docker and Hugging Face.
-At the user's request, the production React UI is now integrated with implemented backend steps 0–10,
-preserving its designer's colors, fonts and styles. See the [frontend integration guide](docs/frontend_integration.md).
-Public-host/device/scientific acceptance remains separate. The researcher
-owns model development/training/evaluation; backend work integrates/verifies/serves the package.
-The viewer works independently of detection, ranking or a trained model. Repository name remains
-[Ahiraf/AegisEarth](https://github.com/Ahiraf/AegisEarth).
+> AegisEarth is an independent project by Team Infraq Stargazers. It is not affiliated with or endorsed by NASA. Its images support exploration; an apparent change is not, by itself, a validated astronomical detection.
 
-## Start here
+## What you can explore
 
-- [Detailed implementation plan](todo_plan.md): ordered feature slices and actual exit evidence.
-- [SRS v2.9](SRS.md): required viewer, expanded considerations, boundaries and acceptance.
-- [Optional ranker v2](docs/metadata_ranker.md): native cutouts, SkyBoT jobs, candidate API and score meaning.
-- [Production frontend integration](docs/frontend_integration.md): live controls, configuration and verification limits.
-- [Interactive worlds](docs/interactive_worlds.md): separate pages, full-screen scenes, object details and atmosphere exploration.
-- [Step 11 local release report](docs/step11_release.md): performance, recovery, five-target demo and hosted acceptance.
-- [Challenge coverage matrix](docs/challenge_alignment.md): every supplied objective/consideration mapped.
-- [Executed step 6 results](docs/verification/targets/README.md): five-target API/browser receipts and scientific limits.
-- [Five-target validation protocol](docs/target_validation.md): exact investigations and honest outcome states.
-- [Public source register](docs/sources_and_challenge.md): independently checked resources and access limits.
-- [Pipeline](docs/backend_pipeline.md), [API/React contract](docs/api_contract.md), [data model](docs/data_model.md).
-- [Science validation](docs/science_ml_validation.md), [optional model handoff](docs/model_handoff.md).
-- [Deployment](docs/deployment.md), [verification record](docs/verification.md).
-- [Existing real-data research](docs/research/README.md): pinned M101 controls/report/executed notebook.
-- [Local foundation](docs/foundation.md): locked Docker/PostgreSQL/HTTPS gateway and reproducible checks.
-- [Five-target data evidence](docs/research/target_feasibility/README.md): real cutouts, identities, flags and limitations.
-- [Movie delivery and React handoff](docs/movie_delivery.md): frozen timelines, cached previews and local Aladin proof.
-- [Context, refresh and sharing](docs/context_sharing.md): Gaia/WISE layers, coordinate links, reference embeds and GIF exports.
-- [Derived operations](docs/derived_operations.md): detector coadds, strict difference gates, diagnostic spectra and exports.
-- [Prepared frame/band contract](docs/frame_preparation.md): view-v2, official channels, masked grids and eligibility.
-- [Durable view inputs](docs/views.md): anonymous jobs, isolated worker, verified artifacts and storage.
-- [Implemented discovery API](docs/discovery.md): coordinates/FOV, releases, snapshots and React examples.
+- **Your own sky field:** Search by coordinates and field size, inspect observation dates and detectors, and prepare a chronological image sequence.
+- **Guided examples:** Start with archived SPHEREx images, learn how to read a sky field, or try the five challenge targets: Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae, and R Draconis.
+- **Images with context:** Compare frames, inspect time and quality metadata, follow provenance links, and optionally view Gaia and WISE survey context in Aladin Lite.
+- **Further exploration:** Visit the interactive Planet X, spacecraft orbits, atmosphere, and Solar System pages. Those teaching scenes are illustrations, separate from the SPHEREx observation data.
+- **Optional analysis:** Prepare detector views, coadds, diagnostic spectra, eligible differences, and exports. Metadata ranking can be enabled separately; image playback does not depend on it.
 
-## Actual implementation status
+Observation availability varies by field, date, wavelength, and archive access. One image cannot show motion through time. The app labels saved examples separately from live search results, and scientific comparison gates remain explicit.
 
-| Present now | Planned; not implemented |
-| --- | --- |
-| Health/config/CORS and truthful capability reporting | Public hosting acceptance |
-| discovery-v1 coordinate/FOV/date/band discovery, target presets and release registry | Scientific motion/variability approval |
-| Additive jobs/discovery/view/preparation/movie/refresh tables and restricted transaction RPCs | Science-grade photometry/difference acceptance |
-| Quota-limited view jobs, isolated worker, cancellation and local/S3 storage adapters | Scientific motion/variability approval |
-| Optional metadata_ranker package v2, native 15′ cutouts, SkyBoT candidate jobs and stored warnings/uncertainty | Public ranker UI and scientific/redistribution acceptance |
-| QR2/QR3 readers, official 102-channel catalog, fixed-grid frames/previews, quality/registration/band gates | Science-grade calibration acceptance and external scheduler operation |
-| Gaia/AllWISE catalogs and W1/W2 context images, coordinate state links, reference embeds, bounded refresh and GIF exports | Public embedding and external scheduler acceptance |
-| Production React search/movie, band/detector selectors, coadd/difference/spectrum/export controls, overlays, links/refresh and optional Aladin | Fresh real-pixel frontend rerun after IRSA recovery; public-device/Aladin acceptance |
-| Derived coadd/spectrum jobs, six detector selectors, FITS/CSV exports and independent numerical controls | Real-data science-grade difference/photometry approval |
-| Frozen movie manifests/pages, ETag previews, isolated React/Aladin playback and local real-data proof | Production share/embed and cloud deployment |
-| Hash-locked Docker builds, disposable PostgreSQL and authenticated TLS gateway | Production HF/storage connectivity acceptance |
+## Tech stack
 
-`POST /api/v1/observations/search` now implements **discovery-v1**; the old radius-search body receives
-410 with an explicit replacement. See [the working example](docs/examples/discovery_search.json).
-The legacy observation-ID `POST /api/v1/analyses` contract remains **503 feature_not_ready**.
-The explicit `metadata-ranker-v1` contract is implemented and disabled by default;
-see [enablement and API](docs/metadata_ranker.md). Its limits are separate from viewer limits.
-`POST /api/v1/views` now durably queues bounded input acquisition without a model.
-Legacy view-v1 reports **inputs_ready**. New view-v2 reports **frames_prepared**, with PNG/FITS
-artifacts and comparison diagnostics. Step 5 adds movie-v1 manifests/pages, explicit readiness states,
-physical time metadata and a verified local React/Aladin reference. Playback readiness is independent
-of scientific comparison eligibility. Production React controls are integrated; cloud deployment remains separate.
-Steps 7–8 add bounded coadd/difference/spectrum jobs and exports. Real spectra are explicitly diagnostic;
-frames-v1 lacks the calibration/PSF/covariance evidence needed to enable science-grade subtraction.
-Current [OpenAPI](docs/openapi.json) describes runtime routes. Discovery returns actual sampled epochs
-and whole-image band bounds; it does not claim a complete survey, local wavelength coverage or a movie.
+| Layer | Technologies | Role |
+| --- | --- | --- |
+| Web app | React, TypeScript, Vite, Three.js, Aladin Lite | Search, playback, guided lessons, and interactive visualizations |
+| API and processing | Python 3.12, FastAPI, Astropy, SciPy, Pillow | Observation discovery, image preparation, jobs, and artifact delivery |
+| Data | PostgreSQL, SQLAlchemy, Alembic, local or S3-compatible artifact storage | Job state, provenance, migrations, and generated files |
+| Development and checks | Docker Compose, pytest, Playwright | Reproducible local stack and backend/browser verification |
 
-## Local setup
+The optional main ML inference package is supplied and scientifically evaluated by the ML researcher; model training is outside this backend repository's integration work. See the [model handoff](docs/model_handoff.md) and [science validation](docs/science_ml_validation.md).
 
-Start Docker Desktop (or Docker Engine with Compose v2). From the repository root, run:
+## Run locally
+
+Install Docker Desktop or Docker Engine with Compose v2. From the repository root:
 
 ```sh
 docker compose up --build --wait
 ```
 
-Compose reads an existing `.env` automatically and supplies local development defaults on a fresh
-checkout. The first build requires internet access to download images and packages. Compose starts
-PostgreSQL, applies migrations, starts the API and background worker, and waits for the frontend
-and its API proxy to respond.
+Open [localhost:5173](http://localhost:5173) for the app and [localhost:8000/docs](http://localhost:8000/docs) for API documentation. Compose supplies local development defaults on a fresh checkout and reads an existing `.env` if present. The first build downloads images and packages; uncached observations need access to the remote archive.
 
-Open the [viewer](http://localhost:5173) or [API docs](http://localhost:8000/docs). The
-[target catalog](http://localhost:5173/api/v1/targets) is available locally. Searches for new
-SPHEREx observations and downloads of uncached frames require access to the remote archive.
-
-Use `docker compose logs -f api worker` to follow a job. Use `docker compose down` to stop the
-stack and keep the local database and cached frames for next time.
-
-Without Docker, provision a PostgreSQL database/user and use the backend environment:
-
-```powershell
-Copy-Item .env.example backend/.env
-cd backend
-py -3.12 -m venv .venv
-.\.venv\Scripts\python -m pip install -e ".[dev]"
-.\.venv\Scripts\alembic upgrade head
-.\.venv\Scripts\uvicorn app.main:app --reload
+```sh
+docker compose logs -f api worker  # follow jobs
+docker compose down                # stop without removing local data
 ```
 
-Check the DB URL/private environment before migrations. Reuse an existing environment when appropriate.
-Optional imaging: `pip install -e ".[dev,imaging]"`; notebook research: `pip install -e ".[dev,research]"`.
-No model/framework/weights are supplied or trained by this setup.
+To run the frontend checks separately:
 
-## Feature organization
-
-Existing infrastructure/science modules: `observations`, `comparisons`, `analyses`, `cutouts`,
-`preprocessing`, `registration`, `differencing`, `artifacts`, `health`. Optional AI modules:
-`detection`, `association`, `ranking`, `candidates`.
-
-`targets` now supplies the verified catalog/GET route and `releases` a four-collection registry.
-`views` and `bands` now implement acquisition/preparation/movie delivery and band context.
-`coadds`, `differencing`, `comparisons` and `spectra` now own derived routes and processing; `analyses` shares durable admission/worker orchestration. `overlays` now owns fixed-provider survey context; `releases` owns refresh leases and the scheduler CLI. `views` owns versioned sharing/reference embeds, while `artifacts` owns queued GIF rendering. Scientific
-functions consume arrays/units/metadata; routers handle HTTP and heavy work belongs in leased workers.
-PostgreSQL stores relations/provenance; raw/derived files live in external object storage or local dev cache.
-
-## Checks and deployment boundary
-
-```powershell
-cd backend
-.\.venv\Scripts\python -m pytest
-.\.venv\Scripts\python -m ruff check app tests migrations
-.\.venv\Scripts\python -m app.pipeline.cli
+```sh
+cd frontend
+npm ci
+npm run build
+npx playwright install chromium
+npm run test:e2e
 ```
 
-Tests use disposable databases only; migration tests may downgrade them. The CLI still describes the
-old disabled registry until the viewer pipeline is deliberately implemented/versioned.
+For manual backend setup and deployment details, see the [frontend integration guide](docs/frontend_integration.md) and [deployment guide](docs/deployment.md). Do not use local development credentials for a public deployment.
 
-The isolated foundation stack has tested native PostgreSQL and a separate authenticated HTTPS
-repository adapter, including transaction/lease/restart behavior. Real HF connectivity remains pending
-because no cloud resources are configured. See [foundation](docs/foundation.md) and [deployment](docs/deployment.md).
+## How the viewer works
 
-The supplied brief resolves feature alignment; separate organizer rules/deadline still require verification.
-No new runtime capability, target test, commit, push, deployment or DB reset is implied by this plan revision.
+1. Choose a preset or enter a sky center and field of view.
+2. Discover matching archive records or request a prepared sky movie.
+3. Inspect the dated frames, metadata, image quality, and original source links.
+4. Optionally compare views or request a diagnostic processing job.
+
+The API queues bounded work for a separate worker and stores results with provenance. Prepared playback can be ready even when a scientific motion, brightness, or subtraction claim has not passed its validation gates. The [API contract](docs/api_contract.md), [pipeline description](docs/backend_pipeline.md), and [OpenAPI specification](docs/openapi.json) give the detailed interfaces.
+
+## Evidence and limitations
+
+The [five-target verification record](docs/verification/targets/README.md) documents real archive examples, empty or single-epoch outcomes, and what each result can support. The [local release report](docs/step11_release.md) records reproducible processing and browser checks. Fresh hosted data access, durability, device testing, and science-grade calibration require separate acceptance; consult the [deployment guide](docs/deployment.md) before treating a local result as a production guarantee.
+
+SPHEREx data and original products are credited to the SPHEREx mission and NASA/IPAC IRSA. Gaia and WISE provide optional context; Aladin Lite provides the optional sky map. Individual source links and further credits are in the [source register](docs/sources_and_challenge.md) and the app's **About & Sources** page.
