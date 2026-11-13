@@ -135,7 +135,12 @@ test("phone orbit page fits the viewport and releases its canvas when changing p
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(390);
   const panel = await page.getByTestId("object-details").boundingBox();
-  expect(panel!.y).toBeGreaterThan(400);
+  const rail = await page.locator(".world-side-rail").boundingBox();
+  const stage = await page.locator(".world-viewport").boundingBox();
+  const toolbar = await page.getByRole("group", { name: "Scene controls" }).boundingBox();
+  expect(stage!.y).toBeGreaterThanOrEqual(rail!.y + rail!.height);
+  expect(toolbar!.y).toBeGreaterThanOrEqual(stage!.y + stage!.height);
+  expect(panel!.y).toBeGreaterThanOrEqual(toolbar!.y + toolbar!.height);
   expect(panel!.x + panel!.width).toBeLessThanOrEqual(390);
   expect((await page.locator(".world-viewport").boundingBox())!.width).toBe(
     390,
@@ -143,6 +148,7 @@ test("phone orbit page fits the viewport and releases its canvas when changing p
   await page.screenshot({
     path: "../var/frontend-integration/world-orbits-phone.png",
   });
+  await page.getByRole("button", { name: "Menu" }).click();
   await page.getByRole("link", { name: "Learn", exact: true }).first().click();
   await expect(page.locator(".world-page, .world-render canvas")).toHaveCount(
     0,

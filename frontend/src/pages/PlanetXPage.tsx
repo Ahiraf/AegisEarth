@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { SyntheticSky } from "../components/SyntheticSky";
+import { InfraredActivity } from "../components/InfraredActivity";
 import { PlanetXStory } from "../components/PlanetXStory";
 import { ArchivedExample } from "../features/sky/ArchivedExample";
 
@@ -20,7 +21,7 @@ export default function PlanetXPage() {
         </div>
         <figure>
           <div className="planet-x-field">
-            <SyntheticSky fieldSeed={9} noiseSeed={31} gain={1} tint="#76c6e8"
+            <SyntheticSky animated fieldSeed={9} noiseSeed={31} gain={1} tint="#76c6e8"
               label={!revealed ? "Simulated star field. Compare the two visits before revealing the moving point." : later ? "Simulated second visit. The marked point has shifted right relative to the stars." : "Simulated first visit. The marked point lies just left of center."} />
             <span aria-hidden="true" className="planet-x-point" style={{borderColor: revealed ? undefined : "transparent", left: later ? "53%" : "46%"}} />
           </div>
@@ -28,8 +29,9 @@ export default function PlanetXPage() {
             {!revealed ? (later ? "Second simulated visit." : "First simulated visit.") : later ? "Second simulated visit. The dot shifted right while the surrounding stars stayed in place. This is the kind of change astronomers follow up." : "First simulated visit. Remember where the dot sits relative to the stars around it."}
           </figcaption>
         </figure>
-        <p>The moving dot is an illustration. A shift in a real image would need more observations to identify its cause.</p>
+        <p>Astronomers return on more nights to see whether the same point keeps moving against the background stars.</p>
       </section>
+      <InfraredActivity />
       <section aria-labelledby="real-images-title">
         <h2 id="real-images-title">Try real SPHEREx observations</h2>
         <p>Compare two archived images of the Pinwheel Galaxy, or open the viewer to choose your own sky field.</p>

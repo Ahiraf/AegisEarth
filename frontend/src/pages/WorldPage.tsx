@@ -65,16 +65,13 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
   // Desktop profiles open as an introduction; on phones the scene remains unobstructed
   // until the visitor explicitly chooses a mission, planet, or atmospheric layer.
   const [selected, setSelected] = useState<number | null>(() =>
-    kind !== "orbits" &&
     typeof window !== "undefined" &&
     window.matchMedia("(max-width: 760px)").matches
       ? null
       : DEFAULT_SELECTION[kind],
   );
   const [directoryHidden, setDirectoryHidden] = useState(false);
-  const [profileHidden, setProfileHidden] = useState(
-    () => kind === "orbits" && window.matchMedia("(max-width: 760px)").matches,
-  );
+  const [profileHidden, setProfileHidden] = useState(false);
   const example = useRef<HTMLDialogElement>(null);
   const profileToggle = useRef<HTMLButtonElement>(null);
   const [altitude, setAltitude] = useState(5);
@@ -130,12 +127,15 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
     // visualization when the browser is resized into a phone-sized viewport.
     const phone = window.matchMedia("(max-width: 760px)");
     const handleViewportChange = (event: MediaQueryListEvent) => {
-      if (event.matches && kind === "orbits") setProfileHidden(true);
-      else if (event.matches) setSelected(null);
+      if (event.matches) {
+        setDirectoryHidden(false);
+        setProfileHidden(false);
+        setSelected(null);
+      }
     };
     phone.addEventListener("change", handleViewportChange);
     return () => phone.removeEventListener("change", handleViewportChange);
-  }, [kind]);
+  }, []);
   useEffect(() => {
     const change = () =>
       setFullscreen(document.fullscreenElement === root.current);
@@ -164,7 +164,7 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
         const next = {
           left: mobile || directoryHidden ? 0 : railWidth + 46,
           right: mobile || !detailBounds ? 0 : detailBounds.width + 32,
-          bottom: mobile && detailBounds ? detailBounds.height + 18 : 0,
+          bottom: 0,
         };
         return previous.left === next.left &&
           previous.right === next.right &&
@@ -221,18 +221,6 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
       ref={root}
       id={kind}
     >
-      <WorldCanvas
-        kind={kind}
-        names={names}
-        selected={selected}
-        paused={paused}
-        altitude={altitude}
-        onSelect={select}
-        controls={controls}
-        insets={insets}
-        onSceneStatusChange={setSceneStatus}
-      />
-
       {kind === "orbits" && <ArchivedExample dialog={example} />}
       {kind === "orbits" && (
         <>
@@ -255,9 +243,9 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
               type="button"
               ref={profileToggle}
               aria-controls="orbit-profile"
-              aria-expanded={!profileHidden}
+              aria-expanded={selected !== null && !profileHidden}
               aria-label={
-                profileHidden
+                selected === null || profileHidden
                   ? "Show spacecraft profile"
                   : "Hide spacecraft profile"
               }
@@ -524,6 +512,147 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
         )}
       </div>
 
+      <WorldCanvas
+        kind={kind}
+        names={names}
+        selected={selected}
+        paused={paused}
+        altitude={altitude}
+        onSelect={select}
+        controls={controls}
+        insets={insets}
+        onSceneStatusChange={setSceneStatus}
+      />
+
+      <div className="world-bottom">
+        <p id="world-instructions" className="world-instruction-note">
+          {kind === "atmosphere"
+            ? "Drag to rotate the Earth. Use the altitude explorer to move through atmospheric layers."
+            : kind === "orbits"
+              ? "Drag to rotate. Choose a mission or select a spacecraft label."
+              : "Drag to rotate. Choose a planet or select a label in the scene."}{" "}
+          Mouse wheel to zoom. Keyboard: arrow keys, plus, minus and Home.
+        </p>
+        <div className="world-control-dock">
+          <div
+            className="world-toolbar"
+            role="group"
+            aria-label="Scene controls"
+          >
+            <button
+              type="button"
+              disabled={sceneStatus !== "ready"}
+              onClick={() => controls.current?.reset()}
+            >
+              Overview
+            </button>
+            <button
+              type="button"
+              disabled={sceneStatus !== "ready"}
+              onClick={() => { setOrbitMinutes(null); setPaused((value) => !value); }}
+              aria-label={paused ? "Play animation" : "Pause animation"}
+            >
+              {paused ? "▶" : "Ⅱ"}
+              <span>{paused ? "Play" : "Pause"}</span>
+            </button>
+            <span className="world-toolbar-divider" aria-hidden="true" />
+            <button
+              type="button"
+              disabled={sceneStatus !== "ready"}
+              onClick={() => controls.current?.rotateBy(-0.2, 0)}
+              aria-label="Rotate left"
+            >
+              ↶
+            </button>
+            <button
+              type="button"
+              disabled={sceneStatus !== "ready"}
+              onClick={() => controls.current?.rotateBy(0.2, 0)}
+              aria-label="Rotate right"
+            >
+              ↷
+            </button>
+            <button
+              type="button"
+              disabled={sceneStatus !== "ready"}
+              onClick={() => controls.current?.zoomBy(-1)}
+              aria-label="Zoom in"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              disabled={sceneStatus !== "ready"}
+              onClick={() => controls.current?.zoomBy(1)}
+              aria-label="Zoom out"
+            >
+              −
+            </button>
+            <span className="world-toolbar-divider" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={toggleFullscreen}
+              disabled={!document.fullscreenEnabled || sceneStatus !== "ready"}
+              aria-label={fullscreen ? "Exit full screen" : "Enter full screen"}
+            >
+              ⛶<span>{fullscreen ? "Exit" : "Full screen"}</span>
+            </button>
+          </div>
+          <details className="world-visual-credits">
+            <summary>Visualization guide & credits</summary>
+            <div className="world-visual-credits-content">
+              <strong>How to explore</strong>
+              <p>
+                Drag to rotate, scroll to zoom, or use the scene controls. You
+                can also select objects from the directory.
+              </p>
+              <strong>How to read this model</strong>
+              <p>
+                {kind === "orbits"
+                  ? "Reference orbits only: distances are compressed, models enlarged, and animation accelerated. This is not live spacecraft tracking."
+                  : kind === "atmosphere"
+                    ? "Atmospheric thickness is exaggerated to show the layers. Colours identify layers, not measured temperatures or gas densities."
+                    : "Planet sizes are enlarged and distances compressed. Positions and orbital motion are illustrative, not current ephemerides."}
+              </p>
+              <p>
+                Textures:{" "}
+                <a
+                  href="https://www.solarsystemscope.com/textures/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Solar System Scope
+                </a>{" "}
+                (
+                <a
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  CC BY 4.0
+                </a>
+                ).
+              </p>
+              {kind === "solar" && (
+                <p>
+                  Planet X remains hypothetical; there is no confirmed planet or
+                  position to display.{" "}
+                  <SourceLink
+                    href={PLANET_X_SOURCE.url}
+                    label="NASA explanation"
+                  />
+                </p>
+              )}
+            </div>
+          </details>
+          {fullscreenError && (
+            <p className="world-fullscreen-error" role="status">
+              {fullscreenError}
+            </p>
+          )}
+        </div>
+      </div>
+
       {selected !== null && (
         <aside
           className="world-detail"
@@ -597,7 +726,14 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
               title={
                 sceneStatus === "ready" ? undefined : "Requires the 3D scene"
               }
-              onClick={() => controls.current?.focus()}
+              onClick={() => {
+                controls.current?.focus();
+                if (window.matchMedia("(max-width: 760px)").matches) {
+                  const viewport = root.current?.querySelector<HTMLElement>(".world-viewport");
+                  viewport?.focus({ preventScroll: true });
+                  viewport?.scrollIntoView({ block: "center" });
+                }
+              }}
             >
               {mission ? "Zoom to spacecraft in 3D" : "Take a closer look"}
               <span aria-hidden="true">↗</span>
@@ -797,135 +933,6 @@ export function WorldPage({ kind }: { kind: WorldKind }) {
           )}
         </aside>
       )}
-
-      <div className="world-bottom">
-        <p id="world-instructions" className="world-instruction-note">
-          {kind === "atmosphere"
-            ? "Drag to rotate the Earth. Use the altitude explorer to move through atmospheric layers."
-            : kind === "orbits"
-              ? "Drag to rotate. Choose a mission or select a spacecraft label."
-              : "Drag to rotate. Choose a planet or select a label in the scene."}{" "}
-          Mouse wheel to zoom. Keyboard: arrow keys, plus, minus and Home.
-        </p>
-        <div className="world-control-dock">
-          <div
-            className="world-toolbar"
-            role="group"
-            aria-label="Scene controls"
-          >
-            <button
-              type="button"
-              disabled={sceneStatus !== "ready"}
-              onClick={() => controls.current?.reset()}
-            >
-              Overview
-            </button>
-            <button
-              type="button"
-              disabled={sceneStatus !== "ready"}
-              onClick={() => { setOrbitMinutes(null); setPaused((value) => !value); }}
-              aria-label={paused ? "Play animation" : "Pause animation"}
-            >
-              {paused ? "▶" : "Ⅱ"}
-              <span>{paused ? "Play" : "Pause"}</span>
-            </button>
-            <span className="world-toolbar-divider" aria-hidden="true" />
-            <button
-              type="button"
-              disabled={sceneStatus !== "ready"}
-              onClick={() => controls.current?.rotateBy(-0.2, 0)}
-              aria-label="Rotate left"
-            >
-              ↶
-            </button>
-            <button
-              type="button"
-              disabled={sceneStatus !== "ready"}
-              onClick={() => controls.current?.rotateBy(0.2, 0)}
-              aria-label="Rotate right"
-            >
-              ↷
-            </button>
-            <button
-              type="button"
-              disabled={sceneStatus !== "ready"}
-              onClick={() => controls.current?.zoomBy(-1)}
-              aria-label="Zoom in"
-            >
-              +
-            </button>
-            <button
-              type="button"
-              disabled={sceneStatus !== "ready"}
-              onClick={() => controls.current?.zoomBy(1)}
-              aria-label="Zoom out"
-            >
-              −
-            </button>
-            <span className="world-toolbar-divider" aria-hidden="true" />
-            <button
-              type="button"
-              onClick={toggleFullscreen}
-              disabled={!document.fullscreenEnabled || sceneStatus !== "ready"}
-              aria-label={fullscreen ? "Exit full screen" : "Enter full screen"}
-            >
-              ⛶<span>{fullscreen ? "Exit" : "Full screen"}</span>
-            </button>
-          </div>
-          <details className="world-visual-credits">
-            <summary>Visualization guide & credits</summary>
-            <div className="world-visual-credits-content">
-              <strong>How to explore</strong>
-              <p>
-                Drag to rotate, scroll to zoom, or use the scene controls. You
-                can also select objects from the directory.
-              </p>
-              <strong>How to read this model</strong>
-              <p>
-                {kind === "orbits"
-                  ? "Reference orbits only: distances are compressed, models enlarged, and animation accelerated. This is not live spacecraft tracking."
-                  : kind === "atmosphere"
-                    ? "Atmospheric thickness is exaggerated to show the layers. Colours identify layers, not measured temperatures or gas densities."
-                    : "Planet sizes are enlarged and distances compressed. Positions and orbital motion are illustrative, not current ephemerides."}
-              </p>
-              <p>
-                Textures:{" "}
-                <a
-                  href="https://www.solarsystemscope.com/textures/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Solar System Scope
-                </a>{" "}
-                (
-                <a
-                  href="https://creativecommons.org/licenses/by/4.0/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  CC BY 4.0
-                </a>
-                ).
-              </p>
-              {kind === "solar" && (
-                <p>
-                  Planet X remains hypothetical; there is no confirmed planet or
-                  position to display.{" "}
-                  <SourceLink
-                    href={PLANET_X_SOURCE.url}
-                    label="NASA explanation"
-                  />
-                </p>
-              )}
-            </div>
-          </details>
-          {fullscreenError && (
-            <p className="world-fullscreen-error" role="status">
-              {fullscreenError}
-            </p>
-          )}
-        </div>
-      </div>
     </div>
   );
 }

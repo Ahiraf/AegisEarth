@@ -1,4 +1,4 @@
-import type { MouseEvent, ReactNode } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { ScrollProgress } from "./ScrollProgress";
 import "../styles/brand-polish.css";
 
@@ -31,6 +31,9 @@ type LayoutProps = {
 };
 
 export function Layout({ current, children }: LayoutProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => setMenuOpen(false), [current]);
   const immersive = ["orbits", "atmosphere", "solar"].includes(current);
   const skipToMain = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -44,7 +47,12 @@ export function Layout({ current, children }: LayoutProps) {
       </a>
       {!immersive && current !== "home" && <ScrollProgress />}
 
-      <header className="hdr">
+      <header className="hdr" onKeyDown={event => {
+        if (menuOpen && event.key === "Escape") {
+          setMenuOpen(false);
+          menuButton.current?.focus();
+        }
+      }}>
         <div className="wrap">
           <a
             className="brand"
@@ -62,13 +70,19 @@ export function Layout({ current, children }: LayoutProps) {
               Aegis<b>Earth</b>
             </span>
           </a>
-          <nav aria-label="Main">
+          <button ref={menuButton} className="site-menu-toggle" type="button"
+            aria-expanded={menuOpen} aria-controls="main-navigation"
+            onClick={() => setMenuOpen(open => !open)}>
+            Menu <span aria-hidden="true">{menuOpen ? "▴" : "▾"}</span>
+          </button>
+          <nav aria-label="Main" id="main-navigation" data-open={menuOpen}>
             <ul className="nav-list">
               {NAV.map((item) => (
                 <li key={item.id}>
                   <a
                     className="nav-link"
                     href={item.href}
+                    onClick={() => setMenuOpen(false)}
                     aria-current={current === item.id ? "page" : undefined}
                   >
                     {item.label}

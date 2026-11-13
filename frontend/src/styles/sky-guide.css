@@ -1,0 +1,225 @@
+.sg {
+  --guide-edge: #30495d;
+  --guide-muted: #b8cadd;
+  margin-block: 1.1rem 2.8rem;
+}
+.sg h2,
+.sg h3,
+.sg h4 {
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+.sg h2 {
+  font-size: clamp(2rem, 4vw, 3.55rem);
+}
+.sg h3 {
+  font-size: clamp(1.5rem, 2.7vw, 2.2rem);
+}
+.sg h4 {
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+}
+.sg p,
+.sg dd {
+  color: var(--guide-muted);
+  line-height: 1.6;
+  max-width: 68ch;
+  margin: 0.6rem 0;
+}
+.sg-intro,
+.sg-target {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1.2rem clamp(1rem, 3vw, 2.8rem);
+  padding: clamp(1rem, 2.5vw, 2rem);
+  background: #0c1d2d;
+  border: 1px solid var(--guide-edge);
+  border-radius: 14px;
+}
+.sg .tb {
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-block: 1rem 0.6rem;
+}
+.sg figure {
+  margin: 0;
+  min-width: 0;
+}
+.sg-model {
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid var(--guide-edge);
+  background: #081522;
+}
+.sg-model-stage {
+  aspect-ratio: 2 / 1;
+  min-height: 150px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.sg-model-stage svg,
+.sg-model-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.sg-model figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.65rem;
+  color: #abc2d2;
+  font-size: 0.78rem;
+  border-top: 1px solid var(--guide-edge);
+}
+.sg-settings {
+  margin: 1.7rem 0 2.25rem;
+}
+.sg-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.sg-tools > div {
+  background: #102236;
+  border-radius: 10px;
+  padding: 1rem;
+}
+.sg-tools h4 {
+  font-size: 1.15rem;
+}
+.sg-tools label,
+.sg-window label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.sg select {
+  color: var(--text);
+  background: #102437;
+  border: 1px solid #7090a4;
+  border-radius: 6px;
+  padding: 0.45rem 0.65rem;
+  font: inherit;
+  min-height: 42px;
+}
+.sg-crop,
+.sg-wave {
+  width: 100%;
+  height: 75px;
+  background-color: #06111c;
+  margin-block: 0.7rem;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+.sg-crop {
+  background-image:
+    radial-gradient(circle at center, #ffe4ab 0 2px, transparent 3px),
+    radial-gradient(circle at 31% 26%, #a3cdde 1px, transparent 2px),
+    radial-gradient(circle at 69% 70%, #7793a2 1px, transparent 2px);
+  background-size:
+    auto,
+    51px 27px,
+    83px 47px;
+}
+.sg-crop i {
+  border: 1.5px solid #7ae1ee;
+  box-shadow: 0 0 0 200px #03091163;
+}
+.sg-crop {
+  overflow: hidden;
+}
+.sg-settings summary {
+  color: var(--cyan);
+  cursor: pointer;
+  padding-block: 0.6rem;
+  font-weight: 650;
+}
+.sg-settings dt {
+  font-weight: 700;
+}
+.sg-settings dd {
+  margin: 0.2rem 0 0.8rem;
+}
+.sg-target {
+  margin-top: 1rem;
+}
+.sg-kind,
+.sg-window > span {
+  color: #8cd5e6;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+.sg-kind {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.sg-target .sg-address,
+.sg-window {
+  border-top: 1px solid var(--guide-edge);
+  padding-top: 0.75rem;
+}
+.sg-address {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+}
+.sg-address svg {
+  width: min(100%, 15rem);
+  height: auto;
+}
+.sg-address text {
+  fill: #aec4d3;
+  font: 10px system-ui;
+}
+.sg-address figcaption,
+.sg-window {
+  font-size: 0.85rem;
+  color: var(--guide-muted);
+}
+.sg-visit-track {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.6rem 0.45rem;
+  height: 16px;
+  background: linear-gradient(#395365, #395365) center / 100% 1px no-repeat;
+}
+.sg-visit-track i {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #7292a6;
+  background: #102236;
+  border-radius: 50%;
+}
+.sg-visit-track i.included {
+  background: #ffca83;
+  border-color: #ffca83;
+}
+.sg-window p {
+  margin-bottom: 0;
+}
+@media (max-width: 760px) {
+  .sg-intro,
+  .sg-target,
+  .sg-tools {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sg-model-stage {
+    min-height: 145px;
+  }
+  .sg .tb .btn {
+    flex: initial;
+    white-space: normal;
+  }
+}
+.sg .sg-spectrum-note {
+  font-size: 0.85rem;
+}

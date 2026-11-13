@@ -599,37 +599,6 @@
 .planet-x-guide figcaption { margin-top: .5rem; }
 .planet-x-guide [aria-pressed="true"] { border-color: var(--cyan); color: var(--cyan); }
 .planet-directory-grid > .btn { grid-column: 1 / -1; flex-shrink: 0; }
-.planet-x-page { max-width: 54rem; padding-block: clamp(2rem, 5vw, 4rem); }
-.planet-x-page > section { margin-top: 2rem; }
-.planet-story { padding: clamp(1rem, 3vw, 2rem); }
-.planet-story__head { display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; }
-.planet-story__head p { margin-bottom:0; max-width:58ch; }
-.planet-story__status { flex:none; border:1px solid rgba(84,212,226,.35); border-radius:999px; padding:.45rem .7rem; color:#a9d4e5; font-size:.78rem; white-space:nowrap; }
-.planet-story__status i { display:inline-block; width:.45rem; height:.45rem; margin-right:.4rem; border-radius:50%; background:var(--cyan); box-shadow:0 0 0 .2rem rgba(84,212,226,.14); }
-.planet-story__layout { display:grid; grid-template-columns: minmax(150px, .24fr) minmax(0, 1fr) minmax(170px, .28fr); gap:1rem; align-items:start; margin-top:1.25rem; }
-.planet-story__rail { background:rgba(3,12,22,.5); border:1px solid rgba(115,164,195,.28); border-radius:.8rem; padding:.75rem; position:sticky; top:5rem; }
-.planet-story__rail-title { display:block; color:#8eb6ca; font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; margin-bottom:.65rem; }
-.planet-story__rail--scenes button { display:flex; width:100%; gap:.5rem; text-align:left; color:#b9cddd; background:transparent; border:0; border-left:2px solid transparent; padding:.65rem .45rem; border-radius:0 .45rem .45rem 0; cursor:pointer; }
-.planet-story__rail--scenes button span { color:#7692a6; font-family:ui-monospace,monospace; font-size:.72rem; }
-.planet-story__rail--scenes button:hover, .planet-story__rail--scenes button.is-active { color:#fff; background:rgba(84,212,226,.12); border-left-color:var(--cyan); }
-.planet-story__visual { min-width:0; }
-.planet-story figure { margin: 0; }
-.planet-story svg { display: block; width: 100%; background: radial-gradient(ellipse at center, #122a40, #050c15 76%); border-radius: .7rem; }
-.planet-story figcaption { display:flex; flex-wrap:wrap; gap:.75rem 1rem; color:#a8bfd0; font-size:.78rem; margin-top:.6rem; }
-.legend-dot { display:inline-block; width:.55rem; height:.55rem; border-radius:50%; margin-right:.3rem; }
-.legend-dot--blue { background:#83baff; } .legend-dot--teal { background:#54d4e2; } .legend-dot--gold { background:#ffc76b; }
-.planet-story__copy { border-top:1px solid rgba(115,164,195,.25); margin-top:1rem; padding-top:.9rem; }
-.planet-story__eyebrow { color:#54d4e2; font: .72rem ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; }
-.planet-story h3 { margin-top: .35rem; }
-.planet-story__rail--controls { display:flex; flex-direction:column; gap:.75rem; }
-.planet-story__rail--controls label { color:#b9cddd; font-size:.85rem; }
-.planet-story input { display:block; width:100%; margin-top:.45rem; accent-color: var(--cyan); }
-.planet-story__scale { border-top:1px solid rgba(115,164,195,.22); padding-top:.7rem; color:#91aabd; font-size:.75rem; line-height:1.45; }
-.planet-story__scale strong { display:block; color:#d7e6ef; margin-bottom:.2rem; }
-.planet-story__nav { display:grid; gap:.5rem; margin-top:auto; }
-@media (max-width: 900px) { .planet-story__layout { grid-template-columns: 1fr 1fr; } .planet-story__visual { grid-column:1 / -1; grid-row:1; } .planet-story__rail { position:static; } }
-@media (max-width: 600px) { .planet-story__head { display:block; } .planet-story__status { display:inline-block; margin-top:.7rem; } .planet-story__layout { grid-template-columns:1fr; } .planet-story__visual { grid-column:auto; } .planet-story__rail--scenes { order:2; } .planet-story__rail--controls { order:3; } }
-.planet-x-page h1 { font: 750 clamp(2.25rem, 5vw, 4rem)/1.1 var(--head); }
 .planet-x-page p, .planet-x-page figcaption { margin-block: .8rem; line-height: 1.6; color: var(--muted); }
 .planet-x-page .planet-x-guide { padding: clamp(1rem, 3vw, 2rem); }
 .planet-x-guide .planet-x-field svg { height: clamp(10rem, 32vh, 20rem); }

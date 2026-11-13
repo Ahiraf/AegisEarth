@@ -11,10 +11,11 @@ type SyntheticSkyProps = {
   tint: string;
   gain: number;
   label?: string;
+  animated?: boolean;
 };
 
-// A generated illustration used in the Learn guide. It is never real sky data, and says so on its face.
-export function SyntheticSky({ fieldSeed, noiseSeed, tint, gain, label }: SyntheticSkyProps) {
+// Planet X exercises identify the simulation in their captions.
+export function SyntheticSky({ fieldSeed, noiseSeed, tint, gain, label, animated = false }: SyntheticSkyProps) {
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const stars = useMemo(() => makeStars(fieldSeed, 130, W, H), [fieldSeed]);
   const blobs = useMemo(() => makeBlobs(fieldSeed, W, H), [fieldSeed]);
@@ -61,15 +62,15 @@ export function SyntheticSky({ fieldSeed, noiseSeed, tint, gain, label }: Synthe
       ))}
       {stars.map((s, i) => (
         <g key={`t${i}`}>
-          {s.bright ? <circle cx={s.x} cy={s.y} r={s.r * 4} fill={`url(#${uid}-glow)`} opacity={Math.min(1, 0.7 * g)} /> : null}
+          {s.bright ? <circle className={animated ? "px-star-glow" : undefined} style={animated ? { animationDelay: `-${(i % 13) * 0.47}s` } : undefined} cx={s.x} cy={s.y} r={s.r * 4} fill={`url(#${uid}-glow)`} opacity={Math.min(1, 0.7 * g)} /> : null}
           <circle cx={s.x} cy={s.y} r={s.r} fill="#e9f1ff" opacity={Math.min(1, s.o * g)} />
         </g>
       ))}
-      <g transform={`rotate(-18 ${W / 2} ${H / 2})`} className="synthetic-mark" aria-hidden="true">
+      {!animated && <g transform={`rotate(-18 ${W / 2} ${H / 2})`} className="synthetic-mark" aria-hidden="true">
         <text x={W / 2} y={H / 2 - 70} textAnchor="middle">ILLUSTRATION</text>
         <text x={W / 2} y={H / 2 + 10} textAnchor="middle">ILLUSTRATION</text>
         <text x={W / 2} y={H / 2 + 90} textAnchor="middle">ILLUSTRATION</text>
-      </g>
+      </g>}
     </svg>
   );
 }

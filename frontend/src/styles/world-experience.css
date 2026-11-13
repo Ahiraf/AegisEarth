@@ -1053,3 +1053,49 @@
     font-size: 16px;
   }
 }
+
+/* Phone panels participate in page layout so the camera and controls always own
+   separate space, including while a profile or the credits are expanded. */
+@media (max-width: 760px) {
+  .app-shell-immersive { display: block; height: auto; min-height: 100svh; overflow: visible; }
+  .world-page.world-experience { height: auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: .65rem; padding: .8rem 0 max(1rem, env(safe-area-inset-bottom)); }
+  .world-page.world-experience:fullscreen { height: 100dvh; overflow-y: auto; align-content: start; }
+  .world-experience::before, .world-orbits .orbit-sidebar-switches { display: none; }
+
+  .world-page.world-experience .world-side-rail,
+  .world-page.world-experience .world-detail,
+  .world-page.world-experience .world-bottom {
+    position: relative; inset: auto; width: auto; max-width: none; max-height: none;
+    transform: none; margin-inline: .75rem;
+  }
+  .world-orbits :is(#orbit-directory, #orbit-profile) {
+    overflow: visible; overscroll-behavior: auto; scrollbar-gutter: auto;
+  }
+  .world-orbits #orbit-directory .world-directory-list,
+  .world-solar .planet-directory-grid .planet-choice,
+  .world-experience .world-directory-index { display: none; }
+  .world-experience .world-directory, .world-experience.world-atmosphere .altitude-lab {
+    inset: auto; max-height: none; box-shadow: none;
+  }
+  .world-experience .world-chooser { margin: 0; }
+  .world-experience .world-chooser select { min-height: 44px; font-size: 16px; }
+  .world-experience .planet-directory-grid { padding: 0; }
+  .world-experience .planet-directory-grid > a { min-height: 40px; width: 100%; border: 0; background: transparent; }
+  .world-atmosphere .altitude-lab-body { overflow: visible; }
+  .world-atmosphere .altitude-lab-intro { display: none; }
+  .world-atmosphere .altitude-entry input { min-height: 44px; font-size: 16px; }
+  .world-experience .world-viewport {
+    position: relative; inset: auto; height: clamp(14rem, 42svh, 26rem);
+    border-block: 1px solid var(--world-border); overflow: hidden;
+  }
+  .world-experience .world-label { transform: none; min-height: 28px; padding: 4px 7px; font-size: 11px; }
+  .world-experience .world-label[hidden] { display: none; }
+  .world-experience .world-control-dock { align-items: stretch; }
+  .world-experience .world-toolbar { width: 100%; max-width: 100%; gap: 0; }
+  .world-experience .world-toolbar button { min-width: 0; flex: 1 1 auto; min-height: 44px; }
+  .world-experience .world-toolbar-divider { display: none; }
+  .world-experience .world-visual-credits summary { text-align: center; padding: .55rem; font-size: .75rem; }
+  .world-experience .world-visual-credits-content { position: static; transform: none; width: 100%; max-height: none; }
+  .world-experience .world-detail { overflow: visible; box-shadow: none; }
+  .world-experience .world-detail[data-collapsed="true"] { display: none; }
+}

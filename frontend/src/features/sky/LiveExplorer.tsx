@@ -20,6 +20,8 @@ import {
 import { DiscoveryResults } from "./DiscoveryResults";
 import { MoviePlayer, type SkyPosition } from "./MoviePlayer";
 import { ProcessingTools } from "./ProcessingTools";
+import { SkyGuide } from "./guide/SkyGuide";
+import { targetWidth } from "./guide/targets";
 import { DEFAULT_REQUEST, SearchForm } from "./SearchForm";
 import { ArchivedTargetPreviews } from "./ArchivedTargetPreviews";
 import { frontendLink, SharePanel } from "./SharePanel";
@@ -30,6 +32,7 @@ import type {
   Links,
   References,
   TimelineMode,
+  Target,
   ViewRequest,
   Frame,
 } from "./types";
@@ -76,6 +79,13 @@ export function LiveExplorer({
   useCardGlow();
   const [initialQuery] = useState(() => new URLSearchParams(location.search));
   const [form, setForm] = useState<ViewRequest>(DEFAULT_REQUEST);
+  const [preset, setPreset] = useState<Target | null>(null);
+  function chooseTarget(target: Target) {
+    const size = targetWidth(target);
+    setPreset(target);
+    setForm(previous => ({...previous, region: {ra:target.ra_deg, dec:target.dec_deg, width_arcmin:size, height_arcmin:size}}));
+    setLinks(null);
+  }
   const [reference, setReference] = useState<References>();
   const [referenceRetry, setReferenceRetry] = useState(0);
   const [id, setId] = useState<string | null>(() => initialId(initialQuery));
@@ -137,6 +147,7 @@ export function LiveExplorer({
       )
         .then((result) => {
           if (controller.signal.aborted) return;
+          setPreset(null);
           setForm(result.state.request);
           setMode(result.state.mode);
           setRestore(
@@ -153,12 +164,13 @@ export function LiveExplorer({
     return () => controller.abort();
   }, [initialQuery]);
   useEffect(() => {
-    if (view.manifest) setForm(editableRequest(view.manifest.request));
+    if (view.manifest) {setPreset(null); setForm(editableRequest(view.manifest.request));}
   }, [view.manifest]);
   const failedRequest = view.job?.canonical_request;
   const terminal =
     view.job?.status === "failed" || view.job?.status === "canceled";
   function editFailedRequest(request: CanonicalViewRequest) {
+    setPreset(null);
     setForm(editableRequest(request));
     setLinks(null);
     document.getElementById("search-ra")?.focus();
@@ -343,12 +355,17 @@ export function LiveExplorer({
   return (
     <div>
       <ArchivedExample dialog={example} onExplore={() => {
+        setPreset(null);
         setForm(DEFAULT_REQUEST);
         setLinks(null);
         scrollToId("find", true);
       }} />
       <h1 className="sr-only">SPHEREx Viewer</h1>
       <div className="wrap sky-workspace">
+        <SkyGuide targets={reference?.targets} onUse={target=>{
+          chooseTarget(target);
+          scrollToId("search-ra", true);
+        }}/>
         <ExplorerJourney
           onExample={onExample}
           hasObservations={Boolean(discovery) && !discovering}
@@ -367,6 +384,9 @@ export function LiveExplorer({
         ) : null}
         <SearchForm
           value={form}
+          preset={preset}
+          onClearTarget={()=>setPreset(null)}
+          onTarget={chooseTarget}
           onChange={(value) => {
             setForm(value);
             setLinks(null);

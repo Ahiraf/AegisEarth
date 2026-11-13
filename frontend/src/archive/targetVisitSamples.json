@@ -1,0 +1,117 @@
+[
+  {
+    "target": {
+      "slug": "barnards-star",
+      "name": "Barnard's Star",
+      "ra_deg": 269.4520769586187,
+      "dec_deg": 4.693364966576667,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": -801.551,
+      "pm_dec_mas_yr": 10362.394,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    },
+    "dates": [
+      "2026-08-18",
+      "2026-08-21",
+      "2026-08-24",
+      "2026-08-28"
+    ],
+    "sampleWavelength": 1.511479562663518
+  },
+  {
+    "target": {
+      "slug": "epsilon-indi-b",
+      "name": "Epsilon Indi B",
+      "ra_deg": 331.04414658852124,
+      "dec_deg": -56.782844195116105,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": 3981.977,
+      "pm_dec_mas_yr": -2466.832,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate",
+        "Brown-dwarf system B selected, distinct from primary eps Ind; Ba/Bb may be unresolved"
+      ]
+    },
+    "dates": [
+      "2025-05-01",
+      "2025-10-06",
+      "2026-04-29",
+      "2026-05-04"
+    ],
+    "sampleWavelength": 4.45623643280727
+  },
+  {
+    "target": {
+      "slug": "wise-0855",
+      "name": "WISE 0855",
+      "ra_deg": 133.81890825,
+      "dec_deg": -7.247048000000001,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": -8123.7,
+      "pm_dec_mas_yr": 673.2,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    },
+    "dates": [
+      "2025-11-10",
+      "2026-04-22",
+      "2026-04-26",
+      "2026-04-30",
+      "2026-05-08",
+      "2026-05-11"
+    ],
+    "sampleWavelength": 4.474843964481844
+  },
+  {
+    "target": {
+      "slug": "rw-aurigae",
+      "name": "RW Aurigae",
+      "ra_deg": 76.95652603458333,
+      "dec_deg": 30.401438173888888,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": 7.23,
+      "pm_dec_mas_yr": -20.33,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    },
+    "dates": [
+      "2026-09-10",
+      "2026-09-12",
+      "2026-09-14",
+      "2026-09-15"
+    ],
+    "sampleWavelength": 1.4619023589629536
+  },
+  {
+    "target": {
+      "slug": "r-draconis",
+      "name": "R Draconis",
+      "ra_deg": 248.16761083295,
+      "dec_deg": 66.75497941722,
+      "reference_epoch_jyear": 2000.0,
+      "pm_ra_cosdec_mas_yr": -20.643,
+      "pm_dec_mas_yr": 6.149,
+      "caveats": [
+        "Catalog prediction is a search aid, not SPHEREx astrometry",
+        "No parallax/observer-position or radial-velocity correction in search estimate"
+      ]
+    },
+    "dates": [
+      "2026-07-21",
+      "2026-07-26",
+      "2026-07-28",
+      "2026-07-30",
+      "2026-08-03",
+      "2026-08-05"
+    ],
+    "sampleWavelength": 0.7412080755841444
+  }
+]

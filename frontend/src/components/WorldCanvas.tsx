@@ -52,11 +52,36 @@ export function WorldCanvas({
         if (label) label.hidden = true;
       });
     };
+    const phone = window.matchMedia("(max-width: 760px)");
     const positionLabels = (positions: SceneLabel[]) => {
+      // Reserve space for the selected label first on narrow canvases.
+      const compact = phone.matches;
+      const selected = latest.current.selected;
+      if (compact && selected !== null) {
+        positions = [...positions].sort((a, b) => Number(b.index === selected) - Number(a.index === selected));
+      }
+      const occupied: { x: number; y: number; width: number; height: number }[] = [];
+      const width = host.current?.clientWidth ?? 0;
+      const height = host.current?.clientHeight ?? 0;
       positions.forEach((point) => {
         const label = labels.current[point.index];
         if (!label) return;
         label.hidden = !point.visible;
+        if (!point.visible) return;
+        if (compact) {
+          const w = label.offsetWidth, h = label.offsetHeight;
+          const x = Math.max(2, Math.min(width - w - 2, point.x - w / 2));
+          const y = Math.max(2, Math.min(height - h - 2, point.y + 6));
+          if (occupied.some(box => x < box.x + box.width + 4 && box.x < x + w + 4 &&
+            y < box.y + box.height + 3 && box.y < y + h + 3)) {
+            label.hidden = true;
+            return;
+          }
+          occupied.push({ x, y, width: w, height: h });
+          label.style.left = `${x}px`;
+          label.style.top = `${y}px`;
+          return;
+        }
         label.style.left = `${point.x}px`;
         label.style.top = `${point.y}px`;
       });

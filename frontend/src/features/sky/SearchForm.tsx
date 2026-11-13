@@ -1,11 +1,12 @@
 import { useRef, useState, type FormEvent } from "react";
+import { pinwheel } from "./guide/targets";
 import { Reveal } from "../../components/Reveal";
 import { SectionHeader } from "../../components/SectionHeader";
 import type { References, Target, ViewRequest } from "./types";
 
 export const DEFAULT_REQUEST: ViewRequest = {
   contract_version: "view-v2",
-  region: { ra: 210.80227, dec: 54.34895, width_arcmin: 5, height_arcmin: 5 },
+  region: { ra: pinwheel.ra_deg, dec: pinwheel.dec_deg, width_arcmin: 5, height_arcmin: 5 },
   collections: [
     "spherex_qr3",
     "spherex_qr3_deep",
@@ -37,6 +38,9 @@ const RELEASE_NAMES: Record<string, string> = {
 };
 
 interface Props {
+  preset: Target | null;
+  onTarget: (target: Target) => void;
+  onClearTarget: () => void;
   value: ViewRequest;
   onChange: (value: ViewRequest) => void;
   references?: References;
@@ -52,6 +56,7 @@ export function SearchForm({
   value,
   onChange,
   references,
+  preset, onTarget, onClearTarget,
   busy,
   discovering,
   sharing,
@@ -61,7 +66,6 @@ export function SearchForm({
   onShare,
 }: Props) {
   const [error, setError] = useState("");
-  const [preset, setPreset] = useState<Target | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   // Keep the error message with the form, and clear stale validation on edits.
   const update = (next: ViewRequest) => {
@@ -77,7 +81,7 @@ export function SearchForm({
     field: keyof ViewRequest["region"],
     next: string | number,
   ) => {
-    setPreset(null);
+    onClearTarget();
     update({ ...value, region: { ...value.region, [field]: next } });
   };
   const setPrep = (next: Partial<ViewRequest["preparation"]>) =>
@@ -184,21 +188,6 @@ export function SearchForm({
     event.preventDefault();
     if (!busy && validate()) onPrepare(value);
   }
-  function target(target: Target) {
-    setPreset(target);
-    const mover =
-      Math.abs(target.pm_ra_cosdec_mas_yr || 0) > 1000 ||
-      Math.abs(target.pm_dec_mas_yr || 0) > 1000;
-    update({
-      ...value,
-      region: {
-        ra: target.ra_deg,
-        dec: target.dec_deg,
-        width_arcmin: mover ? 10 : 5,
-        height_arcmin: mover ? 10 : 5,
-      },
-    });
-  }
   const spectral = value.preparation.spectral_mode;
   return (
     <Reveal id="find">
@@ -236,7 +225,7 @@ export function SearchForm({
                   type="button"
                   className="pill"
                   aria-label={t.name}
-                  onClick={() => target(t)}
+                  onClick={() => {setError(""); onTarget(t);}}
                   aria-pressed={preset?.slug === t.slug}
                 >
                   {targetHints[t.slug] && (
@@ -265,19 +254,16 @@ export function SearchForm({
               <button
                 type="button"
                 className="pill"
-                onClick={() => {
-                  setPreset(null);
-                  update({ ...value, region: { ...DEFAULT_REQUEST.region } });
-                }}
+                aria-pressed={preset?.slug === pinwheel.slug}
+                onClick={() => {setError(""); onTarget(pinwheel);}}
               >
                 Pinwheel Galaxy (M101)
               </button>
             </div>
             {preset ? (
               <p className="note explorer-preset-note" role="status">
-                {preset.name}: catalog position at epoch{" "}
-                {preset.reference_epoch_jyear ?? "unknown"}.{" "}
-                {Math.abs(preset.pm_ra_cosdec_mas_yr || 0) > 1000
+                {preset.name} · {preset.reference_epoch_jyear ? `catalog position at epoch ${preset.reference_epoch_jyear}` : "archive field center"}.{" "}
+                {Math.max(Math.abs(preset.pm_ra_cosdec_mas_yr || 0), Math.abs(preset.pm_dec_mas_yr || 0)) > 1000
                   ? "A wider field is selected to allow for motion. "
                   : ""}
                 {preset.caveats?.join(" ")}
