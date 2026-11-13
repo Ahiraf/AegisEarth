@@ -76,7 +76,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-For manual backend setup and deployment details, see the [frontend integration guide](docs/frontend_integration.md) and [deployment guide](docs/deployment.md). Do not use local development credentials for a public deployment.
+For manual backend setup and deployment details, see the [frontend integration guide](docs/frontend_integration.md) and [deployment guide](docs/deployment.md).
 
 
 
@@ -235,7 +235,7 @@ research/
 3. Inspect the dated frames, metadata, image quality, and original source links.
 4. Optionally compare views or request a diagnostic processing job.
 
-The API queues bounded work for a separate worker and stores results with provenance. Prepared playback can be ready even when a scientific motion, brightness, or subtraction claim has not passed its validation gates. The [API contract](docs/api_contract.md), [pipeline description](docs/backend_pipeline.md), and [OpenAPI specification](docs/openapi.json) give the detailed interfaces.
+The API queues bounded work for a separate worker and stores results with provenance. Prepared playback can be ready even when a scientific motion, brightness, or subtraction claim has not passed its validation gates. The [API contract](docs/api_contract.md), [pipeline description](docs/backend_pipeline.md), and [OpenAPI specification](docs/openapi.json) .
 
 ## Evidence and limitations
 
