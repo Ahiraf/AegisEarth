@@ -27,7 +27,7 @@ export function useSkyView(
   mode: TimelineMode,
   reload: number,
 ) {
-  const [state, setState] = useState<SkyViewState>(EMPTY);
+  const [state, setState] = useState<SkyViewState & { reload?: number }>(EMPTY);
   useEffect(() => {
     if (!id) {
       setState(EMPTY);
@@ -35,7 +35,7 @@ export function useSkyView(
     }
     const controller = new AbortController();
     const signal = controller.signal;
-    setState({ ...EMPTY, viewId: id, mode, loading: true });
+    setState({ ...EMPTY, viewId: id, mode, reload, loading: true });
     (async () => {
       try {
         const job = await waitForJob(id, signal, (job) => {
@@ -52,6 +52,7 @@ export function useSkyView(
           ...EMPTY,
           viewId: id,
           mode,
+          reload,
           loading: true,
           job,
           manifest,
@@ -87,7 +88,7 @@ export function useSkyView(
     })();
     return () => controller.abort();
   }, [id, mode, reload]);
-  return state.viewId === id && state.mode === mode
+  return state.viewId === id && state.mode === mode && state.reload === reload
     ? state
     : { ...EMPTY, loading: Boolean(id) };
 }

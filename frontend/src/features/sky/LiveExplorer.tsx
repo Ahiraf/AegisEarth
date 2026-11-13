@@ -116,10 +116,25 @@ export function LiveExplorer({
   const shareController = useRef<AbortController | null>(null);
   const lastSubmission = useRef<Submission | null>(null);
   const lastDiscovery = useRef<ViewRequest | null>(null);
+  const followPreparedMovie = useRef(false);
   const view = useSkyView(id, mode, reload);
+  const movieReady = Boolean(
+    view.manifest && view.frames.length && !view.loading && !view.error,
+  );
   useEffect(() => {
     if (submission) scrollToId("movie-progress", true);
   }, [submission]);
+  useEffect(() => {
+    if (
+      !followPreparedMovie.current ||
+      submission ||
+      view.loading ||
+      !receipt ||
+      view.viewId !== receipt.id
+    ) return;
+    followPreparedMovie.current = false;
+    if (movieReady) scrollToId("movie", true);
+  }, [movieReady, receipt, submission, view.loading, view.viewId]);
   useEffect(
     () => () => {
       requestController.current?.abort();
@@ -181,6 +196,7 @@ export function LiveExplorer({
       const controller = new AbortController();
       requestController.current = controller;
       lastSubmission.current = pending;
+      followPreparedMovie.current = true;
       setSubmission(true);
       setSubmissionError("");
       try {
@@ -207,7 +223,10 @@ export function LiveExplorer({
           frontendLink(`view=${accepted.id}&mode=${mode}`),
         );
       } catch (error) {
-        if (!controller.signal.aborted) setSubmissionError(errorMessage(error));
+        if (!controller.signal.aborted) {
+          followPreparedMovie.current = false;
+          setSubmissionError(errorMessage(error));
+        }
       } finally {
         if (!controller.signal.aborted) setSubmission(false);
       }
@@ -236,11 +255,13 @@ export function LiveExplorer({
     const controller = new AbortController();
     searchController.current = controller;
     lastDiscovery.current = structuredClone(value);
+    followPreparedMovie.current = false;
     setDiscovering(true);
     setDiscoveryError("");
     setDiscovery(null);
     setRecordHistory([]);
     setPendingRecordPage(null);
+    scrollToId("records-stage", true);
     try {
       const result = await post<Discovery>(
         "/api/v1/observations/search",
@@ -322,6 +343,7 @@ export function LiveExplorer({
     }
     setOpenIdError("");
     requestController.current?.abort();
+    followPreparedMovie.current = false;
     setSubmission(false);
     setSubmissionError("");
     setReceipt(null);
@@ -369,9 +391,7 @@ export function LiveExplorer({
         <ExplorerJourney
           onExample={onExample}
           hasObservations={Boolean(discovery) && !discovering}
-          hasMovie={Boolean(
-            id && view.manifest && view.frames.length > 0 && !view.loading,
-          )}
+          hasMovie={movieReady}
           onArchive={onArchive}
           onChoose={() => scrollToId("find", true)}
           onObservations={() => scrollToId("records-stage", true)}

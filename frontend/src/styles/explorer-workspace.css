@@ -330,7 +330,7 @@
 
 /* The rest of the Explorer retains the same coherent section rhythm. */
 .sky-workspace > #records,
-.sky-workspace > #movie,
+.sky-workspace #movie,
 .sky-workspace > #processing,
 .sky-workspace > #model {
   scroll-margin-top: 90px;
@@ -473,9 +473,12 @@
   margin-top: 20px;
 }
 @media (max-width: 760px) {
+  .explorer-phase,
+  .sky-workspace #movie {
+    scroll-margin-top: 125px;
+  }
   .explorer-phase {
     margin-top: 35px;
-    scroll-margin-top: 125px;
   }
   .explorer-phase-empty h2,
   .explorer-phase-heading h2 {

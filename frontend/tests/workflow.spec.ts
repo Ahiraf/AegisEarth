@@ -59,7 +59,11 @@ test("moves to movie progress before a new request is accepted", async ({
   await expect(progress.getByRole("status")).toContainText(
     "frames are ready below",
   );
-  await expect(page.locator("#movie")).toBeVisible();
+  const movie = page.locator("#movie");
+  await expect(
+    movie.getByRole("heading", { name: "Explore images across time" }),
+  ).toBeInViewport();
+  await expect(movie).toBeFocused();
 });
 
 test("restores a timed-out view's request for editing without resubmitting it", async ({
@@ -597,13 +601,31 @@ test("Explorer presents real archive observations with a usable timeline and the
   page,
 }) => {
   const api = await mockApi(page);
+  let finishSearch!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    finishSearch = resolve;
+  });
+  await page.route("**/api/v1/observations/search", async (route) => {
+    await pending;
+    await route.fallback();
+  });
   await page.goto("/#/explorer");
-  await page
-    .getByRole("button", { name: "Find observation records", exact: true })
-    .click();
+  const records = page.locator("#records-stage");
+  try {
+    await page
+      .getByRole("button", { name: "Find observation records", exact: true })
+      .click();
+    await expect(records.getByRole("status")).toBeInViewport();
+    await expect(records).toBeFocused();
+  } finally {
+    finishSearch();
+  }
 
   const desk = page.locator(".explorer-observation-desk");
   await expect(desk).toBeVisible();
+  await expect(
+    records.getByRole("heading", { name: "What the archive observed" }),
+  ).toBeInViewport();
   await expect(desk.locator(".explorer-timeline-point")).toHaveCount(3);
   await desk
     .getByRole("button", { name: /Inspect D6 observation on 22 Apr 2026/ })
