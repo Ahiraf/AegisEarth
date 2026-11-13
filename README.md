@@ -208,15 +208,6 @@ Check an install: `python golden/check_golden.py ranker_AB_v3.json` (all 13 case
 
 Random seeds are fixed in the code. Training uses scikit-learn; inference does not.
 
-## Repo layout
-
-```
-research/
-  README.md      this file
-  notebooks/     working notebook with outputs
-  results/       small CSV tables (ground truth, QC, track tables)
-  docs/          MODEL_CARD.md, MANIFEST.json, INTEGRATION.md
-```
 
 ## Data and attribution
 
